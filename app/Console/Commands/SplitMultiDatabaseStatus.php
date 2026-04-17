@@ -3,15 +3,15 @@
 namespace App\Console\Commands;
 
 use App\Support\SplitMultiDb;
+use App\Support\SplitMultiSchemaPresence;
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\DB;
 
 class SplitMultiDatabaseStatus extends Command
 {
     protected $signature = 'db:split-multi:status
                             {--source= : Override monolith database name (default: config database.split_multi.monolith_database)}';
 
-    protected $description = 'List MySQL schemas your app user can see and compare to db:split-multi requirements';
+    protected $description = 'Verify each split-multi schema exists using the MySQL user configured for that Laravel connection';
 
     public function handle(): int
     {
@@ -28,42 +28,37 @@ class SplitMultiDatabaseStatus extends Command
         $domainDbs = $this->domainDatabaseNames();
         $required = array_values(array_unique(array_merge([$source, $control], $domainDbs)));
 
-        $username = (string) config('database.connections.mysql.username');
-        $host = (string) config('database.connections.mysql.host');
-
-        $this->line("Default connection: mysql  user=<fg=cyan>{$username}</>  host=<fg=cyan>{$host}</>");
+        $this->line('Each schema is checked with the connection that carries its credentials (Hostinger: one MySQL user per database is supported).');
         $this->newLine();
 
-        try {
-            $visible = $this->visibleMysqlSchemaNames();
-        } catch (\Throwable $e) {
-            $this->error('Could not run SHOW DATABASES: '.$e->getMessage());
-
-            return self::FAILURE;
-        }
-
-        $this->info('Schemas this user can see (SHOW DATABASES):');
-        foreach ($visible as $name) {
-            $this->line('  '.$name);
-        }
-        $this->newLine();
-
-        $this->warn('Required for db:split-multi:');
+        $missing = [];
         foreach ($required as $name) {
-            $ok = in_array($name, $visible, true);
-            $this->line($ok ? "  <fg=green>OK</>   {$name}" : "  <fg=red>MISS</> {$name}");
+            $conn = SplitMultiSchemaPresence::connectionForSchema($source, $control, $name);
+            $user = (string) config("database.connections.{$conn}.username");
+            $result = SplitMultiSchemaPresence::schemaVisibility($conn, $name);
+            $ok = $result['visible'];
+            if (! $ok) {
+                $missing[] = $name;
+            }
+            $tag = $ok ? '<fg=green>OK</>' : '<fg=red>MISS</>';
+            $this->line(sprintf('  %s  %-38s  %-14s  %s', $tag, $name, $conn, $user));
+            if ($result['error'] !== null) {
+                $this->line('       '.$result['error']);
+            }
         }
-        $this->newLine();
 
-        $missing = array_values(array_diff($required, $visible));
+        $this->newLine();
+        $this->line('The db:split-multi mysql client uses <fg=cyan>DB_SPLIT_CLI_USERNAME</> or <fg=cyan>DB_USERNAME</>; that login must still be able to read the monolith and run procedures on every target database (add it in hPanel to all DBs, or use a dedicated power user for CLI only).');
+
         if ($missing === []) {
-            $this->info('All required schemas are visible; db:split-multi pre-check should pass.');
+            $this->newLine();
+            $this->info('All required schemas are visible to their connection users; the db:split-multi pre-check should pass.');
 
             return self::SUCCESS;
         }
 
-        $this->error('Missing or no privilege: '.implode(', ', $missing));
-        $this->line('Create each database in hPanel and assign the same MySQL user ('.$username.') to every database, or stay on DB_TOPOLOGY=single if your plan does not allow enough databases.');
+        $this->newLine();
+        $this->error('Missing or inaccessible: '.implode(', ', $missing));
 
         return self::FAILURE;
     }
@@ -81,22 +76,6 @@ class SplitMultiDatabaseStatus extends Command
                 $names[] = $db;
             }
         }
-
-        return array_values(array_unique($names));
-    }
-
-    /**
-     * @return list<string>
-     */
-    private function visibleMysqlSchemaNames(): array
-    {
-        $rows = DB::connection('mysql')->select('SHOW DATABASES');
-        $names = [];
-        foreach ($rows as $row) {
-            $cols = (array) $row;
-            $names[] = (string) reset($cols);
-        }
-        sort($names);
 
         return array_values(array_unique($names));
     }
