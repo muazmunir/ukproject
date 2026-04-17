@@ -141,6 +141,7 @@ return [
     'split_multi' => [
         'control_database' => $resolvedSplitControlDatabase,
         'monolith_database' => (string) (env('DB_SPLIT_SOURCE') ?: env('DB_DATABASE', 'laravel')),
+        'topology' => $dbTopology,
     ],
 
     /*
