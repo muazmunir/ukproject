@@ -6,6 +6,7 @@ use App\Console\Concerns\BuildsMysqlCliConnection;
 use App\Console\Concerns\FindsMysqlClient;
 use App\Support\SplitMultiDb;
 use Illuminate\Console\Command;
+use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\DB;
 use Symfony\Component\Process\Process;
 
@@ -22,6 +23,7 @@ class SplitMultiDatabases extends Command
                             {--source= : Monolith MySQL database name (default: DB_SPLIT_SOURCE or DB_DATABASE)}
                             {--db-host= : mysql CLI host override (use 127.0.0.1 if localhost gives Access denied on ::1)}
                             {--mysql= : Full path to mysql client binary}
+                            {--create-databases : Try CREATE DATABASE IF NOT EXISTS for missing split schemas (often blocked on shared hosting)}
                             {--force : Skip confirmation prompt}';
 
     protected $description = 'Run multi-database split: copy tables from monolith into pre-created domain DBs (monolith unchanged) + auth_db views';
@@ -29,8 +31,7 @@ class SplitMultiDatabases extends Command
     public function handle(): int
     {
         $source = $this->option('source')
-            ?: env('DB_SPLIT_SOURCE')
-            ?: env('DB_DATABASE');
+            ?: config('database.split_multi.monolith_database');
 
         if (! is_string($source) || $source === '' || ! preg_match('/^[a-zA-Z0-9_]+$/', $source)) {
             $this->error('Invalid or missing source database. Use --source=my_db or set DB_SPLIT_SOURCE / DB_DATABASE (letters, digits, underscore only).');
@@ -60,7 +61,7 @@ class SplitMultiDatabases extends Command
             }
         }
 
-        if (! $this->assertSplitDatabasesExist($source, $control, $domainDbs)) {
+        if (! $this->ensureSplitDatabasesExist($source, $control, $domainDbs)) {
             return self::FAILURE;
         }
 
@@ -147,7 +148,39 @@ class SplitMultiDatabases extends Command
     /**
      * @param  list<string>  $domainDbs
      */
-    private function assertSplitDatabasesExist(string $source, string $control, array $domainDbs): bool
+    private function ensureSplitDatabasesExist(string $source, string $control, array $domainDbs): bool
+    {
+        $missing = $this->missingSplitSchemaNames($source, $control, $domainDbs);
+
+        if ($missing !== [] && in_array($source, $missing, true)) {
+            $this->error("The monolith database `{$source}` is not visible to this MySQL user (wrong DB_DATABASE, user not granted, or schema does not exist).");
+            $this->line('Fix DB_DATABASE / DB_SPLIT_SOURCE and DB_USERNAME / DB_PASSWORD, or assign the user to the monolith in hPanel.');
+
+            return false;
+        }
+
+        if ($missing !== [] && $this->option('create-databases')) {
+            $this->warn('Trying CREATE DATABASE IF NOT EXISTS for missing schemas (shared hosts often deny this; use hPanel if it fails)…');
+            if (! $this->tryCreateMissingMysqlSchemas($missing)) {
+                return false;
+            }
+            $missing = $this->missingSplitSchemaNames($source, $control, $domainDbs);
+        }
+
+        if ($missing === []) {
+            return true;
+        }
+
+        $this->printSplitSchemasMissingHelp($source, $control, $missing);
+
+        return false;
+    }
+
+    /**
+     * @param  list<string>  $domainDbs
+     * @return list<string>
+     */
+    private function missingSplitSchemaNames(string $source, string $control, array $domainDbs): array
     {
         $required = array_values(array_unique(array_merge([$source, $control], $domainDbs)));
         $placeholders = implode(',', array_fill(0, count($required), '?'));
@@ -156,33 +189,72 @@ class SplitMultiDatabases extends Command
             $required
         );
         $found = array_map(static fn ($r) => $r->n, $rows);
-        $missing = array_values(array_diff($required, $found));
-        if ($missing !== []) {
-            $this->error('These MySQL databases do not exist yet (or names in .env do not match the server).');
-            $this->newLine();
-            $this->warn('Laravel is checking THESE exact schema names (from DB_*_DATABASE / DB_SPLIT_CONTROL_DATABASE — not from DB_*_USERNAME):');
-            $this->line("  Monolith:  {$source}");
-            $this->line("  Metadata:  {$control}");
-            foreach ($this->domainDatabaseEnvLabels() as $label => $dbName) {
-                $this->line("  {$label}: {$dbName}");
-            }
-            $this->newLine();
-            $hints = $this->splitDatabaseEnvHints($source, $control);
-            foreach ($missing as $m) {
-                $hint = $hints[$m] ?? null;
-                $this->line($hint !== null ? "  - {$m}  ← {$hint}" : "  - {$m}");
-            }
-            $this->newLine();
-            $this->line('If you created u990716838_auth_db but this list shows auth_db, set DB_AUTH_DATABASE=u990716838_auth_db (same for DB_PII_DATABASE, …) in .env, then php artisan config:clear.');
-            $this->line('DB_AUTH_USERNAME is only the MySQL login; it does not set which database name is checked.');
-            $this->newLine();
-            $this->line('Hostinger: hPanel → MySQL databases → create empty databases with the names in the list above, or fix .env to match names you already created.');
-            $this->line('Metadata DB: set DB_SPLIT_CONTROL_DATABASE if it should not be inferred (e.g. u990716838_split_control).');
+
+        return array_values(array_diff($required, $found));
+    }
+
+    /**
+     * @param  list<string>  $missing
+     */
+    private function tryCreateMissingMysqlSchemas(array $missing): bool
+    {
+        $charset = (string) config('database.connections.mysql.charset', 'utf8mb4');
+        $collation = (string) config('database.connections.mysql.collation', 'utf8mb4_unicode_ci');
+        if (! preg_match('/^[a-zA-Z0-9_]+$/', $charset) || ! preg_match('/^[a-zA-Z0-9_]+$/', $collation)) {
+            $this->error('Invalid mysql charset/collation in config; cannot run CREATE DATABASE.');
 
             return false;
         }
 
+        foreach ($missing as $name) {
+            try {
+                DB::unprepared(
+                    'CREATE DATABASE IF NOT EXISTS `'.$name.'` CHARACTER SET '.$charset.' COLLATE '.$collation
+                );
+                $this->line("  Created (or already existed): `{$name}`");
+            } catch (QueryException $e) {
+                $this->error("CREATE DATABASE failed for `{$name}`: ".$e->getMessage());
+                $this->newLine();
+                $this->line('On Hostinger shared hosting you usually must create each database in hPanel (Websites → Manage → Databases), then attach your MySQL user to every database with full privileges.');
+
+                return false;
+            }
+        }
+
         return true;
+    }
+
+    /**
+     * @param  list<string>  $missing
+     */
+    private function printSplitSchemasMissingHelp(string $source, string $control, array $missing): void
+    {
+        $this->error('These MySQL schemas are not visible to the connection user (they do not exist yet, or the user has no privilege on them).');
+        $this->newLine();
+        $this->warn('Laravel checks these exact names (from DB_*_DATABASE / DB_SPLIT_CONTROL_DATABASE — not from DB_*_USERNAME):');
+        $this->line("  Monolith:  {$source}");
+        $this->line("  Metadata:  {$control}");
+        foreach ($this->domainDatabaseEnvLabels() as $label => $dbName) {
+            $this->line("  {$label}: {$dbName}");
+        }
+        $this->newLine();
+        $hints = $this->splitDatabaseEnvHints($source, $control);
+        foreach ($missing as $m) {
+            $hint = $hints[$m] ?? null;
+            $this->line($hint !== null ? "  - {$m}  ← {$hint}" : "  - {$m}");
+        }
+        $this->newLine();
+        if (! in_array($source, $missing, true)) {
+            $this->line('Your monolith exists, but the split/metadata databases above do not (or DB_USERNAME cannot see them).');
+            $this->line('In hPanel: for each name, create the database if missing, then open the database → Users / Privileges and add the same MySQL user you use in .env with all privileges.');
+            $this->newLine();
+            $this->line('Hostinger plans limit how many MySQL databases you can create; this split needs the monolith plus nine extra empty schemas. If you are at the limit, upgrade the plan or stay on DB_TOPOLOGY=single until you can add databases.');
+            $this->newLine();
+            $this->line('Optional: php artisan db:split-multi --force --create-databases tries SQL CREATE DATABASE (works on many VPS installs; shared hosting often blocks it).');
+            $this->newLine();
+        }
+        $this->line('If names in hPanel differ from this list, set DB_AUTH_DATABASE, DB_PII_DATABASE, … and DB_SPLIT_CONTROL_DATABASE in .env, then php artisan config:clear.');
+        $this->line('DB_AUTH_USERNAME is only the login name; it does not choose which schema is checked.');
     }
 
     /**
