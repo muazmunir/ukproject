@@ -34,19 +34,42 @@ trait BuildsMysqlCliConnection
     }
 
     /**
-     * mysql CLI user for db:split-multi / drop. Must be able to read the monolith and write all split DBs.
-     * Defaults to DB_USERNAME / DB_PASSWORD; override with DB_SPLIT_CLI_USERNAME / DB_SPLIT_CLI_PASSWORD.
+     * mysql CLI credentials for db:split-multi / drop.
+     *
+     * When DB_SPLIT_CLI_USERNAME is set (non-empty), it wins; password uses DB_SPLIT_CLI_PASSWORD or DB_PASSWORD.
+     *
+     * When DB_SPLIT_CLI_USERNAME is empty:
+     * - $defaultToSplitControlCredentials true (db:split-multi apply): use the `split_control` connection user/password
+     *   so Hostinger works when only per-database users exist (admin often cannot USE split_control).
+     * - false (db:split-multi:drop): use DB_USERNAME / DB_PASSWORD (needs a user allowed to DROP every split DB).
+     *
+     * The split_control user must still be able to SELECT from the monolith and write all target DBs, or set
+     * DB_SPLIT_CLI_USERNAME to a power user that has those grants.
      *
      * @return array{0: string, 1: string}
      */
-    protected function mysqlCliCredentials(): array
+    protected function mysqlCliCredentials(bool $defaultToSplitControlCredentials = false): array
     {
-        $user = (string) env('DB_SPLIT_CLI_USERNAME', env('DB_USERNAME', 'root'));
-        $cliPass = env('DB_SPLIT_CLI_PASSWORD');
-        if (! is_string($cliPass) || $cliPass === '') {
-            $cliPass = env('DB_PASSWORD');
+        $explicitUser = env('DB_SPLIT_CLI_USERNAME');
+        if (is_string($explicitUser) && trim($explicitUser) !== '') {
+            $user = trim($explicitUser);
+            $cliPass = env('DB_SPLIT_CLI_PASSWORD');
+            if (! is_string($cliPass) || $cliPass === '') {
+                $cliPass = env('DB_PASSWORD');
+            }
+
+            return [$user, $cliPass === null ? '' : (string) $cliPass];
         }
 
-        return [$user, $cliPass === null ? '' : (string) $cliPass];
+        if ($defaultToSplitControlCredentials) {
+            return [
+                (string) config('database.connections.split_control.username'),
+                (string) config('database.connections.split_control.password'),
+            ];
+        }
+
+        $mainPass = env('DB_PASSWORD');
+
+        return [(string) env('DB_USERNAME', 'root'), $mainPass === null ? '' : (string) $mainPass];
     }
 }

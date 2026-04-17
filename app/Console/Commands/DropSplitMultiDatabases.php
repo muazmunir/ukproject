@@ -68,7 +68,7 @@ class DropSplitMultiDatabases extends Command
             return self::FAILURE;
         }
 
-        [$user, $password] = $this->mysqlCliCredentials();
+        [$user, $password] = $this->mysqlCliCredentials(false);
 
         $baseArgs = array_merge(
             [$mysql],

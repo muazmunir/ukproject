@@ -48,7 +48,7 @@ class SplitMultiDatabaseStatus extends Command
         }
 
         $this->newLine();
-        $this->line('The db:split-multi mysql client uses <fg=cyan>DB_SPLIT_CLI_USERNAME</> or <fg=cyan>DB_USERNAME</>; that login must still be able to read the monolith and run procedures on every target database (add it in hPanel to all DBs, or use a dedicated power user for CLI only).');
+        $this->line('The db:split-multi mysql client uses <fg=cyan>DB_SPLIT_CLI_USERNAME</> if set; otherwise it defaults to the <fg=cyan>split_control</> connection user (same as metadata DB). That user must be allowed to read the monolith and write every target DB, or set DB_SPLIT_CLI_* to a power user (e.g. admin after granting it on all databases).');
 
         if ($missing === []) {
             $this->newLine();
