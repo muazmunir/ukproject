@@ -42,8 +42,11 @@ trait BuildsMysqlCliConnection
     protected function mysqlCliCredentials(): array
     {
         $user = (string) env('DB_SPLIT_CLI_USERNAME', env('DB_USERNAME', 'root'));
-        $password = env('DB_SPLIT_CLI_PASSWORD', env('DB_PASSWORD'));
+        $cliPass = env('DB_SPLIT_CLI_PASSWORD');
+        if (! is_string($cliPass) || $cliPass === '') {
+            $cliPass = env('DB_PASSWORD');
+        }
 
-        return [$user, $password === null ? '' : (string) $password];
+        return [$user, $cliPass === null ? '' : (string) $cliPass];
     }
 }

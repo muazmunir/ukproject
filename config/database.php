@@ -53,6 +53,41 @@ $resolvedSplitControlDatabase = (static function () use ($resolvedAuthDatabase, 
     return 'split_control';
 })();
 
+$resolvedPiiDatabase = $resolveHostingerSplitSchema('DB_PII_DATABASE', 'pii_db');
+$resolvedKycDatabase = $resolveHostingerSplitSchema('DB_KYC_DATABASE', 'kyc_db');
+$resolvedPaymentsDatabase = $resolveHostingerSplitSchema('DB_PAYMENTS_DATABASE', 'payments_db');
+$resolvedAppDatabase = $resolveHostingerSplitSchema('DB_APP_DATABASE', 'app_db');
+$resolvedCommsDatabase = $resolveHostingerSplitSchema('DB_COMMS_DATABASE', 'comms_db');
+$resolvedMediaDatabase = $resolveHostingerSplitSchema('DB_MEDIA_DATABASE', 'media_db');
+$resolvedAuditDatabase = $resolveHostingerSplitSchema('DB_AUDIT_DATABASE', 'audit_db');
+
+/*
+| Empty DB_*_PASSWORD in .env is treated as "use DB_PASSWORD" (same admin password everywhere).
+| When DB_*_USERNAME is empty and the schema name is Hostinger-style (same prefix as monolith user),
+| default the MySQL login name to the full schema name (hPanel often creates user = database name).
+*/
+$inheritMysqlPassword = static function (string $specificPasswordEnvKey): string {
+    $v = env($specificPasswordEnvKey);
+    if (is_string($v) && $v !== '') {
+        return $v;
+    }
+    $main = env('DB_PASSWORD');
+
+    return $main === null ? '' : (string) $main;
+};
+
+$hostingerMysqlUserForDatabase = static function (string $specificUsernameEnvKey, string $databaseName) use ($hostingerSplitPrefix): string {
+    $explicit = env($specificUsernameEnvKey);
+    if (is_string($explicit) && trim($explicit) !== '') {
+        return trim($explicit);
+    }
+    if ($hostingerSplitPrefix !== null && $databaseName !== '' && str_starts_with($databaseName, $hostingerSplitPrefix)) {
+        return $databaseName;
+    }
+
+    return (string) env('DB_USERNAME', 'root');
+};
+
 return [
 
     /*
@@ -134,8 +169,8 @@ return [
             'host' => env('DB_HOST', '127.0.0.1'),
             'port' => env('DB_PORT', '3306'),
             'database' => $resolvedSplitControlDatabase,
-            'username' => env('DB_SPLIT_CONTROL_USERNAME', env('DB_USERNAME', 'root')),
-            'password' => env('DB_SPLIT_CONTROL_PASSWORD', env('DB_PASSWORD', '')),
+            'username' => $hostingerMysqlUserForDatabase('DB_SPLIT_CONTROL_USERNAME', $resolvedSplitControlDatabase),
+            'password' => $inheritMysqlPassword('DB_SPLIT_CONTROL_PASSWORD'),
             'unix_socket' => env('DB_SOCKET', ''),
             'charset' => env('DB_CHARSET', 'utf8mb4'),
             'collation' => env('DB_COLLATION', 'utf8mb4_unicode_ci'),
@@ -155,8 +190,8 @@ return [
             'host' => env('DB_HOST', '127.0.0.1'),
             'port' => env('DB_PORT', '3306'),
             'database' => $resolvedAuthDatabase,
-            'username' => env('DB_AUTH_USERNAME', env('DB_USERNAME', 'root')),
-            'password' => env('DB_AUTH_PASSWORD', env('DB_PASSWORD', '')),
+            'username' => $hostingerMysqlUserForDatabase('DB_AUTH_USERNAME', $resolvedAuthDatabase),
+            'password' => $inheritMysqlPassword('DB_AUTH_PASSWORD'),
             'unix_socket' => env('DB_SOCKET', ''),
             'charset' => env('DB_CHARSET', 'utf8mb4'),
             'collation' => env('DB_COLLATION', 'utf8mb4_unicode_ci'),
@@ -174,9 +209,9 @@ return [
             'url' => env('DB_URL'),
             'host' => env('DB_HOST', '127.0.0.1'),
             'port' => env('DB_PORT', '3306'),
-            'database' => $resolveHostingerSplitSchema('DB_PII_DATABASE', 'pii_db'),
-            'username' => env('DB_PII_USERNAME', env('DB_USERNAME', 'root')),
-            'password' => env('DB_PII_PASSWORD', env('DB_PASSWORD', '')),
+            'database' => $resolvedPiiDatabase,
+            'username' => $hostingerMysqlUserForDatabase('DB_PII_USERNAME', $resolvedPiiDatabase),
+            'password' => $inheritMysqlPassword('DB_PII_PASSWORD'),
             'unix_socket' => env('DB_SOCKET', ''),
             'charset' => env('DB_CHARSET', 'utf8mb4'),
             'collation' => env('DB_COLLATION', 'utf8mb4_unicode_ci'),
@@ -194,9 +229,9 @@ return [
             'url' => env('DB_URL'),
             'host' => env('DB_HOST', '127.0.0.1'),
             'port' => env('DB_PORT', '3306'),
-            'database' => $resolveHostingerSplitSchema('DB_KYC_DATABASE', 'kyc_db'),
-            'username' => env('DB_KYC_USERNAME', env('DB_USERNAME', 'root')),
-            'password' => env('DB_KYC_PASSWORD', env('DB_PASSWORD', '')),
+            'database' => $resolvedKycDatabase,
+            'username' => $hostingerMysqlUserForDatabase('DB_KYC_USERNAME', $resolvedKycDatabase),
+            'password' => $inheritMysqlPassword('DB_KYC_PASSWORD'),
             'unix_socket' => env('DB_SOCKET', ''),
             'charset' => env('DB_CHARSET', 'utf8mb4'),
             'collation' => env('DB_COLLATION', 'utf8mb4_unicode_ci'),
@@ -214,9 +249,9 @@ return [
             'url' => env('DB_URL'),
             'host' => env('DB_HOST', '127.0.0.1'),
             'port' => env('DB_PORT', '3306'),
-            'database' => $resolveHostingerSplitSchema('DB_PAYMENTS_DATABASE', 'payments_db'),
-            'username' => env('DB_PAYMENTS_USERNAME', env('DB_USERNAME', 'root')),
-            'password' => env('DB_PAYMENTS_PASSWORD', env('DB_PASSWORD', '')),
+            'database' => $resolvedPaymentsDatabase,
+            'username' => $hostingerMysqlUserForDatabase('DB_PAYMENTS_USERNAME', $resolvedPaymentsDatabase),
+            'password' => $inheritMysqlPassword('DB_PAYMENTS_PASSWORD'),
             'unix_socket' => env('DB_SOCKET', ''),
             'charset' => env('DB_CHARSET', 'utf8mb4'),
             'collation' => env('DB_COLLATION', 'utf8mb4_unicode_ci'),
@@ -234,9 +269,9 @@ return [
             'url' => env('DB_URL'),
             'host' => env('DB_HOST', '127.0.0.1'),
             'port' => env('DB_PORT', '3306'),
-            'database' => $resolveHostingerSplitSchema('DB_APP_DATABASE', 'app_db'),
-            'username' => env('DB_APP_USERNAME', env('DB_USERNAME', 'root')),
-            'password' => env('DB_APP_PASSWORD', env('DB_PASSWORD', '')),
+            'database' => $resolvedAppDatabase,
+            'username' => $hostingerMysqlUserForDatabase('DB_APP_USERNAME', $resolvedAppDatabase),
+            'password' => $inheritMysqlPassword('DB_APP_PASSWORD'),
             'unix_socket' => env('DB_SOCKET', ''),
             'charset' => env('DB_CHARSET', 'utf8mb4'),
             'collation' => env('DB_COLLATION', 'utf8mb4_unicode_ci'),
@@ -254,9 +289,9 @@ return [
             'url' => env('DB_URL'),
             'host' => env('DB_HOST', '127.0.0.1'),
             'port' => env('DB_PORT', '3306'),
-            'database' => $resolveHostingerSplitSchema('DB_COMMS_DATABASE', 'comms_db'),
-            'username' => env('DB_COMMS_USERNAME', env('DB_USERNAME', 'root')),
-            'password' => env('DB_COMMS_PASSWORD', env('DB_PASSWORD', '')),
+            'database' => $resolvedCommsDatabase,
+            'username' => $hostingerMysqlUserForDatabase('DB_COMMS_USERNAME', $resolvedCommsDatabase),
+            'password' => $inheritMysqlPassword('DB_COMMS_PASSWORD'),
             'unix_socket' => env('DB_SOCKET', ''),
             'charset' => env('DB_CHARSET', 'utf8mb4'),
             'collation' => env('DB_COLLATION', 'utf8mb4_unicode_ci'),
@@ -274,9 +309,9 @@ return [
             'url' => env('DB_URL'),
             'host' => env('DB_HOST', '127.0.0.1'),
             'port' => env('DB_PORT', '3306'),
-            'database' => $resolveHostingerSplitSchema('DB_MEDIA_DATABASE', 'media_db'),
-            'username' => env('DB_MEDIA_USERNAME', env('DB_USERNAME', 'root')),
-            'password' => env('DB_MEDIA_PASSWORD', env('DB_PASSWORD', '')),
+            'database' => $resolvedMediaDatabase,
+            'username' => $hostingerMysqlUserForDatabase('DB_MEDIA_USERNAME', $resolvedMediaDatabase),
+            'password' => $inheritMysqlPassword('DB_MEDIA_PASSWORD'),
             'unix_socket' => env('DB_SOCKET', ''),
             'charset' => env('DB_CHARSET', 'utf8mb4'),
             'collation' => env('DB_COLLATION', 'utf8mb4_unicode_ci'),
@@ -294,9 +329,9 @@ return [
             'url' => env('DB_URL'),
             'host' => env('DB_HOST', '127.0.0.1'),
             'port' => env('DB_PORT', '3306'),
-            'database' => $resolveHostingerSplitSchema('DB_AUDIT_DATABASE', 'audit_db'),
-            'username' => env('DB_AUDIT_USERNAME', env('DB_USERNAME', 'root')),
-            'password' => env('DB_AUDIT_PASSWORD', env('DB_PASSWORD', '')),
+            'database' => $resolvedAuditDatabase,
+            'username' => $hostingerMysqlUserForDatabase('DB_AUDIT_USERNAME', $resolvedAuditDatabase),
+            'password' => $inheritMysqlPassword('DB_AUDIT_PASSWORD'),
             'unix_socket' => env('DB_SOCKET', ''),
             'charset' => env('DB_CHARSET', 'utf8mb4'),
             'collation' => env('DB_COLLATION', 'utf8mb4_unicode_ci'),
