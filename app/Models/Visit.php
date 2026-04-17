@@ -7,15 +7,6 @@ namespace App\Models;
 
 class Visit extends BaseModel
 {
-    /**
-     * After db:split-multi, `visits` is a physical table on pii_db; auth_db only holds a view that
-     * often breaks on shared hosts unless the auth user is granted SELECT on pii_db.
-     */
-    public function getConnectionName(): ?string
-    {
-        return config('database.split_multi.topology') === 'multi' ? 'pii_db' : parent::getConnectionName();
-    }
-
     protected $fillable = [
         'visitor_id',
         'user_id',
@@ -33,6 +24,6 @@ class Visit extends BaseModel
 
     public function user()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(Users::class);
     }
 }

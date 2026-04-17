@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Concerns\ResolvesSplitMultiDatabaseConnection;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -13,6 +14,7 @@ use App\Notifications\AdminResetPasswordNotification;
 class Users extends Authenticatable implements WebAuthnAuthenticatable
 {
     use Notifiable;
+    use ResolvesSplitMultiDatabaseConnection;
     use SoftDeletes;
     use WebAuthnAuthentication;
 
