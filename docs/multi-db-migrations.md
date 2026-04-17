@@ -4,8 +4,8 @@ Use this guide to decide where a new migration should go and how to run it.
 
 ## Rule
 
-- If `DB_TOPOLOGY=single`, keep using default `database/migrations`.
-- If `DB_TOPOLOGY=multi`, create migration in the matching folder under `database/migrations-multi/<db_connection>`.
+- Create each migration in the matching folder under `database/migrations-multi/<db_connection>`.
+- Legacy migrations may still live under `database/migrations` until they are moved; new work should use `migrations-multi`.
 
 ## Migration Folders
 
@@ -30,13 +30,7 @@ php artisan make:migration add_last_seen_to_users_table --path=database/migratio
 
 ## Run Migrations
 
-Single DB:
-
-```bash
-composer migrate:single
-```
-
-Multi DB (all domains):
+All split domains:
 
 ```bash
 composer migrate:multi

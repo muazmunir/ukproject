@@ -109,17 +109,15 @@ This document maps the current schema into separate databases and reports total 
 - This mapping follows your requested domain split architecture.
 - A few tables (for example, `support_conversation_reads`, `coach_profiles`, `staff_dm_threads`) can be placed in more than one domain depending on query patterns. They are currently assigned for practical separation.
 - The SQL script uses `RENAME TABLE` across databases, so table structure and data move together.
-- The SQL script also creates compatibility views in `auth_db` (entry DB), so legacy queries can keep working when `DB_TOPOLOGY=multi`.
+- The SQL script also creates compatibility views in `auth_db` (entry DB), so legacy queries can keep working against the entry connection.
 - Run the SQL script in `database/scripts/split-databases.sql` only after taking a full DB backup.
 
-## App Toggle (`single` vs `multi`)
+## App database layout
 
-- `DB_TOPOLOGY=single`: app uses `DB_DATABASE` (monolith).
-- `DB_TOPOLOGY=multi`: app uses `DB_DATABASE_MULTI_ENTRY` (default `auth_db`) and can still access split tables through compatibility views.
-- Multi DB connection names are also configured in app config: `auth_db`, `pii_db`, `kyc_db`, `payments_db`, `app_db`, `comms_db`, `media_db`, `audit_db`.
+- The default `mysql` connection uses `DB_DATABASE_MULTI_ENTRY` (usually `auth_db`). Split tables are reached via named connections or the table map; compatibility views can keep legacy entry-DB queries working.
+- Connection names in config: `auth_db`, `pii_db`, `kyc_db`, `payments_db`, `app_db`, `comms_db`, `media_db`, `audit_db`. The `monolith` connection still targets `DB_SPLIT_SOURCE` / `DB_DATABASE` for split tooling.
 
 ## Migration Handling
 
-- Single DB: use normal `database/migrations` and run `composer migrate:single`.
-- Multi DB: create migrations in `database/migrations-multi/<connection>` and run `composer migrate:multi`.
+- Create migrations in `database/migrations-multi/<connection>` and run `composer migrate:multi`.
 - Full step-by-step process is documented in `docs/multi-db-migrations.md`.

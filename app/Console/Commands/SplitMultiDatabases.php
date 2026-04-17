@@ -163,7 +163,7 @@ class SplitMultiDatabases extends Command
             }
         }
 
-        $this->info('Split finished. Set DB_TOPOLOGY=multi in .env if needed, then: php artisan config:clear');
+        $this->info('Split finished. Run: php artisan config:clear');
 
         return self::SUCCESS;
     }
@@ -265,7 +265,7 @@ class SplitMultiDatabases extends Command
             $this->newLine();
             $this->line('On Hostinger (one user per database), run: php artisan db:split-multi --force --php-copy (or DB_SPLIT_USE_PHP_COPY=true). Otherwise add one power user to every DB for CALL copy, or set DB_SPLIT_CALL_USERNAME / DB_USERNAME with full grants.');
             $this->newLine();
-            $this->line('Hostinger plans limit how many MySQL databases you can create; this split needs the monolith plus nine extra empty schemas. If you are at the limit, upgrade the plan or stay on DB_TOPOLOGY=single.');
+            $this->line('Hostinger plans limit how many MySQL databases you can create; this split needs the monolith plus nine extra empty schemas. If you are at the limit, upgrade the plan or host on a VPS with CREATE DATABASE.');
             $this->newLine();
             $this->line('Optional: php artisan db:split-multi --force --create-databases tries SQL CREATE DATABASE (works on many VPS installs; shared hosting often blocks it).');
             $this->newLine();

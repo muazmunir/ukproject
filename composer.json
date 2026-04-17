@@ -52,9 +52,6 @@
             "@php artisan config:clear --ansi",
             "@php artisan test"
         ],
-        "migrate:single": [
-            "@php artisan migrate --database=mysql"
-        ],
         "migrate:multi": [
             "@php artisan migrate --database=auth_db --path=database/migrations-multi/auth_db",
             "@php artisan migrate --database=pii_db --path=database/migrations-multi/pii_db",

@@ -98,7 +98,7 @@ class DropSplitMultiDatabases extends Command
             return self::FAILURE;
         }
 
-        $this->info('Done. Monolith unchanged. Set DB_TOPOLOGY=single if needed, then: php artisan config:clear');
+        $this->info('Done. Monolith unchanged. Run: php artisan config:clear');
 
         return self::SUCCESS;
     }

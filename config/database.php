@@ -2,8 +2,6 @@
 
 use Illuminate\Support\Str;
 
-$dbTopology = env('DB_TOPOLOGY', 'single');
-$singleDatabase = env('DB_DATABASE', 'laravel');
 $monolithSchemaName = (string) (env('DB_SPLIT_SOURCE') ?: env('DB_DATABASE', 'laravel'));
 
 /*
@@ -34,7 +32,7 @@ $resolveHostingerSplitSchema = static function (string $envKey, string $shortDef
 
 $resolvedAuthDatabase = $resolveHostingerSplitSchema('DB_AUTH_DATABASE', 'auth_db');
 $multiEntryDatabase = $resolveHostingerSplitSchema('DB_DATABASE_MULTI_ENTRY', 'auth_db');
-$activeMysqlDatabase = $dbTopology === 'multi' ? $multiEntryDatabase : $singleDatabase;
+$activeMysqlDatabase = $multiEntryDatabase;
 
 $resolvedSplitControlDatabase = (static function () use ($resolvedAuthDatabase, $hostingerSplitPrefix): string {
     $raw = env('DB_SPLIT_CONTROL_DATABASE');
@@ -90,32 +88,30 @@ $hostingerMysqlUserForDatabase = static function (string $specificUsernameEnvKey
 };
 
 /*
-| In multi topology the default `mysql` connection uses DB_DATABASE_MULTI_ENTRY (usually auth_db).
+| The default `mysql` connection uses DB_DATABASE_MULTI_ENTRY (usually auth_db).
 | Hostinger uses a different MySQL user per schema, so match username/password to that entry DB.
 */
 $defaultMysqlUsername = (string) env('DB_USERNAME', 'root');
 $defaultMysqlPassword = env('DB_PASSWORD') === null ? '' : (string) env('DB_PASSWORD');
 
-if ($dbTopology === 'multi') {
-    $entryDb = $multiEntryDatabase;
-    foreach (
-        [
-            [$resolvedAuthDatabase, 'DB_AUTH_USERNAME', 'DB_AUTH_PASSWORD'],
-            [$resolvedPiiDatabase, 'DB_PII_USERNAME', 'DB_PII_PASSWORD'],
-            [$resolvedKycDatabase, 'DB_KYC_USERNAME', 'DB_KYC_PASSWORD'],
-            [$resolvedPaymentsDatabase, 'DB_PAYMENTS_USERNAME', 'DB_PAYMENTS_PASSWORD'],
-            [$resolvedAppDatabase, 'DB_APP_USERNAME', 'DB_APP_PASSWORD'],
-            [$resolvedCommsDatabase, 'DB_COMMS_USERNAME', 'DB_COMMS_PASSWORD'],
-            [$resolvedMediaDatabase, 'DB_MEDIA_USERNAME', 'DB_MEDIA_PASSWORD'],
-            [$resolvedAuditDatabase, 'DB_AUDIT_USERNAME', 'DB_AUDIT_PASSWORD'],
-        ] as [$schema, $userEnvKey, $passEnvKey]
-    ) {
-        if ($entryDb === $schema) {
-            $defaultMysqlUsername = $hostingerMysqlUserForDatabase($userEnvKey, $schema);
-            $defaultMysqlPassword = $inheritMysqlPassword($passEnvKey);
+$entryDb = $multiEntryDatabase;
+foreach (
+    [
+        [$resolvedAuthDatabase, 'DB_AUTH_USERNAME', 'DB_AUTH_PASSWORD'],
+        [$resolvedPiiDatabase, 'DB_PII_USERNAME', 'DB_PII_PASSWORD'],
+        [$resolvedKycDatabase, 'DB_KYC_USERNAME', 'DB_KYC_PASSWORD'],
+        [$resolvedPaymentsDatabase, 'DB_PAYMENTS_USERNAME', 'DB_PAYMENTS_PASSWORD'],
+        [$resolvedAppDatabase, 'DB_APP_USERNAME', 'DB_APP_PASSWORD'],
+        [$resolvedCommsDatabase, 'DB_COMMS_USERNAME', 'DB_COMMS_PASSWORD'],
+        [$resolvedMediaDatabase, 'DB_MEDIA_USERNAME', 'DB_MEDIA_PASSWORD'],
+        [$resolvedAuditDatabase, 'DB_AUDIT_USERNAME', 'DB_AUDIT_PASSWORD'],
+    ] as [$schema, $userEnvKey, $passEnvKey]
+) {
+    if ($entryDb === $schema) {
+        $defaultMysqlUsername = $hostingerMysqlUserForDatabase($userEnvKey, $schema);
+        $defaultMysqlPassword = $inheritMysqlPassword($passEnvKey);
 
-            break;
-        }
+        break;
     }
 }
 
@@ -142,7 +138,6 @@ return [
     'split_multi' => [
         'control_database' => $resolvedSplitControlDatabase,
         'monolith_database' => $monolithSchemaName,
-        'topology' => $dbTopology,
     ],
 
     /*
@@ -172,8 +167,8 @@ return [
 
         /*
         | Read-only style: always DB_USERNAME / DB_PASSWORD on the monolith schema (DB_SPLIT_SOURCE ?: DB_DATABASE).
-        | Used by db:split-multi:status / presence checks — not the default `mysql` connection, which in multi mode
-        | may point at auth_db with per-domain credentials.
+        | Used by db:split-multi:status / presence checks — not the default `mysql` connection, which
+        | points at the entry schema (auth_db) with per-domain credentials when applicable.
         */
         'monolith' => [
             'driver' => 'mysql',

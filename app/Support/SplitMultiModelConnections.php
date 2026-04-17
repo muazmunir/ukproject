@@ -3,7 +3,7 @@
 namespace App\Support;
 
 /**
- * Maps Eloquent table names to Laravel DB connections when DB_TOPOLOGY=multi.
+ * Maps Eloquent table names to Laravel DB connections for the split multi-DB layout.
  */
 final class SplitMultiModelConnections
 {
