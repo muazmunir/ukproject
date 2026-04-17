@@ -2,18 +2,21 @@
 
 namespace App\Console\Commands;
 
+use App\Console\Concerns\BuildsMysqlCliConnection;
 use App\Console\Concerns\FindsMysqlClient;
 use Illuminate\Console\Command;
 use Symfony\Component\Process\Process;
 
 class SplitMultiDatabases extends Command
 {
+    use BuildsMysqlCliConnection;
     use FindsMysqlClient;
 
     private const PLACEHOLDER = '__SPLIT_SOURCE__';
 
     protected $signature = 'db:split-multi
                             {--source= : Monolith MySQL database name (default: DB_SPLIT_SOURCE or DB_DATABASE)}
+                            {--db-host= : mysql CLI host override (use 127.0.0.1 if localhost gives Access denied on ::1)}
                             {--mysql= : Full path to mysql client binary}
                             {--force : Skip confirmation prompt}';
 
@@ -66,14 +69,14 @@ class SplitMultiDatabases extends Command
             }
         }
 
-        $host = (string) env('DB_HOST', '127.0.0.1');
-        $port = (string) env('DB_PORT', '3306');
         $user = (string) env('DB_USERNAME', 'root');
         $password = env('DB_PASSWORD');
         $password = $password === null ? '' : (string) $password;
 
         $args = array_merge(
-            [$mysql, '-h', $host, '-P', $port, '-u', $user],
+            [$mysql],
+            $this->mysqlCliHostAndPortArgv(),
+            ['-u', $user],
             $password !== '' ? ['-p' . $password] : [],
             ['-D', $source]
         );
@@ -90,7 +93,9 @@ class SplitMultiDatabases extends Command
         $this->info('Calling copy_mapped_tables() and create_compat_views() on split_control …');
         $call = new Process(
             array_merge(
-                [$mysql, '-h', $host, '-P', $port, '-u', $user],
+                [$mysql],
+                $this->mysqlCliHostAndPortArgv(),
+                ['-u', $user],
                 $password !== '' ? ['-p' . $password] : [],
                 ['-D', 'split_control', '-e', 'CALL copy_mapped_tables(); CALL create_compat_views();']
             ),

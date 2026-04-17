@@ -2,17 +2,20 @@
 
 namespace App\Console\Commands;
 
+use App\Console\Concerns\BuildsMysqlCliConnection;
 use App\Console\Concerns\FindsMysqlClient;
 use Illuminate\Console\Command;
 use Symfony\Component\Process\Process;
 
 class DropSplitMultiDatabases extends Command
 {
+    use BuildsMysqlCliConnection;
     use FindsMysqlClient;
 
     private const CONTROL_DATABASE = 'split_control';
 
     protected $signature = 'db:split-multi:drop
+                            {--db-host= : mysql CLI host override (e.g. 127.0.0.1)}
                             {--mysql= : Full path to mysql client binary}
                             {--force : Required — permanently drops split databases}';
 
@@ -59,14 +62,14 @@ class DropSplitMultiDatabases extends Command
             return self::FAILURE;
         }
 
-        $host = (string) env('DB_HOST', '127.0.0.1');
-        $port = (string) env('DB_PORT', '3306');
         $user = (string) env('DB_USERNAME', 'root');
         $password = env('DB_PASSWORD');
         $password = $password === null ? '' : (string) $password;
 
         $baseArgs = array_merge(
-            [$mysql, '-h', $host, '-P', $port, '-u', $user],
+            [$mysql],
+            $this->mysqlCliHostAndPortArgv(),
+            ['-u', $user],
             $password !== '' ? ['-p' . $password] : []
         );
 
