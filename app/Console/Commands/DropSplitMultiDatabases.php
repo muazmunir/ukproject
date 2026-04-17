@@ -12,8 +12,6 @@ class DropSplitMultiDatabases extends Command
     use BuildsMysqlCliConnection;
     use FindsMysqlClient;
 
-    private const CONTROL_DATABASE = 'split_control';
-
     protected $signature = 'db:split-multi:drop
                             {--db-host= : mysql CLI host override (e.g. 127.0.0.1)}
                             {--mysql= : Full path to mysql client binary}
@@ -36,7 +34,14 @@ class DropSplitMultiDatabases extends Command
             return self::FAILURE;
         }
 
-        $toDrop = array_values(array_unique(array_merge([self::CONTROL_DATABASE], $targets)));
+        $control = (string) env('DB_SPLIT_CONTROL_DATABASE', 'split_control');
+        if ($control === '' || ! preg_match('/^[a-zA-Z0-9_]+$/', $control)) {
+            $this->error('Invalid DB_SPLIT_CONTROL_DATABASE in .env.');
+
+            return self::FAILURE;
+        }
+
+        $toDrop = array_values(array_unique(array_merge([$control], $targets)));
 
         foreach ($toDrop as $name) {
             if (! preg_match('/^[a-zA-Z0-9_]+$/', $name)) {

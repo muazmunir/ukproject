@@ -5,6 +5,7 @@ namespace App\Console\Commands;
 use App\Console\Concerns\BuildsMysqlCliConnection;
 use App\Console\Concerns\FindsMysqlClient;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\DB;
 use Symfony\Component\Process\Process;
 
 class SplitMultiDatabases extends Command
@@ -12,7 +13,9 @@ class SplitMultiDatabases extends Command
     use BuildsMysqlCliConnection;
     use FindsMysqlClient;
 
-    private const PLACEHOLDER = '__SPLIT_SOURCE__';
+    private const PLACEHOLDER_SOURCE = '__SPLIT_SOURCE__';
+
+    private const PLACEHOLDER_CONTROL = '__SPLIT_CONTROL__';
 
     protected $signature = 'db:split-multi
                             {--source= : Monolith MySQL database name (default: DB_SPLIT_SOURCE or DB_DATABASE)}
@@ -20,7 +23,7 @@ class SplitMultiDatabases extends Command
                             {--mysql= : Full path to mysql client binary}
                             {--force : Skip confirmation prompt}';
 
-    protected $description = 'Run multi-database split: copy tables from monolith into domain DBs (monolith unchanged) + auth_db views';
+    protected $description = 'Run multi-database split: copy tables from monolith into pre-created domain DBs (monolith unchanged) + auth_db views';
 
     public function handle(): int
     {
@@ -34,6 +37,32 @@ class SplitMultiDatabases extends Command
             return self::FAILURE;
         }
 
+        $control = (string) env('DB_SPLIT_CONTROL_DATABASE', 'split_control');
+        if ($control === '' || ! preg_match('/^[a-zA-Z0-9_]+$/', $control)) {
+            $this->error('Invalid DB_SPLIT_CONTROL_DATABASE in .env (letters, digits, underscore only).');
+
+            return self::FAILURE;
+        }
+
+        if ($source === $control) {
+            $this->error('DB_SPLIT_CONTROL_DATABASE must be a different database than the monolith (DB_SPLIT_SOURCE / DB_DATABASE).');
+
+            return self::FAILURE;
+        }
+
+        $domainDbs = $this->domainDatabaseNames();
+        foreach ($domainDbs as $name) {
+            if (! preg_match('/^[a-zA-Z0-9_]+$/', $name)) {
+                $this->error("Invalid database name in config: {$name}");
+
+                return self::FAILURE;
+            }
+        }
+
+        if (! $this->assertDatabasesExist($source, $control, $domainDbs)) {
+            return self::FAILURE;
+        }
+
         $sqlPath = database_path('scripts/split-databases.sql');
         if (! is_readable($sqlPath)) {
             $this->error("Cannot read: {$sqlPath}");
@@ -42,13 +71,13 @@ class SplitMultiDatabases extends Command
         }
 
         $sql = file_get_contents($sqlPath);
-        if ($sql === false || ! str_contains($sql, self::PLACEHOLDER)) {
-            $this->error('split-databases.sql must contain the placeholder ' . self::PLACEHOLDER . ' for the monolith database name.');
+        if ($sql === false || ! str_contains($sql, self::PLACEHOLDER_SOURCE) || ! str_contains($sql, self::PLACEHOLDER_CONTROL)) {
+            $this->error('split-databases.sql is missing required placeholders.');
 
             return self::FAILURE;
         }
 
-        $sql = str_replace(self::PLACEHOLDER, $source, $sql);
+        $sql = $this->applySplitSqlReplacements($sql, $source, $control);
 
         $mysql = $this->findMysqlBinary((string) $this->option('mysql'));
         if ($mysql === null) {
@@ -63,7 +92,7 @@ class SplitMultiDatabases extends Command
 
                 return self::FAILURE;
             }
-            $this->warn('This creates domain DBs + split_control, COPIES each mapped table from the monolith (original DB unchanged), then creates compatibility views on auth_db. Take a backup first.');
+            $this->warn('This fills pre-created empty databases (see .env), COPIES tables from the monolith (original unchanged), then creates compatibility views on the auth DB. Take a backup first.');
             if (! $this->confirm('Continue?', false)) {
                 return self::FAILURE;
             }
@@ -78,7 +107,7 @@ class SplitMultiDatabases extends Command
             $this->mysqlCliHostAndPortArgv(),
             ['-u', $user],
             $password !== '' ? ['-p' . $password] : [],
-            ['-D', $source]
+            ['-D', $control]
         );
 
         $this->info('Applying database/scripts/split-databases.sql …');
@@ -90,14 +119,14 @@ class SplitMultiDatabases extends Command
             return self::FAILURE;
         }
 
-        $this->info('Calling copy_mapped_tables() and create_compat_views() on split_control …');
+        $this->info("Calling copy_mapped_tables() and create_compat_views() on `{$control}` …");
         $call = new Process(
             array_merge(
                 [$mysql],
                 $this->mysqlCliHostAndPortArgv(),
                 ['-u', $user],
                 $password !== '' ? ['-p' . $password] : [],
-                ['-D', 'split_control', '-e', 'CALL copy_mapped_tables(); CALL create_compat_views();']
+                ['-D', $control, '-e', 'CALL copy_mapped_tables(); CALL create_compat_views();']
             ),
             base_path(),
             null,
@@ -114,5 +143,69 @@ class SplitMultiDatabases extends Command
         $this->info('Split finished. Set DB_TOPOLOGY=multi in .env if needed, then: php artisan config:clear');
 
         return self::SUCCESS;
+    }
+
+    /**
+     * @param  list<string>  $domainDbs
+     */
+    private function assertDatabasesExist(string $source, string $control, array $domainDbs): bool
+    {
+        $required = array_values(array_unique(array_merge([$source, $control], $domainDbs)));
+        $placeholders = implode(',', array_fill(0, count($required), '?'));
+        $rows = DB::select(
+            'SELECT SCHEMA_NAME AS n FROM information_schema.SCHEMATA WHERE SCHEMA_NAME IN (' . $placeholders . ')',
+            $required
+        );
+        $found = array_map(static fn ($r) => $r->n, $rows);
+        $missing = array_values(array_diff($required, $found));
+        if ($missing !== []) {
+            $this->error('These MySQL databases do not exist yet. On shared hosting, create each as an empty database in the panel; names must match .env (DB_*, DB_SPLIT_CONTROL_DATABASE):');
+            foreach ($missing as $m) {
+                $this->line('  - ' . $m);
+            }
+
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * @return list<string>
+     */
+    private function domainDatabaseNames(): array
+    {
+        $keys = ['auth_db', 'pii_db', 'kyc_db', 'payments_db', 'app_db', 'comms_db', 'media_db', 'audit_db'];
+        $names = [];
+        foreach ($keys as $key) {
+            $db = config("database.connections.{$key}.database");
+            if (is_string($db) && $db !== '') {
+                $names[] = $db;
+            }
+        }
+
+        return array_values(array_unique($names));
+    }
+
+    private function applySplitSqlReplacements(string $sql, string $source, string $control): string
+    {
+        $map = [
+            self::PLACEHOLDER_SOURCE => $source,
+            self::PLACEHOLDER_CONTROL => $control,
+            '__AUTH_DB__' => (string) config('database.connections.auth_db.database'),
+            '__PII_DB__' => (string) config('database.connections.pii_db.database'),
+            '__KYC_DB__' => (string) config('database.connections.kyc_db.database'),
+            '__PAYMENTS_DB__' => (string) config('database.connections.payments_db.database'),
+            '__APP_DB__' => (string) config('database.connections.app_db.database'),
+            '__COMMS_DB__' => (string) config('database.connections.comms_db.database'),
+            '__MEDIA_DB__' => (string) config('database.connections.media_db.database'),
+            '__AUDIT_DB__' => (string) config('database.connections.audit_db.database'),
+        ];
+
+        foreach ($map as $token => $value) {
+            $sql = str_replace($token, $value, $sql);
+        }
+
+        return $sql;
     }
 }
