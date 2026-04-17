@@ -159,14 +159,25 @@ class SplitMultiDatabases extends Command
         $missing = array_values(array_diff($required, $found));
         if ($missing !== []) {
             $this->error('These MySQL databases do not exist yet (or names in .env do not match the server).');
+            $this->newLine();
+            $this->warn('Laravel is checking THESE exact schema names (from DB_*_DATABASE / DB_SPLIT_CONTROL_DATABASE — not from DB_*_USERNAME):');
+            $this->line("  Monolith:  {$source}");
+            $this->line("  Metadata:  {$control}");
+            foreach ($this->domainDatabaseEnvLabels() as $label => $dbName) {
+                $this->line("  {$label}: {$dbName}");
+            }
+            $this->newLine();
             $hints = $this->splitDatabaseEnvHints($source, $control);
             foreach ($missing as $m) {
                 $hint = $hints[$m] ?? null;
                 $this->line($hint !== null ? "  - {$m}  ← {$hint}" : "  - {$m}");
             }
             $this->newLine();
-            $this->line('Hostinger / shared hosting: hPanel → Databases → MySQL databases → create each name above as an empty database, assign the same MySQL user (e.g. All Privileges).');
-            $this->line('Override with DB_SPLIT_CONTROL_DATABASE=your_empty_metadata_db in .env if the default name is wrong, then php artisan config:clear.');
+            $this->line('If you created u990716838_auth_db but this list shows auth_db, set DB_AUTH_DATABASE=u990716838_auth_db (same for DB_PII_DATABASE, …) in .env, then php artisan config:clear.');
+            $this->line('DB_AUTH_USERNAME is only the MySQL login; it does not set which database name is checked.');
+            $this->newLine();
+            $this->line('Hostinger: hPanel → MySQL databases → create empty databases with the names in the list above, or fix .env to match names you already created.');
+            $this->line('Metadata DB: set DB_SPLIT_CONTROL_DATABASE if it should not be inferred (e.g. u990716838_split_control).');
 
             return false;
         }
@@ -219,6 +230,25 @@ class SplitMultiDatabases extends Command
         }
 
         return array_values(array_unique($names));
+    }
+
+    /**
+     * Labels for resolved DB names (error output).
+     *
+     * @return array<string, string> label => database name
+     */
+    private function domainDatabaseEnvLabels(): array
+    {
+        return [
+            'DB_AUTH_DATABASE' => (string) config('database.connections.auth_db.database'),
+            'DB_PII_DATABASE' => (string) config('database.connections.pii_db.database'),
+            'DB_KYC_DATABASE' => (string) config('database.connections.kyc_db.database'),
+            'DB_PAYMENTS_DATABASE' => (string) config('database.connections.payments_db.database'),
+            'DB_APP_DATABASE' => (string) config('database.connections.app_db.database'),
+            'DB_COMMS_DATABASE' => (string) config('database.connections.comms_db.database'),
+            'DB_MEDIA_DATABASE' => (string) config('database.connections.media_db.database'),
+            'DB_AUDIT_DATABASE' => (string) config('database.connections.audit_db.database'),
+        ];
     }
 
     private function applySplitSqlReplacements(string $sql, string $source, string $control): string
