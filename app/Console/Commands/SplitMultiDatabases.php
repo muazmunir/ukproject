@@ -202,7 +202,7 @@ class SplitMultiDatabases extends Command
 
         foreach ($missing as $name) {
             try {
-                DB::connection('mysql')->unprepared(
+                DB::connection('monolith')->unprepared(
                     'CREATE DATABASE IF NOT EXISTS `'.$name.'` CHARACTER SET '.$charset.' COLLATE '.$collation
                 );
                 $this->line("  Created (or already existed): `{$name}`");

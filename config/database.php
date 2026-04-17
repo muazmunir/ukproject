@@ -4,6 +4,7 @@ use Illuminate\Support\Str;
 
 $dbTopology = env('DB_TOPOLOGY', 'single');
 $singleDatabase = env('DB_DATABASE', 'laravel');
+$monolithSchemaName = (string) (env('DB_SPLIT_SOURCE') ?: env('DB_DATABASE', 'laravel'));
 
 /*
 | When monolith is Hostinger-style (e.g. u990716838_zaivias) and DB_*_DATABASE is still the short
@@ -140,7 +141,7 @@ return [
     */
     'split_multi' => [
         'control_database' => $resolvedSplitControlDatabase,
-        'monolith_database' => (string) (env('DB_SPLIT_SOURCE') ?: env('DB_DATABASE', 'laravel')),
+        'monolith_database' => $monolithSchemaName,
         'topology' => $dbTopology,
     ],
 
@@ -167,6 +168,32 @@ return [
             'journal_mode' => null,
             'synchronous' => null,
             'transaction_mode' => 'DEFERRED',
+        ],
+
+        /*
+        | Read-only style: always DB_USERNAME / DB_PASSWORD on the monolith schema (DB_SPLIT_SOURCE ?: DB_DATABASE).
+        | Used by db:split-multi:status / presence checks — not the default `mysql` connection, which in multi mode
+        | may point at auth_db with per-domain credentials.
+        */
+        'monolith' => [
+            'driver' => 'mysql',
+            'url' => env('DB_URL'),
+            'host' => env('DB_HOST', '127.0.0.1'),
+            'port' => env('DB_PORT', '3306'),
+            'database' => $monolithSchemaName,
+            'username' => (string) env('DB_USERNAME', 'root'),
+            'password' => env('DB_PASSWORD') === null ? '' : (string) env('DB_PASSWORD'),
+            'unix_socket' => env('DB_SOCKET', ''),
+            'charset' => env('DB_CHARSET', 'utf8mb4'),
+            'collation' => env('DB_COLLATION', 'utf8mb4_unicode_ci'),
+            'prefix' => '',
+            'prefix_indexes' => true,
+            'timezone' => '+00:00',
+            'strict' => true,
+            'engine' => null,
+            'options' => extension_loaded('pdo_mysql') ? array_filter([
+                PDO::MYSQL_ATTR_SSL_CA => env('MYSQL_ATTR_SSL_CA'),
+            ]) : [],
         ],
 
         'mysql' => [

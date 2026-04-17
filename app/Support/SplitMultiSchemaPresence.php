@@ -18,7 +18,7 @@ final class SplitMultiSchemaPresence
     public static function schemaConnectionMap(string $source, string $control): array
     {
         $map = [
-            $source => 'mysql',
+            $source => 'monolith',
             $control => 'split_control',
         ];
 
@@ -36,7 +36,7 @@ final class SplitMultiSchemaPresence
     {
         $map = self::schemaConnectionMap($source, $control);
 
-        return $map[$schema] ?? 'mysql';
+        return $map[$schema] ?? 'monolith';
     }
 
     /**
