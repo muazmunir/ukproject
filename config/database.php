@@ -12,8 +12,12 @@ $singleDatabase = env('DB_DATABASE', 'laravel');
 */
 $monolithForSplitPrefix = (string) (env('DB_SPLIT_SOURCE') ?: env('DB_DATABASE', ''));
 $hostingerSplitPrefix = null;
-if ($monolithForSplitPrefix !== '' && preg_match('/^(u\d+)_/', $monolithForSplitPrefix, $hostingerSplitPrefixMatch)) {
-    $hostingerSplitPrefix = $hostingerSplitPrefixMatch[1] . '_';
+foreach ([$monolithForSplitPrefix, (string) env('DB_USERNAME', '')] as $hostingerPrefixCandidate) {
+    if ($hostingerPrefixCandidate !== '' && preg_match('/^(u\d+)_/', $hostingerPrefixCandidate, $hostingerSplitPrefixMatch)) {
+        $hostingerSplitPrefix = $hostingerSplitPrefixMatch[1] . '_';
+
+        break;
+    }
 }
 $resolveHostingerSplitSchema = static function (string $envKey, string $shortDefault) use ($hostingerSplitPrefix): string {
     $explicit = env($envKey);
@@ -31,6 +35,24 @@ $resolvedAuthDatabase = $resolveHostingerSplitSchema('DB_AUTH_DATABASE', 'auth_d
 $multiEntryDatabase = $resolveHostingerSplitSchema('DB_DATABASE_MULTI_ENTRY', 'auth_db');
 $activeMysqlDatabase = $dbTopology === 'multi' ? $multiEntryDatabase : $singleDatabase;
 
+$resolvedSplitControlDatabase = (static function () use ($resolvedAuthDatabase, $hostingerSplitPrefix): string {
+    $raw = env('DB_SPLIT_CONTROL_DATABASE');
+    if (is_string($raw) && trim($raw) !== '') {
+        return trim($raw);
+    }
+
+    $suffix = '_auth_db';
+    if ($resolvedAuthDatabase !== '' && str_ends_with($resolvedAuthDatabase, $suffix) && strlen($resolvedAuthDatabase) > strlen($suffix)) {
+        return substr($resolvedAuthDatabase, 0, -strlen($suffix)) . '_split_control';
+    }
+
+    if ($hostingerSplitPrefix !== null) {
+        return $hostingerSplitPrefix . 'split_control';
+    }
+
+    return 'split_control';
+})();
+
 return [
 
     /*
@@ -46,6 +68,14 @@ return [
     */
 
     'default' => env('DB_CONNECTION', 'mysql'),
+
+    /*
+    | Metadata DB for db:split-multi (procedures + map tables). Prefer DB_SPLIT_CONTROL_DATABASE;
+    | otherwise inferred from auth DB name or Hostinger-style u123…_ prefix (monolith, else DB_USERNAME).
+    */
+    'split_multi' => [
+        'control_database' => $resolvedSplitControlDatabase,
+    ],
 
     /*
     |--------------------------------------------------------------------------
