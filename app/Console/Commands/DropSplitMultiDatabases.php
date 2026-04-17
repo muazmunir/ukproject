@@ -10,12 +10,13 @@ class DropSplitMultiDatabases extends Command
 {
     use FindsMysqlClient;
 
+    private const CONTROL_DATABASE = 'split_control';
+
     protected $signature = 'db:split-multi:drop
-                            {--source= : Monolith database where split helper tables/procedures live (default: DB_SPLIT_SOURCE or DB_DATABASE)}
                             {--mysql= : Full path to mysql client binary}
                             {--force : Required — permanently drops split databases}';
 
-    protected $description = 'Drop multi-split databases (auth/pii/kyc/payments/app/comms/media/audit) and split helper objects on the monolith';
+    protected $description = 'Drop multi-split databases (domain DBs + split_control). Does not modify the monolith.';
 
     public function handle(): int
     {
@@ -32,28 +33,14 @@ class DropSplitMultiDatabases extends Command
             return self::FAILURE;
         }
 
-        foreach ($targets as $name) {
+        $toDrop = array_values(array_unique(array_merge([self::CONTROL_DATABASE], $targets)));
+
+        foreach ($toDrop as $name) {
             if (! preg_match('/^[a-zA-Z0-9_]+$/', $name)) {
-                $this->error("Invalid database name in config: {$name}");
+                $this->error("Invalid database name: {$name}");
 
                 return self::FAILURE;
             }
-        }
-
-        $source = $this->option('source')
-            ?: env('DB_SPLIT_SOURCE')
-            ?: env('DB_DATABASE');
-
-        if (! is_string($source) || $source === '' || ! preg_match('/^[a-zA-Z0-9_]+$/', $source)) {
-            $this->error('Invalid or missing monolith database. Use --source=my_db or set DB_SPLIT_SOURCE / DB_DATABASE.');
-
-            return self::FAILURE;
-        }
-
-        if (in_array($source, $targets, true)) {
-            $this->error('Monolith database name matches a split target in .env — refusing to drop.');
-
-            return self::FAILURE;
         }
 
         $mysql = $this->findMysqlBinary((string) $this->option('mysql'));
@@ -63,12 +50,10 @@ class DropSplitMultiDatabases extends Command
             return self::FAILURE;
         }
 
-        $this->warn('This will DROP these databases (all data inside is lost):');
-        foreach ($targets as $db) {
+        $this->warn('This will DROP these databases (all data inside them is lost). Your monolith database is not touched:');
+        foreach ($toDrop as $db) {
             $this->line('  - ' . $db);
         }
-        $this->line('');
-        $this->warn("Plus on `{$source}`: split helper tables + procedures (move_mapped_tables, create_compat_views).");
 
         if ($this->input->isInteractive() && ! $this->confirm('Really drop these databases? This cannot be undone.', false)) {
             return self::FAILURE;
@@ -86,7 +71,7 @@ class DropSplitMultiDatabases extends Command
         );
 
         $drops = 'SET FOREIGN_KEY_CHECKS=0;';
-        foreach ($targets as $db) {
+        foreach ($toDrop as $db) {
             $drops .= 'DROP DATABASE IF EXISTS `' . str_replace('`', '``', $db) . '`;';
         }
         $drops .= 'SET FOREIGN_KEY_CHECKS=1;';
@@ -106,29 +91,7 @@ class DropSplitMultiDatabases extends Command
             return self::FAILURE;
         }
 
-        $clean = sprintf(
-            'DROP PROCEDURE IF EXISTS move_mapped_tables; DROP PROCEDURE IF EXISTS create_compat_views; '
-            . 'DROP TABLE IF EXISTS `%s`.`_split_multidb_table_map`; DROP TABLE IF EXISTS `%s`.`_split_multidb_auth_tables`;',
-            str_replace('`', '``', $source),
-            str_replace('`', '``', $source)
-        );
-
-        $this->info("Cleaning split helpers on `{$source}` …");
-        $proc2 = new Process(
-            array_merge($baseArgs, ['-D', $source, '-e', $clean]),
-            base_path(),
-            null,
-            null,
-            120.0
-        );
-        $proc2->run();
-        if (! $proc2->isSuccessful()) {
-            $this->error(trim($proc2->getErrorOutput() . "\n" . $proc2->getOutput()));
-
-            return self::FAILURE;
-        }
-
-        $this->info('Done. Point DB_TOPOLOGY=single at your monolith (or restore from backup) and run: php artisan config:clear');
+        $this->info('Done. Monolith unchanged. Set DB_TOPOLOGY=single if needed, then: php artisan config:clear');
 
         return self::SUCCESS;
     }

@@ -17,7 +17,7 @@ class SplitMultiDatabases extends Command
                             {--mysql= : Full path to mysql client binary}
                             {--force : Skip confirmation prompt}';
 
-    protected $description = 'Run multi-database split: create DBs, procedures, move tables, and create auth_db views';
+    protected $description = 'Run multi-database split: copy tables from monolith into domain DBs (monolith unchanged) + auth_db views';
 
     public function handle(): int
     {
@@ -60,7 +60,7 @@ class SplitMultiDatabases extends Command
 
                 return self::FAILURE;
             }
-            $this->warn('This creates target databases, RENAMEs tables from the monolith into domain DBs, and creates views on auth_db. Take a full backup first.');
+            $this->warn('This creates domain DBs + split_control, COPIES each mapped table from the monolith (original DB unchanged), then creates compatibility views on auth_db. Take a backup first.');
             if (! $this->confirm('Continue?', false)) {
                 return self::FAILURE;
             }
@@ -87,12 +87,12 @@ class SplitMultiDatabases extends Command
             return self::FAILURE;
         }
 
-        $this->info('Calling move_mapped_tables() and create_compat_views() …');
+        $this->info('Calling copy_mapped_tables() and create_compat_views() on split_control …');
         $call = new Process(
             array_merge(
                 [$mysql, '-h', $host, '-P', $port, '-u', $user],
                 $password !== '' ? ['-p' . $password] : [],
-                ['-D', $source, '-e', 'CALL move_mapped_tables(); CALL create_compat_views();']
+                ['-D', 'split_control', '-e', 'CALL copy_mapped_tables(); CALL create_compat_views();']
             ),
             base_path(),
             null,
