@@ -130,7 +130,7 @@ class SplitMultiImportSql extends Command
     }
 
     /**
-     * @return list<array{0: string, 1: string}>  [connection key, absolute path]
+     * @return list<array{0: string, 1: string}> [connection key, absolute path]
      */
     private function collectImportJobs(string $base, ?string $onlyConn): array
     {

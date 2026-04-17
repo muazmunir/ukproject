@@ -1,4 +1,7 @@
 -- Multi-database split script (COPY — monolith unchanged)
+-- Table → domain map is duplicated in database/split_multidb_table_map.php for:
+--   php artisan db:split-multi:export   (mysqldump per table into storage/app/db-split-export/{connection}/)
+--   php artisan db:split-multi:import   (mysql each file into that connection’s database)
 -- Placeholders (replaced by php artisan db:split-multi):
 --   __SPLIT_SOURCE__     = monolith database (read-only for table data)
 --   __SPLIT_CONTROL__    = metadata DB (see DB_SPLIT_CONTROL_DATABASE in .env)

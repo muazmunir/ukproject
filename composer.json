@@ -74,6 +74,12 @@
         "db:split-multi:status": [
             "@php artisan db:split-multi:status"
         ],
+        "db:split-multi:export": [
+            "@php artisan db:split-multi:export"
+        ],
+        "db:split-multi:import": [
+            "@php artisan db:split-multi:import"
+        ],
         "post-autoload-dump": [
             "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
             "@php artisan package:discover --ansi"
