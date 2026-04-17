@@ -4,7 +4,31 @@ use Illuminate\Support\Str;
 
 $dbTopology = env('DB_TOPOLOGY', 'single');
 $singleDatabase = env('DB_DATABASE', 'laravel');
-$multiEntryDatabase = env('DB_DATABASE_MULTI_ENTRY', env('DB_AUTH_DATABASE', 'auth_db'));
+
+/*
+| When monolith is Hostinger-style (e.g. u990716838_zaivias) and DB_*_DATABASE is still the short
+| default (auth_db, pii_db, …), expand to u990716838_auth_db so split + multi connections work without
+| duplicating prefixes in .env. Explicit non-default names in .env are always respected.
+*/
+$monolithForSplitPrefix = (string) (env('DB_SPLIT_SOURCE') ?: env('DB_DATABASE', ''));
+$hostingerSplitPrefix = null;
+if ($monolithForSplitPrefix !== '' && preg_match('/^(u\d+)_/', $monolithForSplitPrefix, $hostingerSplitPrefixMatch)) {
+    $hostingerSplitPrefix = $hostingerSplitPrefixMatch[1] . '_';
+}
+$resolveHostingerSplitSchema = static function (string $envKey, string $shortDefault) use ($hostingerSplitPrefix): string {
+    $explicit = env($envKey);
+    if ($explicit !== null && $explicit !== '' && $explicit !== $shortDefault) {
+        return (string) $explicit;
+    }
+    if ($hostingerSplitPrefix !== null && ($explicit === null || $explicit === '' || $explicit === $shortDefault)) {
+        return $hostingerSplitPrefix . $shortDefault;
+    }
+
+    return ($explicit !== null && $explicit !== '') ? (string) $explicit : $shortDefault;
+};
+
+$resolvedAuthDatabase = $resolveHostingerSplitSchema('DB_AUTH_DATABASE', 'auth_db');
+$multiEntryDatabase = $resolveHostingerSplitSchema('DB_DATABASE_MULTI_ENTRY', 'auth_db');
 $activeMysqlDatabase = $dbTopology === 'multi' ? $multiEntryDatabase : $singleDatabase;
 
 return [
@@ -74,7 +98,7 @@ return [
             'url' => env('DB_URL'),
             'host' => env('DB_HOST', '127.0.0.1'),
             'port' => env('DB_PORT', '3306'),
-            'database' => env('DB_AUTH_DATABASE', 'auth_db'),
+            'database' => $resolvedAuthDatabase,
             'username' => env('DB_AUTH_USERNAME', env('DB_USERNAME', 'root')),
             'password' => env('DB_AUTH_PASSWORD', env('DB_PASSWORD', '')),
             'unix_socket' => env('DB_SOCKET', ''),
@@ -94,7 +118,7 @@ return [
             'url' => env('DB_URL'),
             'host' => env('DB_HOST', '127.0.0.1'),
             'port' => env('DB_PORT', '3306'),
-            'database' => env('DB_PII_DATABASE', 'pii_db'),
+            'database' => $resolveHostingerSplitSchema('DB_PII_DATABASE', 'pii_db'),
             'username' => env('DB_PII_USERNAME', env('DB_USERNAME', 'root')),
             'password' => env('DB_PII_PASSWORD', env('DB_PASSWORD', '')),
             'unix_socket' => env('DB_SOCKET', ''),
@@ -114,7 +138,7 @@ return [
             'url' => env('DB_URL'),
             'host' => env('DB_HOST', '127.0.0.1'),
             'port' => env('DB_PORT', '3306'),
-            'database' => env('DB_KYC_DATABASE', 'kyc_db'),
+            'database' => $resolveHostingerSplitSchema('DB_KYC_DATABASE', 'kyc_db'),
             'username' => env('DB_KYC_USERNAME', env('DB_USERNAME', 'root')),
             'password' => env('DB_KYC_PASSWORD', env('DB_PASSWORD', '')),
             'unix_socket' => env('DB_SOCKET', ''),
@@ -134,7 +158,7 @@ return [
             'url' => env('DB_URL'),
             'host' => env('DB_HOST', '127.0.0.1'),
             'port' => env('DB_PORT', '3306'),
-            'database' => env('DB_PAYMENTS_DATABASE', 'payments_db'),
+            'database' => $resolveHostingerSplitSchema('DB_PAYMENTS_DATABASE', 'payments_db'),
             'username' => env('DB_PAYMENTS_USERNAME', env('DB_USERNAME', 'root')),
             'password' => env('DB_PAYMENTS_PASSWORD', env('DB_PASSWORD', '')),
             'unix_socket' => env('DB_SOCKET', ''),
@@ -154,7 +178,7 @@ return [
             'url' => env('DB_URL'),
             'host' => env('DB_HOST', '127.0.0.1'),
             'port' => env('DB_PORT', '3306'),
-            'database' => env('DB_APP_DATABASE', 'app_db'),
+            'database' => $resolveHostingerSplitSchema('DB_APP_DATABASE', 'app_db'),
             'username' => env('DB_APP_USERNAME', env('DB_USERNAME', 'root')),
             'password' => env('DB_APP_PASSWORD', env('DB_PASSWORD', '')),
             'unix_socket' => env('DB_SOCKET', ''),
@@ -174,7 +198,7 @@ return [
             'url' => env('DB_URL'),
             'host' => env('DB_HOST', '127.0.0.1'),
             'port' => env('DB_PORT', '3306'),
-            'database' => env('DB_COMMS_DATABASE', 'comms_db'),
+            'database' => $resolveHostingerSplitSchema('DB_COMMS_DATABASE', 'comms_db'),
             'username' => env('DB_COMMS_USERNAME', env('DB_USERNAME', 'root')),
             'password' => env('DB_COMMS_PASSWORD', env('DB_PASSWORD', '')),
             'unix_socket' => env('DB_SOCKET', ''),
@@ -194,7 +218,7 @@ return [
             'url' => env('DB_URL'),
             'host' => env('DB_HOST', '127.0.0.1'),
             'port' => env('DB_PORT', '3306'),
-            'database' => env('DB_MEDIA_DATABASE', 'media_db'),
+            'database' => $resolveHostingerSplitSchema('DB_MEDIA_DATABASE', 'media_db'),
             'username' => env('DB_MEDIA_USERNAME', env('DB_USERNAME', 'root')),
             'password' => env('DB_MEDIA_PASSWORD', env('DB_PASSWORD', '')),
             'unix_socket' => env('DB_SOCKET', ''),
@@ -214,7 +238,7 @@ return [
             'url' => env('DB_URL'),
             'host' => env('DB_HOST', '127.0.0.1'),
             'port' => env('DB_PORT', '3306'),
-            'database' => env('DB_AUDIT_DATABASE', 'audit_db'),
+            'database' => $resolveHostingerSplitSchema('DB_AUDIT_DATABASE', 'audit_db'),
             'username' => env('DB_AUDIT_USERNAME', env('DB_USERNAME', 'root')),
             'password' => env('DB_AUDIT_PASSWORD', env('DB_PASSWORD', '')),
             'unix_socket' => env('DB_SOCKET', ''),
