@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use App\Console\Concerns\BuildsMysqlCliConnection;
 use App\Console\Concerns\FindsMysqlClient;
+use App\Support\SplitMultiDb;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
 use Symfony\Component\Process\Process;
@@ -37,7 +38,7 @@ class SplitMultiDatabases extends Command
             return self::FAILURE;
         }
 
-        $control = (string) env('DB_SPLIT_CONTROL_DATABASE', 'split_control');
+        $control = SplitMultiDb::controlDatabaseName();
         if ($control === '' || ! preg_match('/^[a-zA-Z0-9_]+$/', $control)) {
             $this->error('Invalid DB_SPLIT_CONTROL_DATABASE in .env (letters, digits, underscore only).');
 
@@ -167,7 +168,7 @@ class SplitMultiDatabases extends Command
             }
             $this->newLine();
             $this->line('Hostinger / shared hosting: hPanel → Databases → MySQL databases → create each name above as an empty database, assign the same MySQL user (e.g. All Privileges).');
-            $this->line('If you cannot use the name "split_control", set DB_SPLIT_CONTROL_DATABASE to your prefixed empty DB (e.g. u990716838_splitctl) in .env, then php artisan config:clear.');
+            $this->line('Override with DB_SPLIT_CONTROL_DATABASE=your_empty_metadata_db in .env if the default name is wrong, then php artisan config:clear.');
 
             return false;
         }

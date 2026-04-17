@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use App\Console\Concerns\BuildsMysqlCliConnection;
 use App\Console\Concerns\FindsMysqlClient;
+use App\Support\SplitMultiDb;
 use Illuminate\Console\Command;
 use Symfony\Component\Process\Process;
 
@@ -34,7 +35,7 @@ class DropSplitMultiDatabases extends Command
             return self::FAILURE;
         }
 
-        $control = (string) env('DB_SPLIT_CONTROL_DATABASE', 'split_control');
+        $control = SplitMultiDb::controlDatabaseName();
         if ($control === '' || ! preg_match('/^[a-zA-Z0-9_]+$/', $control)) {
             $this->error('Invalid DB_SPLIT_CONTROL_DATABASE in .env.');
 
