@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class AnalyticsEvent extends Model
+class AnalyticsEvent extends BaseModel
 {
     public $timestamps = false;
 

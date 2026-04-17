@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class StaffDmMessage extends Model
+class StaffDmMessage extends BaseModel
 {
   protected $fillable = ['thread_id','sender_id','body'];
 

@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class DisputeAttachment extends Model
+class DisputeAttachment extends BaseModel
 {
     protected $fillable = [
         'dispute_id','message_id',

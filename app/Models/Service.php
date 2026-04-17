@@ -12,7 +12,7 @@ use App\Models\Users; // <-- fix
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 
-class Service extends Model
+class Service extends BaseModel
 {
     use HasFactory;
     use SoftDeletes;

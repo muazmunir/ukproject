@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Carbon;
 
-class BookingFee extends Model {
+class BookingFee extends BaseModel {
     protected $fillable = ['code','label','kind','value','applies_to','is_active','starts_at','ends_at'];
 
     protected $casts = [

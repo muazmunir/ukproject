@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class StaffDeletionAudit extends Model
+class StaffDeletionAudit extends BaseModel
 {
     protected $fillable = [
         'user_id','performed_by','reason',

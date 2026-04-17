@@ -3,7 +3,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class AgentAbsenceAudit extends Model
+class AgentAbsenceAudit extends BaseModel
 {
   public $timestamps = false;
   protected $table = 'agent_absence_audits';

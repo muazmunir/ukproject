@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class ServiceFee extends Model
+class ServiceFee extends BaseModel
 {
     protected $table = 'service_fees';
 

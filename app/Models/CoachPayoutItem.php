@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class CoachPayoutItem extends Model
+class CoachPayoutItem extends BaseModel
 {
     protected $fillable = [
         'coach_payout_id',

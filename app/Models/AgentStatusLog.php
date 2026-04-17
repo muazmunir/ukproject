@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class AgentStatusLog extends Model
+class AgentStatusLog extends BaseModel
 {
     protected $table = 'agent_status_logs';
 

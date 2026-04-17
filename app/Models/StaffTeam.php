@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class StaffTeam extends Model
+class StaffTeam extends BaseModel
 {
     use SoftDeletes;
   protected $fillable = ['name','manager_id','is_active','is_active'];

@@ -13,7 +13,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 
 
-class ServicePackage extends Model
+class ServicePackage extends BaseModel
 {
     use SoftDeletes;
     use HasFactory;

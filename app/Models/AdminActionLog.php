@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class AdminActionLog extends Model
+class AdminActionLog extends BaseModel
 {
     protected $fillable = [
         'admin_user_id','action','target_type','target_id','meta','ip','user_agent'

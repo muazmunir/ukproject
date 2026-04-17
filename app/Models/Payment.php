@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class Payment extends Model
+class Payment extends BaseModel
 {
     protected $fillable = [
         'reservation_id',

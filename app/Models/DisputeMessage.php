@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class DisputeMessage extends Model
+class DisputeMessage extends BaseModel
 {
     protected $fillable = [
   'dispute_id',

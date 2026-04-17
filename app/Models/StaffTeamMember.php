@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class StaffTeamMember extends Model
+class StaffTeamMember extends BaseModel
 {
   protected $fillable = ['team_id','agent_id','start_at','end_at'];
 

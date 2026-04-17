@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class ReservationReview extends Model
+class ReservationReview extends BaseModel
 {
     protected $fillable = [
         'reservation_id',

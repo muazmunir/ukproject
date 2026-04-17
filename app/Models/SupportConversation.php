@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class SupportConversation extends Model
+class SupportConversation extends BaseModel
 {
     protected $table = 'support_conversations';
 

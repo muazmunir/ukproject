@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class StaffDmThread extends Model
+class StaffDmThread extends BaseModel
 {
   protected $fillable = [
     'manager_id','agent_id','is_active','last_message_id','last_message_at','agent_last_read_id','manager_last_read_id',

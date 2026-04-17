@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class SupportConversationRead extends Model
+class SupportConversationRead extends BaseModel
 {
   protected $fillable = [
     'support_conversation_id',

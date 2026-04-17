@@ -3,7 +3,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class SupportQuestionMessage extends Model
+class SupportQuestionMessage extends BaseModel
 {
   protected $fillable = [
     'support_question_id','sender_id','sender_role','body','type','meta'

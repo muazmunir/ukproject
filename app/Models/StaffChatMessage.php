@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class StaffChatMessage extends Model
+class StaffChatMessage extends BaseModel
 {
   protected $fillable = ['room_id','user_id','body','type','meta','edited_at','deleted_at'];
   protected $casts = ['meta' => 'array','edited_at' => 'datetime','deleted_at' => 'datetime'];

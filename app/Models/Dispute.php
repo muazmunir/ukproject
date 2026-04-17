@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Dispute extends Model
+class Dispute extends BaseModel
 {
     protected $fillable = [
         'reservation_id',

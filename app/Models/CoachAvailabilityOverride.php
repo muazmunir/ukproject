@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class CoachAvailabilityOverride extends Model
+class CoachAvailabilityOverride extends BaseModel
 {
     protected $fillable = ['coach_id','start_utc','end_utc','reason'];
     protected $casts = [

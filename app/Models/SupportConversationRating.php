@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use App\Models\Users;
 
 
-class SupportConversationRating extends Model
+class SupportConversationRating extends BaseModel
 {
     protected $table = 'support_conversation_ratings';
 

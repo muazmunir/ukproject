@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class StaffChatAttachment extends Model
+class StaffChatAttachment extends BaseModel
 {
   protected $fillable = ['message_id','disk','path','name','mime','size'];
 

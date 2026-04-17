@@ -4,7 +4,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\AgentAbsenceRequestFile;
 
-class AgentAbsenceRequest extends Model
+class AgentAbsenceRequest extends BaseModel
 {
   protected $table = 'agent_absence_requests';
 

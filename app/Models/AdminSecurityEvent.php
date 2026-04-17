@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class AdminSecurityEvent extends Model
+class AdminSecurityEvent extends BaseModel
 {
     protected $fillable = [
         'admin_user_id','type','status','message','meta','reviewed_at','reviewed_by'

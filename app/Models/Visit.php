@@ -6,7 +6,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Visit extends Model
+class Visit extends BaseModel
 {
     /**
      * After db:split-multi, `visits` is a physical table on pii_db; auth_db only holds a view that

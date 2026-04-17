@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class CoachWithdrawal extends Model
+class CoachWithdrawal extends BaseModel
 {
     protected $fillable = [
         'coach_profile_id',

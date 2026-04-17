@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class UserVerification extends Model
+class UserVerification extends BaseModel
 {
     protected $fillable = [
         'user_id',

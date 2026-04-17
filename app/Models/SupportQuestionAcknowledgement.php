@@ -3,7 +3,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class SupportQuestionAcknowledgement extends Model
+class SupportQuestionAcknowledgement extends BaseModel
 {
   protected $fillable = [
     'support_question_id','admin_id','status','note'

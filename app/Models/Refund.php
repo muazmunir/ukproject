@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class Refund extends Model
+class Refund extends BaseModel
 {
     protected $fillable = [
         'reservation_id',

@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class StaffChatRoom extends Model
+class StaffChatRoom extends BaseModel
 {
   protected $fillable = [
     'room_type','name','team_id','last_message_at','last_message_id'

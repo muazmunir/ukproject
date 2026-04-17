@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class CoachPayout extends Model
+class CoachPayout extends BaseModel
 {
     protected $fillable = [
         'payout_batch_id',

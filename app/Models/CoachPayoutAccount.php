@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class CoachPayoutAccount extends Model
+class CoachPayoutAccount extends BaseModel
 {
     protected $fillable = [
         'coach_profile_id',

@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class PayoutRun extends Model
+class PayoutRun extends BaseModel
 {
     protected $fillable = [
         'provider',

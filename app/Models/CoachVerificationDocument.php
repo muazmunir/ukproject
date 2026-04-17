@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class CoachVerificationDocument extends Model
+class CoachVerificationDocument extends BaseModel
 {
     protected $fillable = [
         'coach_profile_id',

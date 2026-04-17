@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 
-class ReservationSlot extends Model
+class ReservationSlot extends BaseModel
 {
     // app/Models/ReservationSlot.php
 protected $fillable = [

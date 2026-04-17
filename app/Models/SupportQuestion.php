@@ -3,7 +3,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class SupportQuestion extends Model
+class SupportQuestion extends BaseModel
 {
   protected $fillable = [
     'asked_by_admin_id','assigned_manager_id','title','question',

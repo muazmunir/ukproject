@@ -3,7 +3,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class AgentAbsenceRequestFile extends Model
+class AgentAbsenceRequestFile extends BaseModel
 {
   protected $fillable = [
     'request_id','disk','path','original_name','mime','size'

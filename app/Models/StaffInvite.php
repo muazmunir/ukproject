@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class StaffInvite extends Model
+class StaffInvite extends BaseModel
 {
     protected $fillable = [
         'user_id','token','expires_at','used_at'

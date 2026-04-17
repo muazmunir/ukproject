@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class StaffDocument extends Model
+class StaffDocument extends BaseModel
 {
     protected $table = 'staff_documents';
 
