@@ -59,7 +59,7 @@ class SplitMultiDatabases extends Command
             }
         }
 
-        if (! $this->assertDatabasesExist($source, $control, $domainDbs)) {
+        if (! $this->assertSplitDatabasesExist($source, $control, $domainDbs)) {
             return self::FAILURE;
         }
 
@@ -148,7 +148,7 @@ class SplitMultiDatabases extends Command
     /**
      * @param  list<string>  $domainDbs
      */
-    private function assertDatabasesExist(string $source, string $control, array $domainDbs): bool
+    private function assertSplitDatabasesExist(string $source, string $control, array $domainDbs): bool
     {
         $required = array_values(array_unique(array_merge([$source, $control], $domainDbs)));
         $placeholders = implode(',', array_fill(0, count($required), '?'));
@@ -159,15 +159,50 @@ class SplitMultiDatabases extends Command
         $found = array_map(static fn ($r) => $r->n, $rows);
         $missing = array_values(array_diff($required, $found));
         if ($missing !== []) {
-            $this->error('These MySQL databases do not exist yet. On shared hosting, create each as an empty database in the panel; names must match .env (DB_*, DB_SPLIT_CONTROL_DATABASE):');
+            $this->error('These MySQL databases do not exist yet (or names in .env do not match the server).');
+            $hints = $this->splitDatabaseEnvHints($source, $control);
             foreach ($missing as $m) {
-                $this->line('  - ' . $m);
+                $hint = $hints[$m] ?? null;
+                $this->line($hint !== null ? "  - {$m}  ← {$hint}" : "  - {$m}");
             }
+            $this->newLine();
+            $this->line('Hostinger / shared hosting: hPanel → Databases → MySQL databases → create each name above as an empty database, assign the same MySQL user (e.g. All Privileges).');
+            $this->line('If you cannot use the name "split_control", set DB_SPLIT_CONTROL_DATABASE to your prefixed empty DB (e.g. u990716838_splitctl) in .env, then php artisan config:clear.');
 
             return false;
         }
 
         return true;
+    }
+
+    /**
+     * @return array<string, string> schema name => .env hint
+     */
+    private function splitDatabaseEnvHints(string $source, string $control): array
+    {
+        $hints = [
+            $source => 'monolith: must already exist (DB_DATABASE or DB_SPLIT_SOURCE when splitting)',
+            $control => 'empty metadata DB: DB_SPLIT_CONTROL_DATABASE',
+        ];
+
+        $pairs = [
+            'auth_db' => 'DB_AUTH_DATABASE',
+            'pii_db' => 'DB_PII_DATABASE',
+            'kyc_db' => 'DB_KYC_DATABASE',
+            'payments_db' => 'DB_PAYMENTS_DATABASE',
+            'app_db' => 'DB_APP_DATABASE',
+            'comms_db' => 'DB_COMMS_DATABASE',
+            'media_db' => 'DB_MEDIA_DATABASE',
+            'audit_db' => 'DB_AUDIT_DATABASE',
+        ];
+        foreach ($pairs as $conn => $envKey) {
+            $name = (string) config("database.connections.{$conn}.database");
+            if ($name !== '') {
+                $hints[$name] = "empty domain DB: {$envKey}";
+            }
+        }
+
+        return $hints;
     }
 
     /**
