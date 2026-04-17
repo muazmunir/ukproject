@@ -1,0 +1,328 @@
+/* =========================================================
+   MANAGE TEAM - FINAL COMPLETE CSS
+========================================================= */
+
+:root{
+  --bg:#f5f7fb;
+  --card:#ffffff;
+  --text:#101828;
+  --muted:#667085;
+
+  --line:#e7ecf3;
+  --line-strong:#d7e0ea;
+
+  --primary:#111827;
+  --primary-soft:#f3f4f6;
+
+  --green:#16a34a;
+  --green-soft:#ecfdf5;
+  --green-border:#bbf7d0;
+
+  --amber:#d97706;
+  --amber-soft:#fffbeb;
+  --amber-border:#fde68a;
+
+  --red:#dc2626;
+  --red-soft:#fef2f2;
+  --red-border:#fecaca;
+
+  --shadow-sm:0 6px 20px rgba(16,24,40,.04);
+  --shadow-md:0 14px 34px rgba(16,24,40,.08);
+
+  --radius-xl:20px;
+  --radius-lg:18px;
+
+  --page-max:1360px;
+
+  /* KEY FOR CENTERING */
+  --member-width:320px;
+  --member-gap:18px;
+}
+
+*{box-sizing:border-box;}
+
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--text);
+}
+
+/* =========================
+   PAGE
+========================= */
+.zv-page{
+  
+  margin:0 auto;
+  
+  background: white;
+    border: 1px solid rgba(15, 23, 42, .18);
+    border-radius: 18px;
+    box-shadow: 0 18px 45px rgba(2, 6, 23, .06);
+    padding: 20px;
+}
+
+.zv-page > * + *{
+  margin-top:24px;
+}
+
+/* =========================
+   HEADER
+========================= */
+.zv-head{
+  display:flex;
+  justify-content:center;
+  align-items:flex-start;
+  flex-wrap:wrap;
+  gap:16px;
+}
+
+.zv-title{
+  margin:0;
+  font-size:30px;
+  font-weight:900;
+}
+
+.zv-sub{
+  margin-top:8px;
+  color:var(--muted);
+  font-size:14px;
+}
+
+/* =========================
+   CARD
+========================= */
+.zv-card{
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:var(--radius-xl);
+  padding:26px;
+  box-shadow:var(--shadow-sm);
+}
+
+/* =========================
+   FORM
+========================= */
+.form-label{
+  font-size:13px;
+  font-weight:800;
+  margin-bottom:6px;
+}
+
+.form-control,
+.form-select{
+  height:46px;
+  border-radius:12px;
+  border:1px solid var(--line-strong);
+  padding:0 12px;
+  font-weight:600;
+}
+
+.form-control:focus,
+.form-select:focus{
+  border-color:#2563eb;
+  box-shadow:0 0 0 3px rgba(37,99,235,.1);
+}
+
+/* =========================
+   SPLIT
+========================= */
+.zv-split{
+  display:flex;
+  justify-content:center;
+  align-items:end;
+  gap:12px;
+  flex-wrap:wrap;
+  margin-bottom:12px;
+}
+
+.zv-search{
+  max-width:300px;
+}
+
+/* =========================
+   MEMBERS GRID (IMPORTANT)
+========================= */
+.zv-members{
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center; /* 🔥 CENTER FIX */
+  gap:var(--member-gap);
+}
+
+/* =========================
+   MEMBER CARD
+========================= */
+.zv-member{
+  width:var(--member-width);
+  flex:0 0 var(--member-width);
+
+  display:flex;
+  gap:12px;
+  align-items:flex-start;
+
+  padding:16px 16px 16px 48px;
+
+  border:1px solid var(--line);
+  border-radius:var(--radius-lg);
+  background:#fff;
+
+  position:relative;
+  cursor:pointer;
+  transition:.2s;
+}
+
+.zv-member:hover{
+  transform:translateY(-2px);
+  box-shadow:var(--shadow-md);
+}
+
+/* checkbox */
+.zv-member input{
+  position:absolute;
+  left:16px;
+  top:16px;
+  width:18px;
+  height:18px;
+}
+
+/* avatar */
+.zv-avatar{
+  width:42px;
+  height:42px;
+  border-radius:50%;
+  background:#eef2ff;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-weight:900;
+}
+
+/* info */
+.zv-minfo{
+  display:flex;
+  flex-direction:column;
+  gap:4px;
+}
+
+.zv-mname{
+  font-weight:900;
+}
+
+.zv-mrole{
+  font-size:12px;
+  color:var(--muted);
+}
+
+/* pills */
+.zv-team-pill{
+  font-size:12px;
+  padding:4px 8px;
+  border-radius:999px;
+  background:var(--amber-soft);
+  border:1px solid var(--amber-border);
+}
+
+.zv-team-pill-ok{
+  background:var(--green-soft);
+  border-color:var(--green-border);
+  color:var(--green);
+}
+
+.zv-team-manager{
+  font-size:11px;
+  opacity:.8;
+}
+
+/* assigned highlight */
+.zv-member-assigned{
+  background:#fffdf7;
+  border-color:#f3d9a6;
+}
+
+/* =========================
+   BUTTONS
+========================= */
+.btn{
+  border-radius:12px !important;
+  font-weight:800;
+}
+
+.btn-dark{
+  background:#111827;
+  border-color:#111827;
+}
+
+.btn-outline-dark{
+  border:1px solid var(--line);
+}
+
+.btn-outline-danger{
+  border:1px solid var(--red-border);
+  color:var(--red);
+}
+
+.btn-outline-danger:hover{
+  background:var(--red-soft);
+}
+
+/* =========================
+   ACTION BAR
+========================= */
+.col-12.d-flex{
+  margin-top:12px;
+}
+
+/* =========================
+   MODAL
+========================= */
+.modal-content{
+  border-radius:16px;
+  border:none;
+}
+
+.modal-header{
+  border-bottom:1px solid var(--line);
+}
+
+.modal-footer{
+  border-top:1px solid var(--line);
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+@media (max-width: 992px){
+  .zv-btn{
+    width:100%;
+  }
+}
+
+@media (max-width: 768px){
+
+  .zv-card{
+    padding:18px;
+  }
+
+  /* 2 per row */
+  .zv-member{
+    width:calc(50% - 8px);
+    flex:0 0 calc(50% - 8px);
+  }
+}
+
+@media (max-width: 560px){
+
+  /* 1 per row */
+  .zv-member{
+    width:100%;
+    flex:1 1 100%;
+  }
+
+  .col-12.d-flex{
+    flex-direction:column;
+  }
+
+  .col-12.d-flex .btn{
+    width:100%;
+  }
+}

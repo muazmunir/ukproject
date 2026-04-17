@@ -1,0 +1,668 @@
+/* =========================================================
+   ADMIN SUPPORT SHOW — BLACK/WHITE + SEMANTIC ACCENTS
+   Accents only on: thread pill, status pills, system events.
+========================================================= */
+
+.zv-chat-admin-card{
+  max-width:1200px;
+  margin:1.5rem auto;
+  background:#fff;
+  border: 1px solid #000;
+  border-radius:16px;
+  padding:1.25rem 1.5rem 1.35rem;
+  box-shadow:none;
+  display:flex;
+  flex-direction:column;
+  gap:1rem;
+  color:#000;
+}
+
+/* ---------------------------------------------------------
+   Header
+--------------------------------------------------------- */
+.zv-chat-admin-header{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:1rem;
+  padding-bottom:.75rem;
+  border-bottom:1px solid rgba(0,0,0,.2);
+}
+
+.zv-chat-admin-header .left{
+  display:flex;
+  align-items:center;
+  gap:.75rem;
+  min-width:240px;
+}
+
+.zv-chat-admin-header .avatar{
+  width:40px;height:40px;
+  border-radius:999px;
+  background:#000;
+  color:#fff;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  font-weight:900;
+  font-size:.95rem;
+}
+
+.zv-chat-admin-header .name{
+  font-weight:900;
+  font-size:.95rem;
+  color:#000;
+  margin-bottom:.1rem;
+}
+
+.zv-chat-admin-header .muted.small{
+  font-size:.82rem;
+  color:#000;
+  opacity:.65;
+}
+
+.zv-chat-admin-header .right{
+  display:flex;
+  align-items:center;
+  gap:.6rem;
+  flex-wrap:wrap;
+  justify-content:flex-end;
+}
+
+/* Thread pill (semantic accent) */
+.zv-admin-thread-pill{
+  display:inline-flex;
+  align-items:center;
+  gap:.45rem;
+  padding:.35rem .8rem;
+  border-radius:999px;
+  border:1px solid rgba(0,0,0,.18);
+  background:#fff;
+  color:#111;
+  font-weight:900;
+  font-size:.78rem;
+  white-space:nowrap;
+}
+
+.zv-admin-thread-pill i{ font-size:.9rem; }
+
+/* Coach = blue */
+.zv-admin-thread-pill.is-coach{
+  background:#EFF6FF;
+  color:#1D4ED8;
+  border-color:#BFDBFE;
+}
+
+/* Client = neutral */
+.zv-admin-thread-pill.is-client{
+  background:#F3F4F6;
+  color:#374151;
+  border-color:#E5E7EB;
+}
+
+/* Force admin buttons to match B/W */
+.zv-chat-admin-header .btn{
+  border:1px solid #000 !important;
+  background:#fff !important;
+  color:#000 !important;
+  box-shadow:none !important;
+}
+.zv-chat-admin-header .btn.primary{
+  background:#000 !important;
+  color:#fff !important;
+}
+.zv-chat-admin-header .btn.small{
+  padding:.28rem .8rem;
+  font-size:.78rem;
+}
+
+/* ---------------------------------------------------------
+   Search
+--------------------------------------------------------- */
+.zv-chat-search-form{
+  display:flex;
+  flex-direction:column;
+  align-items:flex-end;
+  gap:.35rem;
+  max-width:520px;
+}
+
+.zv-chat-search-row{
+  display:flex;
+  align-items:center;
+  gap:.6rem;
+}
+
+.zv-chat-search-box,
+.zv-chat-date-box{
+  display:flex;
+  align-items:center;
+  gap:.45rem;
+  padding:.35rem .75rem;
+  border-radius:999px;
+  background:#fff;
+  border:1px solid rgba(0,0,0,.18);
+}
+
+.zv-chat-search-input,
+.zv-chat-date-input{
+  border:none !important;
+  background:transparent !important;
+  box-shadow:none !important;
+  outline:none !important;
+  padding:0 !important;
+  font-size:.85rem;
+  color:#000;
+  width:170px;
+}
+
+.zv-chat-date-input{ width:140px; }
+
+.zv-chat-search-input::placeholder{
+  color:#000;
+  opacity:.45;
+}
+
+/* Search button stays B/W */
+.zv-chat-search-btn{
+  background:#000;
+  border:1px solid #000;
+  width:26px;height:26px;
+  border-radius:999px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+  padding:0;
+}
+.zv-chat-search-btn i{
+  font-size:.9rem;
+  color:#fff;
+}
+.zv-chat-search-btn:hover{ background:#111; }
+
+/* Meta */
+#zvChatSearchMeta{
+  text-align:right;
+  font-size:.8rem;
+  color:#000;
+  opacity:.65;
+}
+
+/* Search results list */
+.zv-chat-search-results{
+  border-top:1px solid rgba(0,0,0,.2);
+  margin-top:.75rem;
+  padding-top:.75rem;
+  max-height:220px;
+  overflow-y:auto;
+}
+
+.zv-chat-search-hit{
+  padding:.45rem .6rem;
+  border-radius:.6rem;
+  cursor:pointer;
+  border:1px solid transparent;
+  transition:background-color .12s ease, border-color .12s ease;
+}
+.zv-chat-search-hit + .zv-chat-search-hit{ margin-top:.25rem; }
+.zv-chat-search-hit:hover{
+  background:#F3F4F6;
+  border-color:rgba(0,0,0,.35);
+}
+
+/* mark highlight: keep B/W */
+.zv-chat-search-hit-body mark{
+  background:#000;
+  color:#fff;
+  padding:0 2px;
+  border-radius:3px;
+}
+
+/* ---------------------------------------------------------
+   Main layout
+--------------------------------------------------------- */
+.zv-chat-admin-layout{
+  display:grid;
+  grid-template-columns:minmax(0, 1.7fr) minmax(260px, 0.9fr);
+  gap:1.25rem;
+  min-height:380px;
+}
+
+/* Thread */
+.zv-chat-thread{
+  border-radius:14px;
+  border:1px solid rgba(0,0,0,.18);
+  background:#fff;
+  padding:.9rem 1rem;
+  overflow-y:auto;
+  max-height:520px;
+  position:relative;
+}
+
+/* scrollbar */
+.zv-chat-thread::-webkit-scrollbar{ width:7px; }
+.zv-chat-thread::-webkit-scrollbar-track{ background:transparent; }
+.zv-chat-thread::-webkit-scrollbar-thumb{
+  background:rgba(0,0,0,.28);
+  border-radius:999px;
+}
+
+/* Date separator */
+.zv-chat-date-separator{
+  text-align:center;
+  margin:.75rem 0 .6rem;
+  font-size:.75rem;
+  color:#000;
+  opacity:.6;
+}
+.zv-chat-date-separator span{
+  display:inline-block;
+  padding:.12rem .65rem;
+  border-radius:999px;
+  background:#fff;
+  border:1px solid rgba(0,0,0,.18);
+  color:#000;
+  font-weight:800;
+}
+
+/* System pills (semantic) */
+.zv-chat-system-row{ text-align:center; margin:.75rem 0; }
+.zv-chat-system-pill{
+  display:inline-flex;
+  align-items:center;
+  gap:.4rem;
+  padding:6px 14px;
+  border-radius:999px;
+  border:1px solid rgba(0,0,0,.18);
+  background:#F9FAFB;
+  font-size:.8rem;
+  color:#111827;
+}
+.zv-chat-system-pill i{ font-size:.9rem; }
+
+/* If you want: assignment blue + rating amber */
+.zv-chat-system-pill:has(.bi-person-workspace){
+  background:#EFF6FF;
+  border-color:#BFDBFE;
+  color:#1D4ED8;
+}
+.zv-chat-system-pill:has(.bi-star-fill){
+  background:#FFFBEB;
+  border-color:#FDE68A;
+  color:#92400E;
+}
+
+/* Empty */
+.zv-chat-empty{
+  min-height:260px;
+  display:grid;
+  place-items:center;
+  text-align:center;
+  color:#000;
+  opacity:.6;
+}
+.zv-chat-empty .icon{ font-size:1.8rem; margin-bottom:.4rem; }
+.zv-chat-empty .title{ font-size:.95rem; font-weight:800; margin-bottom:.2rem; }
+.zv-chat-empty .subtitle{ font-size:.82rem; }
+
+/* ---------------------------------------------------------
+   Messages (works with your partial)
+--------------------------------------------------------- */
+.zv-chat-thread .zv-chat-message{
+  display:flex;
+  flex-direction:column;
+  max-width:78%;
+  margin-bottom:.35rem;
+}
+.zv-chat-thread .is-user{ align-items:flex-start; }
+.zv-chat-thread .is-admin{
+  margin-left:auto;
+  align-items:flex-end;
+}
+
+/* bubble */
+.zv-chat-thread .zv-chat-bubble{
+  border-radius:16px;
+  padding:.45rem .75rem;
+  font-size:.85rem;
+  line-height:1.45;
+  background:#fff;
+  color:#000;
+  border:1px solid rgba(0,0,0,.18);
+}
+
+/* admin bubble = black */
+.zv-chat-thread .is-admin .zv-chat-bubble{
+  background:#000;
+  color:#fff;
+  border-color:#000;
+  
+}
+
+
+/* inside bubble */
+.zv-chat-meta{
+  font-size:.72rem;
+  opacity:.75;
+  margin-bottom:.2rem;
+  font-weight:800;
+}
+/* .zv-chat-text{ white-space:pre-wrap; } */
+.zv-chat-time{
+  margin-top:.35rem;
+  font-size:.72rem;
+  opacity:.65;
+}
+.zv-chat-time .dot{ margin:0 .35rem; opacity:.6; }
+
+/* jump highlight */
+.zv-chat-highlight{
+  animation:zvChatFlashBW 1.2s ease-out;
+}
+@keyframes zvChatFlashBW{
+  0%   { outline:2px solid #000; outline-offset:2px; }
+  100% { outline:2px solid transparent; outline-offset:2px; }
+}
+
+/* ---------------------------------------------------------
+   Aside
+--------------------------------------------------------- */
+.zv-chat-aside{
+  border-radius:14px;
+  border:1px solid rgba(0,0,0,.18);
+  background:#fff;
+  padding:.9rem 1rem;
+  display:flex;
+  flex-direction:column;
+  gap:.75rem;
+}
+
+.aside-section{
+  padding-bottom:.6rem;
+  border-bottom:1px dashed rgba(0,0,0,.25);
+}
+.aside-section:last-child{ border-bottom:none; padding-bottom:0; }
+
+.aside-title{
+  font-size:.86rem;
+  font-weight:900;
+  color:#000;
+  margin-bottom:.45rem;
+}
+
+.aside-row{
+  display:flex;
+  justify-content:space-between;
+  gap:.5rem;
+  align-items:center;
+  margin-bottom:.25rem;
+}
+
+.aside-row .small{
+  font-size:.8rem;
+  color:#000;
+  opacity:.75;
+}
+
+/* status pill (semantic) */
+.pill{
+  display:inline-flex;
+  align-items:center;
+  padding:.2rem .65rem;
+  border-radius:999px;
+  border:1px solid rgba(0,0,0,.18);
+  background:#F3F4F6;
+  color:#374151;
+  font-size:.78rem;
+  font-weight:900;
+}
+.pill.ok{
+  background:#DCFCE7;
+  color:#166534;
+  border-color:#86EFAC;
+}
+
+/* ---------------------------------------------------------
+   Composer
+--------------------------------------------------------- */
+.zv-chat-admin-composer{
+  border-top:1px solid rgba(0,0,0,.2);
+  margin-top:.4rem;
+  padding-top:.7rem;
+}
+
+.zv-chat-input-shell{
+  display:flex;
+  align-items:flex-end;
+  gap:.45rem;
+  background:#fff;
+  border-radius:999px;
+  border:1px solid rgba(0,0,0,.18);
+  padding:.4rem .45rem .4rem .9rem;
+}
+
+.zv-chat-textarea{
+  border:none;
+  background:transparent;
+  resize:none;
+  font-size:.85rem;
+  line-height:1.4;
+  max-height:120px;
+  min-height:22px;
+  padding:0;
+  outline:none;
+  width:100%;
+  color:#000;
+}
+
+.zv-chat-textarea::placeholder{ color:#000; opacity:.45; }
+.zv-chat-textarea[disabled]{ opacity:.45; }
+
+/* send */
+.zv-chat-send{
+  border-radius:999px;
+  border:1px solid #000;
+  padding:.35rem .75rem;
+  display:inline-flex;
+  align-items:center;
+  gap:.35rem;
+  font-size:.78rem;
+  font-weight:900;
+  cursor:pointer;
+  background:#000;
+  color:#fff;
+  transition:transform .06s ease, background .12s ease;
+}
+.zv-chat-send i{ font-size:.9rem; }
+.zv-chat-send:hover:not([disabled]){ background:#111; transform:translateY(-1px); }
+.zv-chat-send:active:not([disabled]){ transform:translateY(0); }
+.zv-chat-send[disabled]{ opacity:.55; cursor:default; }
+
+/* ---------------------------------------------------------
+   Responsive
+--------------------------------------------------------- */
+@media (max-width:992px){
+  .zv-chat-admin-card{ padding:1.1rem 1.1rem 1.2rem; }
+  .zv-chat-admin-layout{ grid-template-columns:minmax(0,1fr); }
+  .zv-chat-aside{ order:-1; }
+}
+
+@media (max-width:768px){
+  .zv-chat-admin-header{ flex-direction:column; align-items:flex-start; }
+  .zv-chat-admin-header .right{ width:100%; justify-content:flex-start; }
+  .zv-chat-search-form{
+    width:100%;
+    max-width:none;
+    align-items:stretch;
+  }
+  .zv-chat-search-row{ width:100%; flex-wrap:wrap; }
+  .zv-chat-search-box,
+  .zv-chat-date-box{ width:100%; }
+  .zv-chat-search-input,
+  .zv-chat-date-input{ width:100%; }
+  #zvChatSearchMeta{ text-align:left; }
+}
+
+@media (max-width:640px){
+  .zv-chat-admin-card{ margin:1rem .25rem; border-radius:14px; }
+  .zv-chat-thread{ max-height:420px; padding-inline:.75rem; }
+  .zv-chat-input-shell{ border-radius:12px; }
+}
+
+
+
+/* ==============================
+   FIX: Long messages overflow
+============================== */
+
+/* Never allow bubbles to be wider than the thread */
+.zv-chat-thread .zv-chat-message{
+  max-width: 78%;
+  min-width: 0;                 /* important inside flex */
+}
+
+.zv-chat-thread .zv-chat-bubble{
+  width: auto !important;
+  max-width: 100% !important;
+  min-width: 0;
+}
+
+/* Break long words and keep line breaks */
+.zv-chat-thread .zv-chat-text{
+  width: auto !important;
+  max-width: 100% !important;
+         /* keeps new lines */
+  overflow-wrap: anywhere;       /* breaks very long words */
+  word-break: break-word;        /* extra safety */
+}
+
+/* Even more aggressive for admin bubble if needed */
+.zv-chat-thread .is-admin .zv-chat-text{
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+
+
+
+/* =====================================================
+   SUPPORT MESSAGE AUTHORITY COLORS
+   ===================================================== */
+
+.zv-chat-message {
+  display: flex;
+  margin-bottom: 10px;
+}
+
+.zv-chat-message.is-me {
+  justify-content: flex-end;
+}
+
+.zv-chat-message.is-them {
+  justify-content: flex-start;
+}
+
+/* Base bubble */
+.zv-chat-bubble {
+  max-width: 70%;
+  padding: 10px 14px;
+  border-radius: 14px;
+  line-height: 1.45;
+  box-shadow: 0 4px 14px rgba(2,6,23,.06);
+}
+
+/* Meta */
+.zv-chat-meta {
+  font-size: 0.72rem;
+  font-weight: 700;
+  margin-bottom: 4px;
+  opacity: 0.85;
+}
+
+/* Time */
+.zv-chat-time {
+  font-size: 0.72rem;
+  margin-top: 6px;
+  color: #000000;
+}
+
+/* -----------------------
+   USER (green)
+----------------------- */
+.zv-chat-message.is-user .zv-chat-bubble {
+  background: #16a34a;
+  color: #ffffff;
+}
+
+/* -----------------------
+   AGENT (white / neutral)
+----------------------- */
+.zv-chat-message.is-agent .zv-chat-bubble {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  color: #0f172a;
+}
+
+/* -----------------------
+   MANAGER (red / authority)
+----------------------- */
+.zv-chat-message.is-manager .zv-chat-bubble {
+  background: #fee2e2;
+  border: 1px solid #fecaca;
+  color: #7f1d1d;
+}
+
+.zv-chat-message.is-manager .zv-chat-meta {
+  color: #991b1b;
+}
+
+
+
+
+
+/* ===============================
+   ADMIN SHOW: MESSAGE BUBBLES
+================================ */
+
+/* left/right alignment */
+.msg-row { display:flex; flex-direction:column; margin:10px 0; }
+.msg-row .msg-bubble { max-width: 78%; padding:10px 12px; border-radius:14px; }
+.msg-row .msg-time { font-size:12px; opacity:.7; margin-top:4px; }
+
+.msg-row.me { align-items:flex-end; }
+.msg-row.other { align-items:flex-start; }
+
+/* CUSTOMER (client/coach) */
+.msg-row.customer .msg-bubble{
+  background:#ffffff;
+  color:#0f172a;
+  border:1px solid #e5e7eb;
+}
+
+/* ADMIN message */
+.msg-row.admin .msg-bubble{
+  background:#111827;
+  color:#fff;
+}
+
+/* MANAGER message */
+.msg-row.manager .msg-bubble{
+  background:#fee2e2;
+  color:#7f1d1d;
+  border:1px solid #fecaca;
+}
+
+/* SYSTEM pill (you already have system rows) */
+.zv-chat-system-pill{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  background:#eef2ff;
+  border:1px solid #e0e7ff;
+  padding:10px 14px;
+  border-radius:14px;
+  font-size:13px;
+  color:#334155;
+  font-weight:600;
+}

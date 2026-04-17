@@ -1,0 +1,743 @@
+/* =========================================================
+   STAFF CHAT — FULL UPDATED CSS (alignment + scroll + media)
+========================================================= */
+
+:root{
+  --sc-border:#e5e7eb;
+  --sc-text:#0f172a;
+  --sc-muted:#64748b;
+
+  --sc-green:#22c55e;
+  --sc-green-dark:#16a34a;
+
+  --shadow-card:0 18px 42px rgba(2,6,23,.10);
+  --shadow-bubble:0 10px 28px rgba(2,6,23,.08);
+}
+
+/* ===== Layout Height (no endless page) ===== */
+.sc-wrap{
+  padding:16px;
+  height: calc(100vh - 32px);
+}
+
+.sc-card{
+  background:#fff;
+  border:1px solid var(--sc-border);
+  border-radius:18px;
+  overflow:hidden;
+  box-shadow:var(--shadow-card);
+  height:100%;
+  min-height:0;
+  display:flex;
+}
+
+/* ===============================
+   LEFT SIDEBAR
+================================ */
+.sc-side{
+  width:360px;
+  border-right:1px solid var(--sc-border);
+  background:#fbfbfc;
+  display:flex;
+  flex-direction:column;
+  height:100%;
+  min-height:0;
+}
+
+.sc-side-head{
+  padding:14px 14px 12px;
+  border-bottom:1px solid var(--sc-border);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  flex:0 0 auto;
+}
+
+.sc-title{ font-weight:950; font-size:18px; color:var(--sc-text); line-height:1.1; }
+.sc-sub{ font-size:12px; color:var(--sc-muted); margin-top:2px; }
+.sc-newdm{ border-radius:12px; white-space:nowrap; }
+
+/* ONE SCROLL for entire sidebar below header */
+.sc-section{
+  padding:12px;
+  /* flex:1 1 auto; */
+  min-height:0;
+  overflow:auto;
+  padding-right:6px;
+}
+
+.sc-section-title{
+  font-size:11px;
+  font-weight:950;
+  color:var(--sc-muted);
+  text-transform:capitalize;
+  letter-spacing:.10em;
+  margin:8px 0 10px;
+}
+
+.sc-list{ display:flex; flex-direction:column; gap:8px; }
+
+.sc-item{
+  display:block;
+  text-decoration:none;
+  color:inherit;
+  background:#fff;
+  border:1px solid var(--sc-border);
+  border-radius:14px;
+  padding:10px 10px;
+  transition:.14s ease;
+}
+.sc-item:hover{ border-color:#cbd5e1; transform:translateY(-1px); }
+.sc-item.active{
+  border-color:#0f172a;
+  box-shadow:0 8px 20px rgba(15,23,42,.10);
+}
+
+.sc-item-row{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+}
+
+.sc-item-title{
+  /* display:flex; */
+  align-items:center;
+  gap:10px;
+  min-width:0;
+  font-weight:900;
+  color:var(--sc-text);
+}
+.sc-item-sub{
+  font-size:12px;
+  color:var(--sc-muted);
+  margin-top:6px;
+}
+
+.sc-item-right{ display:flex; align-items:center; gap:10px; }
+.sc-time{ font-size:11px; color:#94a3b8; white-space:nowrap; }
+
+/* Icon pill */
+.sc-pill{
+  width:32px; height:32px;
+  display:inline-flex; align-items:center; justify-content:center;
+  border-radius:12px;
+  border:1px solid var(--sc-border);
+  flex:0 0 auto;
+}
+.sc-pill-group{ background:#f1f5f9; color:var(--sc-text); }
+.sc-pill-dm{ background:#f8fafc; color:var(--sc-text); }
+
+/* Unread badge */
+.unread-badge{
+  min-width:22px; height:22px;
+  padding:0 7px;
+  border-radius:999px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  font-size:12px;
+  font-weight:950;
+  background:var(--sc-green);
+  color:#fff;
+}
+
+.sc-empty{
+  font-size:13px;
+  color:var(--sc-muted);
+  padding:10px 6px;
+}
+
+/* ===============================
+   RIGHT MAIN
+================================ */
+.sc-main{
+  flex:1;
+  display:flex;
+  flex-direction:column;
+  min-width:0;
+  height:100%;
+  min-height:0;
+}
+
+.sc-main-head{
+  padding:14px 16px;
+  border-bottom:1px solid var(--sc-border);
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:12px;
+  background:#fff;
+  flex:0 0 auto;
+}
+
+.sc-room-title .h5{
+  font-weight:950;
+  color:var(--sc-text);
+  letter-spacing:-.01em;
+}
+.sc-main-actions .btn{ border-radius:12px; }
+
+/* Messages scroll inside */
+.sc-messages{
+  flex:1 1 auto;
+  min-height:0;
+  overflow:auto;
+  padding:18px 16px;
+  background:
+    radial-gradient(circle at 20px 20px, rgba(15,23,42,.035) 2px, transparent 3px) 0 0/22px 22px,
+    linear-gradient(180deg,#f8fafc 0,#ffffff 180px);
+}
+
+/* ===============================
+   MESSAGE ALIGNMENT (FIX)
+================================ */
+.sc-msg-row{
+  display:flex;
+  width:100%;
+  margin:12px 0;
+}
+
+.sc-msg-row.me{ justify-content:flex-end; }
+.sc-msg-row.other{ justify-content:flex-start; }
+
+/* HARD push for WhatsApp alignment */
+.sc-msg{
+  display:flex;
+  min-width:0;
+  max-width:100%;
+}
+.sc-msg-row.me .sc-msg{ margin-left:auto; }
+.sc-msg-row.other .sc-msg{ margin-right:auto; }
+
+/* ===============================
+   BUBBLES
+================================ */
+.sc-bubble{
+  /* IMPORTANT: allow big media but still align right */
+  width:fit-content;
+  max-width:min(680px, 72%);
+  border-radius:18px;
+  padding:10px 12px;
+  border:1px solid var(--sc-border);
+  box-shadow:var(--shadow-bubble);
+  position:relative;
+
+  overflow-wrap:anywhere;
+  word-break:break-word;
+}
+
+/* Me */
+.bubble-me{
+  background:white;
+  color:#000000;
+  border-color:var(--sc-green-dark);
+  border-top-right-radius:10px;
+}
+
+/* Other */
+.bubble-other{
+  background:#fff;
+  color:var(--sc-text);
+  border-color:var(--sc-border);
+  border-top-left-radius:10px;
+}
+
+/* Optional border tint */
+.role-manager.bubble-other{ border-color:#c7d2fe; }
+.role-admin.bubble-other{ border-color:#e2e8f0; }
+.role-superadmin.bubble-other,
+.role-super_admin.bubble-other{ border-color:#fecaca; }
+.role-agent.bubble-other{ border-color:#a5f3fc; }
+
+/* Header */
+.sc-bubble-head{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  margin-bottom:6px;
+}
+
+.sc-head-left{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  min-width:0;
+  flex:1;
+  flex-wrap:wrap;
+}
+.sc-name{
+  font-size:12px;
+  font-weight:950;
+  opacity:.95;
+  flex:1 1 auto;
+  min-width:90px;
+  max-width:100%;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+}
+.sc-meta{
+  font-size:11px;
+  opacity:.78;
+  white-space:nowrap;
+  flex:0 0 auto;
+}
+
+.sc-text{
+  font-size:14px;
+  line-height:1.45;
+  overflow-wrap:anywhere;
+  word-break:break-word;
+}
+
+/* Role tag */
+.sc-role-tag{
+  flex:0 0 auto;
+  font-size:10px;
+  font-weight:950;
+  padding:2px 8px;
+  border-radius:999px;
+  border:1px solid rgba(2,6,23,.10);
+  text-transform:capitalize;
+  line-height:1.4;
+  white-space:nowrap;
+}
+.bubble-me .sc-role-tag{
+  background:var(--sc-green);
+  border-color:rgba(255,255,255,.22);
+  color:#fff;
+}
+.bubble-other .sc-role-tag{
+  background:#f8fafc;
+  border-color:#e5e7eb;
+  color:#334155;
+}
+.sc-role-tag.role-manager{ background:#eef2ff; border-color:#e0e7ff; color:#1e3a8a; }
+.sc-role-tag.role-admin{ background:#f1f5f9; border-color:#e2e8f0; color:#0f172a; }
+.sc-role-tag.role-superadmin,
+.sc-role-tag.role-super_admin{ background:#fee2e2; border-color:#fecaca; color:#7f1d1d; }
+.sc-role-tag.role-agent{ background:#ecfeff; border-color:#a5f3fc; color:#0f766e; }
+
+/* ===============================
+   ATTACHMENTS (CLEAN GRID)
+================================ */
+.sc-att-wrap{
+  margin-top:10px;
+  display:grid;
+  gap:8px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+/* image tiles */
+.sc-att-img{
+  display:block;
+  width:100%;
+  aspect-ratio: 4/3;
+  border-radius:14px;
+  overflow:hidden;
+  border:1px solid rgba(2,6,23,.10);
+  background:#e2e8f0;
+}
+.sc-att-img img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
+}
+
+/* If only 1 image, make it bigger */
+.sc-att-wrap a.sc-att-img:only-child{
+  grid-column:1/-1;
+  aspect-ratio: 16/9;
+}
+
+/* If 3 images, first is wide */
+.sc-att-wrap a.sc-att-img:first-child:nth-last-child(3){
+  grid-column:1/-1;
+  aspect-ratio: 16/9;
+}
+
+/* On green bubble, nicer border */
+.bubble-me .sc-att-img{
+  border-color:rgba(255,255,255,.35);
+}
+
+/* file tile */
+.sc-att-file{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  text-decoration:none;
+  border-radius:14px;
+  padding:10px 12px;
+  border:1px solid rgba(2,6,23,.10);
+  background:#fff;
+  color:inherit;
+  min-width:0;
+}
+.sc-att-file .text-truncate{ max-width:220px; }
+.sc-size{ font-size:11px; opacity:.75; margin-left:auto; white-space:nowrap; }
+
+.bubble-me .sc-att-file{
+  background:rgba(255,255,255,.16);
+  border-color:rgba(255,255,255,.22);
+  color:#fff;
+}
+.bubble-me .sc-att-file i{ color:#fff; }
+.bubble-me .sc-size{ opacity:.90; }
+
+/* ===============================
+   COMPOSER
+================================ */
+.sc-composer{
+  padding:12px 14px;
+  border-top:1px solid var(--sc-border);
+  background:#fff;
+  flex:0 0 auto;
+}
+
+.sc-composer-row{
+  display:flex;
+  align-items:flex-end;
+  gap:10px;
+}
+
+.sc-input{
+  border-radius:16px;
+  resize:none;
+  min-height:44px;
+  padding:10px 12px;
+}
+
+.sc-attach{
+  border-radius:14px;
+  height:44px;
+  width:44px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.sc-send{
+  border-radius:14px;
+  height:44px;
+  width:44px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  font-weight:950;
+}
+
+.sc-hint{
+  margin-top:8px;
+  font-size:11px;
+  color:#94a3b8;
+}
+
+/* ===============================
+   SELECTED FILES PREVIEW
+================================ */
+.sc-picked{
+  margin-top:10px;
+  border:1px solid var(--sc-border);
+  border-radius:14px;
+  background:#fff;
+  padding:10px;
+}
+.sc-picked-head{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  margin-bottom:8px;
+}
+.sc-picked-title{
+  font-size:12px;
+  font-weight:950;
+  color:var(--sc-text);
+}
+.sc-picked-clear{
+  border:none;
+  background:transparent;
+  font-size:12px;
+  font-weight:900;
+  color:#ef4444;
+  padding:4px 8px;
+  border-radius:10px;
+}
+.sc-picked-clear:hover{ background:#fee2e2; }
+
+.sc-picked-list{
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+}
+.sc-picked-item{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding:8px 10px;
+  border-radius:12px;
+  border:1px solid var(--sc-border);
+  background:#f8fafc;
+}
+.sc-picked-ic{
+  width:32px;
+  height:32px;
+  border-radius:12px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  border:1px solid var(--sc-border);
+  background:#fff;
+  flex:0 0 auto;
+}
+.sc-picked-name{
+  min-width:0;
+  flex:1;
+  font-size:13px;
+  font-weight:900;
+  color:var(--sc-text);
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+}
+.sc-picked-meta{
+  font-size:11px;
+  color:var(--sc-muted);
+  white-space:nowrap;
+}
+.sc-picked-del{
+  border:none;
+  background:#fff;
+  border:1px solid var(--sc-border);
+  width:34px;
+  height:34px;
+  border-radius:12px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  flex:0 0 auto;
+}
+.sc-picked-del:hover{
+  border-color:#fecaca;
+  background:#fff1f2;
+  color:#ef4444;
+}
+
+/* ===============================
+   MODAL LIST
+================================ */
+.sc-userlist{ display:flex; flex-direction:column; gap:10px; }
+.user-pill{
+  width:100%;
+  border:1px solid var(--sc-border);
+  background:#fff;
+  border-radius:14px;
+  padding:12px 12px;
+  text-align:left;
+  transition:.12s ease;
+  cursor:pointer;
+}
+.user-pill:hover{ border-color:#cbd5e1; transform:translateY(-1px); }
+.user-pill.team{ background:#ecfeff; border-color:#a5f3fc; }
+.user-pill.manager{ background:#fef3c7; border-color:#fde68a; }
+
+/* ===============================
+   Scrollbar polish
+================================ */
+.sc-messages::-webkit-scrollbar,
+.sc-section::-webkit-scrollbar{
+  width:10px;
+}
+.sc-messages::-webkit-scrollbar-thumb,
+.sc-section::-webkit-scrollbar-thumb{
+  background: rgba(15,23,42,.14);
+  border-radius:999px;
+  border:2px solid transparent;
+  background-clip:padding-box;
+}
+
+/* ===============================
+   RESPONSIVE
+================================ */
+@media (max-width: 991px){
+  .sc-wrap{ height:auto; padding:10px; }
+  .sc-card{ height:auto; min-height:70vh; flex-direction:column; }
+  .sc-side{
+    width:100%;
+    border-right:none;
+    border-bottom:1px solid var(--sc-border);
+    height:auto;
+  }
+  .sc-section{ max-height:280px; }
+  .sc-bubble{ max-width:92%; }
+}
+
+
+
+
+/* ==========================================
+   FINAL ALIGNMENT FIX (ME bubbles stay right)
+========================================== */
+
+/* give the messages area side padding so bubbles never touch the edges */
+.sc-messages{
+  padding-left: 22px !important;
+  padding-right: 22px !important;
+}
+
+/* make each row act like a 2-column layout: left spacer + bubble */
+.sc-msg-row.me{
+  display:flex !important;
+  justify-content:flex-end !important;
+}
+
+/* HARD anchor: push the message container to the right */
+.sc-msg-row.me .sc-msg{
+  margin-left:auto !important;
+  justify-content:flex-end !important;
+  width:100% !important;             /* so auto-margin works reliably */
+}
+
+/* now constrain "me" bubble so it NEVER becomes full-width */
+.sc-msg-row.me .sc-bubble.bubble-me{
+  max-width: 420px !important;        /* key: limit width */
+  width: fit-content !important;
+  margin-left:auto !important;
+  margin-right: 0 !important;
+}
+
+/* other person can be a bit wider if you want */
+.sc-msg-row.other .sc-bubble.bubble-other{
+  max-width: 520px !important;
+}
+
+/* On very wide screens you can allow a bit more */
+@media (min-width: 1200px){
+  .sc-msg-row.me .sc-bubble.bubble-me{ max-width: 520px !important; }
+  .sc-msg-row.other .sc-bubble.bubble-other{ max-width: 620px !important; }
+}
+
+/* On mobile allow bigger */
+@media (max-width: 600px){
+  .sc-msg-row.me .sc-bubble.bubble-me{ max-width: 88% !important; }
+  .sc-msg-row.other .sc-bubble.bubble-other{ max-width: 88% !important; }
+}
+
+/* Long text safety: never force bubble wider */
+.sc-bubble, .sc-text{
+  overflow-wrap:anywhere !important;
+  word-break:break-word !important;
+  /* white-space:pre-wrap; */
+}
+
+
+
+.dm-scope-btn.active{
+  background:#000;
+  color:#fff;
+  border-color:#000;
+}
+
+
+
+
+/* ==========================================
+   SINGLE SCROLL SIDEBAR (NO BLADE CHANGE)
+========================================== */
+
+/* Sidebar stays full height */
+.sc-side{
+  display:flex;
+  flex-direction:column;
+  height:100%;
+  min-height:0;
+  overflow:hidden;        /* important: prevent inner independent scroll */
+}
+
+/* Search row must not create scroll */
+.sc-side > .px-3{
+  flex:0 0 auto;
+}
+
+/* REMOVE scroll from each section */
+.sc-section{
+  overflow:visible !important;
+  flex:0 0 auto !important;
+  min-height:auto !important;
+  padding-right:12px; /* restore padding */
+}
+
+/* Create ONE scroll container by making the LAST sections area scroll.
+   Since we can't wrap them, we scroll the entire sidebar *except* header/search
+   using a pseudo "scroll layer": give the sidebar itself overflow and ensure
+   header/search are sticky. */
+
+.sc-side{
+  overflow:auto;          /* ✅ single scroll */
+}
+
+/* keep header sticky while scrolling */
+.sc-side-head{
+  position:sticky;
+  top:0;
+  z-index:5;
+  background:#fbfbfc;
+}
+
+/* keep search sticky under header */
+.sc-side .px-3.pt-2{
+  position:sticky;
+  top:64px;               /* adjust if your header height differs */
+  z-index:4;
+  background:#fbfbfc;
+  padding-bottom:10px;
+  border-bottom:1px solid var(--sc-border);
+}
+
+/* optional: nicer scrollbar for entire sidebar */
+.sc-side::-webkit-scrollbar{ width:10px; }
+.sc-side::-webkit-scrollbar-thumb{
+  background: rgba(15,23,42,.14);
+  border-radius:999px;
+  border:2px solid transparent;
+  background-clip:padding-box;
+}
+
+
+
+/* SUPERADMIN / ADMIN STYLE — SOFT RED BOX */
+.superadmin-announcement {
+  background: #fff1f2; /* soft pink (same family as admin tag) */
+  border: 1px solid #fecaca;
+  border-left: 4px solid #f87171;
+
+  border-radius: 16px;
+  box-shadow: 0 4px 10px rgba(248, 113, 113, 0.12);
+
+  color: #7f1d1d; /* dark red text */
+}
+
+/* Name */
+.superadmin-announcement .sc-name {
+  font-weight: 700;
+  color: #7f1d1d;
+}
+
+/* Message text */
+.superadmin-announcement .sc-text {
+  font-weight: 600;
+  color: #7f1d1d;
+}
+
+/* Role tag (match tone) */
+.superadmin-announcement .sc-role-tag {
+  background: #fecaca;
+  border-color: #fca5a5;
+  color: #7f1d1d;
+}
+

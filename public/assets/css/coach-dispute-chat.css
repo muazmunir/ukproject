@@ -1,0 +1,422 @@
+:root{
+  --zv-bg:#f6f8fb;
+  --zv-surface:#fff;
+  --zv-text:#0f172a;
+  --zv-muted:#64748b;
+  --zv-border:#e5e9f2;
+  --zv-accent:#2563eb;
+  --shadow:0 14px 38px rgba(2,6,23,.08);
+  --r:18px;
+
+  /* chat colors */
+  --bubble-me-bg:#000;
+  --bubble-me-text:#fff;
+
+  --bubble-admin-bg:#fff;
+  --bubble-admin-text:#0b1220;
+
+  --bubble-them-bg:#f8fafc;
+  --bubble-them-text:#0b1220;
+}
+
+/* page */
+
+.card{
+  background:var(--zv-surface);
+  border:1px solid var(--zv-border);
+  border-radius:var(--r);
+  box-shadow:var(--shadow);
+  padding:20px;
+}
+
+.dv-chatCard{
+  max-width:900px;
+  margin:auto;
+  display:flex;
+  flex-direction:column;
+  height:calc(100vh - 170px);
+}
+
+/* header */
+.dv-chatHead{
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-start;
+  gap:16px;
+  padding-bottom:16px;
+  border-bottom:1px solid var(--zv-border);
+}
+
+.dv-title{
+  margin:0;
+  font-size:20px;
+  font-weight:600;
+  letter-spacing:-.02em;
+}
+
+.dv-subline{
+  margin-top:6px;
+  display:flex;
+  align-items:center;
+  gap:10px;
+  font-size:12.5px;
+  color:var(--zv-muted);
+}
+
+.dv-sep{opacity:.6}
+
+.dv-status{
+  padding:5px 10px;
+  border-radius:999px;
+  font-size:11px;
+  font-weight:600;
+  letter-spacing:.05em;
+  border:1px solid transparent;
+}
+
+.dv-status--open{color:#1e40af;background:#eef4ff;border-color:#dbe7ff}
+.dv-status--in_review{color:#92400e;background:#fffbeb;border-color:#fde68a}
+.dv-status--resolved{color:#065f46;background:#ecfdf3;border-color:#bbf7d0}
+.dv-status--rejected{color:#7f1d1d;background:#fef2f2;border-color:#fecaca}
+
+/* chat area */
+.dv-chat{
+  flex:1;
+  overflow-y:auto;
+  padding:22px 6px;
+  display:flex;
+  flex-direction:column;
+  gap:16px;
+}
+
+/* messages */
+.dv-msg{display:flex}
+.dv-msg.me{justify-content:flex-end}
+.dv-msg.them,
+.dv-msg.admin{justify-content:flex-start}
+
+/* base bubble */
+.dv-bubble{
+  max-width:66%;
+  border:1px solid var(--zv-border);
+  border-radius:18px;
+  padding:14px 16px;
+  box-shadow:0 8px 22px rgba(2,6,23,.05);
+}
+
+/* coach (me): black bg, white text */
+.dv-msg.me .dv-bubble{
+  background:var(--bubble-me-bg);
+  border-color:#0b0b0b;
+  color:var(--bubble-me-text);
+}
+
+/* admin: white bg, black text */
+.dv-msg.admin .dv-bubble{
+  background:var(--bubble-admin-bg);
+  border-color:var(--zv-border);
+  color:var(--bubble-admin-text);
+}
+
+/* them (optional): light bg, black text */
+.dv-msg.them .dv-bubble{
+  background:var(--bubble-them-bg);
+  border-color:var(--zv-border);
+  color:var(--bubble-them-text);
+}
+
+/* message text (IMPORTANT: no hardcoded black anymore) */
+.dv-text{
+  white-space:pre-wrap;
+  line-height:1.55;
+  font-size:14px;
+  color:inherit;              /* inherits from bubble */
+}
+
+/* attachments */
+.dv-media{margin-top:10px;display:flex;flex-wrap:wrap;gap:10px}
+.dv-media img{max-width:170px;border-radius:12px;border:1px solid var(--zv-border);background:#fff}
+
+/* file chips */
+.dv-file{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  padding:9px 12px;
+  border-radius:12px;
+  background:rgba(255,255,255,.92);
+  border:1px solid var(--zv-border);
+  font-size:13px;
+  font-weight:600;
+  color:var(--zv-text);
+  text-decoration:none;
+}
+
+/* when file is inside black bubble: make it readable */
+.dv-msg.me .dv-file{
+  background:rgba(255,255,255,.12);
+  border-color:rgba(255,255,255,.18);
+  color:#fff;
+}
+.dv-msg.me .dv-file:hover{
+  background:rgba(255,255,255,.18);
+}
+
+/* meta */
+.dv-meta{
+  margin-top:8px;
+  font-size:11px;
+  text-align:right;
+  opacity:.85;
+  color:inherit;              /* inherits from bubble */
+}
+.dv-msg.me .dv-meta{opacity:.75}
+.dv-msg.admin .dv-meta,
+.dv-msg.them .dv-meta{color:var(--zv-muted)}
+
+/* input bar */
+.dv-send{
+  display:flex;
+  gap:12px;
+  align-items:flex-end;
+  padding-top:16px;
+  border-top:1px solid var(--zv-border);
+  flex-wrap:wrap;
+}
+
+.dv-input{
+  flex:1;
+  min-width:200px;
+  resize:none;
+  border-radius:16px;
+  border:1px solid var(--zv-border);
+  padding:12px 14px;
+  font-size:14px;
+  background:#fff;
+  color:var(--zv-text);
+}
+
+.dv-input:focus{
+  outline:none;
+  border-color:var(--zv-accent);
+  box-shadow:0 0 0 3px rgba(37,99,235,.12);
+}
+
+/* attach */
+.dv-attach{
+  cursor:pointer;
+  width:44px;
+  height:44px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  border-radius:14px;
+  border:1px solid var(--zv-border);
+  background:#fff;
+  transition:transform .08s ease, box-shadow .15s ease, border-color .15s ease;
+}
+
+.dv-attach:hover{
+  border-color:#cfe0ff;
+  box-shadow:0 10px 20px rgba(37,99,235,.10);
+  transform:translateY(-1px);
+}
+
+.dv-attach:active{transform:translateY(0)}
+
+.dv-attachIcon{
+  width:18px;
+  height:18px;
+  fill:currentColor;
+  color:var(--zv-muted);
+}
+
+.dv-attach:hover .dv-attachIcon{color:var(--zv-text)}
+
+/* previews */
+.dv-previews{
+  width:100%;
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  margin-top:12px;
+}
+
+.dv-previewItem{
+  position:relative;
+  width:96px;
+  height:96px;
+  border-radius:14px;
+  overflow:hidden;
+  border:1px solid var(--zv-border);
+  background:#fff;
+}
+
+.dv-previewItem img{width:100%;height:100%;object-fit:cover}
+
+.dv-fileItem{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding:10px 12px;
+  border-radius:14px;
+  border:1px solid var(--zv-border);
+  background:#f8fafc;
+  font-size:13px;
+  font-weight:600;
+  color:var(--zv-text);
+}
+
+.back{
+  background-color:#000;
+  color:#fff;
+  border-radius:9999px;
+  padding:5px 20px;
+  border:1px solid #000;
+}
+
+/* remove buttons */
+.dv-remove{
+  position:absolute;
+  top:4px;
+  right:4px;
+  width:22px;
+  height:22px;
+  border-radius:50%;
+  border:none;
+  background:rgba(15,23,42,.75);
+  color:#fff;
+  font-size:14px;
+  cursor:pointer;
+  line-height:1;
+}
+
+.dv-remove--file{
+  position:static;
+  width:auto;
+  height:auto;
+  border-radius:10px;
+  background:transparent;
+  color:#64748b;
+  font-size:18px;
+}
+
+/* closed */
+.dv-closed{
+  text-align:center;
+  padding:20px;
+  font-size:13px;
+  color:var(--zv-muted);
+}
+
+/* <= 400px */
+@media (max-width: 400px){
+  .dv-page{padding:12px 0}
+  .dv-chatCard{height:calc(100vh - 120px);border-radius:0}
+  .dv-title{font-size:17px;line-height:1.25}
+  .dv-subline{font-size:11px;gap:6px}
+  .dv-chat{padding:14px 4px;gap:12px}
+  .dv-bubble{max-width:88%;padding:12px 14px;border-radius:16px}
+  .dv-text{font-size:13.5px}
+  .dv-media img{max-width:140px}
+  .dv-send{gap:8px;padding-top:12px}
+  .dv-input{font-size:13.5px;padding:10px 12px;border-radius:14px}
+  .dv-attach{width:40px;height:40px;border-radius:12px}
+  .dv-attachIcon{width:16px;height:16px}
+  .dv-send .btn{padding:10px 14px;font-size:13px}
+  .dv-previewItem{width:72px;height:72px;border-radius:12px}
+  .dv-fileName{max-width:140px}
+  .dv-remove{width:20px;height:20px;font-size:13px}
+}
+
+
+
+/* =========================================================
+   Additions: Agent banner + System banner + Decision note
+   (Used by updated coach.disputes.show blade)
+   ========================================================= */
+
+/* "Handled by @agent" small label */
+.dv-agent{
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  padding:4px 10px;
+  border-radius:999px;
+  background:#f8fafc;
+  border:1px solid var(--zv-border);
+  color: var(--zv-text);
+  font-weight:600;
+}
+.dv-agent--muted{
+  color: var(--zv-muted);
+  background:#fff;
+}
+
+/* System banner shown at top of chat */
+.dv-sys{
+  align-self:center;
+  width:min(680px, 92%);
+  border:1px dashed rgba(2,6,23,.18);
+  background:#f8fafc;
+  color: var(--zv-text);
+  border-radius:16px;
+  padding:12px 14px;
+  font-size:13px;
+  line-height:1.45;
+  box-shadow:0 8px 22px rgba(2,6,23,.04);
+}
+.dv-sys b{ font-weight:700; }
+.dv-sys__sub{
+  margin-top:6px;
+  color: var(--zv-muted);
+  font-size:12px;
+}
+
+/* Decision note card under header (finalized disputes only) */
+.dv-decisionNote{
+  margin-top:10px;
+  border:1px solid rgba(2,6,23,.10);
+  background:#fff;
+  border-radius:16px;
+  padding:12px 14px;
+  box-shadow:0 8px 22px rgba(2,6,23,.04);
+}
+.dv-decisionNote__title{
+  font-size:12px;
+  font-weight:700;
+  letter-spacing:.06em;
+  text-transform:uppercase;
+  color: var(--zv-muted);
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+.dv-decisionNote__by{
+  letter-spacing:0;
+  text-transform:none;
+  font-weight:600;
+  color: var(--zv-muted);
+}
+.dv-decisionNote__text{
+  margin-top:8px;
+  font-size:14px;
+  line-height:1.55;
+  color: var(--zv-text);
+  white-space:pre-wrap;
+}
+
+/* System messages inside chat (if you ever show sender_role=system) */
+.dv-msg.system{ justify-content:center; }
+.dv-msg.system .dv-bubble{
+  max-width:min(680px, 92%);
+  background:#f8fafc;
+  border:1px dashed rgba(2,6,23,.18);
+  color: var(--zv-muted);
+  box-shadow:none;
+  text-align:center;
+}
+.dv-msg.system .dv-meta{
+  text-align:center;
+  color: var(--zv-muted);
+}

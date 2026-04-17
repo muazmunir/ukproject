@@ -1,0 +1,534 @@
+/* =========================================================
+   ADMIN — CLIENTS LIST (Premium Black/White)
+   File: public/assets/css/admin-clients.css
+   Works with your blade as-is (table, segmented, tools, modals)
+========================================================= */
+
+:root{
+  --bg:#fff;
+  --text:#000;
+  --muted:rgba(0,0,0,.62);
+  --muted2:rgba(0,0,0,.48);
+  --border:rgba(0,0,0,.14);
+  --border2:rgba(0,0,0,.10);
+  --soft:#f5f6f8;
+  --soft2:#eef1f5;
+  --radius:18px;
+
+  --shadow:0 18px 40px rgba(0,0,0,.06);
+
+  --ok:#16a34a;
+  --okBg:#ecfdf5;
+  --okBd:#bbf7d0;
+
+  --danger:#dc2626;
+  --dangerBg:#fef2f2;
+  --dangerBd:#fecaca;
+
+  --info:#2563eb;
+  --infoBg:#eff6ff;
+  --infoBd:#bfdbfe;
+}
+
+*{ box-sizing:border-box; }
+body{ background:var(--bg); color:var(--text); }
+
+a{ color:inherit; }
+a:hover{ color:inherit; }
+
+.muted{ color:var(--muted); font-size:12px; }
+.muted.tiny, .tiny{ color:var(--muted2); font-size:11px; }
+
+.card{
+  background:#fff;
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  padding:18px 20px 22px;
+  box-shadow:var(--shadow);
+}
+
+/* Header */
+.card__head{
+  display:flex;
+  align-items:flex-start;
+  justify-content:center;
+  gap:16px;
+  margin-bottom:12px;
+}
+.card__title{
+  font-size:18px;
+  font-weight:950;
+  letter-spacing:.01em;
+  color:#000;
+  text-align: center;
+}
+
+/* =========================================================
+   Segmented filter (All / Deleted)
+========================================================= */
+.segmented{
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  background:linear-gradient(180deg,#fff,#fafbfc);
+  border:1px solid var(--border);
+  border-radius:999px;
+  padding:6px;
+  box-shadow:0 10px 22px rgba(0,0,0,.05);
+}
+
+.segmented input[type="radio"]{
+  position:absolute;
+  opacity:0;
+  pointer-events:none;
+}
+
+.segmented label{
+  height:34px;
+  padding:0 12px;
+  border-radius:999px;
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  cursor:pointer;
+  user-select:none;
+  font-weight:900;
+  font-size:13px;
+  color:#000;
+  border:1px solid transparent;
+  transition:background .12s ease, transform .08s ease, border-color .12s ease;
+}
+
+.segmented label:hover{
+  background:rgba(0,0,0,.04);
+  transform:translateY(-1px);
+}
+
+.segmented input:checked + label{
+  background:#000;
+  color:#fff;
+  border-color:#000;
+}
+
+/* badge inside segmented */
+.segmented .badge{
+  min-width:28px;
+  height:22px;
+  padding:0 8px;
+  border-radius:999px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  font-weight:950;
+  font-size:12px;
+  border:1px solid rgba(0,0,0,.14);
+  background:#fff;
+  color:#000;
+}
+.segmented input:checked + label .badge{
+  background:rgba(255,255,255,.12);
+  border-color:rgba(255,255,255,.22);
+  color:#fff;
+}
+
+.segmented .badge.danger{
+  background:var(--dangerBg);
+  border-color:var(--dangerBd);
+  color:var(--danger);
+}
+
+/* =========================================================
+   Tools row (per + search)
+========================================================= */
+.tools{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  flex-wrap:wrap;
+  margin:12px 0 14px;
+  padding:12px;
+  border:1px solid var(--border2);
+  border-radius:16px;
+  background:linear-gradient(180deg,#fff,#fafbfc);
+}
+
+.per-form{
+  display:flex;
+  align-items:center;
+  margin:0;
+}
+.per-label{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  font-weight:900;
+  font-size:13px;
+  color:#000;
+}
+
+.per-label select{
+  height:36px;
+  border-radius:12px;
+  border:1px solid var(--border);
+  background:#fff;
+  padding:0 10px;
+  font-weight:900;
+  outline:none;
+}
+.per-label select:focus{
+  border-color:rgba(0,0,0,.30);
+  box-shadow:0 0 0 4px rgba(0,0,0,.08);
+}
+
+.search-form{
+  margin:0;
+  flex:1 1 280px;
+  display:flex;
+  justify-content:flex-end;
+}
+.search-form input[type="search"]{
+  width:min(420px, 100%);
+  height:36px;
+  border-radius:999px;
+  border:1px solid var(--border);
+  padding:0 14px;
+  outline:none;
+  background:#fff;
+  font-size:13px;
+  font-weight:700;
+}
+.search-form input[type="search"]:focus{
+  border-color:rgba(0,0,0,.30);
+  box-shadow:0 0 0 4px rgba(0,0,0,.08);
+}
+
+/* =========================================================
+   Table
+========================================================= */
+.table-wrap{
+  overflow:auto;
+  border-radius:14px;
+  border:1px solid rgba(0,0,0,.12);
+  background:#fff;
+}
+
+.zv-table{
+  width:100%;
+  border-collapse:separate;
+  border-spacing:0;
+  font-size:13px;
+}
+
+.zv-table thead th{
+  text-align:center;
+  padding:12px 12px;
+  font-weight:950;
+  font-size:11px;
+  
+  text-transform:capitalize;
+  letter-spacing:.05em;
+  color:rgba(0,0,0,.55);
+  border-bottom:1px solid rgba(0,0,0,.16);
+  background:#fff;
+  position:sticky;
+  top:0;
+  z-index:1;
+}
+
+.zv-table tbody td{
+  padding:12px 12px;
+  border-bottom:1px solid rgba(0,0,0,.08);
+  color:#000;
+  vertical-align:middle;
+  text-align: center;
+}
+
+.zv-table tbody tr:hover{
+  background:var(--soft);
+}
+
+/* name column */
+.namecol strong{
+  font-weight:950;
+  color:#000;
+}
+.namecol .uname{
+  margin-top:2px;
+}
+
+/* avatar image */
+.avatar{
+  width:38px;
+  height:38px;
+  border-radius:999px;
+  object-fit:cover;
+  border:1px solid rgba(0,0,0,.14);
+  /* background:linear-gradient(135deg,#e9ecef,#f5f6f8); */
+}
+
+/* links in table */
+.zv-table a{
+  color:#000;
+  text-decoration:none;
+  border-bottom:1px dotted rgba(0,0,0,.25);
+}
+.zv-table a:hover{
+  border-bottom-color:rgba(0,0,0,.55);
+}
+
+/* =========================================================
+   Row actions (View / Delete / Restore)
+========================================================= */
+.row-actions{
+  display:flex;
+  align-items:center;
+  justify-content:flex-start;
+  gap:8px;
+}
+.row-actions.compact{ gap:8px; }
+
+.btn.icon{
+  width:36px;
+  height:36px;
+  border-radius:12px;
+  border:1px solid rgba(0,0,0,.14);
+  background:#fff;
+  color:#000;
+  font-weight:950;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  line-height:1;
+  text-decoration:none;
+  cursor:pointer;
+  transition:transform .08s ease, box-shadow .12s ease, background .12s ease, border-color .12s ease;
+}
+
+.btn.icon:hover{
+  transform:translateY(-1px);
+  background:rgba(0,0,0,.04);
+  box-shadow:0 14px 30px rgba(0,0,0,.10);
+}
+
+.btn.icon.info{
+  background:var(--infoBg);
+  border-color:var(--infoBd);
+  color:var(--info);
+}
+
+.btn.icon.danger{
+  background:var(--dangerBg);
+  border-color:var(--dangerBd);
+  color:var(--danger);
+}
+
+.btn.icon.success{
+  background:var(--okBg);
+  border-color:var(--okBd);
+  color:var(--ok);
+}
+
+/* =========================================================
+   Pagination wrapper
+========================================================= */
+.pager{
+  margin-top:14px;
+}
+
+/* =========================================================
+   MODAL (shared) — works with .modal.open
+   Bootstrap conflict safe (forces display)
+========================================================= */
+.modal{
+  position:fixed;
+  inset:0;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  padding:22px;
+  background:rgba(0,0,0,.55);
+  z-index:9999;
+}
+.modal.open{ display:flex !important; }
+
+.modal__dialog{
+  width:100%;
+  max-width:520px;
+}
+
+.modal__card{
+  background:#fff;
+  border:1px solid rgba(0,0,0,.14);
+  border-radius:18px;
+  box-shadow:0 24px 60px rgba(0,0,0,.18);
+  overflow:hidden;
+}
+
+.modal__head{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  padding:14px 16px;
+  border-bottom:1px solid rgba(0,0,0,.10);
+}
+
+.modal__head .title{
+  font-weight:950;
+  letter-spacing:.01em;
+  font-size:14px;
+  color:#000;
+}
+
+.modal__head .x{
+  width:34px;
+  height:34px;
+  border-radius:999px;
+  border:1px solid rgba(0,0,0,.14);
+  background:#fff;
+  cursor:pointer;
+  font-size:18px;
+  line-height:1;
+  display:grid;
+  place-items:center;
+}
+.modal__head .x:hover{ background:rgba(0,0,0,.04); }
+
+.modal__body{
+  padding:14px 16px;
+  color:#000;
+  font-size:13px;
+}
+
+.modal__foot{
+  padding:14px 16px;
+  display:flex;
+  justify-content:flex-end;
+  gap:10px;
+  border-top:1px solid rgba(0,0,0,.10);
+  background:linear-gradient(180deg,#fff,#fafbfc);
+}
+
+/* Modal footer buttons using your existing markup: .btn ghost/danger/success */
+.modal__foot .btn{
+  height:40px;
+  padding:0 14px;
+  border-radius:999px;
+  border:1px solid rgba(0,0,0,.14);
+  background:#fff;
+  color:#000;
+  font-weight:900;
+  font-size:13px;
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  cursor:pointer;
+  transition:transform .08s ease, box-shadow .12s ease, background .12s ease, border-color .12s ease;
+}
+.modal__foot .btn:hover{
+  transform:translateY(-1px);
+  background:rgba(0,0,0,.04);
+  box-shadow:0 14px 30px rgba(0,0,0,.10);
+}
+
+.modal__foot .btn.ghost{
+  background:#fff;
+}
+
+.modal__foot .btn.danger{
+  background:var(--dangerBg);
+  border-color:var(--dangerBd);
+  color:var(--danger);
+}
+
+.modal__foot .btn.success{
+  background:var(--okBg);
+  border-color:var(--okBd);
+  color:var(--ok);
+}
+
+/* Responsive */
+@media (max-width:900px){
+  .tools{ align-items:flex-start; }
+  .search-form{ width:100%; justify-content:flex-start; }
+  .search-form input[type="search"]{ width:100%; }
+}
+@media (max-width:520px){
+  .card{ padding:16px 14px 18px; }
+  .card__head{ flex-direction:column; align-items:flex-start; }
+  .segmented{ width:100%; justify-content:flex-start; }
+  .modal{ padding:14px; }
+  .modal__foot{ flex-direction:column; }
+  .modal__foot .btn{ width:100%; justify-content:center; }
+}
+
+
+  /* Avatar with letter fallback */
+.avatar-wrap{
+  width:40px;
+  height:40px;
+  border-radius:50%;
+  overflow:hidden;
+  position:relative;
+}
+
+.avatar-img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
+}
+
+/* Letter avatar */
+.avatar-fallback{
+  width:100%;
+  height:100%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:#111;
+  color:#fff;
+  font-weight:600;
+  font-size:15px;
+  text-transform:uppercase;
+}
+
+
+/* =========================================================
+   ICON FIXES (Bootstrap Icons centered, consistent)
+========================================================= */
+
+/* Your small action icon buttons */
+.btn.icon{
+  padding:0 !important;                 /* override Bootstrap .btn padding */
+  min-width:36px;
+  width:36px;
+  height:36px;
+  display:inline-flex !important;
+  align-items:center !important;
+  justify-content:center !important;
+}
+
+/* The <i class="bi ..."> inside */
+.btn.icon i.bi{
+  font-size:16px;
+  line-height:1;
+  display:block;
+}
+
+/* Slightly nicer hover clarity */
+.btn.icon:hover i.bi{
+  transform:translateY(-.5px);
+}
+
+/* Modal close button icon */
+.modal__head .x{
+  padding:0 !important;                 /* if Bootstrap touches it */
+  display:grid !important;
+  place-items:center !important;
+}
+.modal__head .x i.bi{
+  font-size:16px;
+  line-height:1;
+}

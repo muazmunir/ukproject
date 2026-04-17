@@ -1,0 +1,148 @@
+/* ================== Verify Page Layout ================== */
+
+.verify-page {
+    min-height: calc(100vh - 96px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .verify-wrapper {
+    width: 100%;
+    max-width: 480px;
+  }
+  
+  /* ================== Card ================== */
+  
+  .verify-card {
+    border-radius: 16px;
+    border: 1px solid #e5e7eb;
+    box-shadow: 0 16px 40px rgba(15, 23, 42, 0.12);
+  }
+  
+  .verify-card .card-body {
+    padding: 2rem 2.2rem;
+  }
+  
+  /* ================== Typography ================== */
+  
+  .verify-title {
+    font-size: 1.15rem;
+    letter-spacing: 0.04em;
+  }
+  
+  .verify-subtitle {
+    font-size: 0.9rem;
+    color: #6b7280 !important;
+  }
+  
+  .verify-alert {
+    font-size: 0.85rem;
+    border-radius: 999px;
+  }
+  
+  /* ================== OTP Input ================== */
+  
+  .otp-input {
+    max-width: 220px;
+    border-radius: 999px;
+    border: 1px solid #d1d5db;
+    padding: 0.8rem 1rem;
+    letter-spacing: 0.55em;
+    font-size: 1.15rem;
+    font-weight: 600;
+    background-color: #f9fafb;
+    box-shadow: 0 4px 10px rgba(15, 23, 42, 0.05);
+    transition:
+      border-color 0.15s ease,
+      box-shadow 0.15s ease,
+      background-color 0.15s ease;
+  }
+  
+  .otp-input::placeholder {
+    color: #d1d5db;
+    letter-spacing: 0.3em;
+  }
+  
+  .otp-input:focus {
+    background-color: #ffffff;
+    border-color: #2563eb;
+    box-shadow:
+      0 0 0 1px rgba(37, 99, 235, 0.15),
+      0 8px 18px rgba(37, 99, 235, 0.25);
+  }
+  
+  /* ================== Verify Button ================== */
+  
+  .verify-btn {
+    border-radius: 999px;
+    border: none;
+ background-image: linear-gradient(
+    90deg,
+    #F8E7A2 0%,
+    #f1ce5d 65%,
+    #e5bd3c 85%
+  
+);
+
+
+
+
+
+
+
+    font-size: 0.9rem;
+    color: black;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    /* text-transform: uppercase; */
+    padding: 0.75rem 1rem;
+    box-shadow: 0 12px 28px rgba(15, 23, 42, 0.35);
+    transition:
+      transform 0.1s ease,
+      box-shadow 0.1s ease,
+      filter 0.1s ease;
+  }
+  
+  .verify-btn:hover {
+    transform: translateY(-1px);
+    filter: brightness(1.03);
+    box-shadow: 0 16px 36px rgba(15, 23, 42, 0.45);
+  }
+  
+  .verify-btn:active {
+    transform: translateY(0);
+    box-shadow: 0 8px 18px rgba(15, 23, 42, 0.3);
+  }
+  
+  /* ================== Timer & Resend ================== */
+  
+  #resendTimer {
+    font-size: 0.8rem;
+  }
+  
+  .resend-link {
+    font-size: 0.86rem;
+    font-weight: 500;
+    text-decoration: none;
+    color: black;
+    padding: 0;
+  }
+  
+  .resend-link:hover {
+    text-decoration: underline;
+  }
+  
+  /* ================== Responsive ================== */
+  
+  @media (max-width: 575.98px) {
+    .verify-card .card-body {
+      padding: 1.7rem 1.4rem;
+    }
+  
+    .otp-input {
+      max-width: 190px;
+      font-size: 1.05rem;
+    }
+  }
+  

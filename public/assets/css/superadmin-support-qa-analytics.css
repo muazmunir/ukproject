@@ -1,0 +1,69 @@
+/* Superadmin Q&A Analytics page - clean + stable tables */
+
+.qa-wrap { max-width: 1200px; margin: 24px auto; padding: 0 14px; }
+.qa-card { background:#fff; border:1px solid rgba(0,0,0,.08); border-radius:16px; overflow:hidden; }
+
+.qa-head { display:flex; align-items:flex-start; justify-content:space-between; gap:14px; padding:18px; border-bottom:1px solid rgba(0,0,0,.06); }
+.qa-title { margin:0; font-weight:800; font-size:20px; }
+.qa-sub { color:rgba(0,0,0,.65); font-size:13px; margin-top:4px; }
+
+.qa-analytics { display:grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap:12px; padding:16px; }
+.qa-cardx { background:#fff; border:1px solid rgba(0,0,0,.10); border-radius:14px; padding:14px; }
+.qa-cardx .k { font-size:12px; opacity:.75; margin-bottom:6px; }
+.qa-cardx .v { font-size:22px; font-weight:900; }
+
+.qa-mini { display:grid; grid-template-columns: 1fr 1fr; gap:12px; padding:0 16px 16px; }
+.qa-mini table { width:100%; border-collapse:collapse; }
+.qa-mini td { padding:8px 0; font-size:13px; border-bottom:1px solid rgba(0,0,0,.06); }
+.qa-mini td:last-child { text-align:right; font-weight:800; }
+
+.qa-filters { padding: 0 16px 12px; }
+.qa-filters__row { display:flex; flex-wrap:wrap; gap:10px; align-items:center; }
+.qa-input, .qa-select {
+  height: 40px;
+  border-radius: 12px;
+  border: 1px solid rgba(0,0,0,.14);
+  padding: 0 12px;
+  font-size: 14px;
+  background:#fff;
+}
+.qa-input { min-width: 220px; }
+.qa-select { min-width: 170px; }
+
+.qa-btn {
+  height: 40px;
+  border-radius: 12px;
+  border: 1px solid #111;
+  background:#111;
+  color:#fff;
+  padding: 0 14px;
+  font-weight:700;
+}
+.qa-btn.ghost { background:#fff; color:#111; border-color: rgba(0,0,0,.16); text-decoration:none; display:inline-flex; align-items:center; }
+
+.table { width:100%; margin:0; }
+.table thead th { font-size:13px; color:rgba(0,0,0,.65); font-weight:800; border-bottom:1px solid rgba(0,0,0,.08); padding:12px 16px; white-space:nowrap; }
+.table tbody td { padding:12px 16px; vertical-align:middle; border-bottom:1px solid rgba(0,0,0,.06); }
+
+/* ✅ Fix the "destroyed" question column */
+.qa-question-cell { width: 55%; }
+.qa-question-text{
+  max-width: 620px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;       /* 2 lines */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  word-break: break-word;
+}
+
+/* Keep other columns stable */
+.qa-col-sm { white-space:nowrap; width: 140px; }
+.qa-col-status { white-space:nowrap; width: 130px; }
+.qa-col-updated { white-space:nowrap; width: 140px; }
+
+/* responsive */
+@media (max-width: 1100px){
+  .qa-analytics { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .qa-mini { grid-template-columns: 1fr; }
+  .qa-input { min-width: 180px; }
+}

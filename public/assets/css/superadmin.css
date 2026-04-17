@@ -1,0 +1,150 @@
+:root {
+    --sa-bg: #f8f9fc;
+    --sa-card: #ffffff;
+    --sa-text: #1a1a1a;
+    --sa-muted: #6b7280;
+    --sa-primary: #101820;
+    --sa-primary-hover: #000000;
+    --sa-border: #e5e7eb;
+}
+
+[data-theme="dark"] {
+    --sa-bg: #111;
+    --sa-card: #1b1b1b;
+    --sa-text: #f1f1f1;
+    --sa-muted: #9ca3af;
+    --sa-primary: #fddf4e;
+    --sa-primary-hover: #e7c52b;
+    --sa-border: #333;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background: var(--sa-bg);
+    font-family: Inter, sans-serif;
+    color: var(--sa-text);
+}
+
+/* NAVBAR */
+.sa-navbar {
+    background: var(--sa-card);
+    height: 70px;
+    padding: 0 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--sa-border);
+}
+
+.sa-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.sa-logo img {
+    width: 38px;
+}
+
+.sa-logo span {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--sa-text);
+}
+
+.sa-nav-links a {
+    margin: 0 10px;
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--sa-muted);
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 10px;
+    border-radius: 8px;
+}
+
+.sa-nav-links a:hover,
+.sa-nav-links a.active {
+    background: var(--sa-primary);
+    color: #fff !important;
+}
+
+/* RIGHT ACTIONS */
+.sa-actions {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.sa-theme-btn {
+    background: transparent;
+    border: none;
+    font-size: 22px;
+    color: var(--sa-text);
+    cursor: pointer;
+}
+
+/* PROFILE */
+.sa-profile {
+    position: relative;
+}
+
+.sa-avatar {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: var(--sa-primary);
+    color: #fff;
+    border: none;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.sa-profile-menu {
+    position: absolute;
+    right: 0;
+    top: 48px;
+    background: var(--sa-card);
+    border: 1px solid var(--sa-border);
+    width: 180px;
+    border-radius: 10px;
+    padding: 10px;
+    display: none;
+}
+
+.sa-profile-menu.open {
+    display: block;
+}
+
+.sa-profile-menu .title {
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.sa-profile-menu a,
+.sa-profile-menu button {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 0;
+    color: var(--sa-text);
+    text-decoration: none;
+    background: none;
+    border: none;
+    width: 100%;
+    text-align: left;
+    cursor: pointer;
+}
+
+.sa-profile-menu a:hover,
+.sa-profile-menu button:hover {
+    color: var(--sa-primary);
+}
+
+/* MAIN CONTENT */
+.sa-content {
+    padding: 32px;
+}

@@ -1,0 +1,482 @@
+:root{
+  --zv-bg: #fafbff;
+  --zv-text: #0f172a;
+  --zv-muted:#6b7280;
+  --zv-primary:#111827;         /* near-black for brand */
+  --zv-accent:#2563eb;          /* blue accent */
+  --zv-surface:#ffffff;
+  --zv-border:#eef0f3;
+  --zv-ok:#16a34a;
+  --zv-shadow: 0 10px 30px rgba(2,6,23,.06);
+  --zv-shadow-lg: 0 20px 48px rgba(2,6,23,.10);
+}
+
+/* Page */
+body{background:var(--zv-bg);}
+.zv-container{max-width:1120px;margin:0 auto;}
+.zv-muted{color:var(--zv-muted);}
+
+/* ====== Cards & sections ====== */
+.zv-card{background:var(--zv-surface);border:1px solid var(--zv-border);border-radius:18px;box-shadow:var(--zv-shadow);}
+.zv-card + .zv-card{margin-top:12px;}
+.zv-card-header{padding:16px 18px;border-bottom:1px dashed var(--zv-border);display:flex;gap:.75rem;align-items:center;}
+.zv-card-body{padding:18px;}
+.zv-sticky{position:sticky;top:84px;}
+.zv-divider{height:1px;background:var(--zv-border);margin:12px 0;}
+
+/* ====== Stepper ====== */
+.zv-step{border:1px solid var(--zv-border);border-radius:18px;overflow:hidden;background:var(--zv-surface);box-shadow:var(--zv-shadow);}
+.zv-step[aria-expanded="true"] .zv-step-toggle{background:linear-gradient(180deg,#f8fbff, #fff);}
+.zv-step-num{width:28px;height:28px;border-radius:999px;display:grid;place-items:center;background:var(--zv-primary);color:#fff;font-weight:700;font-size:.85rem;}
+.zv-step-title{font-weight:700;letter-spacing:.1px;flex:1;color:var(--zv-text);}
+.zv-step-toggle{border:0;background:transparent;width:100%;text-align:left;padding:14px 16px;display:flex;align-items:center;gap:.75rem;}
+.zv-step-toggle .bi{transition:transform .2s ease;}
+.zv-step[aria-expanded="true"] .zv-step-toggle .bi{transform:rotate(180deg);}
+.zv-step-body{padding:16px;border-top:1px dashed var(--zv-border);}
+
+/* ====== Chips & pills ====== */
+.zv-pill{background:#f3f4f6;border:1px solid var(--zv-border);border-radius:999px;padding:.28rem .6rem;font-size:.78rem;}
+.zv-slot{border:1px solid var(--zv-border);border-radius:12px;padding:.45rem .6rem;margin:.35rem .35rem 0 0;background:#fff;display:inline-block}
+.zv-slot:hover{box-shadow:var(--zv-shadow);}
+
+/* ====== Environment radio grid ====== */
+.zv-env{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;}
+.zv-env .form-check{border:1px solid var(--zv-border);border-radius:14px;padding:10px 12px;background:#fff;display:flex;gap:.6rem;align-items:center;cursor:pointer;transition:box-shadow .18s, transform .18s;}
+.zv-env .form-check:hover{box-shadow:var(--zv-shadow);transform:translateY(-1px);}
+.zv-env .form-check-input{margin-top:0;margin-left:0 !important;}
+.zv-env .form-check-input:checked + i{color:black;}
+.form-check-input:checked{background-color: #000000;
+    border-color: #000000;}
+
+/* ====== Summary panel ====== */
+.zv-media{display:grid;grid-template-columns:96px 1fr;gap:12px;align-items:center;margin-bottom:10px;}
+.zv-media .thumb{width:96px;height:72px;border-radius:12px;object-fit:cover;box-shadow:var(--zv-shadow);}
+.zv-media .title{font-weight:700;line-height:1.2;}
+.zv-media .meta{font-size:.85rem;color:var(--zv-muted);}
+.zv-badge{display:inline-flex;align-items:center;gap:.35rem;border:1px solid var(--zv-border);border-radius:999px;padding:.25rem .55rem;background:#fff;font-size:.8rem;}
+.zv-fee-line,.zv-total-line{display:flex;justify-content:space-between;align-items:center;}
+.zv-fee-line{color:var(--zv-muted);margin:.35rem 0;}
+.zv-total-line{font-weight:800;font-size:1.1rem;margin-top:.6rem;}
+.zv-safe{display:flex;align-items:center;gap:.4rem;color:var(--zv-muted);}
+
+/* ====== Buttons ====== */
+.btn-dark{background:var(--zv-primary);border-color:var(--zv-primary);}
+.btn-dark:hover{box-shadow:var(--zv-shadow-lg);}
+.btn-primary{background:var(--zv-accent);border-color:var(--zv-accent);}
+
+/* ====== Responsive ====== */
+@media (max-width: 991.98px){
+  .zv-sticky{position:static;}
+  .zv-media{grid-template-columns:80px 1fr;}
+  .zv-media .thumb{width:80px;height:64px;}
+
+
+
+}
+
+
+/* payments */
+/* payments – Google-style list */
+
+.zv-pay-tabs{
+  display:flex;
+  flex-direction:column;
+  /* border-radius:18px; */
+  
+  overflow:hidden;
+  background:#fff;
+}
+
+/* each row */
+.zv-pay-tab{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:14px 16px;
+  /* border-top:1px solid var(--zv-border); */
+  cursor:pointer;
+  user-select:none;
+  background:#fff;
+  transition:background .12s ease;
+}
+
+.zv-pay-tab:hover{background:#f9fafb;}
+
+/* left content (icon + text) */
+.zv-pay-main{
+  display:flex;
+  align-items:center;
+  gap:.6rem;
+  font-size:.95rem;
+}
+.zv-pay-title{
+  font-weight:500;
+}
+.zv-pay-sub{
+  display:block;
+  font-size:.8rem;
+  color:var(--zv-muted);
+}
+
+/* radio on right */
+.zv-pay-tab input[type="radio"]{
+  margin:0 0 0 1rem;
+  flex-shrink:0;
+}
+
+/* panel under the list */
+.zv-pay-panel{
+  border-radius:14px;
+  padding:16px;
+  background:#fff;
+  /* border:1px dashed var(--zv-border); */
+  margin-top:16px;
+}
+
+
+
+
+/* header badges */
+.zv-cardbar strong{font-weight:600}
+.zv-brands{display:flex;gap:6px;flex-wrap:wrap}
+.zv-brand{font-size:12px;border:1px solid var(--zv-border);padding:2px 6px;border-radius:999px;background:#fff;color:#374151}
+.zv-brand.dim{opacity:.35}
+
+/* inputs */
+.zv-input-wrap{position:relative}
+.zv-input, .zv-ctl{
+  min-height:48px; border:1px solid var(--zv-border); border-radius:10px;
+  padding:12px 14px; background:#fff;
+  transition:border-color .15s, box-shadow .15s;
+}
+.zv-input:focus, .zv-ctl:focus{outline:none;border-color:#c7d2fe;box-shadow:0 0 0 3px rgba(37,99,235,.15)}
+.zv-lock{position:absolute; left:12px; top:50%; transform:translateY(-50%); color:#9ca3af; font-size:14px}
+#card-number.StripeElement{padding-left:28px}
+
+/* Stripe Elements text style */
+.StripeElement{width:100%}
+.StripeElement--focus{box-shadow:none}
+.StripeElement--invalid{border-color:#fecaca}
+
+/* divider */
+.zv-divider{height:1px;background:var(--zv-border);margin:14px 0}
+
+
+/* PayPal area polish */
+#paypal-button {
+  padding: 10px;
+  border-radius: 12px;
+  background: #fff;
+  border: 1px dashed var(--zv-border);
+}
+#paypal-button iframe { border-radius: 10px !important; }
+
+
+/* ---- Pay card UI polish ---- */
+
+.zv-cardbar {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:1rem;
+  margin-bottom:14px;
+}
+
+.zv-cardbar-left {
+  display:flex;
+  align-items:center;
+  gap:.55rem;
+}
+
+.zv-cardbar-title {
+  font-weight:600;
+}
+
+.zv-autofill-btn{
+  border-radius:999px;
+  font-size:.8rem;
+  padding:6px 14px;
+  border:0;
+  background:#065f46;
+  color:#fff;
+  display:inline-flex;
+  align-items:center;
+  gap:.25rem;
+  box-shadow:0 6px 16px rgba(6,95,70,.25);
+}
+.zv-autofill-btn:hover{
+  filter:brightness(1.05);
+}
+
+/* inputs layout */
+.zv-field-label{
+  font-size:.85rem;
+  font-weight:500;
+  margin-bottom:4px;
+}
+
+.zv-input-row{
+  display:flex;
+  gap:12px;
+}
+.zv-input-row > .zv-field{
+  flex:1;
+}
+
+.zv-ctl{
+  width:100%;
+  min-height:46px;
+  border-radius:999px;
+}
+
+/* divider in card */
+.zv-card-divider{
+  height:1px;
+  background:var(--zv-border);
+  margin:16px 0;
+}
+
+/* country dropdown */
+#bill-country{
+  max-width:320px;
+}
+
+/* Review & confirm container */
+.zv-review-block{
+  background: linear-gradient(135deg,#f9fafb,#eef2ff);
+  border-radius: 18px;
+  padding: 1rem 1.25rem;
+  border: 1px solid rgba(148,163,184,0.45);
+  box-shadow: 0 14px 32px rgba(15,23,42,0.06);
+}
+
+/* Top schedule row */
+.zv-review-row{
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-start;
+  gap:1.5rem;
+}
+
+.zv-review-schedule{
+  padding-bottom:.9rem;
+  margin-bottom:.9rem;
+  border-bottom:1px dashed rgba(148,163,184,0.6);
+}
+
+.zv-review-label-wrap{
+  min-width:120px;
+}
+
+.zv-review-value-wrap{
+  flex:1;
+  text-align:right;
+}
+
+.zv-review-slot{
+  font-size:.88rem;
+}
+
+.zv-review-hours{
+  margin-top:.3rem;
+  font-size:.8rem;
+  color:#6b7280;
+}
+
+/* Chip-style label for “Schedule” */
+.zv-review-chip{
+  display:inline-flex;
+  align-items:center;
+  padding:0.15rem 0.55rem;
+  border-radius:999px;
+  font-size:.7rem;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  background:rgba(37,99,235,0.06);
+  color:#1d4ed8;
+}
+
+/* 2-column detail grid */
+.zv-review-grid{
+  display:grid;
+  grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);
+  row-gap:.35rem;
+  column-gap:1.25rem;
+  font-size:.9rem;
+  margin-bottom:.75rem;
+}
+
+.zv-review-label{
+  font-size:.78rem;
+  text-transform:uppercase;
+  letter-spacing:.08em;
+  color:#6b7280;
+}
+
+.zv-review-value{
+  text-align:right;
+  font-weight:500;
+}
+
+/* Total row */
+.zv-review-total{
+  margin-top:.25rem;
+  padding-top:.6rem;
+  border-top:1px solid rgba(148,163,184,0.5);
+}
+
+.zv-review-total .zv-review-label{
+  font-size:.85rem;
+}
+
+.zv-review-total .zv-review-value{
+  font-size:1rem;
+  font-weight:600;
+  color:#111827;
+}
+
+/* Responsive tweak */
+@media (max-width: 576px){
+  .zv-review-row{
+    flex-direction:column;
+    align-items:flex-start;
+  }
+  .zv-review-value-wrap,
+  .zv-review-value{
+    text-align:left;
+  }
+}
+
+
+
+
+
+
+
+/* card  */
+/* ---------------- Airbnb-ish payment fields (Stripe + inputs) ---------------- */
+/* ---------- Airbnb-ish payment form ---------- */
+
+.zv-pay-panel { padding: 0; }
+
+.zv-field { margin-bottom: 14px; }
+.zv-label {
+  display:block;
+  font-size:.85rem;
+  font-weight:700;
+  color:#0f172a;
+  margin-bottom:6px;
+}
+
+.zv-help{
+  font-size:.8rem;
+  color:#64748b;
+  margin-top:6px;
+}
+
+.zv-section-title{
+  font-weight:800;
+  color:#0f172a;
+  margin: 2px 0 10px;
+}
+
+.zv-grid-2{
+  display:grid;
+  grid-template-columns: 1fr 1fr;
+  gap:12px;
+}
+
+.zv-sep{
+  height:1px;
+  background:#e5e7eb;
+  margin: 14px 0;
+}
+
+/* Controls */
+.zv-control{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  border:1px solid #e5e7eb;
+  border-radius:14px;
+  padding:10px 12px;
+  background:#fff;
+}
+
+.zv-control--stripe { padding: 10px 12px; }
+
+.zv-icon{
+  width:20px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  color:#0f172a;
+  opacity:.75;
+}
+
+.zv-suffix{
+  margin-left:auto;
+  color:#0f172a;
+  opacity:.65;
+}
+
+/* Inputs */
+.zv-input{
+  width:100%;
+  border:0;
+  outline:0;
+  background:transparent;
+  font-size: 15px;
+  color:#0f172a;
+}
+
+.zv-input::placeholder{ color:#94a3b8; }
+
+/* Stripe elements */
+.zv-stripe{
+  width:100%;
+  padding: 2px 0;
+}
+
+/* Invalid highlight */
+.zv-invalid,
+.is-invalid{
+  border-color:#ef4444 !important;
+  box-shadow:0 0 0 4px rgba(239,68,68,.10) !important;
+}
+
+/* Small screens */
+@media (max-width: 520px){
+  .zv-grid-2{ grid-template-columns: 1fr; }
+}
+
+
+
+
+/* Checkbox UI on right side of each payment option */
+.zv-pay-check{
+  width:22px;height:22px;border-radius:7px;
+  border:1.5px solid #cbd5e1;
+  display:inline-flex;align-items:center;justify-content:center;
+  flex:0 0 auto;
+  background:#fff;
+  transition:.15s ease;
+}
+.zv-pay-check i{ font-size:14px; opacity:0; transform:scale(.9); transition:.15s ease; }
+
+.zv-pay-tab{
+  position:relative;
+}
+.zv-pay-tab.is-active{
+  border-color:#0f172a;
+  box-shadow:0 6px 18px rgba(15,23,42,.08);
+}
+.zv-pay-tab.is-active .zv-pay-check{
+  border-color:#0f172a;
+  background:#0f172a;
+}
+.zv-pay-tab.is-active .zv-pay-check i{
+  opacity:1;
+  transform:scale(1);
+  color:#fff;
+}

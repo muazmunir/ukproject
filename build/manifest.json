@@ -1,0 +1,80 @@
+{
+  "_index-CWzLiBRn.js": {
+    "file": "assets/index-CWzLiBRn.js",
+    "name": "index",
+    "imports": [
+      "_index-j2lCQU8D.js"
+    ]
+  },
+  "_index-DpimSulh.js": {
+    "file": "assets/index-DpimSulh.js",
+    "name": "index",
+    "imports": [
+      "_index-j2lCQU8D.js"
+    ]
+  },
+  "_index-j2lCQU8D.js": {
+    "file": "assets/index-j2lCQU8D.js",
+    "name": "index"
+  },
+  "resources/css/app.css": {
+    "file": "assets/app-k_RIZPZp.css",
+    "src": "resources/css/app.css",
+    "isEntry": true,
+    "names": [
+      "app.css"
+    ]
+  },
+  "resources/js/admin-dashboard.js": {
+    "file": "assets/admin-dashboard-mKuDmKn9.js",
+    "name": "admin-dashboard",
+    "src": "resources/js/admin-dashboard.js",
+    "isEntry": true
+  },
+  "resources/js/admin-webauthn.js": {
+    "file": "assets/admin-webauthn-SMaHM6P6.js",
+    "name": "admin-webauthn",
+    "src": "resources/js/admin-webauthn.js",
+    "isEntry": true
+  },
+  "resources/js/app.js": {
+    "file": "assets/app-DzQG5Ud3.js",
+    "name": "app",
+    "src": "resources/js/app.js",
+    "isEntry": true,
+    "imports": [
+      "_index-j2lCQU8D.js",
+      "_index-DpimSulh.js"
+    ],
+    "css": [
+      "assets/app-BsM4JrO0.css"
+    ]
+  },
+  "resources/js/coach_calendar.js": {
+    "file": "assets/coach_calendar-CD5KXuQP.js",
+    "name": "coach_calendar",
+    "src": "resources/js/coach_calendar.js",
+    "isEntry": true,
+    "imports": [
+      "_index-j2lCQU8D.js",
+      "_index-DpimSulh.js",
+      "_index-CWzLiBRn.js"
+    ]
+  },
+  "resources/js/gt.js": {
+    "file": "assets/gt-BFjhAFwv.js",
+    "name": "gt",
+    "src": "resources/js/gt.js",
+    "isEntry": true
+  },
+  "resources/js/service_booking.js": {
+    "file": "assets/service_booking-DNLZ3FqY.js",
+    "name": "service_booking",
+    "src": "resources/js/service_booking.js",
+    "isEntry": true,
+    "imports": [
+      "_index-j2lCQU8D.js",
+      "_index-CWzLiBRn.js"
+    ]
+  }
+}

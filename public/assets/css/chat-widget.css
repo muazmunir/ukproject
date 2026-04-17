@@ -1,0 +1,119 @@
+/* Floating chat FAB */
+.zv-support-fab {
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    width: 56px;
+    height: 56px;
+    border-radius: 999px;
+    border: none;
+    background: #111827;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 18px 35px rgba(15,23,42,0.35);
+    cursor: pointer;
+    z-index: 9998;
+}
+.zv-support-fab i {
+    font-size: 1.5rem;
+}
+.zv-support-fab:hover {
+    background: #2563eb;
+}
+
+/* Panel container */
+.zv-support-panel {
+    position: fixed;
+    right: 20px;
+    bottom: 96px;
+    width: 360px;
+    max-width: 100%;
+    height: 480px;
+    max-height: calc(100vh - 120px);
+    background: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 26px 60px rgba(15,23,42,0.45);
+    overflow: hidden;
+    z-index: 9999;
+
+    transform: translateY(20px);
+    opacity: 0;
+    pointer-events: none;
+    transition: transform 0.25s ease, opacity 0.25s ease;
+}
+
+/* Visible state */
+.zv-support-panel--open {
+    transform: translateY(0);
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* Hidden state */
+.zv-support-panel--hidden {
+    transform: translateY(20px);
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* Header */
+.zv-support-header {
+    height: 52px;
+    padding: 0 14px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #111827;
+    color: #fff;
+}
+
+.zv-support-title {
+    font-weight: 500;
+    font-size: 0.95rem;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.zv-support-close {
+    border: none;
+    background: transparent;
+    color: #e5e7eb;
+    cursor: pointer;
+}
+.zv-support-close:hover {
+    color: white;
+}
+
+/* Iframe container */
+.zv-support-body {
+    width: 100%;
+    height: calc(100% - 52px);
+    background: #f3f4f6;
+}
+
+.zv-support-iframe {
+    width: 100%;
+    height: 100%;
+    border: 0;
+    display: block;
+    background: transparent;
+}
+
+/* Mobile */
+@media (max-width: 576px) {
+    .zv-support-panel {
+        right: 8px;
+        left: 8px;
+        width: auto;
+        bottom: 80px;
+        height: 70vh;
+        max-height: 70vh;
+    }
+    .zv-support-fab {
+        right: 12px;
+        bottom: 12px;
+    }
+}

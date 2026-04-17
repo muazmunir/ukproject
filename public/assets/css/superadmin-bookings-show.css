@@ -1,0 +1,558 @@
+.ab-page {
+    padding: 24px;
+}
+
+.ab-shell {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    max-width: 1800px;
+    margin: 0 auto;
+}
+
+.ab-center {
+    text-align: center;
+}
+
+.ab-caps,
+.ab-caps * {
+    text-transform: capitalize;
+}
+
+.ab-caps .ab-mono,
+.ab-caps .ab-mono * {
+    text-transform: none;
+}
+
+.ab-head {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    padding: 24px;
+    border: 1px solid #e2e8f0;
+    border-radius: 20px;
+    background: #fff;
+    box-shadow: 0 10px 30px rgba(15, 23, 42, 0.04);
+    flex-wrap: wrap;
+    text-align: center;
+}
+
+.ab-head__content {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    min-width: 0;
+    flex: 1 1 100%;
+    align-items: center;
+    justify-content: center;
+}
+
+.ab-title {
+    margin: 0;
+    font-size: 28px;
+    line-height: 1.2;
+    font-weight: 700;
+    color: #0f172a;
+    text-align: center;
+}
+
+.ab-sub {
+    margin: 0 auto;
+    font-size: 14px;
+    line-height: 1.6;
+    color: #64748b;
+    max-width: 900px;
+    text-align: center;
+}
+
+.ab-head__period {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: center;
+    align-items: center;
+}
+
+.ab-head__actions {
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    gap: 10px;
+    flex: 1 1 100%;
+}
+
+.ab-card {
+    border: 1px solid #e2e8f0;
+    border-radius: 20px;
+    background: #fff;
+    box-shadow: 0 10px 30px rgba(15, 23, 42, 0.04);
+    overflow: hidden;
+}
+
+.ab-cardHead {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    padding: 20px 22px 0;
+    flex-direction: column;
+    text-align: center;
+}
+
+.ab-cardTitle {
+    margin: 0;
+    font-size: 18px;
+    line-height: 1.3;
+    font-weight: 700;
+    color: #0f172a;
+    text-align: center;
+}
+
+.ab-cardSub {
+    margin: 6px 0 0;
+    font-size: 13px;
+    line-height: 1.5;
+    color: #64748b;
+    max-width: 880px;
+    text-align: center;
+}
+
+.ab-banner {
+    margin: 18px 22px 0;
+    padding: 14px 18px;
+    border-radius: 16px;
+    border: 1px solid transparent;
+    font-size: 14px;
+    line-height: 1.6;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.ab-banner--danger {
+    background: #fef2f2;
+    color: #b91c1c;
+    border-color: #fecaca;
+}
+
+/* KPI CARDS */
+.ab-kpis {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: stretch;
+    gap: 14px;
+}
+
+.ab-kpiCard {
+    flex: 0 1 320px;
+    width: 100%;
+    max-width: 320px;
+    border: 1px solid #e2e8f0;
+    border-radius: 18px;
+    background: #fff;
+    padding: 18px;
+    box-shadow: 0 10px 24px rgba(15, 23, 42, 0.03);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.ab-kpiCard.is-highlight {
+    border-color: #cbd5e1;
+    background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
+}
+
+.ab-kpiLabel {
+    font-size: 12px;
+    font-weight: 600;
+    color: #64748b;
+    margin-bottom: 8px;
+    text-align: center;
+}
+
+.ab-kpiValue {
+    font-size: 24px;
+    line-height: 1.2;
+    font-weight: 700;
+    color: #0f172a;
+    text-align: center;
+}
+
+.ab-kpiMeta {
+    margin-top: 8px;
+    font-size: 12px;
+    line-height: 1.5;
+    color: #64748b;
+    max-width: 240px;
+    text-align: center;
+}
+
+/* TWO BIG TOP CARDS */
+.ab-chartGrid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: stretch;
+    gap: 20px;
+}
+
+.ab-chartGrid > .ab-card {
+    flex: 1 1 560px;
+    max-width: 100%;
+}
+
+/* ALL INNER DETAIL BOXES */
+.ab-detailGrid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: stretch;
+    gap: 14px;
+    padding: 20px 22px 22px;
+}
+
+.ab-detailItem {
+    flex: 0 1 190px;
+    min-width: 190px;
+    max-width: 260px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding: 14px;
+    border: 1px solid #f1f5f9;
+    border-radius: 16px;
+    background: #fcfdff;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.ab-detailLabel {
+    font-size: 12px;
+    font-weight: 600;
+    color: #64748b;
+    text-align: center;
+}
+
+.ab-detailItem strong,
+.ab-detailItem span,
+.ab-detailItem a {
+    color: #0f172a;
+    font-size: 14px;
+    line-height: 1.5;
+    word-break: break-word;
+    text-align: center;
+}
+
+/* SESSION / FINANCE BOXES */
+.ab-financeGrid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: stretch;
+    gap: 14px;
+    padding: 20px 22px 22px;
+}
+
+.ab-financeCard {
+    flex: 0 1 220px;
+    width: 100%;
+    max-width: 220px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 16px;
+    border: 1px solid #e2e8f0;
+    border-radius: 16px;
+    background: #fff;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.ab-financeLabel {
+    font-size: 12px;
+    font-weight: 600;
+    color: #64748b;
+    text-align: center;
+}
+
+.ab-financeValue {
+    font-size: 22px;
+    line-height: 1.2;
+    font-weight: 700;
+    color: #0f172a;
+    text-align: center;
+}
+
+.ab-financeCard small {
+    font-size: 12px;
+    line-height: 1.5;
+    color: #64748b;
+    max-width: 220px;
+    text-align: center;
+}
+
+.ab-tableWrap {
+    padding: 18px 22px 22px;
+    overflow-x: auto;
+    overflow-y: visible;
+}
+
+.ab-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    min-width: 1100px;
+}
+
+.ab-table--caps,
+.ab-table--caps * {
+    text-transform: capitalize;
+}
+
+.ab-table--caps .ab-mono,
+.ab-table--caps .ab-mono * {
+    text-transform: none;
+}
+
+.ab-table thead th {
+    text-align: center;
+    font-size: 12px;
+    font-weight: 700;
+    color: #475569;
+    background: #f8fafc;
+    padding: 14px 16px;
+    border-top: 1px solid #e2e8f0;
+    border-bottom: 1px solid #e2e8f0;
+    white-space: nowrap;
+}
+
+.ab-table thead th:first-child {
+    border-left: 1px solid #e2e8f0;
+    border-top-left-radius: 14px;
+}
+
+.ab-table thead th:last-child {
+    border-right: 1px solid #e2e8f0;
+    border-top-right-radius: 14px;
+}
+
+.ab-table tbody td {
+    padding: 14px 16px;
+    font-size: 13px;
+    line-height: 1.5;
+    color: #0f172a;
+    border-bottom: 1px solid #eef2f7;
+    background: #fff;
+    vertical-align: middle;
+    text-align: center;
+}
+
+.ab-table tbody tr td:first-child {
+    border-left: 1px solid #f1f5f9;
+}
+
+.ab-table tbody tr td:last-child {
+    border-right: 1px solid #f1f5f9;
+}
+
+.ab-table tbody tr:last-child td:first-child {
+    border-bottom-left-radius: 14px;
+}
+
+.ab-table tbody tr:last-child td:last-child {
+    border-bottom-right-radius: 14px;
+}
+
+.ab-table tbody tr:hover td {
+    background: #fcfdff;
+}
+
+.ab-table__subrow td {
+    background: #fafcff !important;
+    padding: 0 !important;
+}
+
+/* SUB BOXES INSIDE SLOT DETAILS */
+.ab-subgrid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: stretch;
+    gap: 12px;
+    padding: 16px;
+}
+
+.ab-subgridItem {
+    flex: 0 1 220px;
+    min-width: 220px;
+    max-width: 280px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding: 12px;
+    border: 1px solid #e8eef6;
+    border-radius: 14px;
+    background: #ffffff;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.ab-subgridItem--full {
+    flex: 1 1 100%;
+    max-width: 100%;
+}
+
+.ab-empty {
+    text-align: center;
+    color: #64748b;
+    padding: 24px !important;
+}
+
+.ab-pill {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 28px;
+    padding: 0 10px;
+    border-radius: 999px;
+    font-size: 12px;
+    line-height: 1;
+    font-weight: 700;
+    white-space: nowrap;
+    border: 1px solid transparent;
+    text-align: center;
+}
+
+.ab-pill.ok {
+    background: #ecfdf5;
+    color: #047857;
+    border-color: #a7f3d0;
+}
+
+.ab-pill.warn {
+    background: #fff7ed;
+    color: #c2410c;
+    border-color: #fed7aa;
+}
+
+.ab-pill.danger {
+    background: #fef2f2;
+    color: #b91c1c;
+    border-color: #fecaca;
+}
+
+.ab-pill.neutral {
+    background: #f8fafc;
+    color: #475569;
+    border-color: #e2e8f0;
+}
+
+.ab-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    height: 40px;
+    padding: 0 14px;
+    border-radius: 12px;
+    border: 1px solid transparent;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.ab-btn--ghost {
+    background: #fff;
+    color: #0f172a;
+    border-color: #dbe4ee;
+}
+
+.ab-btn--ghost:hover {
+    background: #f8fafc;
+    color: #0f172a;
+}
+
+.ab-mono {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+}
+
+a {
+    color: #0f172a;
+    text-decoration: none;
+}
+
+a:hover {
+    color: #334155;
+}
+
+@media (max-width: 1200px) {
+    .ab-chartGrid > .ab-card {
+        flex: 1 1 100%;
+    }
+
+    .ab-detailItem {
+        flex: 0 1 220px;
+    }
+}
+
+@media (max-width: 768px) {
+    .ab-page {
+        padding: 16px;
+    }
+
+    .ab-head {
+        padding: 18px;
+        flex-direction: column;
+    }
+
+    .ab-head__content,
+    .ab-head__actions,
+    .ab-head__period {
+        width: 100%;
+    }
+
+    .ab-head__actions .ab-btn {
+        width: 100%;
+    }
+
+    .ab-cardHead {
+        padding: 18px 18px 0;
+    }
+
+    .ab-tableWrap {
+        padding: 16px 18px 18px;
+    }
+
+    .ab-title {
+        font-size: 24px;
+    }
+
+    .ab-kpiValue,
+    .ab-financeValue {
+        font-size: 20px;
+    }
+
+    .ab-banner {
+        margin: 16px 18px 0;
+    }
+
+    .ab-kpiCard,
+    .ab-financeCard,
+    .ab-detailItem,
+    .ab-subgridItem {
+        flex: 1 1 100%;
+        min-width: 100%;
+        max-width: 100%;
+    }
+}

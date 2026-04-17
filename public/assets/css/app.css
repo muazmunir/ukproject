@@ -1,0 +1,41 @@
+/* app.css */
+@import url("navbar.css");
+/* @import url("hero.css"); */
+@import url("categories.css");
+@import url("services.css");
+@import url("promo-banner.css");
+@import url("footer.css");
+@import url("client.css");
+@import url("services_catalog.css");
+@import url("auth.css");
+@import url("verify.css");
+@import url("client-profile.css");
+@import url("support-chat.css");
+/* @import url("chat-widget.css"); */
+@import "./messages.css";
+
+
+:root
+
+/* globals */
+
+body {
+  font-family: 'Inter', sans-serif !important;
+/* or 'Montserrat', sans-serif */
+}
+
+
+
+
+/* Hide Google widget UI/banners */
+.goog-te-banner-frame.skiptranslate { display: none !important; }
+.goog-te-banner-frame { display: none !important; }
+#goog-gt-tt, .goog-te-balloon-frame { display: none !important; }
+#google_translate_element, .goog-te-gadget, .goog-te-gadget-icon { display: none !important; }
+.goog-text-highlight { background: none !important; box-shadow: none !important; }
+
+/* Reset any top offset Google injects */
+html, body { top: 0 !important; overflow-x: hidden;  }
+.container-fluid{
+    --bs-gutter-x: 0 !important;
+}

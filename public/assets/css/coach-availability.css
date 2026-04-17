@@ -1,0 +1,364 @@
+/* ===== Booked background events (only keep if you truly render booked as bg-events) ===== */
+#coachCalendar .fc-bg-event.booked-slot{
+  background:#2563eb !important;
+  border-color:#1e40af !important;
+}
+
+/* ---------- General container spacing ---------- */
+.container-narrow{
+  max-width: 980px;
+  margin: 0 auto;
+  padding-left: 12px;
+  padding-right: 12px;
+}
+
+/* Utility for jump button */
+@media (min-width: 768px){
+  .w-md-auto{ width: auto !important; }
+}
+
+/* ---------- Header + badges ---------- */
+#tzBadge{
+  max-width: 100%;
+  white-space: normal;
+}
+
+/* ---------- Legend ---------- */
+.zv-legend{ gap: 12px !important; }
+
+@media (max-width: 575.98px){
+  .zv-legend{ justify-content: flex-start !important; }
+  .zv-legend > span{ width: 100%; }
+}
+
+/* ---------- Weekly editor ---------- */
+#weeklyEditor .row{
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+@media (max-width: 767.98px){
+  #weeklyEditor .row{ align-items: stretch !important; }
+  #weeklyEditor .col-12.col-md-2{ margin-bottom: 4px; }
+
+  /* requires JS to add .range-row class */
+  #weeklyEditor .ranges{
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  #weeklyEditor .ranges .range-row{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  #weeklyEditor .ranges .range-row > *{
+    flex: 1 1 120px;
+    min-width: 120px;
+  }
+}
+
+/* ---------- Calendar base ---------- */
+#coachCalendar{
+  overflow: hidden; /* stop accidental spill outside card */
+}
+
+/* toolbar works nicely on all sizes */
+#coachCalendar .fc .fc-toolbar{
+  flex-wrap: wrap;
+  gap: 8px;
+}
+#coachCalendar .fc .fc-toolbar-title{
+  font-size: 1rem;
+  margin: 0;
+}
+
+/* ---------- Mobile ≤576px ---------- */
+@media (max-width: 575.98px){
+
+  /* calendar card */
+  #coachCalendar{
+    padding: 8px !important;
+  }
+  #coachCalendar .fc{
+    min-height: 520px;
+  }
+
+  /* toolbar: tighter + aligned */
+  #coachCalendar .fc .fc-toolbar{
+    gap: 6px;
+    align-items: center;
+  }
+  #coachCalendar .fc .fc-toolbar-chunk{
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+  #coachCalendar .fc .fc-toolbar-title{
+    font-size: 1rem;
+    line-height: 1.15;
+    white-space: normal;
+  }
+
+  /* buttons: smaller */
+  #coachCalendar .fc .fc-button{
+    padding: .25rem .45rem;
+    font-size: .8rem;
+  }
+
+  /* if user switches to WEEK view -> scroll instead of crush */
+  #coachCalendar .fc-view-harness{
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  #coachCalendar .fc-timegrid{
+    min-width: 720px;
+  }
+
+  /* time axis tighter */
+  #coachCalendar .fc .fc-timegrid-axis{
+    width: 44px !important;
+  }
+  #coachCalendar .fc .fc-timegrid-slot-label{
+    font-size: .75rem;
+  }
+
+  /* weekly editor inputs */
+  #weeklyEditor .range-row input[type="time"]{
+    flex: 1 1 120px;
+    min-width: 120px;
+  }
+  #weeklyEditor .range-row .btnDel{
+    flex: 0 0 auto;
+  }
+
+  /* modals */
+  .modal-dialog{ margin: .75rem; }
+  .modal-content{ border-radius: 18px !important; }
+}
+
+/* ---------- Tiny phones ≤390px ---------- */
+@media (max-width: 390px){
+
+  /* slightly more compact calendar card */
+  #coachCalendar{ padding: 6px !important; }
+  #coachCalendar .fc{ min-height: 480px; }
+
+  /* toolbar gets even tighter */
+  #coachCalendar .fc .fc-toolbar-title{
+    font-size: .92rem;
+    line-height: 1.1;
+  }
+  #coachCalendar .fc .fc-button{
+    padding: .20rem .35rem;
+    font-size: .75rem;
+  }
+
+  /* time axis: smallest readable */
+  #coachCalendar .fc .fc-timegrid-axis{
+    width: 38px !important;
+  }
+  #coachCalendar .fc .fc-timegrid-slot-label{
+    font-size: .70rem;
+  }
+}
+
+
+
+/* ===== Weekly Editor: Base styling ===== */
+#weeklyEditor .ranges .range-row{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px;
+  border: 1px solid rgba(15, 23, 42, 0.10);
+  border-radius: 12px;
+  background: #fff;
+}
+
+/* Make time inputs consistent */
+#weeklyEditor .ranges .range-row input[type="time"]{
+  min-width: 140px;
+  flex: 1 1 160px;
+}
+
+/* The dash separator */
+#weeklyEditor .ranges .range-row span{
+  flex: 0 0 auto;
+  opacity: .6;
+  padding: 0 2px;
+}
+
+/* Delete button: small square icon */
+#weeklyEditor .ranges .range-row .btnDel{
+  flex: 0 0 auto;
+  width: 38px;
+  height: 38px;
+  padding: 0 !important;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+}
+
+/* Remove the bootstrap margin-left that pushes it weirdly */
+#weeklyEditor .ranges .range-row .btnDel.ms-1{
+  margin-left: 0 !important;
+}
+
+/* ===== Mobile ≤576px: stack nicely ===== */
+@media (max-width: 575.98px){
+  /* Each day section spacing */
+  #weeklyEditor .row{
+    padding-top: 12px;
+    padding-bottom: 12px;
+  }
+
+  /* Range row becomes 2-column grid: start/end then delete */
+  #weeklyEditor .ranges .range-row{
+    display: grid;
+    grid-template-columns: 1fr 1fr auto;
+    gap: 10px;
+    align-items: center;
+    padding: 10px;
+  }
+
+  /* Inputs fill columns */
+  #weeklyEditor .ranges .range-row input[type="time"]{
+    width: 100%;
+    min-width: 0;
+  }
+
+  /* Dash goes away on mobile (looks cleaner) */
+  #weeklyEditor .ranges .range-row span{
+    display: none;
+  }
+
+  /* Delete button aligns right nicely */
+  #weeklyEditor .ranges .range-row .btnDel{
+    width: 40px;
+    height: 40px;
+    border-radius: 12px;
+  }
+}
+
+/* ===== Tiny phones ≤390px: even cleaner ===== */
+@media (max-width: 390px){
+  #weeklyEditor .ranges .range-row{
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas:
+      "start end"
+      "del   del";
+  }
+
+  #weeklyEditor .ranges .range-row input.start{ grid-area: start; }
+  #weeklyEditor .ranges .range-row input.end{ grid-area: end; }
+
+  /* Delete becomes full-width but not ugly */
+  #weeklyEditor .ranges .range-row .btnDel{
+    grid-area: del;
+    width: 100%;
+    height: 40px;
+    justify-content: center;
+  }
+}
+
+/* Orange blocked background */
+.res-blocked-slot.fc-bg-event {
+    background-color: #f97316 !important; /* orange */
+    border: none !important;
+    opacity: 1;
+}
+
+
+.sw-blocked{ background:#f97316; border-color:#c2410c; } /* Orange */
+
+
+/* Make blocked event span the entire column width */
+#coachCalendar .fc-timegrid-event.res-blocked-slot {
+  left: 0 !important;
+  right: 0 !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  width: 100% !important;
+}
+
+/* Remove default event padding that causes gaps */
+#coachCalendar .fc-timegrid-event-harness {
+  left: 0 !important;
+  right: 0 !important;
+}
+
+#coachCalendar .fc-event.res-blocked-slot {
+  display: block !important;
+  width: 100% !important;
+}
+
+/* FULL WIDTH orange blocked event in timeGrid */
+#coachCalendar .fc-timegrid-event.res-blocked-slot{
+  left: 0 !important;
+  right: 0 !important;
+  width: 100% !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  border-radius: 0 !important;          /* optional: makes it look like bg */
+}
+
+/* FullCalendar wraps events in a harness which adds inset */
+#coachCalendar .fc-timegrid-event-harness{
+  left: 0 !important;
+  right: 0 !important;
+}
+
+/* Make text centered nicely */
+#coachCalendar .fc-timegrid-event.res-blocked-slot .fc-event-main{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+#coachCalendar .fc-event.res-blocked-slot{
+  background-color: #f97316 !important;
+  border-color: #f97316 !important;
+  color: #fff !important;
+  opacity: 1 !important;
+  font-weight: 700;
+}
+
+
+
+/* ---- FULL WIDTH for the orange "Cancelled By Coach" event ---- */
+
+/* FullCalendar sets inline left/right on the harness. Override for our blocked event only */
+#coachCalendar .fc-timegrid-event-harness:has(.res-blocked-slot){
+  left: 0 !important;
+  right: 0 !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+}
+
+/* Stretch the actual event to fill the harness */
+#coachCalendar .fc-timegrid-event.res-blocked-slot{
+  left: 0 !important;
+  right: 0 !important;
+  width: 100% !important;
+  margin: 0 !important;
+  border-radius: 0 !important;
+}
+
+/* Orange styling + text */
+#coachCalendar .fc-event.res-blocked-slot{
+  background: #f97316 !important;
+  border-color: #f97316 !important;
+  color: #fff !important;
+  font-weight: 700;
+  opacity: 1 !important;
+}
+
+#coachCalendar .fc-timegrid-event-harness.blocked-harness{
+  left: 0 !important;
+  right: 0 !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+}

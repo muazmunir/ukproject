@@ -1,0 +1,550 @@
+/* =========================
+   ZAIVIAS PRO NAVBAR (LIGHT)
+   White background + black text
+   ========================= */
+
+:root{
+  --zvL-bg: rgba(255,255,255,0.92);
+  --zvL-border: black;
+  --zvL-text: rgba(15, 23, 42, 0.92);
+  --zvL-muted: rgba(15, 23, 42, 0.60);
+  --zvL-soft: rgba(15, 23, 42, 0.06);
+  --zvL-soft2: rgba(15, 23, 42, 0.10);
+  --zvL-shadow: 0 10px 30px rgba(15,23,42,0.10);
+  --zvL-accent: #7c5cff;
+}
+
+/* Navbar */
+.zv-main-navbar-light{
+  background: var(--zvL-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  
+  box-shadow: 0 2px 0 rgba(0, 0, 0, 0.03);
+}
+
+.zv-logo-light{ height: 26px; width: auto; display:block; }
+
+/* Desktop buttons */
+.zv-lang-btn-light,
+.user-bubble-light{
+  color:black;
+  background: linear-gradient(180deg, rgba(15,23,42,0.06), rgba(15,23,42,0.03));
+  border: 1px solid var(--zvL-border);
+  box-shadow: var(--zvL-shadow);
+  transition: transform .15s ease, background .15s ease;
+  font-size: 13px !important;
+}
+
+.bi::before, [class^="bi-"]::before, [class*=" bi-"]::before {
+    display: inline-block;
+    font-family: bootstrap-icons !important;
+    font-style: normal;
+    font-weight: 600 !important;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+    vertical-align: -.125em;
+    -webkit-font-smoothing: antialiased;
+}
+
+.zv-lang-btn-light:hover,
+.user-bubble-light:hover{
+  transform: translateY(-1px);
+  background: linear-gradient(180deg, rgba(15,23,42,0.08), rgba(15,23,42,0.04));
+}
+
+/* Dropdown menus (light) */
+.language-menu-light,
+.zv-user-dropdown-light{
+  background: #fff;
+  border: 1px solid var(--zvL-border);
+  box-shadow: 0 18px 45px rgba(15,23,42,0.12);
+  border-radius: 16px;
+  overflow: hidden;
+  
+}
+
+.language-menu-light .dropdown-item,
+.zv-user-dropdown-light .dropdown-item{
+  color: black;
+  border-radius: 12px;
+  padding: 10px 12px;
+}
+
+.language-menu-light .dropdown-item:hover,
+.zv-user-dropdown-light .dropdown-item:hover{
+  background: var(--zvL-soft);
+}
+
+/* Role pill (light) */
+.zv-role-pill-light{
+  font-size: 12px;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 999px;
+  border: 1px solid black;
+  background: black;
+  color: white;
+}
+.zv-role-pill-light.is-coach{
+  border-color: black;
+  background:black;
+  
+}
+.zv-role-pill-light.is-client{
+  border-color: black;
+}
+
+/* Mobile single button */
+.zv-mobile-one-light{
+  border-radius: 999px;
+  border: 1px solid black;
+  background: linear-gradient(180deg, rgba(15,23,42,0.06), rgba(15,23,42,0.03));
+  color: var(--zvL-text);
+  padding: 10px 12px;
+  box-shadow: var(--zvL-shadow);
+}
+.zv-mobile-one__text{ font-weight: 600; }
+
+/* Offcanvas (light) */
+.zv-offcanvas-light{
+  background: #fff;
+  color: var(--zvL-text);
+  border-right: 1px solid var(--zvL-border);
+}
+.zv-logo-sm-light{ height: 30px; width:auto; }
+
+/* Accordion styling for language */
+.zv-acc__item{
+  border: 1px solid var(--zvL-border);
+  border-radius: 16px;
+  overflow: hidden;
+  background: #fff;
+}
+.zv-acc__btn{
+  background: #fff !important;
+  color: var(--zvL-text) !important;
+  font-weight: 600;
+  box-shadow: none !important;
+}
+.zv-acc__btn::after{
+  filter: none; /* keep arrow dark */
+}
+.zv-lang-scroll{
+  max-height: 260px;
+  overflow: auto;
+  border: 1px solid var(--zvL-border);
+  border-radius: 13px;
+  padding: 6px;
+  background: rgba(15,23,42,0.03);
+}
+
+/* Mobile panel items */
+.zv-mobile-panel-light{
+  border: 1px solid var(--zvL-border);
+  background: rgba(15,23,42,0.03);
+  border-radius: 16px;
+  padding: 10px;
+}
+.zv-mobile-item{
+  width: 100%;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap: 12px;
+  text-decoration:none;
+  color: var(--zvL-text);
+  border-radius: 12px;
+  padding: 10px 12px;
+  border: 0;
+  background: transparent;
+}
+.zv-mobile-item:hover{
+  background: rgba(15,23,42,0.06);
+}
+
+/* Role CTA light */
+.zv-role-cta-light{
+  display:block;
+  text-decoration:none;
+  border-radius:16px;
+  
+  background:white;
+  
+  color: black;
+}
+.zv-role-cta__title{ display:block; font-weight:600; }
+.zv-role-cta__sub{ display:block; margin-top:2px; color: var(--zvL-muted); font-size:12px; }
+
+.zv-role-pending-light{
+  border-radius: 16px;
+ 
+  background: rgba(255, 255, 255, 0.03);
+  
+}
+.zv-dot-light{
+  width: 10px; height: 10px; border-radius: 99px;
+  background: black;
+  box-shadow: 0 0 0 4px rgba(0, 0, 0, 0.12);
+}
+
+/* Segmented toggle light */
+.zv-role-toggle-light{
+  border: 1px solid var(--zvL-border);
+  background: rgba(15,23,42,0.03);
+  border-radius: 16px;
+  padding: 12px;
+}
+
+.zv-role-toggle__label{
+  color: #000;
+  font-size: 12px;
+  letter-spacing: .02em;
+  margin-bottom: 8px;
+}
+
+/* container */
+.zv-seg-light{
+  position: relative;
+  display: flex;
+  align-items: stretch;
+  width: 260px;
+  max-width: 100%;
+  border-radius: 12px;
+  background: #fff;
+  border: 1px solid rgba(0,0,0,.08);
+  box-shadow: 0 6px 16px rgba(0,0,0,.12);
+  overflow: hidden;
+}
+
+/* each half */
+.zv-seg__item{
+  flex: 1 1 0;
+  margin: 0;
+}
+
+/* button */
+.zv-seg__btn{
+  position: relative;      /* needed for ::before logo */
+  width: 100%;
+  border: 0;
+  background: transparent;
+  padding: 10px 16px;
+  font-weight: 700;
+  color: #111;
+  letter-spacing: .5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  cursor: pointer;
+  overflow: hidden;        /* keeps watermark inside */
+  z-index: 1;              /* keeps text above ::before */
+  transition: background .15s ease, transform .12s ease, box-shadow .15s ease;
+}
+
+/* vertical divider between the two buttons */
+.zv-seg__item + .zv-seg__item .zv-seg__btn{
+  box-shadow: inset 1px 0 0 rgba(0,0,0,.08);
+}
+
+/* active pill look */
+.zv-seg__btn.is-active{
+  background: #fff;
+  box-shadow: 0 2px 8px rgba(0,0,0,.12);
+  
+}
+
+/* rounded outer corners on active */
+.zv-seg__item:first-child .zv-seg__btn.is-active{
+  border-top-left-radius: 12px;
+  border-bottom-left-radius: 12px;
+}
+.zv-seg__item:last-child .zv-seg__btn.is-active{
+  border-top-right-radius: 12px;
+  border-bottom-right-radius: 12px;
+}
+
+/* === Z LOGO ONLY ON ACTIVE BUTTON (centered in its half) === */
+
+  /* === Z LOGO ONLY ON ACTIVE BUTTON (match auth crisp look) === */
+.zv-seg__btn.is-active::before{
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url("/assets/toggle-logo.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 25%;   /* ✅ match auth */
+  opacity: 1;             /* ✅ match auth */
+  pointer-events: none;
+  z-index: -1;
+
+  /* optional: helps crispness in many browsers */
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
+  image-rendering: -webkit-optimize-contrast;
+}
+
+/* hover */
+.zv-seg__btn:hover{
+  background: rgba(0,0,0,.03);
+}
+.zv-seg__btn.is-active:hover{
+  background: #fff;
+}
+
+/* icon size */
+.zv-seg__btn i{
+  font-size: 1rem;
+  line-height: 1;
+}
+
+/* small screens */
+@media (max-width: 400px){
+  .zv-seg-light{ width: 100%; }
+
+  .zv-seg__btn.is-active::before{
+    background-size: 52%;
+  }
+}
+
+
+.btn-close{
+  color:black;
+}
+
+
+
+
+/* =========================
+   NAVBAR LIGHT - COMPACT OVERRIDES
+   (reduces labels + everything)
+   Put at VERY BOTTOM of CSS
+   ========================= */
+
+/* Reduce general typography inside navbar + offcanvas */
+.zv-main-navbar-light,
+.zv-main-navbar-light * {
+  letter-spacing: .1px;
+}
+
+/* Desktop middle link (All Services) */
+.zv-nav-mid-light{
+  font-size: 13px;
+  padding: 6px 6px;
+  line-height: 1.1;
+}
+
+/* Dropdown items + labels */
+.zv-user-dropdown-light .dropdown-item,
+.language-menu-light .dropdown-item{
+  font-size: 13px;
+  padding: 8px 10px;
+  line-height: 1.15;
+}
+
+/* Dropdown divider spacing */
+.zv-user-dropdown-light .dropdown-divider{
+  margin: 6px 0;
+}
+
+/* Accordion header label (Language) */
+.zv-acc__btn{
+  font-size: 13px !important;
+  padding: 10px 12px !important;
+}
+
+/* Offcanvas body overall */
+.zv-offcanvas-light .offcanvas-body{
+  padding: 12px;
+}
+
+/* Offcanvas items */
+.zv-mobile-item{
+  font-size: 13px !important;
+  padding: 8px 10px !important;
+  line-height: 1.15;
+}
+
+/* Forms / Inputs (search language) */
+#langSearch,
+#langSearchMobile{
+  font-size: 12px !important;
+  padding: 6px 10px !important;
+  height: 32px;
+}
+
+/* CTA title/sub sizes */
+.zv-role-cta__title{ font-size: 13px !important; }
+.zv-role-cta__sub{ font-size: 11px !important; }
+
+/* Pending label */
+.zv-role-pending-light,
+.zv-role-pending-light *{
+  font-size: 12px !important;
+  line-height: 1.15;
+}
+
+/* Role toggle label */
+.zv-role-toggle__label{
+  font-size: 11px !important;
+  margin-bottom: 6px;
+}
+
+/* Segmented toggle (client/coach) */
+.zv-seg-light{ width: 240px; }
+.zv-seg__btn{
+  font-size: 12px !important;
+  padding: 8px 10px !important;
+  gap: 6px;
+}
+.zv-seg__btn i{ font-size: .9rem !important; }
+
+/* Bootstrap icons inside navbar */
+.zv-main-navbar-light .bi{
+  font-size: 1rem;
+}
+
+/* =========================
+   SMALL SCREEN (mobile)
+   ========================= */
+@media (max-width: 991px){
+  /* navbar height/padding */
+  .zv-main-navbar-light{ padding-top: 6px !important; padding-bottom: 6px !important; }
+  .zv-logo-light{ height: 21px; }
+
+  .zv-seg__btn.is-active::before{
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url("/assets/toggle-logo.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 15%;   /* ✅ match auth */
+  opacity: 1;             /* ✅ match auth */
+  pointer-events: none;
+  z-index: -1;
+
+  /* optional: helps crispness in many browsers */
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
+  image-rendering: -webkit-optimize-contrast;
+}
+
+  /* mobile button */
+  .zv-mobile-one-light{
+    font-size: 12px !important;
+    padding: 2px 10px !important;
+  }
+  .zv-mobile-one__text{ font-size: 11px !important; }
+
+  /* offcanvas header logo */
+  .zv-logo-sm-light{ height: 26px; }
+
+  /* offcanvas items smaller */
+  .zv-mobile-item{
+    font-size: 12px !important;
+    padding: 7px 9px !important;
+  }
+
+  /* accordion header smaller */
+  .zv-acc__btn{
+    font-size: 12px !important;
+    padding: 9px 10px !important;
+  }
+
+  /* dropdown-like items list */
+  .zv-lang-scroll{
+    max-height: 220px;
+    padding: 5px;
+  }
+
+  /* search input smaller */
+  #langSearchMobile{
+    font-size: 11px !important;
+    height: 30px;
+    padding: 6px 9px !important;
+  }
+
+  /* CTA */
+  .zv-role-cta__title{ font-size: 12px !important; }
+  .zv-role-cta__sub{ font-size: 10px !important; }
+
+  /* alert text inside offcanvas */
+  .zv-offcanvas-light .alert{
+    font-size: 11px !important;
+    padding: 8px 10px;
+  }
+
+  /* switch buttons in offcanvas */
+  .zv-seg-light{ width: 100% !important; }
+  .zv-seg__btn{
+    font-size: 11px !important;
+    padding: 7px 8px !important;
+  }
+  .zv-seg__btn i{ font-size: .85rem !important; }
+}
+
+@media (max-width: 400px){
+  /* super compact */
+  .zv-logo-light{ height: 20px; }
+  .zv-mobile-one-light{ padding: 6px 9px !important; }
+  .zv-mobile-one__text{ font-size: 10px !important; }
+
+  .zv-mobile-item{ font-size: 11px !important; padding: 6px 8px !important; }
+  .zv-acc__btn{ font-size: 11px !important; padding: 8px 9px !important; }
+
+  .zv-role-cta__title{ font-size: 11px !important; }
+  .zv-role-cta__sub{ font-size: 9.5px !important; }
+
+  .zv-seg__btn.is-active::before{ background-size: 32%; }
+  
+
+   .zv-seg__btn.is-active::before{
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url("/assets/toggle-logo.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 15%;   /* ✅ match auth */
+  opacity: 1;             /* ✅ match auth */
+  pointer-events: none;
+  z-index: -1;
+
+  /* optional: helps crispness in many browsers */
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
+  image-rendering: -webkit-optimize-contrast;
+}
+}
+
+
+
+
+
+
+
+@media (max-width: 991.98px) {
+  /* Target only the mobile language accordion item */
+  #mobileAcc .zv-acc__item {
+    border: 0 !important;
+    border-radius: 0 !important;
+    background: transparent !important;
+    box-shadow: none !important;
+  }
+
+  #mobileAcc .zv-acc__btn {
+    border: 0 !important;
+    border-radius: 0 !important;
+    background: transparent !important;
+    padding-left: 6px;
+  }
+
+  /* Optional: make list buttons full width without pill look */
+  #gtLangListMobile button.lang-pick {
+    border-radius: 0 !important;
+  }
+}

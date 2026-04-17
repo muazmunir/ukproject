@@ -1,0 +1,381 @@
+/* =========================
+   Superadmin Support Q&A View
+   Fully updated
+   ========================= */
+
+.qa-view-page{
+  padding:24px;
+}
+
+.qa-view-card{
+  width:100%;
+  max-width:1200px;
+  margin:0 auto;
+  background:#ffffff;
+  border:1px solid rgba(0,0,0,.08);
+  border-radius:22px;
+  overflow:hidden;
+  box-shadow:0 10px 30px rgba(0,0,0,.04);
+}
+
+/* Header */
+.qa-view-head{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:16px;
+  flex-wrap:wrap;
+  padding:22px 24px;
+  border-bottom:1px solid rgba(0,0,0,.06);
+  background:linear-gradient(to bottom, #ffffff, #fafafa);
+}
+
+.qa-head__left{
+  display:flex;
+  flex-direction:column;
+  gap:6px;
+}
+
+.qa-head__right{
+  display:flex;
+  align-items:center;
+  justify-content:flex-end;
+}
+
+.qa-title{
+  margin:0;
+  font-size:24px;
+  line-height:1.2;
+  font-weight:800;
+  color:#000000;
+}
+
+.qa-sub{
+  margin:0;
+  font-size:14px;
+  line-height:1.5;
+  color:rgba(0,0,0,.58);
+  text-align:center;
+}
+
+/* Body */
+.qa-view-body{
+  padding:24px;
+  display:flex;
+  flex-direction:column;
+  gap:20px;
+}
+
+/* Question block */
+.qa-overview{
+  padding:20px;
+  border:1px solid rgba(0,0,0,.08);
+  border-radius:18px;
+  background:#ffffff;
+}
+
+.qa-overview__label{
+  font-size:13px;
+  font-weight:700;
+  color:rgba(0, 0, 0, 0.45);
+  margin-bottom:10px;
+  text-transform:capitalize;
+  letter-spacing:.04em;
+}
+
+.qa-overview__question{
+  font-size:15px;
+  line-height:1.7;
+  font-weight:600;
+  color:#000000;
+  /* white-space:pre-wrap; */
+  overflow-wrap:anywhere;
+  word-break:break-word;
+}
+
+/* Meta grids */
+.qa-meta-grid,
+.qa-time-grid{
+  display:grid;
+  grid-template-columns:repeat(3, minmax(0, 1fr));
+  gap:14px;
+}
+
+.qa-meta-card,
+.qa-time-card{
+  padding:18px;
+  border:1px solid rgba(0,0,0,.08);
+  border-radius:18px;
+  background:#ffffff;
+  min-height:94px;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  gap:8px;
+}
+
+.qa-meta-label{
+  font-size:12px;
+  font-weight:700;
+  text-transform:capitalize;
+  letter-spacing:.04em;
+  color:rgba(0,0,0,.5);
+}
+
+.qa-meta-value{
+  font-size:14px;
+  line-height:1.6;
+  color:#111827;
+  overflow-wrap:anywhere;
+  word-break:break-word;
+}
+
+.qa-meta-value .text-muted{
+  font-size:12px;
+  color:rgba(0,0,0,.52) !important;
+}
+
+/* Thread card */
+.qa-thread-card{
+  border:1px solid rgba(0,0,0,.08);
+  border-radius:18px;
+  background:#ffffff;
+  overflow:hidden;
+}
+
+.qa-thread-head{
+  padding:16px 18px;
+  border-bottom:1px solid rgba(0,0,0,.06);
+  background:#fafafa;
+}
+
+.qa-thread-title{
+  font-size:14px;
+  font-weight:800;
+  color:#111827;
+  text-transform:capitalize;
+  letter-spacing:.04em;
+}
+
+/* Thread area */
+.qa-thread{
+  padding:18px;
+  height:460px;
+  overflow-y:auto;
+  overflow-x:hidden;
+  scroll-behavior:smooth;
+  display:flex;
+  flex-direction:column;
+}
+
+.qa-thread::-webkit-scrollbar{
+  width:10px;
+}
+
+.qa-thread::-webkit-scrollbar-thumb{
+  background:rgba(0,0,0,.12);
+  border-radius:999px;
+}
+
+.qa-thread::-webkit-scrollbar-track{
+  background:transparent;
+}
+
+.qa-thread-empty{
+  text-align:center;
+  color:rgba(0,0,0,.55);
+  font-size:14px;
+  font-weight:600;
+  padding:24px 12px;
+  margin:auto 0;
+}
+
+/* Messages */
+.qa-msg{
+  max-width:78%;
+  padding:12px 14px;
+  border-radius:16px;
+  margin:10px 0;
+  font-size:14px;
+  line-height:1.6;
+  overflow-wrap:anywhere;
+  word-break:break-word;
+  white-space:normal;
+}
+
+.qa-msg-body{
+  white-space:pre-wrap;
+  overflow-wrap:anywhere;
+  word-break:break-word;
+}
+
+.qa-msg-meta{
+  margin-bottom:8px;
+  font-size:12px;
+  line-height:1.4;
+  opacity:.72;
+}
+
+.qa-msg-admin{
+  margin-right:auto;
+  background:#ffffff;
+  color:#111111;
+  border:1px solid rgba(0,0,0,.08);
+  box-shadow:0 4px 16px rgba(0,0,0,.03);
+}
+
+.qa-msg-manager{
+  margin-left:auto;
+  background:white;
+  color:black;
+  border:1px solid #22c55e;
+}
+
+.qa-msg-manager .qa-msg-meta{
+  color:black;
+}
+
+.qa-msg-system{
+  margin-left:auto;
+  margin-right:auto;
+  background:#f3f4f6;
+  color:#444444;
+  border:1px dashed rgba(0,0,0,.14);
+  text-align:center;
+  max-width:70%;
+}
+
+/* Badge */
+.qa-badge{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-height:34px;
+  padding:6px 12px;
+  border-radius:999px;
+  font-size:12px;
+  font-weight:700;
+  white-space:nowrap;
+  border:1px solid rgba(0,0,0,.10);
+  background:#ffffff;
+}
+
+.qa-badge.ok{
+  background:#ecfdf5;
+  border-color:#a7f3d0;
+  color:#065f46;
+}
+
+.qa-badge.warn{
+  background:#fff7ed;
+  border-color:#fdba74;
+  color:#9a3412;
+}
+
+.qa-badge.bad{
+  background:#fee2e2;
+  border-color:#fecaca;
+  color:#991b1b;
+}
+
+.qa-badge.muted{
+  background:#f1f5f9;
+  border-color:#cbd5e1;
+  color:#334155;
+}
+
+/* Buttons */
+.qa-btn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+  min-height:44px;
+  padding:0 16px;
+  border:none;
+  border-radius:14px;
+  background:#111111;
+  color:#ffffff;
+  font-size:14px;
+  font-weight:700;
+  text-decoration:none;
+  cursor:pointer;
+  transition:.18s ease;
+}
+
+.qa-btn:hover{
+  transform:translateY(-1px);
+  color:#ffffff;
+}
+
+.qa-btn.ghost{
+  background:#ffffff;
+  color:#111111;
+  border:1px solid rgba(0,0,0,.12);
+}
+
+.qa-btn.ghost:hover{
+  background:#f9fafb;
+  color:#111111;
+}
+
+/* Responsive */
+@media (max-width: 992px){
+  .qa-view-page{
+    padding:16px;
+  }
+
+  .qa-view-head,
+  .qa-view-body{
+    padding-left:16px;
+    padding-right:16px;
+  }
+
+  .qa-meta-grid,
+  .qa-time-grid{
+    grid-template-columns:1fr;
+  }
+
+  .qa-msg{
+    max-width:88%;
+  }
+}
+
+@media (max-width: 768px){
+  .qa-title{
+    font-size:20px;
+  }
+
+  .qa-sub{
+    font-size:13px;
+  }
+
+  .qa-view-head{
+    align-items:flex-start;
+  }
+
+  .qa-head__right{
+    width:100%;
+    justify-content:flex-start;
+  }
+
+  .qa-btn{
+    width:100%;
+  }
+
+  .qa-thread{
+    height:400px;
+    padding:14px;
+  }
+
+  .qa-msg,
+  .qa-msg-system{
+    max-width:100%;
+  }
+
+  .qa-overview,
+  .qa-meta-card,
+  .qa-time-card{
+    padding:16px;
+  }
+}

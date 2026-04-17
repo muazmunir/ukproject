@@ -1,0 +1,1293 @@
+/* ========== Tokens (neutral whites, soft depth) ========== */
+:root{
+  --bg:#ffffff; --text:#1a1a1a; --muted:#666;
+  --line:#eaeaea; --line-soft:#f2f2f2; --hover:#f7f7f7;
+  --shadow-sm:0 2px 6px rgba(0,0,0,.06);
+  --shadow-md:0 6px 18px rgba(0,0,0,.08);
+  --shadow-press:inset 0 1px 0 rgba(255,255,255,.9), inset 0 -2px 6px rgba(0,0,0,.06);
+  --radius:14px;
+  --danger:#e54848; --danger-600:#d43d3d; --danger-soft:#fff3f3;
+  --ok:#22c55e;
+}
+
+/* Base */
+body{ background:var(--bg); color:var(--text); }
+.container-narrow{ max-width:1200px; margin:0 auto; padding:0 16px; }
+.zv-dashboard{ background:var(--bg); }
+
+/* Accessibility */
+:focus-visible{ outline:3px solid #111; outline-offset:2px; }
+@media (prefers-reduced-motion:no-preference){
+  .lift { transition: transform .18s ease, box-shadow .18s ease, background-color .18s ease; }
+  .press { transition: transform .06s ease; }
+}
+
+/* ========== Hero (About) ========== */
+.zv-profile-hero{ padding:34px 0 10px; border-bottom:1px solid var(--line); }
+.zv-hero-card{
+  background:#fff; border:1px solid var(--line); border-radius:var(--radius);
+  padding:18px; box-shadow:var(--shadow-md);
+}
+.zv-hero-row{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:18px;
+}
+.zv-hero-left{
+  display:flex;
+  align-items:center;
+  gap:18px;
+  min-width:0;
+}
+
+.zv-avatar-wrap{
+  width:120px;height:120px;border-radius:50%; background:linear-gradient(#fff,#fafafa);
+  border:1px solid var(--line); box-shadow: inset 0 1px 0 #fff, 0 4px 12px rgba(0,0,0,.05);
+  display:grid; place-items:center; overflow:hidden;
+}
+.zv-avatar-img{ width:100%;height:100%;object-fit:cover;display:block; }
+.zv-avatar-fallback{ font-size:28px;font-weight:700;color:#888; }
+
+.zv-hero-id{ min-width:0; }
+.zv-eyebrow{ font-size:12px; letter-spacing:.12em;  color:#888; }
+.zv-name{ margin:2px 0 6px; font-size:26px; font-weight:800; line-height:1.2; }
+
+.zv-meta{ display:flex; flex-wrap:wrap; gap:10px 12px; align-items:center; color:black; }
+.zv-chip{
+  background:linear-gradient(#fff,#f7f7f7); border:1px solid var(--line);
+  border-radius:999px; padding:4px 10px; font-size:12px; box-shadow:var(--shadow-sm);
+}
+.zv-online{ display:inline-flex; gap:6px; align-items:center; }
+.zv-online-dot{
+  width:10px;height:10px;border-radius:50%; background:var(--ok);
+  box-shadow: 0 0 0 3px rgba(34,197,94,.15);
+}
+.zv-dot{ width:4px;height:4px;border-radius:50%;  }
+.zv-loc i{ color:#999; }
+.zv-joined{ color:#888; }
+
+/* Hero Actions */
+.zv-hero-actions{ display:flex; gap:10px; flex:0 0 auto; }
+/* ---------- Layout shell ---------- */
+
+.zv-dashboard {
+  background-color: #f3f4f6;
+  min-height: 100vh;
+  padding: 1.5rem 0 2.5rem;
+}
+
+/* container with narrower width */
+.container-narrow {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+/* ---------- Hero / About section ---------- */
+
+.zv-profile-hero {
+  margin-bottom: 1.5rem;
+}
+
+.zv-hero-card {
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 1.25rem 1.5rem;
+  box-shadow: 0 18px 45px rgba(15, 23, 42, 0.12);
+  border: 1px solid rgba(148, 163, 184, 0.35);
+}
+
+
+
+
+
+/* avatar */
+
+.zv-avatar-wrap {
+  position: relative;
+  width: 120px;
+  height: 120px;
+  border-radius: 999px;
+  overflow: hidden;
+  flex-shrink: 0;
+  border: 2px solid #e2e8f0;
+  background-color: #e5e7eb;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.zv-avatar-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.zv-avatar-fallback {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  color: #4b5563;
+  font-size: 1.4rem;
+  pointer-events: none;
+}
+
+/* hero title + meta */
+
+.zv-hero-id {
+  min-width: 0;
+}
+
+.zv-eyebrow {
+  /* text-transform: uppercase; */
+  letter-spacing: 0.12em;
+  font-size: 0.68rem;
+  font-weight: 600;
+  color: #9ca3af;
+  margin-bottom: 0.15rem;
+}
+
+.zv-name {
+  font-size: clamp(1.2rem, 2vw, 1.5rem);
+  font-weight: 700;
+  color: #0f172a;
+  margin-bottom: 0.2rem;
+}
+
+.zv-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem 0.6rem;
+  align-items: center;
+  font-size: 0.8rem;
+  color: #6b7280;
+  margin-top: 0.25rem;
+}
+
+.zv-chip {
+  padding: 0.15rem 0.6rem;
+  border-radius: 999px;
+  background: #000000;
+  color: #ffffff;
+  border:1px solid black;
+  font-weight: 600;
+  font-size: 0.72rem;
+}
+
+.zv-dot {
+  width: 3px;
+  height: 3px;
+  border-radius: 999px;
+  
+}
+
+.zv-online {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.zv-online-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  background: #22c55e;
+}
+
+/* about extra cards in hero */
+
+.zv-about-extra {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.75rem;
+  margin-top: 0.9rem;
+}
+
+.zv-about-item {
+  background: #f9fafb;
+  border-radius: 12px;
+  padding: 0.55rem 0.75rem;
+  border: 1px solid rgba(226, 232, 240, 0.8);
+}
+
+.zv-about-label {
+  font-size: 0.7rem;
+  /* text-transform: uppercase; */
+  letter-spacing: 0.08em;
+  font-weight: 600;
+  color: #9ca3af;
+  margin-bottom: 0.1rem;
+}
+
+.zv-about-text {
+  font-size: 0.85rem;
+  color: #111827;
+}
+
+/* hero actions (right side) */
+
+.zv-hero-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  align-items: flex-end;
+  justify-content: flex-start;
+}
+
+/* buttons (same style as profile edit) */
+
+.btn-3d {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  padding: 0.45rem 0.9rem;
+  border-radius: 999px;
+  border: none;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+  transition: transform 0.08s ease, box-shadow 0.12s ease, background-color 0.12s ease, color 0.12s ease;
+}
+
+.btn-plain {
+  background: #ffffff;
+  color: #000000;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.18);
+}
+
+.btn-plain:hover {
+  background: #e0e7ff;
+  transform: translateY(-1px);
+  box-shadow: 0 12px 26px rgba(0, 0, 0, 0.22);
+}
+
+/* ---------- Main grid (sidebar + content) ---------- */
+
+.zv-main-grid {
+  margin-top: 1rem;
+  display: grid;
+  grid-template-columns: 220px minmax(0, 1fr);
+  gap: 1.5rem;
+}
+
+/* ---------- Side nav ---------- */
+
+.zv-sidenav {
+  align-self: flex-start;
+}
+
+.zv-sidenav-inner {
+  background: #ffffff;
+  border-radius: 18px;
+  padding: 0.75rem 0.4rem;
+  box-shadow: 0 14px 40px rgba(15, 23, 42, 0.16);
+  border: 1px solid rgba(148, 163, 184, 0.4);
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.zv-sidenav-link {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.55rem 0.8rem;
+  border-radius: 999px;
+  color: #4b5563;
+  font-size: 0.88rem;
+  text-decoration: none;
+  transition: background-color 0.12s ease, color 0.12s ease, transform 0.06s ease;
+}
+
+.zv-sidenav-link i {
+  font-size: 1rem;
+}
+
+.zv-sidenav-link:hover {
+  background-color: #f1f5f9;
+  color: #111827;
+  transform: translateX(2px);
+}
+
+.zv-sidenav-link.active {
+  background: #000000;
+  color: #f9fafb;
+  transform: translateX(0);
+}
+
+/* ---------- Main content area ---------- */
+
+.zv-main {
+  min-width: 0;
+}
+
+/* ---------- Responsive tweaks ---------- */
+
+@media (max-width: 991.98px) {
+  .zv-hero-card {
+   position: relative;
+  }
+
+  .zv-hero-row{
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+   .zv-hero-actions{
+    position:absolute;
+    top:14px;
+    right:14px;
+    display:flex;
+    flex-direction:column;
+    align-items:flex-end;
+    gap:8px;
+    margin:0;
+  }
+
+  .zv-about-extra {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .zv-main-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .zv-sidenav-inner {
+    flex-direction: row;
+    justify-content: flex-start;
+    overflow-x: auto;
+    padding: 0.5rem;
+    border-radius: 999px;
+  }
+
+  .zv-sidenav-link {
+    white-space: nowrap;
+    padding-inline: 0.9rem;
+  }
+}
+
+@media (max-width: 575.98px) {
+  .zv-dashboard {
+    padding-top: 1rem;
+  }
+
+  .zv-hero-left{
+    flex-direction: column;
+    align-items: flex-start;
+    width:100%;
+  }
+
+  .zv-name {
+    font-size: 1.2rem;
+  }
+
+  .zv-about-extra {
+    gap: 0.6rem;
+  }
+
+  .zv-hero-card {
+    border-radius: 16px;
+  }
+}
+
+
+
+
+
+
+
+
+/* home */
+
+
+
+/* ---------- Panel wrapper ---------- */
+
+.zv-panel {
+  /* margin-top: 0.75rem; */
+  background: #ffffff;
+  border-radius: 18px;
+  padding: 1rem 1.2rem 1.25rem;
+  box-shadow: 0 16px 40px rgba(15, 23, 42, 0.14);
+  border: 1px solid rgba(148, 163, 184, 0.32);
+}
+
+/* ---------- Sub tabs ---------- */
+
+.zv-subtabs {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  
+  margin: 0 0 0.8rem;
+  list-style: none;
+  
+  
+}
+
+.zv-subtabs li {
+  flex: 0 0 auto;
+}
+
+.zv-subtabs a {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.35rem 0.9rem;
+  margin-bottom: -1px; /* sit on border */
+  border-radius: 999px;
+  font-size: 0.86rem;
+  font-weight: 500;
+  color: #6b7280;
+  text-decoration: none;
+  transition: color 0.12s ease, background-color 0.12s ease;
+}
+
+.zv-subtabs a::after {
+  content: "";
+  position: absolute;
+  left: 16%;
+  right: 16%;
+  bottom: -0.4rem;
+  height: 2px;
+  border-radius: 999px;
+  background: transparent;
+  transition: background-color 0.14s ease, transform 0.12s ease;
+  transform-origin: center;
+}
+
+.zv-subtabs a:hover {
+  background-color: #f3f4ff;
+  color: #111827;
+}
+
+.zv-subtabs a.active {
+  color: white !important;
+  background-color: #000000;
+  font-weight: 600;
+  border-radius: 9999px;
+    padding: 10px;
+}
+
+.zv-subtabs a.active::after {
+  background: #000000;
+  transform: scaleX(1);
+}
+
+/* ---------- Tables ---------- */
+
+.table-responsive {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.zv-panel table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  margin: 0;
+  font-size: 0.88rem;
+}
+
+.zv-panel thead th {
+  text-align: left;
+  padding: 0.6rem 0.75rem;
+  font-size: 0.76rem;
+  /* text-transform: uppercase; */
+  letter-spacing: 0.08em;
+  font-weight: 600;
+  color: #9ca3af;
+  border-bottom: 1px solid rgba(226, 232, 240, 0.9);
+  background: #f9fafb;
+}
+
+.zv-panel tbody td {
+  padding: 0.6rem 0.75rem;
+  color: #111827;
+  border-bottom: 1px solid rgba(243, 244, 246, 0.9);
+  background: #ffffff;
+}
+
+.zv-panel tbody tr:nth-child(even) td {
+  background: #f9fafb;
+}
+
+.zv-panel tbody tr:hover td {
+  background: #eef2ff;
+}
+
+/* rounded corners for first / last cells */
+.zv-panel thead th:first-child {
+  border-top-left-radius: 12px;
+}
+.zv-panel thead th:last-child {
+  border-top-right-radius: 12px;
+}
+.zv-panel tbody tr:last-child td:first-child {
+  border-bottom-left-radius: 12px;
+}
+.zv-panel tbody tr:last-child td:last-child {
+  border-bottom-right-radius: 12px;
+}
+
+/* empty state row */
+
+.zv-empty {
+  text-align: center;
+  padding: 0.9rem 0.75rem;
+  font-size: 0.86rem;
+  color: #9ca3af;
+}
+
+/* ---------- Header row above table (for cancellation requests) ---------- */
+
+.zv-panel .d-flex.mb-2 h6 {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #0f172a;
+}
+
+/* ---------- Responsive tweaks ---------- */
+
+@media (max-width: 767.98px) {
+  .zv-panel {
+    padding: 0.8rem 0.8rem 1rem;
+    border-radius: 16px;
+  }
+
+
+  .zv-avatar-wrap{
+    width: 110px;
+    height: 110px;
+    border-radius: 50%;     /* looks like coach_show image block */
+  }
+
+  .zv-avatar-img{
+    width:100%;
+    height:100%;
+    object-fit: cover;
+  }
+
+  /* text content full width */
+  .zv-hero-id{
+    width:100%;
+  }
+
+  /* meta spacing */
+  .zv-meta{
+    width:100%;
+    margin-top: 4px;
+  }
+
+  /* about blocks under text */
+  .zv-about-extra{
+    grid-template-columns: 1fr;
+    width:100%;
+    margin-top: 12px;
+  }
+
+  /* actions come below like coach_show */
+  .zv-hero-actions{
+    position: static !important;
+    width:100%;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 10px;
+    margin-top: 12px;
+  }
+
+  .zv-hero-actions .btn-3d{
+    flex: 1 1 auto;
+    justify-content: center;
+  }
+
+  .zv-panel thead {
+    display: none; /* simple stacked rows on very small screens */
+  }
+
+  .zv-panel tbody tr {
+    display: block;
+    margin-bottom: 0.75rem;
+    border-radius: 12px;
+    box-shadow: 0 8px 18px rgba(15, 23, 42, 0.08);
+    overflow: hidden;
+  }
+
+  .zv-panel tbody td {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid rgba(243, 244, 246, 0.9);
+    font-size: 0.86rem;
+  }
+
+  .zv-panel tbody td:last-child {
+    border-bottom: none;
+  }
+
+  .zv-panel tbody td::before {
+    content: attr(data-label);
+    font-weight: 600;
+    color: #6b7280;
+    margin-right: 0.75rem;
+    font-size: 0.78rem;
+  }
+
+  .zv-empty {
+    box-shadow: none;
+  }
+}
+
+
+
+
+
+/* //dispute  */
+/* ===== Buttons ===== */
+/* -------------------------------------------------------------
+   DISPUTES PANEL HEADER
+--------------------------------------------------------------*/
+
+.zv-panel h6 {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #0f172a;
+}
+
+.zv-muted {
+  color: #6b7280;
+}
+
+/* small gap between header buttons on smaller widths */
+.zv-panel .gap-2 > * {
+  margin-left: 0.25rem;
+}
+
+/* search box */
+.zv-panel form input.form-control-sm {
+  min-width: 210px;
+  font-size: 0.8rem;
+  border-radius: 999px;
+  border-color: #e2e8f0;
+}
+
+.zv-panel form input.form-control-sm:focus {
+  border-color: #4f46e5;
+  box-shadow: 0 0 0 1px rgba(79, 70, 229, 0.15);
+}
+
+/* -------------------------------------------------------------
+ STATUS BADGES
+--------------------------------------------------------------*/
+
+.zv-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.15rem 0.6rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  /* text-transform: uppercase; */
+  border: 1px solid transparent;
+  white-space: nowrap;
+}
+
+/* Open = primary */
+.zv-badge-open {
+  color: #1d4ed8;
+  background: #eff6ff;
+  border-color: #bfdbfe;
+}
+
+/* In review = amber */
+.zv-badge-review {
+  color: #b45309;
+  background: #fffbeb;
+  border-color: #fed7aa;
+}
+
+/* Resolved = green */
+.zv-badge-resolved {
+  color: #047857;
+  background: #ecfdf3;
+  border-color: #bbf7d0;
+}
+
+/* Closed = slate/gray */
+.zv-badge-closed {
+  color: #64748b;
+  background: #f3f4f6;
+  border-color: #e5e7eb;
+}
+
+/* -------------------------------------------------------------
+ TABLE SPECIFICS FOR DISPUTES
+--------------------------------------------------------------*/
+
+/* ID column a bit narrower */
+.zv-panel table th:first-child,
+.zv-panel table td:first-child {
+  width: 70px;
+  white-space: nowrap;
+}
+
+/* actions column right-aligned */
+.zv-panel table th.text-end,
+.zv-panel table td.text-end {
+  white-space: nowrap;
+}
+
+/* small View button variant */
+.btn-3d.btn-sm {
+  padding: 0.3rem 0.7rem;
+  font-size: 0.78rem;
+}
+
+/* -------------------------------------------------------------
+ RESPONSIVE TWEAKS
+--------------------------------------------------------------*/
+
+@media (max-width: 768px) {
+  .zv-panel .d-flex.align-items-center.justify-content-between.mb-2 {
+      flex-direction: column;
+      align-items: flex-start !important;
+      gap: 0.5rem;
+  }
+
+  .zv-panel form.d-none.d-md-block {
+      display: none !important;
+  }
+
+  /* Make title column a bit narrower on phones so status fits */
+  .zv-panel table td.text-truncate {
+      max-width: 220px;
+  }
+}
+
+
+
+
+
+/* //profile edit  */
+
+.zv-gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
+  gap: 0.75rem;
+}
+
+.zv-gallery-item {
+  position: relative;
+  border-radius: 10px;
+  overflow: hidden;
+  background: #0f172a;
+  box-shadow: 0 8px 18px rgba(15,23,42,0.25);
+}
+
+.zv-gallery-item img {
+  width: 100%;
+  height: 90px;
+  object-fit: cover;
+  display: block;
+}
+
+.zv-gallery-name {
+  font-size: 0.7rem;
+  padding: 0.25rem 0.4rem;
+  color: #ffffff;
+  background: black;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.zv-gallery-remove {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  border: none;
+  border-radius: 999px;
+  width: 22px;
+  height: 22px;
+  font-size: 0.9rem;
+  line-height: 1;
+  cursor: pointer;
+  background: black;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.zv-gallery-remove:hover {
+  background: red;
+}
+
+
+/* ===== Form Cards ===== */
+.zv-form-card{
+  background:#fff; border:1px solid var(--line); border-radius:var(--radius);
+  box-shadow:var(--shadow-md); padding:18px;
+}
+.zv-form-header{ margin-bottom:10px; }
+.zv-label{ font-weight:600; font-size:13px; margin-bottom:6px; display:block; color:#222; }
+
+/* Inputs */
+.zv-input{
+  width:100%; background:#fff; border:1px solid var(--line); border-radius:10px;
+  padding:10px 12px; box-shadow:var(--shadow-sm), inset 0 1px 0 #fff;
+}
+.zv-input:focus{ outline:none; border-color:#d7d7d7; background:#fff; box-shadow:0 0 0 4px #f4f4f4; }
+textarea.zv-input{ min-height:110px; resize:vertical; }
+
+/* Avatar upload */
+.zv-avatar-uploader{ display:flex; align-items:center; margin-bottom:10px; }
+.zv-avatar-large{
+  width:96px;height:96px;border-radius:50%; overflow:hidden; border:1px solid var(--line);
+  background:linear-gradient(#fff,#fafafa); box-shadow:inset 0 1px 0 #fff, 0 4px 12px rgba(0,0,0,.06);
+}
+.zv-avatar-large img{ width:100%; height:100%; object-fit:cover; display:block; }
+
+/* Language tags */
+.zv-lang-wrap{ display:flex; gap:8px; }
+.zv-lang-tags{ margin-top:8px; display:flex; gap:8px; flex-wrap:wrap; }
+.zv-tag{
+  display:inline-flex; align-items:center; gap:6px; padding:6px 10px; border-radius:999px;
+  border:1px solid var(--line); background:black; box-shadow:var(--shadow-sm);
+  font-weight:600; font-size:12px;
+}
+.zv-tag-x{
+  background:transparent; border:0; font-size:16px; line-height:1; cursor:pointer; color:#ffffff;
+}
+
+/* Alerts */
+.alert{ border:1px solid var(--line); border-radius:10px; padding:10px 12px; box-shadow:var(--shadow-sm); }
+.alert-success{ background:#f6fffb; color:#22543d; border-color:#d9f2e7; }
+
+
+
+
+/* Embedded in hero */
+.zv-about-extra{
+  margin-top:12px;
+  display:grid;
+  grid-template-columns: 1fr 1fr;
+  gap:12px;
+}
+@media (max-width: 768px){ .zv-about-extra{ grid-template-columns:1fr; } }
+.zv-about-item{
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:12px;
+  padding:12px 14px;
+  box-shadow:var(--shadow-sm);
+}
+.zv-about-label{ font-weight:700; margin-bottom:4px; color:#222; }
+.zv-about-text{ color:#444; }
+
+/* Bookings sub-tabs */
+.zv-subtabs{
+  display:flex;
+  gap:10px;
+  list-style:none;
+  margin:0 0 .8rem;
+  padding:0;
+}
+.zv-subtabs a{
+  display:inline-block; padding:10px 2px; color:#666; text-decoration:none; font-weight:700;
+}
+.zv-subtabs a.active{ color:#111; position:relative; }
+.zv-subtabs a.active::after{
+  content:""; position:absolute; left:0; right:0; bottom:-1px; height:2px; background:#111; border-radius:2px;
+}
+
+
+
+
+/* edit profile  */
+.zv-avatar-uploader{
+  display:flex; align-items:center; gap:1rem;
+}
+.zv-avatar-large img{
+  width:96px; height:96px; border-radius:50%; object-fit:cover;
+  border:2px solid var(--line);
+}
+#avatar-filename{
+  font-size:13px; color:#666;
+  max-width:200px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;
+}
+
+
+
+
+
+/* Coach  */
+.zv-approval-overlay{
+  position:fixed; inset:0; background:rgba(255,255,255,.72);
+  backdrop-filter: blur(4px);
+  display:flex; align-items:center; justify-content:center; z-index:1000;
+}
+.zv-approval-card{
+  width:min(560px, 92vw);
+  background:#fff; border:1px solid var(--line); border-radius:16px;
+  box-shadow:0 20px 60px rgba(0,0,0,.18);
+  padding:22px; text-align:center;
+}
+.zv-approval-icon{ font-size:42px; margin-bottom:8px; }
+.zv-approval-note{ margin-top:10px; font-size:12px; color:#777; }
+
+/* Dim the underlying UI when overlay shown */
+.zv-dashboard:has(.zv-approval-overlay) .zv-main,
+.zv-dashboard:has(.zv-approval-overlay) .zv-sidenav,
+.zv-dashboard:has(.zv-approval-overlay) .zv-hero-card{
+  filter: blur(1px) saturate(.9);
+  pointer-events:none;
+  user-select:none;
+}
+
+
+
+
+/* coach wallet  */
+/* Wallet strip */
+.zv-wallet-strip{
+  background:#fff; border-top:1px solid #f1f1f1; border-bottom:1px solid #f1f1f1;
+}
+.zv-wallet-row{
+  display:flex; align-items:center; justify-content:space-between;
+  padding:10px 0;
+}
+.zv-wallet-left{ display:flex; align-items:center; gap:.5rem; color:#333; }
+.zv-wallet-label{ color:#666; font-weight:700; }
+.zv-wallet-amount{
+  font-weight:800; padding:4px 8px; border-radius:8px; background:#fafafa; border:1px solid var(--line);
+  box-shadow:var(--shadow-sm);
+}
+.zv-wallet-right .btn-3d{ white-space:nowrap; }
+
+/* Dim withdraw when not approved (overlay already blocks interactions) */
+:root{ --muted: #b9b9b9; }
+.zv-dashboard:has(.zv-approval-overlay) .zv-wallet-right .btn-3d{
+  pointer-events:none; color:black; border-color:var(--line);
+  box-shadow:none; background:#fff;
+}
+
+
+
+
+/* coach profile edit */
+/* gallery grid */
+.zv-gallery-grid{
+  display:grid; grid-template-columns: repeat(4, minmax(0,1fr));
+  gap:12px;
+}
+@media (max-width:992px){ .zv-gallery-grid{ grid-template-columns: repeat(3,1fr);} }
+@media (max-width:576px){ .zv-gallery-grid{ grid-template-columns: repeat(2,1fr);} }
+.zv-gallery-item{
+  background:#fff; border:1px solid var(--line); border-radius:12px; overflow:hidden;
+  box-shadow:var(--shadow-sm);
+}
+.zv-gallery-item img{ width:100%; height:140px; object-fit:cover; display:block; }
+.zv-gallery-name{ padding:6px 8px; font-size:12px; color:#ffffff; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+
+/* qualifications */
+.zv-quals{ display:flex; flex-direction:column; gap:8px; }
+.zv-qual-row{
+  display:grid; grid-template-columns: 1.4fr .8fr 1.6fr 36px; gap:8px; align-items:center;
+}
+.zv-qual-remove{
+  width:36px; height:36px; border-radius:10px; border:1px solid var(--line); background:#fff;
+  box-shadow:var(--shadow-sm); font-size:18px; line-height:1; cursor:pointer;
+}
+.zv-qual-remove:hover{ background:#f7f7f7; }
+
+/* danger soft */
+.btn-danger-soft{
+  display:inline-flex; align-items:center; gap:.5rem; padding:10px 14px; border-radius:10px;
+  background:#fff; border:1px solid #ffd6d6; color:#a40000; box-shadow:var(--shadow-sm);
+}
+.btn-danger-soft:hover{ background:#fff3f3; }
+
+
+
+/* Cropper modal */
+.zv-cropper-modal .modal-body {
+  padding: 0.75rem 1rem 1rem;
+}
+
+.zv-cropper-wrap {
+  width: 100%;
+  min-height: 280px;
+  max-height: 420px;
+  background: #020617;
+  border-radius: 14px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.zv-cropper-wrap img {
+  max-width: 100%;
+  display: block;
+}
+
+/* Make the crop area feel more circular (WhatsApp-like) */
+.cropper-view-box,
+.cropper-face {
+  border-radius: 50% !important;
+}
+
+
+
+
+
+/* //booking */
+/* ============================
+   Client Bookings — Airbnb-ish
+   ============================ */
+
+.booking-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* Card */
+.booking-item {
+  display: flex;
+  gap: 16px;
+  background: #fff;
+  border-radius: 18px;
+  padding: 12px;
+  border: 1px solid #e5e7eb;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.04);
+  transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+}
+
+.booking-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+  border-color: #111827;
+}
+
+/* Thumbnail */
+.booking-thumb-wrap {
+  flex: 0 0 140px;
+  border-radius: 14px;
+  overflow: hidden;
+  position: relative;
+  background: #f3f4f6;
+}
+
+.booking-thumb-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Body */
+.booking-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+/* Header (title + price) */
+.booking-header {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 4px;
+}
+
+.booking-title-wrap {
+  min-width: 0;
+}
+
+.booking-title {
+  font-size: 0.98rem;
+  font-weight: 600;
+  color: #111827;
+  line-height: 1.25;
+}
+
+.booking-subtitle {
+  font-size: 0.85rem;
+  color: #000000;
+  margin-top: 2px;
+}
+
+/* Price + status */
+.booking-price-wrap {
+  min-width: 110px;
+}
+
+.booking-price {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #111827;
+}
+
+.booking-status-pill {
+  display: inline-block;
+  margin-top: 4px;
+  padding: 2px 10px;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  text-transform: capitalize;
+  background: #f3f4f6;
+  color: #4b5563;
+}
+
+/* Meta (date & time) */
+.booking-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 16px;
+  margin-top: 4px;
+  font-size: 0.84rem;
+  color: #4b5563;
+}
+
+.booking-meta-row i {
+  font-size: 0.9em;
+}
+
+/* Footer (tag + button) */
+.booking-footer {
+  margin-top: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding-top: 8px;
+  border-top: 1px solid #f3f4f6;
+}
+
+.booking-tag {
+  font-size: 0.78rem;
+  color: #9ca3af;
+}
+
+/* Airbnb-like pill button */
+.booking-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px 18px;
+  border-radius: 999px;
+  font-size: 0.82rem;
+  font-weight: 500;
+  text-decoration: none;
+  border: 1px solid #111827;
+  background: #111827;
+  color: #fff;
+  transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease, transform 0.1s ease;
+}
+
+.booking-btn:hover {
+  background: #fff;
+  color: #111827;
+  border-color: #111827;
+  transform: translateY(-1px);
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .booking-item {
+    flex-direction: column;
+    padding: 10px;
+  }
+
+  .booking-thumb-wrap {
+    flex: 0 0 auto;
+    height: 180px;
+  }
+
+  .booking-header {
+    align-items: flex-start;
+  }
+}
+
+
+
+
+
+
+@media (max-width: 768px){
+  .zv-subtabs{
+    flex-wrap: nowrap;           /* no wrapping */
+    overflow-x: auto;            /* enable horizontal scrolling */
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch; /* smooth iOS scrolling */
+    gap: 8px;
+    padding: 6px 4px;
+    margin-bottom: 12px;
+
+    /* optional: nice snap scrolling */
+    scroll-snap-type: x mandatory;
+  }
+
+  .zv-subtabs li{
+    flex: 0 0 auto;              /* each item keeps its width */
+    scroll-snap-align: start;
+  }
+
+  .zv-subtabs a{
+    white-space: nowrap;         /* keep text in one line */
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 14px;          /* finger-friendly */
+    border-radius: 999px;
+  }
+
+  /* optional: hide scrollbar */
+  .zv-subtabs::-webkit-scrollbar{ height: 0; }
+  .zv-subtabs{ scrollbar-width: none; }
+}
+
+
+
+
+/* wallet  */
+/* Wallet strip — smaller on mobile, stays single line */
+@media (max-width: 767.98px){
+  .zv-wallet-row{
+    padding: 6px 6px !important;  /* reduce height */
+  }
+
+  .zv-wallet-left,
+  .zv-wallet-label,
+  .zv-wallet-amount,
+  .zv-panel .zv-wallet-left * {
+    font-size: 12px !important; /* make text smaller */
+    gap: 6px;
+  }
+
+  .zv-wallet-left i{
+    font-size: 14px !important; /* smaller icon */
+  }
+
+  .zv-wallet-amount{
+    padding: 3px 7px !important;
+  }
+
+  .zv-wallet-right .btn-3d{
+    font-size: 12px !important;
+    padding: 6px 12px !important;
+  }
+}

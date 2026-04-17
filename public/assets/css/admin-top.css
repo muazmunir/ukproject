@@ -1,0 +1,543 @@
+/* =========================================================
+   ADMIN TOP BAR + BASE UI — PURE BLACK & WHITE (NO BLUE)
+   File: public/assets/css/admin-top.css
+   - No gradients
+   - No colored shadows
+   - Active tab = black background, white icon + label
+========================================================= */
+
+:root{
+  --bg:#fff;
+  --surface:#fff;
+  --text:#000;
+
+  --muted:rgba(0,0,0,.62);
+  --muted2:rgba(0,0,0,.48);
+
+  --border:rgba(0,0,0,.14);
+  --border2:rgba(0,0,0,.10);
+
+  --radius:16px;
+
+  /* hard-disable fancy shadows */
+  --shadow:none;
+  --shadow-sm:none;
+
+  --max:1240px;
+
+  /* keep status colors (not “theme” colors) */
+  --ok:#16a34a;
+  --danger:#ef4444;
+}
+
+[data-theme="dark"]{
+  /* Still black/white only */
+  --bg:#000;
+  --surface:#000;
+  --text:#fff;
+
+  --muted:rgba(255,255,255,.72);
+  --muted2:rgba(255,255,255,.55);
+
+  --border:rgba(255,255,255,.18);
+  --border2:rgba(255,255,255,.12);
+
+  --shadow:none;
+  --shadow-sm:none;
+}
+
+/* base */
+*{box-sizing:border-box}
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--text);
+  font:14px/1.5 Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+}
+a{color:inherit;text-decoration:none}
+
+/* =========================================================
+   TOP BAR (NO GRADIENTS / NO SHADOWS)
+========================================================= */
+.zv-topbar{
+  position:sticky;
+  top:0;
+  z-index:50;
+  background:var(--surface);
+  border-bottom:1px solid var(--border);
+  box-shadow:none;
+}
+.zv-topbar.pro{
+  /* override previous gradient version */
+  background:var(--surface) !important;
+  border-bottom:1px solid var(--border) !important;
+  box-shadow:none !important;
+}
+
+.zv-topbar__row{
+  margin:0 auto;
+  padding:10px 16px;
+  display:grid;
+  grid-template-columns:auto 1fr auto;
+  gap:12px;
+  align-items:center;
+}
+
+.brand{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  font-weight:700;
+}
+.brand img{display:block}
+
+/* =========================================================
+   PRIMARY ICON BAR
+========================================================= */
+.primary.iconbar{
+  display:flex;
+  flex-wrap:nowrap;
+  gap:10px;
+  align-items:flex-end;
+  overflow:auto;
+  padding:6px 8px;
+  border-radius:14px;
+  justify-content:space-around;
+}
+
+.primary.iconbar .tab{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:6px;
+  min-width:84px;
+  padding:10px 10px 8px;
+  border:1px solid transparent;
+  border-radius:14px;
+  background:transparent;
+  color:var(--text);
+  text-align:center;
+  transition:background .12s ease, border-color .12s ease;
+  box-shadow:none;
+  transform:none;
+}
+
+.primary.iconbar .tab .ico{
+  width:26px;
+  height:26px;
+  display:grid;
+  place-items:center;
+}
+.primary.iconbar .tab .ico svg{
+  width:100%;
+  height:100%;
+}
+
+.primary.iconbar .tab .lbl{
+  font-size:12px;
+  color:var(--muted);
+  letter-spacing:.2px;
+}
+
+/* Hover (subtle gray only) */
+.primary.iconbar .tab:hover{
+  background:rgba(0,0,0,.04);
+  border-color:var(--border);
+}
+
+/* ACTIVE (BLACK BG + WHITE EVERYTHING) */
+.primary.iconbar .tab.active{
+  background:#000 !important;
+  border-color:#000 !important;
+  box-shadow:none !important;
+}
+
+/* Make icon + label white on active */
+.primary.iconbar .tab.active,
+.primary.iconbar .tab.active .lbl{
+  color:#fff !important;
+}
+.primary.iconbar .tab.active .lbl{
+  font-weight:700;
+}
+.primary.iconbar .tab.active .ico,
+.primary.iconbar .tab.active .ico svg{
+  color:#fff !important;
+  fill:#fff !important;
+  stroke:#fff !important;
+}
+
+/* Dropdown tab */
+.primary.iconbar .tab.more{position:relative}
+.primary.iconbar .tab.more .dropdown{
+  position:absolute;
+  top:100%;
+  left:50%;
+  transform:translate(-50%,8px);
+  min-width:220px;
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:12px;
+  box-shadow:none;          /* no shadow */
+  display:none;
+  padding:6px 0;
+  z-index:20;
+}
+.primary.iconbar .tab.more:hover .dropdown{display:block}
+.primary.iconbar .tab.more .dropdown a{
+  display:block;
+  padding:10px 12px;
+  white-space:nowrap;
+}
+.primary.iconbar .tab.more .dropdown a:hover{
+  background:rgba(0,0,0,.04);
+}
+
+/* =========================================================
+   RIGHT ACTIONS
+========================================================= */
+.actions{
+  display:flex;
+  gap:10px;
+  align-items:center;
+}
+
+.search{
+  position:relative;
+  display:flex;
+  align-items:center;
+}
+.search input{
+  width:280px;
+  padding:9px 36px 9px 32px;
+  border:1px solid var(--border);
+  border-radius:999px;
+  background:var(--surface);
+  color:var(--text);
+  outline:none;
+}
+.search input:focus{
+  border-color:rgba(0,0,0,.35);
+}
+.search svg{
+  position:absolute;
+  left:10px;
+  opacity:.6;
+}
+.kbd{
+  position:absolute;
+  right:10px;
+  color:var(--muted);
+  font-size:12px;
+  border:1px solid var(--border);
+  border-radius:6px;
+  padding:2px 6px;
+}
+
+.btn,.icon{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  height:36px;
+  border-radius:12px;
+  border:1px solid var(--border);
+  background:var(--surface);
+  padding:0 12px;
+  cursor:pointer;
+  box-shadow:none;
+}
+.icon{
+  width:36px;
+  padding:0;
+  position:relative;
+}
+.icon .dot{
+  position:absolute;
+  top:6px;
+  right:6px;
+  width:8px;
+  height:8px;
+  border-radius:50%;
+  background:var(--danger);
+}
+
+.btn-wrap{position:relative}
+.btn-wrap .dropdown{
+  position:absolute;
+  top:42px;
+  right:0;
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:12px;
+  box-shadow:none;       /* no shadow */
+  display:none;
+  min-width:220px;
+}
+.btn-wrap .dropdown.open{display:block}
+.btn-wrap .dropdown a,
+.btn-wrap .dropdown .linklike{
+  display:block;
+  padding:10px 12px;
+}
+.btn-wrap .dropdown a:hover{
+  background:rgba(0,0,0,.04);
+}
+.linklike{
+  background:none;
+  border:none;
+  text-align:left;
+  width:100%;
+  cursor:pointer;
+  color:inherit;
+}
+
+/* Avatar: black/white (no blue) */
+.avatar{
+  width:36px;
+  height:36px;
+  border-radius:12px;
+  background:#000;
+  border:1px solid var(--border);
+  display:grid;
+  place-items:center;
+  font-weight:700;
+  color:#fff;
+}
+
+/* small red dot on tabs (for open security events) */
+.zv-tabdot{
+  position:absolute;
+  right:-2px;
+  top:-2px;
+  width:8px;
+  height:8px;
+  border-radius:999px;
+  background:#dc2626;
+  box-shadow:none;
+}
+
+/* =========================================================
+   CONTAINER
+========================================================= */
+.zv-container{
+  max-width:var(--max);
+  margin:18px auto;
+  padding:0 16px 48px;
+}
+
+/* =========================================================
+   CARDS / TABLES (NO SHADOWS)
+========================================================= */
+.card{
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  box-shadow:none;
+}
+.card__head{
+  padding:14px 16px;
+  border-bottom:1px solid var(--border);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+}
+.card__body{padding:16px}
+.card__title{font-weight:600}
+.muted{color:var(--muted)}
+.btn.ghost{background:transparent}
+
+.table-wrap{overflow:auto;border-top:1px solid var(--border)}
+table{width:100%;border-collapse:separate;border-spacing:0}
+th,td{padding:12px 14px;border-bottom:1px solid var(--border);text-align:left}
+thead th{background:var(--surface);position:sticky;top:0;z-index:1}
+
+/* Pills */
+.pill{
+  display:inline-flex;
+  align-items:center;
+  padding:4px 8px;
+  border-radius:999px;
+  border:1px solid var(--border);
+  font-size:12px;
+}
+.pill.ok{
+  background:rgba(22,163,74,.10);
+  border-color:rgba(22,163,74,.25);
+}
+
+/* =========================================================
+   PAGINATION — BLACK/WHITE
+========================================================= */
+.pagination{
+  display:flex !important;
+  padding-left:0 !important;
+  list-style:none !important;
+  margin:1.2rem 0;
+  gap:6px;
+  justify-content:end;
+}
+.pagination .page-link{
+  display:block;
+  padding:6px 14px;
+  font-size:14px;
+  border-radius:10px;
+  text-decoration:none;
+  background:#000;
+  color:#fff;
+  border:1px solid var(--border);
+  transition:0.15s ease;
+}
+.pagination .page-link:hover{
+  background:#111;
+  color:#fff;
+  border-color:var(--border);
+}
+.pagination .page-item.active .page-link{
+  background:#000;
+  border-color:#000;
+  color:#fff;
+  font-weight:700;
+}
+.pagination .page-item.disabled .page-link{
+  opacity:0.45;
+  cursor:not-allowed;
+  background:#000;
+  border-color:var(--border);
+  color:#fff;
+}
+
+/* spacing helper */
+.mt{margin-top:16px}
+
+
+
+/* Fix Bootstrap Icons size inside topbar tabs (e.g. Staff) */
+.primary.iconbar .tab .ico{
+  width:26px;
+  height:26px;
+  display:grid;
+  place-items:center;
+}
+
+.primary.iconbar .tab .ico i.bi{
+  font-size:26px;     /* match svg box */
+  line-height:1;
+  display:block;
+}
+
+/* ensure active state also turns it white */
+.primary.iconbar .tab.active .ico i.bi{
+  color:#fff !important;
+}
+
+
+
+
+
+
+/* red attention tab */
+.tab.is-alert{
+  color:#ef4444 !important;
+}
+.tab.is-alert .ico{
+  color:#ef4444 !important;
+}
+
+/* NEW badge class (scoped for tabs) */
+.zv-tab-badge{
+  position:absolute;
+  top:-6px;
+  right:-10px;
+  min-width:18px;
+  height:18px;
+  padding:0 6px;
+  border-radius:999px;
+  font-size:11px;
+  font-weight:800;
+  background:#ef4444;
+  color:#fff;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  line-height:1;
+}
+
+
+
+
+  .status-toast{
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 99999;
+    min-width: 260px;
+    max-width: 380px;
+    padding: 12px 14px;
+    border-radius: 12px;
+    color: #fff;
+    font-weight: 600;
+    font-size: 14px;
+    box-shadow: 0 10px 25px rgba(0,0,0,.18);
+    opacity: 0;
+    transform: translateY(-10px);
+    pointer-events: none;
+    transition: all .25s ease;
+  }
+
+  .status-toast.show{
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .status-toast.success{ background: #16a34a; }
+  .status-toast.error{ background: #dc2626; }
+  .status-toast.warning{ background: #d97706; }
+
+
+
+
+/* ===== Agent Status Colors ===== */
+
+/* ===== Status Pills (border colored, text black) ===== */
+
+#agentStatusMenu button[data-status] .status-pill {
+  color: #000;              /* 🔥 text black */
+}
+
+/* Border colors per status */
+#agentStatusMenu button[data-status="available"] .status-pill {
+  border-color: #22c55e;
+}
+
+#agentStatusMenu button[data-status="break"] .status-pill {
+  border-color: #facc15;
+}
+
+#agentStatusMenu button[data-status="meeting"] .status-pill {
+  border-color: #a855f7;
+}
+
+#agentStatusMenu button[data-status="admin"] .status-pill {
+  border-color: #3b82f6;
+}
+
+#agentStatusMenu button[data-status="tech_issues"] .status-pill {
+  border-color: #92400e;
+}
+
+#agentStatusMenu button[data-status="holiday"] .status-pill {
+  border-color: #ec4899;
+}
+
+#agentStatusMenu button[data-status="authorized_absence"] .status-pill {
+  border-color: #f59e0b;
+}
+
+#agentStatusMenu button[data-status="unauthorized_absence"] .status-pill {
+  border-color: #ef4444;
+}
+
+#agentStatusMenu button[data-status="offline"] .status-pill {
+  border-color: #374151;
+}

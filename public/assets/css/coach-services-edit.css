@@ -1,0 +1,328 @@
+/* ===========================
+   MAIN CARD / LAYOUT
+   =========================== */
+
+   .zv-form-card {
+    background: #ffffff;
+    border-radius: 20px;
+    padding: 1.6rem 1.8rem 2rem;
+    border: 1px solid rgba(148, 163, 184, 0.35); /* slate-400 */
+    box-shadow: 0 16px 40px rgba(15, 23, 42, 0.09);
+    max-width: 1200px;
+    margin-inline: auto;
+  }
+  
+  .zv-form-card h5 {
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    font-size: 1.05rem;
+  }
+  
+  /* Top bar back button */
+  .zv-form-card .btn.btn-light {
+    border-radius: 999px;
+    border-color: #e5e7eb;
+    background: #f9fafb;
+    font-size: 0.85rem;
+  }
+  .zv-form-card .btn.btn-light:hover {
+    background: #e5e7eb;
+  }
+  
+  /* Save button */
+  .zv-form-card .btn.btn-dark.btn-lg {
+    border-radius: 999px;
+    padding-inline: 2.4rem;
+    font-size: 0.95rem;
+    font-weight: 600;
+    letter-spacing: .05em;
+    text-transform: uppercase;
+  }
+  
+  /* Panels on the right (Packages / FAQs) */
+  .zv-panel {
+    background: #ffffff;
+    border-radius: 18px;
+    border: 1px solid rgba(148, 163, 184, 0.35);
+    box-shadow: 0 12px 30px rgba(15, 23, 42, 0.08);
+  }
+  
+  .zv-panel h6 {
+    font-weight: 600;
+    font-size: 0.95rem;
+    letter-spacing: .03em;
+  }
+  
+  /* ===========================
+     LABELS / TEXT
+     =========================== */
+  
+  .zv-label {
+    display: inline-block;
+    margin-bottom: 0.25rem;
+    font-size: 0.84rem;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    color: #0f172a; /* slate-900 */
+  }
+  
+  .zv-form-card small.text-muted {
+    font-size: 0.8rem;
+    color: #6b7280 !important;
+  }
+  
+  /* ===========================
+     INPUTS / TEXTAREAS
+     =========================== */
+  
+  .zv-input,
+  .zv-form-card .form-control {
+    width: 100%;
+    border-radius: 12px;
+    border: 1px solid #e5e7eb;
+    background: #f9fafb;
+    padding: 0.55rem 0.75rem;
+    font-size: 0.9rem;
+    line-height: 1.4;
+    color: #111827;
+    transition:
+      border-color 0.15s ease,
+      box-shadow 0.15s ease,
+      background-color 0.15s ease,
+      transform 0.08s ease;
+  }
+  
+  .zv-input:focus,
+  .zv-form-card .form-control:focus {
+    outline: none;
+    background: #ffffff;
+    border-color: #111827;
+    box-shadow:
+      0 0 0 1px #111827,
+      0 14px 30px rgba(15, 23, 42, 0.18);
+    transform: translateY(-1px);
+  }
+  
+  .zv-input::placeholder {
+    color: #9ca3af;
+    font-size: 0.86rem;
+  }
+  
+  textarea.zv-input {
+    min-height: 130px;
+    resize: vertical;
+  }
+  
+  .zv-form-card input[type="file"].form-control {
+    padding: 0.35rem 0.75rem;
+    font-size: 0.84rem;
+  }
+  
+  /* Invalid state */
+  .zv-input.is-invalid,
+  .zv-form-card .form-control.is-invalid {
+    border-color: #dc2626;
+    background: #fef2f2;
+  }
+  
+  .zv-form-card .invalid-feedback {
+    font-size: 0.8rem;
+  }
+  
+  /* ===========================
+     CHECKBOXES / RADIOS
+     =========================== */
+  
+  .zv-form-card .form-check {
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+    font-size: 0.86rem;
+    color: #111827;
+  }
+  
+  .zv-form-card .form-check-input {
+    width: 0.95rem;
+    height: 0.95rem;
+    border-radius: 6px;
+    border: 1px solid #9ca3af;
+    margin-top: 0;
+    cursor: pointer;
+    transition:
+      border-color 0.15s ease,
+      box-shadow 0.15s ease,
+      background-color 0.15s ease;
+  }
+  
+  .zv-form-card .form-check-input:checked {
+    background-color: #111827;
+    border-color: #111827;
+    box-shadow: 0 0 0 3px rgba(15, 23, 42, 0.18);
+  }
+  
+  .zv-form-card .form-check-input[type="radio"] {
+    border-radius: 999px;
+  }
+  
+  /* ===========================
+     GALLERY – MAKE SURE IMAGES SHOW
+     =========================== */
+  
+  /* Outer card for each gallery image */
+  .zv-form-card .mt-3 .border.rounded-3.p-2.h-100 {
+    background: #ffffff;
+    border-color: rgba(148, 163, 184, 0.7) !important;
+    transition: box-shadow 0.15s ease, transform 0.12s ease, border-color 0.15s ease;
+  }
+  
+  .zv-form-card .mt-3 .border.rounded-3.p-2.h-100:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 14px 34px rgba(15, 23, 42, 0.16);
+  }
+  
+  /* The .ratio div that actually shows the background image */
+  .zv-form-card .ratio {
+    border-radius: 12px !important;
+    background-position: center center !important;
+    background-size: cover !important;
+    background-repeat: no-repeat !important;
+    min-height: 140px;           /* ensure visible height even if ratio styles change */
+    overflow: hidden;
+  }
+  
+  /* Make sure NOTHING is layered over the background image */
+  .zv-form-card .ratio::before,
+  .zv-form-card .ratio::after {
+    content: none !important;
+  }
+  
+  /* Checkbox text under image */
+  .zv-form-card .form-check.mt-2 .small {
+    font-size: 0.78rem;
+    color: #4b5563;
+  }
+  
+  /* ===========================
+     PACKAGES / FAQ REPEATERS
+     =========================== */
+  
+  .pkg-row,
+  .faq-row {
+    background: #f9fafb;
+    border-radius: 14px;
+    border-style: dashed !important;
+    border-width: 1px !important;
+    border-color: rgba(148, 163, 184, 0.8) !important;
+    transition:
+      box-shadow 0.15s ease,
+      transform 0.12s ease,
+      border-color 0.15s ease,
+      background-color 0.15s ease;
+  }
+  
+  .pkg-row:hover,
+  .faq-row:hover {
+    transform: translateY(-1px);
+    border-color: #111827 !important;
+    box-shadow: 0 14px 32px rgba(15, 23, 42, 0.16);
+    background: #ffffff;
+  }
+  
+  .pkg-row .zv-input,
+  .faq-row .zv-input {
+    background: #ffffff;
+  }
+  
+  /* Add / remove buttons inside repeaters */
+  #pkg-add,
+  #faq-add {
+    border-radius: 999px;
+    font-size: 0.84rem;
+    font-weight: 500;
+    border-color: #d1d5db;
+    background: #f9fafb;
+  }
+  
+  #pkg-add:hover,
+  #faq-add:hover {
+    background: #111827;
+    color: #ffffff;
+    border-color: #111827;
+  }
+  
+  .pkg-remove,
+  .faq-remove {
+    border-radius: 999px;
+    font-size: 0.84rem;
+  }
+  
+  /* ===========================
+     ALERT
+     =========================== */
+  
+  .alert.alert-success {
+    border-radius: 999px;
+    font-size: 0.86rem;
+    padding: 0.6rem 1.1rem;
+  }
+  
+  /* ===========================
+     RESPONSIVE
+     =========================== */
+  
+  @media (max-width: 1199.98px) {
+    .zv-form-card {
+      padding: 1.4rem 1.3rem 1.75rem;
+      border-radius: 18px;
+    }
+    .zv-panel {
+      border-radius: 16px;
+    }
+  }
+  
+  @media (max-width: 767.98px) {
+    .zv-form-card {
+      padding: 1.1rem 1rem 1.5rem;
+      box-shadow: 0 10px 24px rgba(15, 23, 42, 0.12);
+    }
+  
+    .zv-form-card .d-flex.justify-content-between {
+      flex-direction: column;
+      align-items: flex-start !important;
+      gap: 0.6rem;
+    }
+  
+    .zv-form-card h5 {
+      font-size: 0.98rem;
+    }
+  
+    .zv-panel {
+      margin-top: 0.75rem;
+    }
+  
+    .pkg-row,
+    .faq-row {
+      padding: 0.85rem !important;
+    }
+  }
+
+
+  /* === THUMBNAIL PREVIEW === */
+.zv-thumb-preview .thumb-box {
+    width: 100%;
+    height: 170px;                     /* nice fixed height */
+    border-radius: 14px;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    border: 1px solid rgba(148, 163, 184, 0.35);
+    box-shadow: 0 8px 18px rgba(15, 23, 42, 0.1);
+    transition: transform .15s ease, box-shadow .15s ease;
+  }
+  
+  .zv-thumb-preview .thumb-box:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 14px 34px rgba(15, 23, 42, 0.16);
+  }
+  
+  

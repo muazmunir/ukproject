@@ -1,0 +1,521 @@
+/* =========================================================
+   ADMIN — WEB SETTINGS (Premium) + IMAGE UPLOADER (Pro)
+   File: public/assets/css/admin-websettings.css
+   Matches your blades + uploader JS exactly
+========================================================= */
+
+:root{
+  --bg:#fff;
+  --text:#000;
+  --muted:rgba(0,0,0,.62);
+  --muted2:rgba(0,0,0,.48);
+  --border:rgba(0,0,0,.14);
+  --border2:rgba(0,0,0,.10);
+  --soft:#f5f6f8;
+  --soft2:#eef1f5;
+
+  --radius:18px;
+  --shadow:0 18px 40px rgba(0,0,0,.06);
+
+  --primary:#000;
+
+  --danger:#dc2626;
+  --dangerBg:#fef2f2;
+  --dangerBd:#fecaca;
+}
+
+/* ---------------------------------------------------------
+   CRITICAL: hidden attribute MUST fully hide overlays
+   (prevents invisible click-blocking)
+--------------------------------------------------------- */
+[hidden]{ display:none !important; }
+
+/* ---------------------------------------------------------
+   Base card / header
+--------------------------------------------------------- */
+*{ box-sizing:border-box; }
+
+.settings-card{
+  max-width: 1180px;
+  margin: 1.5rem auto;
+  background: var(--bg);
+  border:1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 1.25rem 1.5rem 1.45rem;
+}
+
+.card__head{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:1rem;
+  padding-bottom: .9rem;
+  border-bottom:1px solid var(--border);
+}
+
+.card__title{
+  font-size: 1.12rem;
+  font-weight: 750;
+  color: var(--text);
+  letter-spacing: -.01em;
+  text-align: center;
+}
+
+.muted{
+  color: var(--muted);
+  font-size: .92rem;
+  line-height: 1.35;
+}
+
+/* ---------------------------------------------------------
+   Subnav tabs
+--------------------------------------------------------- */
+.settings-subnav{
+  display:flex;
+  gap:.55rem;
+  flex-wrap:wrap;
+  padding-top: 1rem;
+  justify-content: center;
+}
+
+.settings-subnav .subtab{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  padding:.55rem .95rem;
+  border:1px solid var(--border);
+  border-radius: 999px;
+  text-decoration:none;
+  color: var(--text);
+  font-size:.86rem;
+  background:#fff;
+  transition:transform .12s ease, background .12s ease, border-color .12s ease, color .12s ease;
+}
+
+.settings-subnav .subtab:hover{
+  background: var(--soft);
+  transform: translateY(-1px);
+}
+
+.settings-subnav .subtab.active{
+  background:#000;
+  border-color:#000;
+  color:#fff;
+}
+
+/* ---------------------------------------------------------
+   Form layout
+--------------------------------------------------------- */
+.settings-form{
+  margin-top: 1.25rem;
+  display:flex;
+  flex-direction:column;
+  gap: 1.25rem;
+}
+
+.settings-form.grid-2{
+  display:grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.25rem;
+}
+
+@media (max-width: 900px){
+  .settings-form.grid-2{
+    grid-template-columns: 1fr;
+  }
+}
+
+.field{
+  display:flex;
+  flex-direction:column;
+  gap:.45rem;
+}
+
+.label{
+  color: var(--text);
+  font-weight: 700;
+  font-size: .9rem;
+}
+
+.hint{
+  display:block;
+  margin-top:.15rem;
+  color: var(--muted2);
+  font-weight: 600;
+  font-size: .78rem;
+}
+
+.error{
+  color: var(--danger);
+  font-size: .82rem;
+  margin-top:.15rem;
+}
+
+/* ---------------------------------------------------------
+   Inline % input
+--------------------------------------------------------- */
+.inline-input{
+  display:flex;
+  align-items:center;
+  background:#fff;
+  border:1px solid var(--border);
+  border-radius: 14px;
+  overflow:hidden;
+  min-height: 46px;
+}
+
+.inline-input input{
+  border:0;
+  outline:0;
+  flex:1;
+  padding:.65rem .75rem;
+  font-size: .92rem;
+  color: var(--text);
+  background:transparent;
+}
+
+.inline-input input::placeholder{
+  color: rgba(0,0,0,.35);
+}
+
+.inline-input .suffix{
+  padding:.65rem .75rem;
+  border-left: 1px solid var(--border);
+  background: var(--soft);
+  color: var(--text);
+  font-weight: 800;
+  font-size: .85rem;
+}
+
+/* ---------------------------------------------------------
+   Checkbox row
+--------------------------------------------------------- */
+.checkbox-row{ margin-top: .15rem; }
+
+.checkbox{
+  display:flex;
+  align-items:center;
+  gap:.55rem;
+  user-select:none;
+}
+
+.checkbox input{
+  width: 16px;
+  height: 16px;
+  accent-color: #000;
+}
+
+/* ---------------------------------------------------------
+   Buttons (btn primary/ghost/danger + small)
+--------------------------------------------------------- */
+.btn{
+  border:1px solid var(--border);
+  background:#fff;
+  color: var(--text);
+  border-radius: 14px;
+  padding:.62rem 1rem;
+  font-size:.88rem;
+  font-weight: 800;
+  cursor:pointer;
+  transition: transform .12s ease, opacity .12s ease, background .12s ease;
+  text-decoration:none;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:.45rem;
+}
+
+.btn:hover{ transform: translateY(-1px); }
+
+.btn.primary{
+  background:#000;
+  border-color:#000;
+  color:#fff;
+}
+
+.btn.primary:hover{ opacity:.92; }
+
+.btn.ghost:hover{ background: var(--soft); }
+
+.btn.small{
+  padding:.42rem .72rem;
+  font-size:.78rem;
+  border-radius: 12px;
+}
+
+.btn.danger{
+  background: var(--dangerBg);
+  border-color: var(--dangerBd);
+  color: var(--danger);
+}
+
+.btn.danger:hover{
+  background: #ffe7e7;
+}
+
+/* ---------------------------------------------------------
+   Submit row (always clickable)
+--------------------------------------------------------- */
+.form-foot{
+  display:flex;
+  justify-content:flex-end;
+  margin-top:.25rem;
+  position: relative;
+  z-index: 10; /* above local blocks */
+}
+
+.form-foot.full{ grid-column: 1 / -1; }
+
+/* ---------------------------------------------------------
+   Image uploader — matches your markup
+--------------------------------------------------------- */
+.zv-up{
+  border:1px solid var(--border);
+  border-radius: 16px;
+  background:#fff;
+  overflow:hidden;
+  position: relative;
+}
+
+/* top area */
+.zv-up__top{
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap:1rem;
+  padding:.85rem .9rem;
+  border-bottom:1px solid var(--border2);
+}
+
+.zv-up__label{
+  display:flex;
+  flex-direction:column;
+  gap:.15rem;
+  min-width:0;
+}
+
+.zv-up__title{
+  font-weight: 900;
+  font-size: .92rem;
+  color: var(--text);
+}
+
+.zv-up__meta{
+  font-size: .78rem;
+  color: var(--muted2);
+  font-weight: 700;
+}
+
+.zv-up__actions{
+  display:flex;
+  align-items:center;
+  gap:.5rem;
+  flex-wrap:wrap;
+}
+
+/* box */
+.zv-up__box{
+  padding:.9rem;
+  display:flex;
+  flex-direction:column;
+  gap:.75rem;
+}
+
+/* drop area */
+.zv-up__drop{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:.8rem;
+  border:1px dashed var(--border);
+  border-radius: 16px;
+  padding:.85rem .9rem;
+  background: var(--soft2);
+  cursor:pointer;
+  transition: background .12s ease, transform .12s ease, border-color .12s ease;
+}
+
+.zv-up__drop:hover{
+  background: var(--soft);
+  transform: translateY(-1px);
+  border-color: rgba(0,0,0,.22);
+}
+
+/* drag state (your JS adds .is-drag on ROOT) */
+.zv-up.is-drag .zv-up__drop{
+  background: #fff;
+  border-color: #000;
+  box-shadow: 0 0 0 3px rgba(0,0,0,.08);
+}
+
+.zv-up__icon{
+  width:42px;
+  height:42px;
+  border-radius: 14px;
+  background:#fff;
+  border:1px solid var(--border);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:18px;
+  flex: 0 0 auto;
+}
+
+.zv-up__txt{
+  flex:1;
+  min-width:0;
+  display:flex;
+  flex-direction:column;
+  gap:.15rem;
+}
+
+.zv-up__txt strong{ font-weight: 900; }
+
+.zv-up__chip{
+  flex:0 0 auto;
+  font-size:.75rem;
+  font-weight:900;
+  color: rgba(0,0,0,.7);
+  background:#fff;
+  border:1px solid var(--border);
+  border-radius:999px;
+  padding:.32rem .55rem;
+  min-width: 56px;
+  text-align:center;
+}
+
+/* preview */
+.zv-up__preview{
+  position: relative;
+  border:1px solid var(--border);
+  border-radius: 16px;
+  overflow:hidden;
+  background:#000;
+}
+
+.zv-up__preview img{
+  width:100%;
+  display:block;
+  height: 220px;
+  object-fit: cover;
+  background:#000;
+  cursor: zoom-in;
+}
+
+.zv-up__zoom{
+  position:absolute;
+  right: 10px;
+  bottom: 10px;
+  width: 42px;
+  height: 42px;
+  border-radius: 999px;
+  border:1px solid rgba(255,255,255,.28);
+  background: rgba(0,0,0,.55);
+  color:#fff;
+  cursor:pointer;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:16px;
+}
+
+.zv-up__zoom:hover{
+  background: rgba(0,0,0,.72);
+}
+
+/* ---------------------------------------------------------
+   Modal (remove current) — your JS toggles [hidden]
+--------------------------------------------------------- */
+.zv-modal{
+  position: fixed;
+  inset: 0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  z-index: 9998;
+}
+
+.zv-modal__backdrop{
+  position:absolute;
+  inset:0;
+  background: rgba(0,0,0,.55);
+}
+
+.zv-modal__card{
+  position: relative;
+  z-index: 2;
+  width: min(520px, 92vw);
+  background:#fff;
+  border:1px solid var(--border);
+  border-radius: 18px;
+  box-shadow: 0 30px 90px rgba(0,0,0,.25);
+  padding: 1.05rem 1.05rem 1.1rem;
+}
+
+.zv-modal__title{
+  font-size: 1rem;
+  font-weight: 950;
+  margin-bottom: .35rem;
+}
+
+.zv-modal__desc{
+  font-size: .88rem;
+  color: var(--muted);
+  line-height: 1.35;
+  margin-bottom: .9rem;
+}
+
+.zv-modal__btns{
+  display:flex;
+  justify-content:flex-end;
+  gap:.5rem;
+  flex-wrap:wrap;
+}
+
+/* ---------------------------------------------------------
+   Lightbox — your JS toggles [hidden]
+--------------------------------------------------------- */
+.zv-lightbox{
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding: 1.25rem;
+}
+
+.zv-lightbox__backdrop{
+  position:absolute;
+  inset:0;
+  background: rgba(0,0,0,.85);
+}
+
+.zv-lightbox__img{
+  position: relative;
+  z-index: 2;
+  width: auto;
+  height: auto;
+  max-width: min(1100px, 92vw);
+  max-height: 86vh;
+  border-radius: 18px;
+  box-shadow: 0 30px 100px rgba(0,0,0,.45);
+  background:#000;
+}
+
+/* ---------------------------------------------------------
+   Mobile polish
+--------------------------------------------------------- */
+@media (max-width: 520px){
+  .settings-card{ padding: 1rem 1rem 1.2rem; }
+  .zv-up__drop{ align-items:flex-start; }
+  .zv-up__icon{ width:38px;height:38px;border-radius:12px; }
+  .zv-up__preview img{ height: 200px; }
+}
+
+
+.bg-black{
+  background:black;
+color:white;
+}

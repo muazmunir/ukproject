@@ -1,0 +1,190 @@
+/* =========================================================
+   SUPERADMIN — WEBAUTHN (EXTENSION STYLES)
+   Extends: superadmin-staff.css
+========================================================= */
+
+/* spacing improvements */
+.card{
+  padding: 22px;
+}
+
+/* header alignment tweak */
+.card__head{
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+/* subtitle under title */
+.card__head .muted{
+  margin-top: 4px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+/* =========================================================
+   STATUS BAR (Registered / No Passkeys)
+========================================================= */
+.wa-status{
+  margin: 14px 0 18px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* =========================================================
+   TABLE ENHANCEMENT
+========================================================= */
+.table-wrapp{
+  margin-top: 10px;
+}
+
+.zv-table tbody td{
+  font-weight: 600;
+}
+
+.zv-table td:nth-child(2){
+  font-weight: 800;
+}
+
+/* alias column emphasis */
+.zv-table td:nth-child(2){
+  letter-spacing: .2px;
+}
+
+/* empty dash style */
+.zv-table td:empty::after{
+  content: "—";
+  color: rgba(0,0,0,.35);
+}
+
+/* =========================================================
+   ACTION BUTTON IMPROVEMENTS
+========================================================= */
+.btn.icon.danger{
+  background: rgba(220,38,38,.08);
+  border-color: rgba(220,38,38,.18);
+}
+
+.btn.icon.danger:hover{
+  background: rgba(220,38,38,.14);
+}
+
+/* =========================================================
+   RESET (DANGER ZONE)
+========================================================= */
+.wa-reset{
+  margin-top: 18px;
+  padding: 16px;
+  border: 1px solid rgba(220,38,38,.18);
+  border-radius: 16px;
+  background: rgba(220,38,38,.04);
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.wa-reset__text{
+  max-width: 600px;
+}
+
+.wa-reset__title{
+  font-weight: 900;
+  color: #dc2626;
+  font-size: 14px;
+}
+
+.wa-reset__desc{
+  font-size: 13px;
+  color: rgba(0,0,0,.62);
+  margin-top: 4px;
+  font-weight: 600;
+}
+
+/* =========================================================
+   EMPTY STATE (NO PASSKEYS)
+========================================================= */
+.wa-empty{
+  margin-top: 14px;
+  padding: 32px 18px;
+  border-radius: 18px;
+  border: 1px dashed rgba(0,0,0,.16);
+  background: #fff;
+  text-align: center;
+}
+
+.wa-empty__icon{
+  width: 60px;
+  height: 60px;
+  margin: 0 auto 12px;
+  border-radius: 16px;
+  border: 1px solid var(--border);
+  background: var(--soft);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 22px;
+}
+
+.wa-empty__title{
+  font-size: 16px;
+  font-weight: 900;
+}
+
+.wa-empty__desc{
+  margin-top: 6px;
+  font-size: 13px;
+  color: var(--muted);
+  font-weight: 600;
+}
+
+/* =========================================================
+   SMALL UI POLISH
+========================================================= */
+
+/* smooth hover */
+.zv-table tbody tr{
+  transition: background .15s ease;
+}
+
+/* improve pills spacing */
+.pill{
+  padding: 7px 12px;
+}
+
+/* consistent button height */
+.btn{
+  min-height: 38px;
+}
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+@media (max-width: 720px){
+
+  .card__head{
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .wa-reset{
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .btn{
+    width: 100%;
+  }
+
+  .table-wrapp{
+    overflow-x: auto;
+  }
+
+  .zv-table{
+    min-width: 640px;
+  }
+}

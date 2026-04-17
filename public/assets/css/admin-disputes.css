@@ -1,0 +1,503 @@
+/* =========================================================
+   admin-disputes.css  (Professional Admin UI)
+   Matches your "zv" clean/Airbnb-ish feel, but for "ad-*" UI.
+   ========================================================= */
+
+/* ---------- Theme Tokens ---------- */
+:root{
+  --ad-bg: #f6f7fb;
+  --ad-surface: #ffffff;
+  --ad-text: #111827;
+  --ad-muted: rgba(17,24,39,.62);
+  --ad-border: rgba(17,24,39,.10);
+  --ad-border-strong: rgba(17,24,39,.16);
+
+  --ad-shadow-sm: 0 1px 2px rgba(0,0,0,.05);
+  --ad-shadow-md: 0 10px 30px rgba(0,0,0,.06);
+
+  --ad-radius: 16px;
+  --ad-radius-sm: 12px;
+
+  --ad-primary: #111827;
+  --ad-primary-contrast: #ffffff;
+
+  --ad-ok: #16a34a;
+  --ad-warn: #f59e0b;
+  --ad-danger: #dc2626;
+  --ad-neutral: rgba(17,24,39,.14);
+
+  --ad-focus: 0 0 0 4px rgba(17,24,39,.08);
+}
+
+/* ---------- Base ---------- */
+*{ box-sizing:border-box; }
+.ad-page{
+  padding: 18px 18px 28px;
+}
+
+.ad-card{
+  background: var(--ad-surface);
+  border: 1px solid var(--ad-border);
+  border-radius: var(--ad-radius);
+  box-shadow: var(--ad-shadow-md);
+  padding: 14px;
+}
+
+/* ---------- Header ---------- */
+.ad-head{
+  display:flex;
+  align-items:center;
+  justify-content:end;
+  gap:16px;
+  padding: 6px 6px 14px;
+  border-bottom: 1px solid rgba(0,0,0,.06);
+  margin-bottom: 14px;
+}
+.ad-title{
+  font-size: 18px;
+  font-weight: 800;
+  letter-spacing: -0.2px;
+  color: var(--ad-text);
+  text-align: center;
+}
+.ad-sub{
+  margin-top: 4px;
+  font-size: 13px;
+  color: var(--ad-muted);
+  text-align: center;
+}
+.ad-head__right{
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+
+/* ---------- Tools (Seg + Search) ---------- */
+.ad-tools{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:14px;
+  padding: 10px 6px 12px;
+  margin-bottom: 10px;
+}
+
+.ad-seg{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  align-items:center;
+}
+
+/* Segmented buttons (pills) */
+.ad-seg__btn{
+  appearance:none;
+  border: 1px solid rgba(0,0,0,.12);
+  background:#fff;
+  color: #222;
+  border-radius: 999px;
+  padding: 9px 14px;
+  font-size: 14px;
+  font-weight: 650;
+  line-height: 1;
+  cursor: pointer;
+  transition: transform .06s ease, box-shadow .16s ease, border-color .16s ease, background .16s ease, color .16s ease;
+  user-select:none;
+}
+.ad-seg__btn:hover{
+  border-color: rgba(0,0,0,.22);
+  box-shadow: 0 2px 10px rgba(0,0,0,.06);
+}
+.ad-seg__btn:active{ transform: scale(.98); }
+.ad-seg__btn.is-active{
+  background: var(--ad-primary);
+  color: var(--ad-primary-contrast);
+  border-color: var(--ad-primary);
+  box-shadow: 0 10px 22px rgba(0,0,0,.12);
+}
+.ad-seg__btn:focus-visible{
+  outline:none;
+  box-shadow: var(--ad-focus);
+}
+
+/* Search */
+.ad-search{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  position:relative;
+  min-width: 420px;
+  max-width: 620px;
+  flex: 1;
+  justify-content:center;
+}
+.ad-search__icon{
+  position:absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 14px;
+  color: rgba(0,0,0,.45);
+  pointer-events:none;
+}
+.ad-search__input{
+  width: 100%;
+  height: 42px;
+  padding: 0 12px 0 34px;
+  border-radius: 12px;
+  border: 1px solid rgba(0,0,0,.12);
+  background:#fff;
+  font-size: 14px;
+  font-weight: 600;
+  color: #111;
+  outline:none;
+  transition: border-color .15s ease, box-shadow .15s ease;
+}
+.ad-search__input:hover{
+  border-color: rgba(0,0,0,.22);
+}
+.ad-search__input:focus{
+  border-color: rgba(0,0,0,.35);
+  box-shadow: var(--ad-focus);
+}
+
+/* ---------- Buttons ---------- */
+.ad-btn{
+  height: 42px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+  padding: 0 14px;
+  border-radius: 12px;
+  border: 1px solid rgba(0,0,0,.12);
+  background: rgba(0,0,0,.04);
+  color: #111;
+  font-size: 14px;
+  font-weight: 700;
+  text-decoration:none;
+  cursor:pointer;
+  transition: transform .06s ease, border-color .16s ease, box-shadow .16s ease, background .16s ease;
+  white-space:nowrap;
+}
+.ad-btn:hover{
+  border-color: rgba(0,0,0,.22);
+  box-shadow: 0 2px 10px rgba(0,0,0,.06);
+}
+.ad-btn:active{ transform: scale(.98); }
+.ad-btn:focus-visible{ outline:none; box-shadow: var(--ad-focus); }
+
+.ad-btn--primary{
+  background: var(--ad-primary);
+  border-color: var(--ad-primary);
+  color: var(--ad-primary-contrast);
+}
+.ad-btn--primary:hover{
+  box-shadow: 0 10px 22px rgba(0,0,0,.14);
+}
+
+.ad-btn--ghost{
+  background:#fff;
+}
+
+/* ---------- Table ---------- */
+.ad-tablewrap{
+  overflow:auto;
+  border-radius: 14px;
+  border: 1px solid rgba(0,0,0,.06);
+}
+.ad-table{
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 980px;
+  background:#fff;
+}
+.ad-table thead th{
+  position: sticky;
+  top: 0;
+  background: rgba(249,250,251,.96);
+  backdrop-filter: blur(6px);
+  z-index: 1;
+  text-align:center;
+  color: rgba(17,24,39,.70);
+  font-weight: 800;
+  font-size: 12.5px;
+  letter-spacing: .02em;
+  padding: 12px 12px;
+  border-bottom: 1px solid rgba(0,0,0,.07);
+}
+.ad-table td{
+  padding: 12px 12px;
+  border-bottom: 1px solid rgba(0,0,0,.06);
+  font-size: 13.5px;
+  color: var(--ad-text);
+  vertical-align: middle;
+  white-space: nowrap;
+  text-align: center;
+}
+.ad-table tbody tr{
+  transition: background .12s ease;
+}
+.ad-table tbody tr:hover{
+  background: rgba(17,24,39,.03);
+}
+
+/* Utility */
+.ad-muted{ color: var(--ad-muted); }
+.ad-mono{
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum" 1;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+}
+
+/* Booking cell layout */
+.ad-namecol{
+  display:flex;
+  flex-direction:column;
+  gap:4px;
+  min-width: 260px;
+}
+.ad-namecol__top{
+  display:flex;
+  align-items:center;
+  justify-content: center;
+  gap:8px;
+}
+.ad-namecol__sub{
+  font-size: 12.5px;
+}
+
+/* Participants */
+.ad-who{
+  display:flex;
+  flex-direction:column;
+  gap:6px;
+  min-width: 220px;
+}
+.ad-person{
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+.ad-person__name{
+  font-weight: 650;
+  color: #111;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  max-width: 260px;
+}
+
+/* Badges */
+.ad-badge{
+  display:inline-flex;
+  align-items:center;
+  height: 22px;
+  padding: 0 9px;
+  border-radius: 999px;
+  border: 1px solid rgba(0,0,0,.12);
+  background: #fff;
+  font-size: 11.5px;
+  font-weight: 800;
+  letter-spacing: .02em;
+  color: rgba(17,24,39,.85);
+}
+.ad-badge--solid{
+  border-color: rgba(17,24,39,.18);
+  background: rgba(17,24,39,.06);
+}
+
+/* Status pill */
+.ad-pill{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  padding: 7px 12px;
+  border-radius: 999px;
+  border: 1px solid rgba(0,0,0,.12);
+  font-weight: 800;
+  font-size: 12.5px;
+  letter-spacing: .01em;
+}
+.ad-pill::before{
+  content:"";
+  width:8px;
+  height:8px;
+  border-radius:999px;
+  background: rgba(17,24,39,.35);
+}
+.ad-pill.ok{
+  border-color: rgba(22,163,74,.25);
+  background: rgba(22,163,74,.08);
+  color: #0f7a34;
+}
+.ad-pill.ok::before{ background: var(--ad-ok); }
+
+.ad-pill.warn{
+  border-color: rgba(245,158,11,.28);
+  background: rgba(245,158,11,.10);
+  color: #8a5a00;
+}
+.ad-pill.warn::before{ background: var(--ad-warn); }
+
+.ad-pill.danger{
+  border-color: rgba(220,38,38,.28);
+  background: rgba(220,38,38,.10);
+  color: #a31212;
+}
+.ad-pill.danger::before{ background: var(--ad-danger); }
+
+.ad-pill.neutral{
+  border-color: rgba(17,24,39,.16);
+  background: rgba(17,24,39,.06);
+  color: rgba(17,24,39,.82);
+}
+.ad-pill.neutral::before{ background: rgba(17,24,39,.42); }
+
+/* Assigned To */
+.ad-taken{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  min-width: 190px;
+}
+.ad-taken__name{
+  font-weight: 700;
+  color: #111;
+}
+
+/* SLA Badge (your markup uses .badge + badge--sla-*) */
+.badge{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  height: 26px;
+  padding: 0 10px;
+  border-radius: 999px;
+  font-size: 12.5px;
+  font-weight: 900;
+  letter-spacing: .01em;
+  border: 1px solid rgba(0,0,0,.12);
+  background: #fff;
+  font-variant-numeric: tabular-nums;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+}
+
+.badge--sla-ok{
+  border-color: rgba(22,163,74,.25);
+  background: rgba(22,163,74,.08);
+  color: #0f7a34;
+}
+.badge--sla-warn{
+  border-color: rgba(245,158,11,.28);
+  background: rgba(245,158,11,.10);
+  color: #8a5a00;
+}
+.badge--sla-bad{
+  border-color: rgba(220,38,38,.28);
+  background: rgba(220,38,38,.10);
+  color: #a31212;
+}
+.badge--sla-dead{
+  border-color: rgba(17,24,39,.16);
+  background: rgba(17,24,39,.06);
+  color: rgba(17,24,39,.85);
+}
+
+/* Actions */
+.ad-actions{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:10px;
+}
+
+.ad-iconbtn{
+  width: 38px;
+  height: 38px;
+  border-radius: 12px;
+  border: 1px solid rgba(0,0,0,.12);
+  background:#fff;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  color:#111;
+  text-decoration:none;
+  transition: transform .06s ease, box-shadow .16s ease, border-color .16s ease, background .16s ease;
+}
+.ad-iconbtn:hover{
+  border-color: rgba(0,0,0,.22);
+  box-shadow: 0 2px 10px rgba(0,0,0,.06);
+}
+.ad-iconbtn:active{ transform: scale(.98); }
+.ad-iconbtn:focus-visible{ outline:none; box-shadow: var(--ad-focus); }
+
+.ad-iconbtn--primary{
+  background: rgba(17,24,39,.06);
+  border-color: rgba(17,24,39,.16);
+}
+
+/* lock icon */
+.ad-lock{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  width: 28px;
+  height: 28px;
+  border-radius: 10px;
+  background: rgba(17,24,39,.06);
+  border: 1px solid rgba(17,24,39,.12);
+  color: rgba(17,24,39,.70);
+}
+
+/* Empty state */
+.ad-empty{
+  padding: 18px 12px;
+}
+.ad-empty__title{
+  font-size: 14px;
+  font-weight: 900;
+  color: #111;
+}
+.ad-empty__sub{
+  margin-top: 4px;
+  font-size: 13px;
+  color: var(--ad-muted);
+}
+
+/* Pager */
+.ad-pager{
+  padding: 12px 6px 2px;
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 1100px){
+  .ad-search{
+    min-width: 320px;
+  }
+}
+
+@media (max-width: 900px){
+  .ad-page{ padding: 14px; }
+  .ad-head{
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .ad-tools{
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .ad-search{
+    min-width: 0;
+    max-width: 100%;
+    justify-content: center;
+  }
+}
+
+@media (prefers-reduced-motion: reduce){
+  .ad-btn,
+  .ad-iconbtn,
+  .ad-seg__btn,
+  .ad-table tbody tr{
+    transition: none !important;
+  }
+}

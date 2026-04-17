@@ -1,0 +1,376 @@
+/* ===========================
+   Favorites page — ZAIVIAS
+   Dark, clean, responsive
+   =========================== */
+
+.zv-fav-container {
+  max-width: 1200px;
+}
+
+/* Header */
+.zv-fav-header {
+  margin-bottom: 1.5rem;
+}
+
+.zv-fav-title {
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: black;
+  margin-bottom: 0.25rem;
+}
+
+.zv-fav-subtitle {
+  color: black;
+  font-size: 0.95rem;
+}
+
+/* Tabs */
+/* ===========================
+   Favorites Tabs — Toggle Style
+   =========================== */
+
+/* ============================================
+   SINGLE PILL TAB WRAPPER (outer capsule)
+=============================================== */
+.zv-fav-tab-wrapper {
+  background: #fff;
+  border: 1px solid #000;
+  border-radius: 999px;
+  display: inline-flex;
+  padding: 4px;
+}
+
+/* Remove bootstrap defaults */
+.zv-fav-tabs {
+  display: flex;
+  gap: 2px;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.zv-fav-tabs .nav-item {
+  margin: 0;
+}
+
+/* ============================================
+   TAB BUTTONS (inner selections)
+=============================================== */
+.zv-fav-tabs .nav-link {
+  border-radius: 999px;
+  padding: 8px 20px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  border: none;
+  background: transparent;
+  color: #000;
+  display: flex;
+  align-items: center;
+  transition: all 0.25s ease;
+}
+
+/* Active / selected tab */
+.zv-fav-tabs .nav-link.active {
+  background: #000 !important;
+  color: #fff !important;
+}
+
+/* Hover effect for unselected */
+.zv-fav-tabs .nav-link:not(.active):hover {
+  background: rgba(0, 0, 0, 0.06);
+  color: #000;
+}
+
+/* Icon color inherit */
+.zv-fav-tabs .nav-link i {
+  font-size: 1rem;
+  margin-right: 6px;
+}
+
+/* Active icon color */
+.zv-fav-tabs .nav-link.active i {
+  color: #fff !important;
+}
+
+/* Responsive adjustments */
+@media (max-width: 576px) {
+  .zv-fav-tab-wrapper {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .zv-fav-tabs .nav-link {
+    padding: 6px 14px;
+    font-size: 0.85rem;
+  }
+}
+
+/* Cards */
+.zv-fav-card {
+  position: relative;
+ 
+  border-radius: 16px;
+ 
+  box-shadow: 0 18px 40px rgba(15, 23, 42, 0.6);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.zv-fav-card .card-body {
+  padding: 14px 14px 8px;
+}
+
+.zv-fav-card .card-footer {
+  padding: 8px 14px 14px;
+}
+
+/* Thumbnail */
+
+
+/* Remove button (trash icon) */
+.zv-fav-remove-btn {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  z-index: 2;
+  border: none;
+  border-radius: 999px;
+  background: black;
+  color: #e5e7eb;
+  padding: 4px 7px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 0.9rem;
+  box-shadow: 0 8px 20px rgba(15, 23, 42, 0.7);
+  transition: background 0.15s ease, transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.zv-fav-remove-btn:hover {
+  background: red;
+  color: #fef2f2;
+  transform: translateY(-1px);
+  box-shadow: 0 12px 25px rgba(127, 29, 29, 0.7);
+}
+.btn-remove{
+  background: red;
+  color:white;
+}
+
+/* Badges, metadata */
+.zv-fav-badge {
+  font-size: 0.7rem;
+  border-radius: 999px;
+  padding-inline: 0.6rem;
+  padding-block: 0.2rem;
+}
+
+.zv-fav-avatar {
+  width: 26px;
+  height: 26px;
+  object-fit: cover;
+}
+
+.zv-fav-coach-name {
+  color: black;
+  font-weight: 500;
+}
+
+.zv-fav-coach-name:hover {
+  text-decoration: underline;
+}
+
+.zv-fav-level {
+  font-size: 0.75rem;
+  background: #f9fafb;
+  color: #111827;
+  border: none;
+}
+
+.zv-fav-rating {
+  color: #fbbf24;
+}
+
+.zv-fav-rating i {
+  margin-right: 2px;
+}
+
+/* Price */
+.zv-fav-price {
+  display: flex;
+  align-items: baseline;
+  gap: 4px;
+  margin-top: 4px;
+}
+
+.zv-fav-price-label {
+  color: #9ca3af;
+  font-size: 0.8rem;
+}
+
+.zv-fav-price-value {
+  font-weight: 600;
+  font-size: 1rem;
+  color: #f9fafb;
+}
+
+.zv-fav-price-unit {
+  font-size: 0.8rem;
+  color: #9ca3af;
+}
+
+/* Buttons */
+.zv-fav-btn {
+  border-radius: 999px;
+  font-size: 0.9rem;
+  padding-block: 0.45rem;
+  background:black ;
+}
+
+/* Coach cards (coaches tab) */
+.zv-fav-coach-card .card-body {
+  padding-top: 18px;
+  padding-bottom: 18px;
+}
+
+.zv-fav-avatar-lg {
+  width: 70px;
+  height: 70px;
+  object-fit: cover;
+  border: 2px solid #4b5563;
+}
+
+.zv-fav-coach-title {
+  color: black;
+  font-weight: 600;
+}
+
+.zv-fav-coach-headline {
+  font-size: 0.85rem;
+  color: black;
+}
+
+/* Empty states */
+.zv-fav-empty i {
+  color: black;
+}
+
+.zv-fav-empty h5 {
+  color: #e5e7eb;
+}
+
+.zv-fav-empty p {
+  color: #9ca3af;
+}
+
+/* Pagination */
+.zv-fav-pagination {
+  margin-top: 1.5rem;
+  display: flex;
+  justify-content: center;
+}
+
+.zv-fav-pagination .pagination {
+  --bs-pagination-bg: #020617;
+  --bs-pagination-border-color: #1f2937;
+  --bs-pagination-color: #e5e7eb;
+  --bs-pagination-hover-bg: #111827;
+  --bs-pagination-hover-border-color: #374151;
+  --bs-pagination-active-bg: #f9fafb;
+  --bs-pagination-active-border-color: #f9fafb;
+  --bs-pagination-active-color: #111827;
+}
+
+/* Modal styling */
+.zv-fav-modal {
+  background: #fff;      /* white bg */
+  color: #000;           /* black text */
+  border-radius: 18px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+}
+
+
+.zv-fav-modal .modal-header {
+  border-bottom-color: #1f2937;
+}
+
+.zv-fav-modal .modal-footer {
+  border-top-color: #1f2937;
+}
+
+.zv-fav-modal-item-label {
+  font-weight: 500;
+  color: black;
+}
+.btn-outline-light{
+  color:black;
+  border: 1px solid black;
+}
+
+/* Responsive tweaks */
+@media (max-width: 576px) {
+  .zv-fav-title {
+    font-size: 1.4rem;
+  }
+
+  .zv-fav-header {
+    text-align: left;
+  }
+
+  .zv-fav-card .card-body {
+    padding-inline: 12px;
+  }
+
+  .zv-fav-remove-btn {
+    top: 6px;
+    right: 6px;
+    padding: 3px 6px;
+  }
+}
+
+
+
+
+
+
+
+
+
+
+@media (max-width: 576px) {
+
+  .zv-fav-container { padding-left: 12px; padding-right: 12px; }
+
+  .zv-fav-title { font-size: 1.25rem; }
+  .zv-fav-subtitle { font-size: 0.85rem; }
+
+  /* Tabs smaller */
+  .zv-fav-tab-wrapper { padding: 3px; }
+  .zv-fav-tabs .nav-link {
+    padding: 6px 10px;
+    font-size: 0.82rem;
+  }
+  .zv-fav-tabs .nav-link i { font-size: 0.9rem; margin-right: 5px; }
+
+  /* Cards tighter */
+  .svc-row-card .card-body { padding: 10px 10px 6px; }
+  .svc-row-card .card-footer { padding: 0 10px 10px; }
+
+  .svc-row-card .card-title { font-size: 0.95rem; }
+  .svc-row-card .small { font-size: 0.80rem; }
+
+  /* Remove button smaller */
+  .zv-fav-remove-btn {
+    top: 6px; right: 6px;
+    padding: 3px 6px;
+    font-size: 0.82rem;
+  }
+
+  /* Coach tab avatar smaller */
+  .tab-pane .rounded-circle[style*="width:56px"] {
+    width: 46px !important;
+    height: 46px !important;
+  }
+}

@@ -1,0 +1,626 @@
+/* =========================================================
+   ADMIN SUPPORT — BLACK & WHITE THEME (FULL + FIXED)
+   White background, black text, grayscale only.
+   Includes HARD FIX for Action column alignment (Bootstrap-safe).
+========================================================= */
+
+.support-inbox{
+  padding: 1.5rem 0;
+  
+  color:#000;
+}
+
+/* Card */
+.support-card{
+  max-width: 1200px;
+  margin: 0 auto;
+  background:#fff;
+  border:1px solid #000;
+  border-radius:16px;
+  padding: 1.5rem 1.75rem 1.75rem;
+  box-shadow:none;
+}
+
+/* Header */
+.support-card__head{
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-start;
+  gap:1.25rem;
+  margin-bottom:1rem;
+}
+
+.support-title{
+  font-size:1.15rem;
+  font-weight:800;
+  margin:0 0 .2rem;
+  color:#000;
+}
+
+.support-subtitle{
+  font-size:.9rem;
+  margin:0 0 .25rem;
+  color:#000;
+  opacity:.7;
+}
+
+.support-meta{
+  font-size:.85rem;
+  margin:0;
+  color:#000;
+  opacity:.6;
+}
+
+/* Filters */
+.support-filters{
+  display:flex;
+  flex-wrap:wrap;
+  align-items:center;
+  justify-content:flex-end;
+  gap:.6rem;
+}
+
+.support-filter{ font-size:.82rem; }
+
+/* Inline "Show entries" */
+.support-filter label{
+  display:inline-flex;
+  align-items:center;
+  gap:.35rem;
+  padding:.35rem .75rem;
+  border-radius:999px;
+  border:1px solid #000;
+  background:#fff;
+  color:#000;
+}
+
+.support-filter select{
+  border:1px solid #000;
+  outline:none;
+  background:#fff;
+  color:#000;
+  font-size:.82rem;
+  padding:.18rem .35rem;
+  border-radius:10px;
+  cursor:pointer;
+}
+
+/* pill dropdowns */
+.support-filter--pill select{
+  border-radius:999px;
+  padding:.35rem .9rem;
+}
+
+/* Search */
+.support-search{
+  position:relative;
+  display:flex;
+  align-items:center;
+}
+
+.support-search__icon{
+  position:absolute;
+  left:.8rem;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  pointer-events:none;
+}
+
+.support-search__icon svg{
+  width:14px;
+  height:14px;
+  color:#000;
+  opacity:.55;
+}
+
+.support-search input[type="search"]{
+  border-radius:999px;
+  border:1px solid #000;
+  background:#fff;
+  color:#000;
+  padding:.45rem 1rem .45rem 2.25rem;
+  font-size:.85rem;
+  min-width:240px;
+  outline:none;
+}
+
+.support-search input[type="search"]::placeholder{
+  color:#000;
+  opacity:.45;
+}
+
+.support-search input[type="search"]:focus{
+  border-color:#000;
+  box-shadow:0 0 0 2px #000;
+}
+
+/* Table wrapper */
+.support-table-wrap{
+  margin-top:.35rem;
+  border-radius:12px;
+  overflow:hidden;
+  border:1px solid #000;
+  background:#fff;
+}
+
+.support-table{
+  width:100%;
+  border-collapse:collapse;
+  font-size:.9rem;
+}
+
+.support-table thead{
+  background:#fff;
+  text-align: center;
+}
+
+.support-table th,
+.support-table td{
+  padding:.8rem 1rem;
+  border-bottom:1px solid #000;
+  text-align: center !important;
+  text-align:left;
+  vertical-align:middle;
+  white-space:nowrap;
+  color:#000;
+}
+
+.support-table th{
+  font-size:.78rem;
+  font-weight:800;
+  text-transform:capitalize;
+  text-align: center;
+  letter-spacing:.04em;
+  opacity:.75;
+}
+
+.support-table tbody tr:nth-child(even){
+  background:#fff;
+}
+
+.support-table tbody tr:hover{
+  background:#f3f3f3;
+}
+
+.support-th-action{ width:140px; }
+
+/* User cell */
+.support-user{
+  display:flex;
+  align-items:center;
+  gap:.7rem;
+}
+
+.support-avatar{
+  width:34px;
+  height:34px;
+  border-radius:999px;
+  background:#000;
+  color:#fff;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  font-size:.9rem;
+  font-weight:900;
+}
+
+.support-user__meta{
+  display:flex;
+  flex-direction:column;
+  gap:.06rem;
+}
+
+.support-user__name{
+  font-weight:800;
+  text-align: center;
+  color:#000;
+}
+
+.support-user__email{
+  font-size:.82rem;
+  color:#000;
+  text-align: center;
+  opacity:.65;
+}
+
+.support-user__id{
+  font-size:.78rem;
+  color:#000;
+  text-align: center;
+  opacity:.55;
+}
+
+/* Badges (ALL B/W) */
+.badge{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  padding:.22rem .7rem;
+  border-radius:999px;
+  font-size:.78rem;
+  font-weight:900;
+  border:1px solid #000;
+  background:#fff;
+  color:#000;
+}
+
+.badge--success{
+  background:#000;
+  color:#fff;
+}
+
+.badge--muted{
+ background:#EFF6FF;       /* blue-50 */
+  color:#1D4ED8;            /* blue-700 */
+  border-color:#BFDBFE;
+}
+
+.badge--outline{
+  background:#fff;
+  color:#000;
+}
+
+/* Thread type */
+.badge--coach{
+  
+  background:#fff;
+  color:#000;
+  border:1px solid #000;
+  text-align: center;
+}
+
+.badge--client{
+  background:#fff;
+  text-align: center;
+  color:#000;
+  border:1px solid #000;
+}
+
+/* Assignee */
+.support-assignee{
+  display:inline-flex;
+  padding:.22rem .7rem;
+  text-align: center;
+  border-radius:999px;
+  border:1px solid #000;
+  background:#fff;
+  color:#000;
+  font-weight:900;
+  font-size:.78rem;
+}
+
+/* Small text */
+.support-small{
+  font-size:.82rem;
+  text-align: center;
+  color:#000;
+  opacity:.7;
+}
+
+.support-empty-row{
+  text-align:center;
+  padding:1.4rem 0;
+  font-size:.9rem;
+  color:#000;
+  opacity:.65;
+}
+
+/* Buttons (B/W) */
+.btn-chip{
+  width:32px;
+  height:32px;
+  border-radius:999px;
+  border:1px solid #000;
+  background:#fff;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+  box-shadow:none;
+  transition:transform .08s ease, background .12s ease;
+}
+
+.btn-chip svg{
+  width:14px;
+  height:14px;
+  color:#000;
+}
+
+.btn-chip--info{ background:#fff; }
+
+.btn-chip--success{
+  background:#000;
+}
+.btn-chip--success svg{
+  color:#fff;
+}
+
+.btn-chip:hover{
+  transform:translateY(-1px);
+  background:#f3f3f3;
+}
+.btn-chip--success:hover{
+  background:#111;
+}
+.btn-chip:active{
+  transform:translateY(0);
+}
+
+/* Pagination (B/W) */
+.support-pager{
+  margin-top:1.1rem;
+  display:flex;
+  justify-content:flex-end;
+}
+
+/* hide duplicated paginator summary block */
+.support-pager nav > div:first-child{ display:none; }
+
+.support-pager .pagination{ gap:.35rem; }
+
+.support-pager .page-link{
+  color:#000 !important;
+  background:#fff !important;
+  border:1px solid #000 !important;
+  border-radius:999px !important;
+  padding:.35rem .7rem !important;
+  box-shadow:none !important;
+}
+
+.support-pager .page-item.active .page-link{
+  background:#000 !important;
+  color:#fff !important;
+}
+
+.support-pager .page-item.disabled .page-link{
+  opacity:.45;
+}
+
+/* =========================================================
+   HARD FIX: ACTION COLUMN "UP/DOWN" ALIGNMENT (BOOTSTRAP SAFE)
+   Make TD itself flex, normalize <a> vs <form> baseline.
+========================================================= */
+.support-table td.support-actions{
+  vertical-align:middle !important;
+
+  
+  justify-content:center!important;
+  align-items:center !important;
+  gap:.45rem !important;
+
+  /* normalize cell padding so rows match */
+  padding-top:.55rem !important;
+  padding-bottom:.55rem !important;
+  text-align: center;  
+}
+
+/* forms inside flex */
+.support-table td.support-actions form{
+  display:inline-flex !important;
+  margin:0 !important;
+}
+
+/* normalize click targets + kill baseline shift */
+.support-table td.support-actions a,
+.support-table td.support-actions button{
+  display:inline-flex !important;
+  align-items:center !important;
+  justify-content:center !important;
+  text-align: center;
+  line-height:0 !important;
+}
+
+/* ensure svg doesn't affect baseline */
+.support-table td.support-actions svg{
+  display:block !important;
+}
+
+/* Optional: reserve 2nd button space so rows look identical even when unassigned */
+.support-table td.support-actions::after{
+  content:"";
+  width:32px;
+  height:32px;
+  display:inline-block;
+}
+
+/* Responsive */
+@media (max-width: 992px){
+  .support-card{
+    padding:1.25rem 1.25rem 1.4rem;
+  }
+  .support-card__head{
+    flex-direction:column;
+    align-items:stretch;
+  }
+  .support-filters{
+    justify-content:flex-start;
+  }
+}
+
+@media (max-width: 640px){
+  .support-card{
+    border-radius:0;
+    margin-inline:-0.75rem;
+  }
+  .support-table th,
+  .support-table td{
+    padding:.65rem .75rem;
+  }
+  .support-search input[type="search"]{
+    min-width:0;
+    width:100%;
+  }
+}
+
+
+
+
+.badge{
+  border:1px solid rgba(0,0,0,.18);
+  font-weight:800;
+}
+
+/* status */
+.badge--success{
+  background:#DCFCE7;       /* green-100 */
+  color:#166534;            /* green-800 */
+  border-color:#86EFAC;     /* green-300 */
+}
+
+.badge--muted{
+background:#EFF6FF;       /* blue-50 */
+  color:#1D4ED8;            /* blue-700 */
+  border-color:#BFDBFE;    /* gray-200 */
+}
+
+.badge--outline{
+  background:#fff;
+  color:#111827;
+  border-color:#D1D5DB;
+}
+
+/* thread type */
+.badge--coach{
+  
+   background:#FAFAFA;       /* near white */
+  color:#111827;
+  border-color:#E5E7EB;     /* blue-200 */
+}
+
+.badge--client{
+  background:#FAFAFA;       /* near white */
+  color:#111827;
+  border-color:#E5E7EB;
+}
+
+/* optional: Unassigned stays neutral */
+.badge--outline{
+  background:#fff;
+  color:#4B5563;
+  border-color:#E5E7EB;
+}
+
+/* ---------- Assignee pill (neutral) ---------- */
+.support-assignee{
+  border-color:#E5E7EB;
+  background:#fff;
+  color:#111827;
+}
+
+/* ---------- Action chips (colored, consistent) ---------- */
+.btn-chip{
+  border:none;
+  box-shadow:0 6px 18px rgba(0,0,0,.12);
+}
+
+.btn-chip svg{
+  color:#fff; /* chips always white icon */
+}
+
+/* Open conversation (info) */
+.btn-chip--info{
+  background:#2563EB; /* blue-600 */
+}
+.btn-chip--info:hover{
+  background:#1D4ED8; /* blue-700 */
+}
+
+/* Assign to me (success) */
+.btn-chip--success{
+  background:#16A34A; /* green-600 */
+}
+.btn-chip--success:hover{
+  background:#15803D; /* green-700 */
+}
+
+/* ---------- Focus ring (accessible) ---------- */
+.support-search input[type="search"]:focus,
+.support-filter select:focus{
+  outline:none;
+  border-color:#2563EB;
+  box-shadow:0 0 0 3px rgba(37,99,235,.20);
+}
+
+
+
+/* Action icon buttons */
+.act{
+  display:flex;
+  justify-content:center;
+  gap:10px;
+  align-items:center;
+}
+
+.icon-btn{
+  position:relative;
+  width:38px;
+  height:38px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  border-radius:12px;
+  border:1px solid rgba(0,0,0,.12);
+  background:#fff;
+  color:#000;
+  text-decoration:none;
+  transition:transform .08s ease, background .12s ease, border-color .12s ease;
+}
+.icon-btn:hover{
+  background:#f6f7f9;
+  border-color:rgba(0,0,0,.18);
+  transform:translateY(-1px);
+}
+.icon-btn:active{ transform:translateY(0); }
+
+.icon-btn--primary{
+  background:#000;
+  color:#fff;
+  border-color:#000;
+}
+.icon-btn--primary:hover{ background:#111; }
+
+/* red unread bubble on icon */
+.badge-dot{
+  position:absolute;
+  top:-6px;
+  right:-6px;
+  min-width:18px;
+  height:18px;
+  padding:0 6px;
+  border-radius:999px;
+  background:#dc2626;
+  color:#fff;
+  font-size:12px;
+  font-weight:800;
+  line-height:18px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  border:2px solid #fff;
+}
+
+/* disabled look */
+.icon-btn[aria-disabled="true"]{
+  opacity:.5;
+  pointer-events:none;
+}
+
+
+
+
+/* range row should look exactly like toolbar pills */
+.range-toolbar{
+  display:flex; gap:10px; flex-wrap:wrap; align-items:center;
+  margin: 4px 0 14px;
+}
+.range-toolbar .f{
+  display:flex; align-items:center; gap:8px; padding:10px 12px;
+  border:1px solid rgba(0,0,0,.12); border-radius:14px; background:#fff;
+}
+.range-toolbar input, .range-toolbar select{
+  border:0; outline:0; background:transparent; font-size:14px;
+}
+.range-toolbar .range-apply{
+  margin-left:2px;
+}

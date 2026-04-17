@@ -1,0 +1,186 @@
+:root{
+  --cb-bg:#f6f8fb;
+  --cb-surface:#fff;
+  --cb-text:#0f172a;
+  --cb-muted:#6b7280;
+  --cb-border:#e8ecf2;
+  --cb-shadow:0 10px 30px rgba(2,6,23,.06);
+  --r:16px;
+
+  --ok:#16a34a;
+  --warn:#f59e0b;
+  --danger:#dc2626;
+}
+
+/* Status panel that sits nicely inside the booking card */
+.cb-status{
+  margin-top: 10px;
+  background: linear-gradient(180deg, rgba(255,255,255,.96), rgba(255,255,255,.92));
+  border: 1px solid var(--cb-border);
+  border-radius: 14px;
+  padding: 12px 12px;
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap: 12px;
+}
+
+.cb-status__left{
+  display:flex;
+  align-items:flex-start;
+  gap: 10px;
+  min-width: 0;
+}
+
+.cb-status__dot{
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+  margin-top: 6px;
+  flex: 0 0 auto;
+ background: white;
+    box-shadow: 0 0 0 6px rgb(0 0 0 / 100%);
+}
+
+.cb-status--ok .cb-status__dot{ background: var(--ok); box-shadow: 0 0 0 4px rgba(22,163,74,.14); }
+.cb-status--warn .cb-status__dot{ background: white;
+    box-shadow: 0 0 0 4px rgb(0 0 0 / 100%); }
+.cb-status--danger .cb-status__dot{ background: var(--danger); box-shadow: 0 0 0 4px rgba(220,38,38,.14); }
+
+.cb-status__text{
+  min-width: 0;
+}
+
+.cb-status__title{
+  font-weight: 700;
+  color: var(--cb-text);
+  line-height: 1.2;
+  font-size: 14px;
+  text-transform: capitalize;
+}
+
+.cb-status__sub{
+  margin-top: 2px;
+  color: var(--cb-muted);
+  font-size: 13px;
+  line-height: 1.35;
+  text-transform: capitalize;
+}
+
+.cb-status__countdown{
+  margin-top: 10px;
+  display:flex;
+  align-items:center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.cb-status__label{
+  color: var(--cb-muted);
+  font-size: 12px;
+  text-transform: capitalize;
+}
+
+/* Timer pill */
+.cb-timer{
+  font-variant-numeric: tabular-nums;
+  font-weight: 800;
+  letter-spacing: .3px;
+  border-radius: 999px;
+  padding: 6px 10px;
+  border: 1px solid rgba(15,23,42,.10);
+  background: rgba(15,23,42,.04);
+  color: var(--cb-text);
+  font-size: 13px;
+  line-height: 1;
+}
+
+/* Right column actions */
+.cb-status__right{
+  display:flex;
+  flex-direction: column;
+  align-items:flex-end;
+  gap: 8px;
+  flex: 0 0 auto;
+}
+
+.cb-status__action{
+  margin: 0;
+}
+
+/* Soft button (pairs nicely with your card UI) */
+.cb-btn{
+  border: 1px solid var(--cb-border);
+  background: #fff;
+  color: var(--cb-text);
+  border-radius: 999px;
+  padding: 8px 12px;
+  font-weight: 700;
+  font-size: 13px;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.cb-btn--soft{
+  background: rgba(245,158,11,.10);
+  border-color: rgba(245,158,11,.25);
+}
+
+.cb-btn--soft:hover{
+  background: rgba(245,158,11,.16);
+}
+
+/* Badges */
+.cb-badge{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  border-radius: 999px;
+  padding: 6px 10px;
+  font-weight: 800;
+  font-size: 12px;
+  line-height: 1;
+  border: 1px solid rgba(15,23,42,.10);
+  background: rgba(15,23,42,.04);
+  color: var(--cb-text);
+  white-space: nowrap;
+}
+
+.cb-badge--ok{
+  border-color: rgba(22,163,74,.25);
+  background: rgba(22,163,74,.10);
+}
+
+.cb-badge--warn{
+  border-color: white;
+  /* background: black; */
+}
+
+.cb-status__hint{
+  max-width: 220px;
+  text-align: right;
+  color: var(--cb-muted);
+  font-size: 11.5px;
+  line-height: 1.3;
+}
+
+/* Responsive: stack nicely on small screens */
+@media (max-width: 576px){
+  .cb-status{
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .cb-status__right{
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+  }
+
+  .cb-status__hint{
+    max-width: none;
+    text-align: left;
+    margin-top: 2px;
+    flex-basis: 100%;
+  }
+}

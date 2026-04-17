@@ -1,0 +1,641 @@
+/* =========================================================
+   admin-disputes-show.css (Professional Dispute Detail + Chat)
+   Works with your .ad-* markup on dispute show page
+   ========================================================= */
+
+/* ---------- Theme Tokens (safe if already defined) ---------- */
+:root{
+  --ad-bg: #f6f7fb;
+  --ad-surface: #ffffff;
+  --ad-text: #111827;
+  --ad-muted: rgba(17,24,39,.62);
+
+  --ad-border: rgba(17,24,39,.10);
+  --ad-border-strong: rgba(17,24,39,.16);
+
+  --ad-shadow-sm: 0 1px 2px rgba(0,0,0,.05);
+  --ad-shadow-md: 0 10px 30px rgba(0,0,0,.06);
+
+  --ad-radius: 16px;
+  --ad-radius-sm: 12px;
+
+  --ad-primary: #111827;
+  --ad-primary-contrast: #ffffff;
+
+  --ad-ok: #16a34a;
+  --ad-warn: #f59e0b;
+  --ad-danger: #dc2626;
+
+  --ad-focus: 0 0 0 4px rgba(17,24,39,.08);
+}
+
+/* ---------- Base ---------- */
+*{ box-sizing:border-box; }
+.ad-page{ padding: 18px 18px 28px; }
+
+.ad-card{
+  background: var(--ad-surface);
+  border: 1px solid var(--ad-border);
+  border-radius: var(--ad-radius);
+  box-shadow: var(--ad-shadow-md);
+  padding: 14px;
+}
+
+/* ---------- Header (tight) ---------- */
+.ad-head{
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap:16px;
+  padding: 6px 6px 14px;
+  border-bottom: 1px solid rgba(0,0,0,.06);
+  margin-bottom: 14px;
+}
+.ad-head--tight{
+  padding-bottom: 12px;
+  margin-bottom: 12px;
+}
+
+.ad-title{
+  font-size: 18px;
+  font-weight: 900;
+  letter-spacing: -0.2px;
+  color: var(--ad-text);
+}
+.ad-sub{
+  margin-top: 4px;
+  font-size: 13px;
+  color: var(--ad-muted);
+}
+.ad-head__right{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  flex-wrap:wrap;
+  justify-content:flex-end;
+}
+
+.ad-muted{ color: var(--ad-muted); }
+.ad-mono{
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum" 1;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+}
+
+/* ---------- Status pill ---------- */
+.ad-pill{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  padding: 7px 12px;
+  border-radius: 999px;
+  border: 1px solid rgba(0,0,0,.12);
+  font-weight: 900;
+  font-size: 12.5px;
+  letter-spacing: .01em;
+  background:#fff;
+}
+.ad-pill::before{
+  content:"";
+  width:8px;
+  height:8px;
+  border-radius:999px;
+  background: rgba(17,24,39,.42);
+}
+.ad-pill.ok{
+  border-color: rgba(22,163,74,.25);
+  background: rgba(22,163,74,.08);
+  color: #0f7a34;
+}
+.ad-pill.ok::before{ background: var(--ad-ok); }
+
+.ad-pill.warn{
+  border-color: rgba(245,158,11,.28);
+  background: rgba(245,158,11,.10);
+  color: #8a5a00;
+}
+.ad-pill.warn::before{ background: var(--ad-warn); }
+
+.ad-pill.danger{
+  border-color: rgba(220,38,38,.28);
+  background: rgba(220,38,38,.10);
+  color: #a31212;
+}
+.ad-pill.danger::before{ background: var(--ad-danger); }
+
+.ad-pill.neutral{
+  border-color: rgba(17,24,39,.16);
+  background: rgba(17,24,39,.06);
+  color: rgba(17,24,39,.85);
+}
+
+/* ---------- Buttons / Inputs ---------- */
+.ad-btn{
+  height: 42px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+  padding: 0 14px;
+  border-radius: 12px;
+  border: 1px solid rgba(0,0,0,.12);
+  background: rgba(0,0,0,.04);
+  color: #111;
+  font-size: 14px;
+  font-weight: 800;
+  text-decoration:none;
+  cursor:pointer;
+  white-space:nowrap;
+  transition: transform .06s ease, border-color .16s ease, box-shadow .16s ease, background .16s ease, opacity .16s ease;
+}
+.ad-btn:hover{
+  border-color: rgba(0,0,0,.22);
+  box-shadow: 0 2px 10px rgba(0,0,0,.06);
+}
+.ad-btn:active{ transform: scale(.98); }
+.ad-btn:focus-visible{ outline:none; box-shadow: var(--ad-focus); }
+
+.ad-btn--primary{
+  background: var(--ad-primary);
+  border-color: var(--ad-primary);
+  color: var(--ad-primary-contrast);
+}
+.ad-btn--primary:hover{ box-shadow: 0 10px 22px rgba(0,0,0,.14); }
+
+.ad-btn--ghost{ background:#fff; }
+
+.ad-btn--success{
+  background: rgba(22,163,74,.10);
+  border-color: rgba(22,163,74,.28);
+  color: #0f7a34;
+}
+.ad-btn--success:hover{ box-shadow: 0 10px 22px rgba(22,163,74,.12); }
+
+.ad-btn[disabled],
+.ad-btn:disabled{
+  opacity: .55;
+  cursor:not-allowed;
+  box-shadow:none !important;
+  transform:none !important;
+}
+
+.ad-input,
+.ad-select{
+  height: 42px;
+  border-radius: 12px;
+  border: 1px solid rgba(0,0,0,.12);
+  padding: 0 12px;
+  font-size: 14px;
+  font-weight: 650;
+  color: #111;
+  background:#fff;
+  outline:none;
+  transition: border-color .15s ease, box-shadow .15s ease, opacity .16s ease;
+}
+.ad-input{ min-width: 260px; }
+.ad-input::placeholder{ color: rgba(17,24,39,.45); font-weight:600; }
+
+.ad-input:hover,
+.ad-select:hover{ border-color: rgba(0,0,0,.22); }
+
+.ad-input:focus,
+.ad-select:focus{
+  border-color: rgba(0,0,0,.35);
+  box-shadow: var(--ad-focus);
+}
+
+.ad-input[disabled],
+.ad-select[disabled]{
+  opacity: .60;
+  cursor:not-allowed;
+  background: rgba(0,0,0,.03);
+}
+
+/* Make select look modern */
+.ad-select{
+  padding-right: 36px;
+  appearance:none;
+  background-image:
+    linear-gradient(45deg, transparent 50%, rgba(0,0,0,.55) 50%),
+    linear-gradient(135deg, rgba(0,0,0,.55) 50%, transparent 50%);
+  background-position:
+    calc(100% - 18px) calc(50% - 2px),
+    calc(100% - 12px) calc(50% - 2px);
+  background-size:6px 6px, 6px 6px;
+  background-repeat:no-repeat;
+}
+
+.ad-inline{ display:inline-flex; align-items:center; gap:10px; flex-wrap:wrap; }
+
+/* ✅ Textarea (summary modal) */
+.ad-textarea{
+  width:100%;
+  border-radius: 12px;
+  border: 1px solid rgba(0,0,0,.12);
+  padding: 10px 12px;
+  font-size: 14px;
+  font-weight: 650;
+  color:#111;
+  background:#fff;
+  outline:none;
+  resize: vertical;
+  min-height: 120px;
+  transition: border-color .15s ease, box-shadow .15s ease;
+}
+.ad-textarea::placeholder{ color: rgba(17,24,39,.45); font-weight:600; }
+.ad-textarea:hover{ border-color: rgba(0,0,0,.22); }
+.ad-textarea:focus{
+  border-color: rgba(0,0,0,.35);
+  box-shadow: var(--ad-focus);
+}
+
+/* ---------- Info Bar ---------- */
+.ad-bar{
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap:14px;
+  padding: 12px 12px;
+  border: 1px solid rgba(0,0,0,.08);
+  border-radius: 16px;
+  background: #fff;
+  box-shadow: var(--ad-shadow-sm);
+  margin-bottom: 12px;
+}
+
+.ad-bar__left{
+  display:flex;
+  flex-wrap:wrap;
+  gap:14px 18px;
+  align-items:flex-start;
+  flex: 1;
+  min-width: 420px;
+}
+.ad-bar__right{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  flex-wrap:wrap;
+  justify-content:flex-end;
+}
+
+/* key/value blocks */
+.ad-kv{
+  display:flex;
+  flex-direction:column;
+  gap:6px;
+  min-width: 160px;
+}
+.ad-k{
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: .04em;
+  text-transform: capitalize;
+  color: rgba(17,24,39,.60);
+}
+.ad-v{
+  font-size: 13.5px;
+  font-weight: 650;
+  color: #111;
+  line-height: 1.25;
+}
+
+/* text-danger helpers */
+.text-danger{ color: var(--ad-danger) !important; }
+
+/* ✅ Latest Summary card */
+.ad-summary{
+  margin: 12px 0;
+  border: 1px solid rgba(0,0,0,.08);
+  border-radius: 16px;
+  background:#fff;
+  box-shadow: var(--ad-shadow-sm);
+  padding: 12px;
+}
+.ad-summary__head{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+}
+.ad-summary__title{
+  font-weight: 900;
+  font-size: 14px;
+  color:#111;
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+.ad-summary__meta{
+  margin-top: 6px;
+  font-size: 12.5px;
+  color: rgba(17,24,39,.72);
+}
+.ad-summary__body{
+  margin-top: 10px;
+  font-size: 13.5px;
+  font-weight: 600;
+  line-height: 1.45;
+  color:#111;
+}
+.ad-summary__empty{
+  margin-top: 10px;
+  padding: 12px;
+  border: 1px dashed rgba(0,0,0,.12);
+  border-radius: 14px;
+  background: rgba(0,0,0,.02);
+  color: rgba(17,24,39,.70);
+  font-weight: 650;
+}
+
+/* ✅ Summary history list items */
+.ad-summaryitem{
+  padding: 10px 0;
+  border-bottom: 1px solid rgba(0,0,0,.06);
+}
+.ad-summaryitem:last-child{ border-bottom:0; }
+.ad-summaryitem__meta{
+  font-size: 12.5px;
+  color: rgba(17,24,39,.72);
+}
+.ad-summaryitem__text{
+  margin-top: 6px;
+  font-size: 13.5px;
+  font-weight: 600;
+  line-height: 1.45;
+  color:#111;
+}
+
+/* ---------- Split Chat Layout ---------- */
+.ad-split{
+  display:grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+  margin-top: 12px;
+}
+
+/* Chat Card */
+.ad-chat{
+  border: 1px solid rgba(0,0,0,.08);
+  border-radius: 16px;
+  background:#fff;
+  box-shadow: var(--ad-shadow-sm);
+  display:flex;
+  flex-direction:column;
+  min-height: 520px;
+  overflow:hidden;
+}
+
+/* Chat header */
+.ad-chat__head{
+  padding: 12px 12px;
+  border-bottom: 1px solid rgba(0,0,0,.06);
+  background: rgba(249,250,251,.92);
+  backdrop-filter: blur(6px);
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap:10px;
+}
+.ad-chat__title{
+  font-size: 14px;
+  font-weight: 900;
+  color:#111;
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+
+/* ✅ System banner inside chat */
+.ad-chat__sys{
+  margin-bottom: 10px;
+  padding: 10px 12px;
+  border-radius: 14px;
+  border: 1px solid rgba(0,0,0,.08);
+  background: rgba(17,24,39,.03);
+  color: rgba(17,24,39,.80);
+  font-size: 13px;
+  font-weight: 650;
+}
+.ad-chat__sys b{ color:#111; }
+
+/* Chat body (scroll) */
+.ad-chat__body{
+  padding: 12px;
+  overflow:auto;
+  flex:1;
+  background:
+    radial-gradient(1200px 600px at 10% 0%, rgba(17,24,39,.03), transparent 60%),
+    radial-gradient(900px 450px at 90% 0%, rgba(17,24,39,.02), transparent 60%),
+    #fff;
+}
+
+/* Empty */
+.ad-chat__empty{
+  padding: 18px 14px;
+  border: 1px dashed rgba(0,0,0,.12);
+  border-radius: 16px;
+  background: rgba(0,0,0,.02);
+  color: rgba(17,24,39,.70);
+  font-weight: 650;
+}
+
+/* Composer */
+.ad-chat__composer{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding: 12px;
+  border-top: 1px solid rgba(0,0,0,.06);
+  background:#fff;
+}
+.ad-chat__input{
+  flex:1;
+  height: 44px;
+  border-radius: 12px;
+  border: 1px solid rgba(0,0,0,.12);
+  padding: 0 12px;
+  font-size: 14px;
+  font-weight: 650;
+  outline:none;
+  transition: border-color .15s ease, box-shadow .15s ease, opacity .16s ease;
+}
+.ad-chat__input::placeholder{ color: rgba(17,24,39,.45); font-weight:600; }
+.ad-chat__input:hover{ border-color: rgba(0,0,0,.22); }
+.ad-chat__input:focus{
+  border-color: rgba(0,0,0,.35);
+  box-shadow: var(--ad-focus);
+}
+.ad-chat__input[disabled]{
+  opacity:.60;
+  cursor:not-allowed;
+  background: rgba(0,0,0,.03);
+}
+
+/* ---------- Messages ---------- */
+.ad-msg{
+  display:flex;
+  flex-direction:column;
+  gap:6px;
+  margin: 10px 0;
+}
+
+/* Meta line */
+.ad-msg__meta{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  font-size: 12.5px;
+  color: rgba(17,24,39,.70);
+}
+.ad-msg__who{
+  font-weight: 900;
+  color: #111;
+}
+
+/* Bubble */
+.ad-msg__bubble{
+  max-width: 86%;
+  padding: 10px 12px;
+  border-radius: 14px;
+  border: 1px solid rgba(0,0,0,.10);
+  background: #fff;
+  color: #111;
+  font-size: 13.5px;
+  font-weight: 600;
+  line-height: 1.35;
+  box-shadow: 0 1px 2px rgba(0,0,0,.04);
+  word-break: break-word;
+}
+
+/* Alignments (admin vs user) */
+.ad-msg.is-admin{ align-items:flex-end; }
+.ad-msg.is-user{ align-items:flex-start; }
+
+.ad-msg.is-admin .ad-msg__bubble{
+  background: rgba(17,24,39,.06);
+  border-color: rgba(17,24,39,.16);
+}
+.ad-msg.is-user .ad-msg__bubble{
+  background: #fff;
+}
+
+/* Attachments */
+.ad-msg__atts{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  max-width: 86%;
+}
+.ad-att{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  border-radius: 14px;
+  border: 1px solid rgba(0,0,0,.10);
+  background:#fff;
+  overflow:hidden;
+  text-decoration:none;
+  color:#111;
+  box-shadow: 0 1px 2px rgba(0,0,0,.04);
+  transition: transform .06s ease, box-shadow .16s ease, border-color .16s ease;
+}
+.ad-att:hover{
+  border-color: rgba(0,0,0,.20);
+  box-shadow: 0 8px 18px rgba(0,0,0,.08);
+}
+.ad-att:active{ transform: scale(.99); }
+
+.ad-att img{
+  display:block;
+  width: 150px;
+  height: 110px;
+  object-fit: cover;
+}
+
+/* File attachment style */
+.ad-att--file{
+  padding: 10px 12px;
+  gap:10px;
+  min-width: 180px;
+}
+.ad-att--file i{ opacity:.8; }
+.ad-att--file span{
+  font-weight: 800;
+  font-size: 13px;
+  max-width: 240px;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+}
+
+/* Make attachment alignment follow bubble alignment */
+.ad-msg.is-admin .ad-msg__atts{ justify-content:flex-end; }
+.ad-msg.is-user .ad-msg__atts{ justify-content:flex-start; }
+
+/* ✅ Bootstrap modal theming (optional but makes it match) */
+.modal-content{
+  border-radius: 16px;
+  border: 1px solid rgba(0,0,0,.10);
+  box-shadow: 0 20px 60px rgba(0,0,0,.12);
+}
+.modal-header, .modal-footer{
+  border-color: rgba(0,0,0,.06);
+}
+.modal-title{
+  font-weight: 900;
+  letter-spacing: -0.2px;
+  color:#111;
+}
+.btn-close{
+  opacity: .6;
+}
+.btn-close:hover{ opacity: .9; }
+
+/* ---------- Responsive ---------- */
+@media (max-width: 1100px){
+  .ad-bar__left{ min-width: 0; }
+  .ad-input{ min-width: 220px; }
+}
+
+@media (max-width: 900px){
+  .ad-page{ padding: 14px; }
+
+  .ad-head{
+    flex-direction:column;
+    align-items:stretch;
+  }
+  .ad-head__right{
+    justify-content:flex-start;
+  }
+
+  .ad-bar{
+    flex-direction:column;
+    align-items:stretch;
+  }
+  .ad-bar__right{
+    justify-content:flex-start;
+  }
+
+  .ad-split{
+    grid-template-columns: 1fr;
+  }
+  .ad-chat{
+    min-height: 520px;
+  }
+  .ad-msg__bubble,
+  .ad-msg__atts{
+    max-width: 100%;
+  }
+}
+
+/* ---------- Reduced Motion ---------- */
+@media (prefers-reduced-motion: reduce){
+  .ad-btn,
+  .ad-input,
+  .ad-select,
+  .ad-att,
+  .ad-textarea{
+    transition:none !important;
+  }
+}

@@ -1,0 +1,328 @@
+/* --- Wizard shell --- */
+.zv-wizard {
+    position: sticky;
+    top: 0;
+    z-index: 9;
+    background: #ffffff;
+    padding: 1rem 0 0.5rem;
+    border-bottom: 1px solid rgba(15, 23, 42, 0.06);
+  }
+  .form-check .form-check-input{
+    margin-left: 0 !important;
+  }
+  
+  .form-check-input:checked{
+    background-color: black !important;
+    border-color: black !important;
+  }
+  /* Steps */
+  .zv-steps {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 0.75rem;
+    align-items: center;
+  }
+  
+  .zv-step {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    min-width: 0;
+    cursor: pointer;
+    transition: color 0.15s ease, opacity 0.15s ease;
+  }
+  
+  .zv-step-dot {
+    width: 26px;
+    height: 26px;
+    border-radius: 999px;
+    display: grid;
+    place-items: center;
+    font-size: 0.8rem;
+    font-weight: 600;
+    background: #f3f4f6;
+    color: #6b7280;
+  }
+  
+  .zv-step-label {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #6b7280;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  
+  .zv-step.is-done .zv-step-dot {
+    background: #111827;
+    color: #ffffff;
+  }
+  
+  .zv-step.is-done .zv-step-label {
+    color: #111827;
+    opacity: 0.7;
+  }
+  
+  .zv-step.is-current .zv-step-dot {
+    background: #111827;
+    color: #ffffff;
+    box-shadow: 0 0 0 4px rgba(15, 23, 42, 0.08);
+  }
+  
+  .zv-step.is-current .zv-step-label {
+    color: #111827;
+  }
+  
+  .zv-step.is-upcoming {
+    opacity: 0.7;
+  }
+  
+  /* Progress bar */
+  .zv-progress {
+    height: 4px;
+    background: #e5e7eb;
+    border-radius: 999px;
+    overflow: hidden;
+    margin-top: 0.5rem;
+  }
+  
+  .zv-progress > div {
+    height: 100%;
+    width: 0%;
+    background: #111827;
+    transition: width 0.3s ease;
+  }
+  
+  /* Form card */
+  .zv-form-card {
+    background: #ffffff;
+    border-radius: 18px;
+    border: 1px solid rgba(15, 23, 42, 0.06);
+    box-shadow: 0 18px 40px rgba(15, 23, 42, 0.06);
+    padding: 1.5rem 1.5rem 1.75rem;
+  }
+  
+  .zv-form-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+  
+  /* Inputs / labels */
+  .zv-label {
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: #111827;
+  }
+  
+  .zv-input {
+    width: 100%;
+    border-radius: 0.75rem;
+    border: 1px solid #e5e7eb;
+    padding: 0.6rem 0.8rem;
+    font-size: 0.9rem;
+    outline: none;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  }
+  
+  .zv-input:focus {
+    border-color: #111827;
+    box-shadow: 0 0 0 1px #11182714;
+  }
+  
+  .zv-input.is-invalid,
+  .is-invalid.zv-input {
+    border-color: #b91c1c;
+    box-shadow: 0 0 0 1px rgba(185, 28, 28, 0.16);
+  }
+  
+  /* Tiny muted text */
+  .zv-muted {
+    font-size: 0.8rem;
+    color: #6b7280;
+  }
+  
+  /* Step panes */
+  .zv-step-pane {
+    display: none;
+  }
+  
+  .zv-step-pane.is-active {
+    display: block;
+  }
+  
+  /* Panels (step 4 & 5) */
+  .zv-panel {
+    background: #ffffff;
+    border-radius: 16px;
+    border: 1px solid #e5e7eb;
+    box-shadow: 0 10px 25px rgba(15, 23, 42, 0.04);
+    overflow: hidden;
+  }
+  
+  .zv-panel-header {
+    padding: 0.75rem 1rem 0.4rem;
+    border-bottom: 1px solid #f3f4f6;
+  }
+  
+  .zv-panel-body {
+    padding: 0.75rem 1rem 0.75rem;
+  }
+  
+  .zv-panel-footer {
+    padding: 0.75rem 1rem 1rem;
+    border-top: 1px solid #f3f4f6;
+  }
+  
+  /* Packages & FAQ rows */
+  .pkg-row,
+  .faq-row {
+    background: #f9fafb;
+  }
+  
+  .pkg-row .zv-input,
+  .faq-row .zv-input {
+    background: #ffffff;
+  }
+  
+  /* Pills (environment/accessibility) */
+  .zv-pill-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+  }
+  
+  .zv-pill-check {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.25rem 0.75rem;
+    border-radius: 999px;
+    background: #f3f4f6;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: background 0.15s ease, color 0.15s ease;
+  }
+  
+  .zv-pill-check input {
+    display: none;
+  }
+  
+  .zv-pill-check span {
+    white-space: nowrap;
+    color: #4b5563;
+  }
+  
+  .zv-pill-check input:checked + span,
+  .zv-pill-check input:checked ~ span {
+    color: #111827;
+    font-weight: 600;
+  }
+  
+  .zv-pill-check input:checked ~ span,
+  .zv-pill-check input:checked + span {
+    /* highlight pill background on checked */
+    /* The parent gets :has in modern browsers; fallback via JS invalid class if needed */
+  }
+  
+  .zv-pill-check input:checked ~ span,
+  .zv-pill-check input:checked + span {
+    /* keep text bold */
+  }
+  
+  .zv-pill-check input:checked ~ span,
+  .zv-pill-check input:checked + span {
+    /* no-op but helps override */
+  }
+  
+  .zv-pill-check input:checked + span,
+  .zv-pill-check input:checked ~ span {
+    color: #111827;
+  }
+  
+  .zv-pill-check input:checked ~ span,
+  .zv-pill-check input:checked + span {
+    font-weight: 600;
+  }
+  
+  .zv-pill-check input:checked ~ span,
+  .zv-pill-check input:checked + span {
+    /* we can simulate active background using sibling selectors in JS if needed */
+  }
+  
+  .zv-pill-check input:checked ~ span,
+  .zv-pill-check input:checked + span {
+    /* just keep strong color */
+  }
+  
+  /* For older browsers, we still have a gray pill; JS will mark invalid input if needed */
+  
+  .zv-radio-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+  
+  .zv-radio-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.35rem 0.9rem;
+    border-radius: 999px;
+    border: 1px solid #e5e7eb;
+    font-size: 0.85rem;
+    cursor: pointer;
+  }
+  
+  .zv-radio-pill input {
+    margin-right: 0.25rem;
+  }
+  
+  /* Checklist */
+  .zv-checklist {
+    padding-left: 1.1rem;
+  }
+  
+  .zv-checklist li {
+    margin-bottom: 0.25rem;
+    font-size: 0.9rem;
+  }
+  
+  /* Sticky actions */
+  .zv-actions {
+    position: sticky;
+    bottom: 0;
+    padding-top: 1rem;
+    margin-top: 1.5rem;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0), #ffffff 40%);
+  }
+  
+  /* Alerts */
+  .zv-alert {
+    border-radius: 999px;
+  }
+  
+  /* Responsive */
+  @media (max-width: 992px) {
+    .zv-form-card {
+      padding: 1.1rem 1rem 1.3rem;
+    }
+  
+    .zv-form-header {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  
+    .zv-steps {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      row-gap: 0.5rem;
+    }
+  }
+  
+  @media (max-width: 576px) {
+    .zv-step-label {
+      font-size: 0.78rem;
+    }
+  }
+  

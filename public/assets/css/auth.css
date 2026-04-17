@@ -1,0 +1,376 @@
+/* =================== BASE THEME =================== */
+
+:root {
+    --za-bg: #f4f5f7;
+    --za-surface: #ffffff;
+    --za-border: #e5e7eb;
+    --za-border-strong: #d1d5db;
+  
+    --za-text: #111827;
+    --za-muted: #6b7280;
+    --za-muted-soft: #9ca3af;
+  
+    --za-primary: #000000;
+    --za-primary-dark: #000000;
+    --za-danger: #dc2626;
+  
+    --za-radius-card: 16px;
+    --za-radius-input: 10px;
+  
+    --za-shadow-card: 0 12px 30px rgba(15, 23, 42, 0.10);
+  
+    --za-font-sans: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
+      "Segoe UI", sans-serif;
+  }
+  
+  html,
+  body {
+    height: 100%;
+  }
+  
+  body {
+    font-family: var(--za-font-sans);
+    background-color: var(--za-bg);
+    color: var(--za-text);
+  }
+  
+  /* Remove default focus outlines (we’ll style focus below) */
+  :focus {
+    outline: none;
+  }
+  
+  /* =================== LAYOUT =================== */
+  
+  .container.my-4.my-md-5 {
+    min-height: calc(100vh - 96px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .mx-auto[style*="max-width"] {
+    width: 100%;
+    max-width: 560px !important; /* slightly narrower card */
+  }
+  
+  /* =================== HEADER & LOGO =================== */
+  
+  .text-center img[alt="ZAIVIAS"] {
+    height: 26px;
+  }
+  
+  .text-uppercase.small.text-muted {
+    letter-spacing: 0.16em;
+    font-size: 0.72rem;
+    color: var(--za-muted-soft) !important;
+  }
+  
+  #roleTitle {
+    color: var(--za-text);
+    font-weight: 600;
+  }
+  
+  /* =================== ROLE TOGGLE =================== */
+  
+  .btn-group[aria-label="Role toggle"] {
+    display: inline-flex;
+    /* border-radius: 999px; */
+    background-color: var(--za-surface);
+    border: 1px solid var(--za-border);
+    padding: 2px;
+    box-shadow: 0 4px 10px rgba(15, 23, 42, 0.08);
+  }
+  
+  /* make buttons a container for logo background */
+  .btn-group[aria-label="Role toggle"] .btn {
+    position: relative;
+    overflow: hidden;
+    /* border-radius: 999px !important; */
+    border: none;
+    padding: 0.45rem 1.8rem;
+    font-size: 0.8rem;
+    font-weight: 600;
+    /* text-transform: uppercase; */
+    /* letter-spacing: 0.14em; */
+    transition:
+      background-color 0.15s ease,
+      color 0.15s ease,
+      box-shadow 0.15s ease;
+  }
+  
+  /* active (btn-dark assigned by JS) */
+  .btn-group[aria-label="Role toggle"] .btn-dark {
+  background-color: var(--za-surface); /* or transparent */
+  color: var(--za-text);
+  box-shadow: 0 4px 10px rgba(15, 23, 42, 0.15); /* softer, optional */
+}
+.btn-group[aria-label="Role toggle"] .btn {
+    position: relative;
+    z-index: 2;
+    font-weight: bold;
+    font-size: 14px;
+    letter-spacing: 2px;
+}
+
+  
+  /* === logo background ONLY on active button === */
+  .btn-group[aria-label="Role toggle"] .btn-dark::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url("/assets/toggle-logo.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 30%;
+  opacity:1;
+  pointer-events: none;
+  z-index: -1;  
+}
+
+  /* inactive (btn-outline-dark assigned by JS) */
+  .btn-group[aria-label="Role toggle"] .btn-outline-dark {
+    background: transparent;
+    color: var(--za-text);
+  }
+  
+  /* =================== CARD =================== */
+  
+  .card.border-0.shadow-sm {
+    border-radius: var(--za-radius-card);
+    border: 1px solid var(--za-border);
+    box-shadow: var(--za-shadow-card) !important;
+    background-color: var(--za-surface);
+  }
+  
+  .card-body.p-3.p-md-4 {
+    padding: 2.1rem 1.8rem !important;
+  }
+  
+  @media (min-width: 768px) {
+    .card-body.p-3.p-md-4 {
+      padding: 2.4rem 2.4rem !important;
+    }
+  }
+  
+  /* =================== FORM TYPOGRAPHY =================== */
+  
+  .search-card .form-label {
+    font-size: 0.78rem;
+    /* text-transform: uppercase; */
+    letter-spacing: 0.13em;
+    color: var(--za-muted-soft);
+    margin-bottom: 0.2rem;
+  }
+  
+  .search-card .form-text {
+    font-size: 0.74rem;
+    color: var(--za-muted-soft);
+  }
+  
+  /* space between rows */
+  .search-card .row.g-3 > [class^="col-"],
+  .search-card .row.g-3 > [class*=" col-"] {
+    margin-bottom: 0.4rem;
+  }
+  
+  /* =================== INPUTS & SELECTS =================== */
+  
+  .search-card .form-control,
+  .search-card select {
+    font-size: 0.9rem;
+    border-radius: var(--za-radius-input);
+    border: 1px solid var(--za-border);
+    padding: 0.6rem 0.9rem;
+    background-color: #f9fafb;
+    transition:
+      background-color 0.15s ease,
+      border-color 0.15s ease,
+      box-shadow 0.15s ease;
+  }
+  
+  .search-card .form-control::placeholder {
+    color: var(--za-muted-soft);
+  }
+  
+  /* focus */
+  .search-card .form-control:focus,
+  .search-card select:focus {
+    background-color: #ffffff;
+    border-color: var(--za-primary);
+    box-shadow:
+      0 0 0 1px rgba(0, 0, 0, 0.1),
+      0 0 0 4px rgba(0, 0, 0, 0.15);
+  }
+  
+  /* disabled */
+  .search-card .form-control:disabled,
+  .search-card select:disabled {
+    background-color: #e5e7eb;
+    color: var(--za-muted-soft);
+  }
+  
+  /* date icon */
+  .search-card input[type="date"]::-webkit-calendar-picker-indicator {
+    filter: opacity(0.7);
+  }
+  
+  /* =================== PHONE INPUT GROUP =================== */
+  
+  .search-card .input-group {
+    border-radius: 999px;
+    border: 1px solid var(--za-border);
+    background-color: #f9fafb;
+    overflow: hidden;
+    transition:
+      border-color 0.15s ease,
+      box-shadow 0.15s ease,
+      background-color 0.15s ease;
+  }
+  
+  .search-card .input-group:focus-within {
+    background-color: #ffffff;
+    border-color: var(--za-primary);
+    box-shadow:
+      0 0 0 1px rgba(0, 0, 0, 0.1),
+      0 0 0 4px rgba(0, 0, 0, 0.15);
+  }
+  
+  .search-card .input-group select.js-phone {
+    border-radius: 0;
+    border: none;
+    border-right: 1px solid var(--za-border-strong);
+    background: transparent;
+    min-width: 7rem;
+    padding-left: 0.85rem;
+  }
+  
+  .search-card .input-group .form-control {
+    border-radius: 0;
+    border: none;
+    background: transparent;
+    padding-left: 0.85rem;
+  }
+  
+  /* =================== ERRORS =================== */
+  
+  .invalid-feedback.d-block {
+    font-size: 0.78rem;
+    color: var(--za-danger);
+    margin-top: 0.25rem;
+  }
+  
+  .search-card .form-control.is-invalid,
+  .search-card select.is-invalid {
+    border-color: var(--za-danger);
+    box-shadow:
+      0 0 0 1px rgba(220, 38, 38, 0.1),
+      0 0 0 4px rgba(248, 113, 113, 0.18);
+  }
+  
+  /* =================== TERMS CHECKBOX =================== */
+  
+  .search-card .form-check-input {
+    width: 1rem;
+    height: 1rem;
+    border-radius: 0.3rem;
+    border-color: var(--za-border-strong);
+    cursor: pointer;
+  }
+  
+  .search-card .form-check-input:checked {
+    background-color: var(--za-primary);
+    border-color: var(--za-primary);
+  }
+  
+  .search-card .form-check-label {
+    font-size: 0.82rem;
+    color: var(--za-muted);
+  }
+  
+  .search-card .form-check-label a {
+    color: var(--za-primary);
+    text-decoration: underline;
+  }
+  
+  /* =================== SUBMIT BUTTON =================== */
+  
+  .search-card .btn.btn-dark.w-100 {
+    margin-top: 0.35rem;
+    border-radius: 999px;
+    border: none;
+    background-color: var(--za-primary);
+    color: #f9fafb;
+    font-size: 0.86rem;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    /* text-transform: uppercase; */
+    padding: 0.7rem 1.2rem;
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.35);
+    transition:
+      background-color 0.12s ease,
+      transform 0.12s ease,
+      box-shadow 0.12s ease;
+  }
+  
+  .search-card .btn.btn-dark.w-100:hover {
+    background-color: var(--za-primary-dark);
+    transform: translateY(-1px);
+    box-shadow: 0 14px 32px rgba(0, 0, 0, 0.45);
+  }
+  
+  .search-card .btn.btn-dark.w-100:active {
+    transform: translateY(0);
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.35);
+  }
+  
+  /* =================== FOOTER TEXT =================== */
+  
+  .search-card .text-center.small.text-muted {
+    margin-top: 0.6rem;
+    color: var(--za-muted);
+  }
+  
+  .search-card .text-center.small.text-muted a {
+    color: var(--za-primary);
+    font-weight: 500;
+  }
+  
+  /* =================== RESPONSIVE =================== */
+  
+  @media (max-width: 575.98px) {
+    .container.my-4.my-md-5 {
+      align-items: flex-start;
+      padding-top: 1.5rem !important;
+      padding-bottom: 1.5rem !important;
+    }
+  
+    .mx-auto[style*="max-width"] {
+      max-width: 100% !important;
+    }
+  
+    .card-body.p-3.p-md-4 {
+      padding: 1.7rem 1.3rem !important;
+    }
+  
+    .search-card .input-group select.js-phone {
+      min-width: 6rem;
+      font-size: 0.82rem;
+    }
+  }
+  
+  /* subtle fade-in for the whole form */
+  .search-card {
+    animation: za-fade-in 0.25s ease-out;
+  }
+  
+  @keyframes za-fade-in {
+    from {
+      opacity: 0;
+      transform: translateY(8px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  

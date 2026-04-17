@@ -1,0 +1,229 @@
+.zv-cancel.modal-content{
+  border-radius:16px;
+  border:1px solid #e8ecf2;
+  box-shadow:0 24px 56px rgba(2,6,23,.12);
+}
+
+.zv-cancel .modal-header{
+  border-bottom:1px solid #eef2f7;
+}
+
+.zv-cancel .modal-title{
+  font-weight:600;
+  color:#0f172a;
+}
+
+.zv-cancel__quote{
+  border:1px solid #eef2f7;
+  background:#fff;
+  border-radius:14px;
+  padding:14px;
+}
+
+.zv-cancel__row{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:10px 0;
+  border-bottom:1px dashed #eef2f7;
+}
+.zv-cancel__row:last-child{ border-bottom:none; }
+
+.zv-muted{ color:#6b7280; }
+
+.zv-amt{
+  font-weight:600;
+  color:#0f172a;
+}
+
+.zv-amt--neg{ color:#0f172a; } /* keep B/W */
+
+
+
+/* Refund choice modal: perfect money alignment */
+/* =========================
+   Refund Choice Modal Align
+   ========================= */
+#refundChoiceModal {
+  --rm-action-w: 132px; /* width reserved for Proceed button */
+  --rm-gap: 16px;       /* space between text and button */
+  --rm-amt-w: 140px;    /* money column width */
+}
+
+/* reserve the same right-side space (button column) for ALL money rows */
+#refundChoiceModal .rm-align-edge {
+  padding-right: calc(var(--rm-action-w) + var(--rm-gap));
+}
+
+/* generic money rows */
+#refundChoiceModal .rm-summary,
+#refundChoiceModal .rm-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+/* label and amount styling */
+#refundChoiceModal .rm-label {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+#refundChoiceModal .rm-amount {
+  flex: 0 0 auto;
+  min-width: var(--rm-amt-w);
+  text-align: right;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+
+/* make both Proceed buttons same width so the reserved space is correct */
+#refundChoiceModal #refundWalletForm .btn,
+#refundChoiceModal #refundOriginalForm .btn {
+  min-width: var(--rm-action-w);
+}
+
+
+
+
+/* Center the popover in the middle of the modal */
+/* ===============================
+   Center "How it works" popover
+   inside Refund Choice modal
+   =============================== */
+
+/* popover centered in modal */
+
+
+
+
+
+/* =========================
+   Refund Choice Modal — Mobile Fix
+   ========================= */
+@media (max-width: 576px) {
+
+  /* Make the dialog use the screen nicely */
+  #refundChoiceModal .modal-dialog{
+    width: calc(100% - 24px);
+    margin: 12px auto;
+    max-width: 520px; /* keeps it neat on large phones */
+  }
+
+  /* Keep the modal within the viewport height */
+  #refundChoiceModal .modal-content{
+    max-height: calc(100vh - 24px);
+    border-radius: 16px;
+    overflow: hidden; /* so header/footer stay clean */
+  }
+
+  /* Scroll only the body */
+  #refundChoiceModal .modal-body{
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    padding: 14px;
+  }
+
+  #refundChoiceModal .modal-header{
+    padding: 12px 14px;
+  }
+
+  #refundChoiceModal .modal-footer{
+    padding: 12px 14px;
+  }
+
+  /* ---- IMPORTANT: disable the desktop “reserve right space” layout on mobile ---- */
+  #refundChoiceModal{
+    --rm-action-w: auto;
+    --rm-gap: 10px;
+    --rm-amt-w: auto;
+  }
+
+  #refundChoiceModal .rm-align-edge{
+    padding-right: 0 !important;
+  }
+
+  /* Let label + amount wrap naturally */
+  #refundChoiceModal .rm-summary,
+  #refundChoiceModal .rm-row{
+    flex-wrap: wrap;
+    gap: 6px 10px;
+  }
+
+  #refundChoiceModal .rm-label{
+    flex: 1 1 100%;
+    min-width: 0;
+  }
+
+  #refundChoiceModal .rm-amount{
+    flex: 0 0 auto;
+    min-width: 0 !important;
+    text-align: left;
+    white-space: nowrap;
+  }
+
+  /* ---- Stack the option layout (text + proceed button) ---- */
+  #refundChoiceModal .modal-body .d-flex.justify-content-between.align-items-center.gap-4.flex-nowrap{
+    flex-wrap: wrap !important;
+    align-items: stretch !important;
+    gap: 12px !important;
+  }
+
+  /* Left block full width */
+  #refundChoiceModal .modal-body .d-flex.justify-content-between.align-items-center.gap-4.flex-nowrap > div{
+    flex: 1 1 100% !important;
+  }
+
+  /* Form + button full width */
+  #refundChoiceModal #refundWalletForm,
+  #refundChoiceModal #refundOriginalForm{
+    width: 100%;
+  }
+
+  #refundChoiceModal #refundWalletForm .btn,
+  #refundChoiceModal #refundOriginalForm .btn{
+    width: 100%;
+    min-width: 0 !important;
+  }
+
+  /* Slightly tighter typography for small screens */
+  #refundChoiceModal .modal-title{
+    font-size: 18px !important;
+  }
+
+  #refundChoiceModal .small{
+    font-size: 13px;
+  }
+
+  /* Make sections breathe less */
+  #refundChoiceModal .border.rounded-3.p-3{
+    padding: 12px !important;
+  }
+
+  #refundChoiceModal hr.my-4{
+    margin: 12px 0 !important;
+  }
+}
+
+
+
+/* Desktop: center popover INSIDE the refund modal */
+@media (min-width: 577px){
+  #refundChoiceModal .popover.rm-popover-center{
+    position: fixed !important;             /* detach from icon */
+    left: 50% !important;
+    top: 50% !important;
+    transform: translate(-50%, -50%) !important;
+
+    width: min(380px, calc(100% - 48px));
+    max-width: 380px;
+    height: max-content;
+
+    z-index: 2000 !important;               /* above modal */
+  }
+
+  #refundChoiceModal .popover.rm-popover-center .popover-arrow{
+    display: none !important;
+  }
+}

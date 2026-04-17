@@ -1,0 +1,835 @@
+/* =========================================================
+   ADMIN CATEGORIES — CLEAN PRO THEME (B/W base + colored accents)
+   - Keeps your layout exactly the same
+   - Adds professional icon colors (edit/activate/pause/delete)
+   - Adds colored status badges/pills (Active/Inactive + Carousel yes/no)
+   - Bootstrap-safe pagination + modals + media previews
+========================================================= */
+
+:root{
+  /* Base */
+  --zv-bg:#ffffff;
+  --zv-surface:#ffffff;
+  --zv-text:#0b0f19;
+  --zv-muted:rgba(15,23,42,.65);
+  --zv-muted2:rgba(15,23,42,.50);
+  --zv-border:rgba(15,23,42,.18);
+  --zv-border-strong:rgba(15,23,42,.35);
+  --zv-soft:#f3f4f6;
+  --zv-soft2:#eef2f7;
+  --zv-radius:16px;
+
+  /* Accents */
+  --zv-blue:#2563eb;
+  --zv-blue-bg:#eff6ff;
+  --zv-blue-bd:#bfdbfe;
+
+  --zv-green:#16a34a;
+  --zv-green-bg:#ecfdf5;
+  --zv-green-bd:#bbf7d0;
+
+  --zv-amber:#d97706;
+  --zv-amber-bg:#fffbeb;
+  --zv-amber-bd:#fde68a;
+
+  --zv-red:#dc2626;
+  --zv-red-bg:#fef2f2;
+  --zv-red-bd:#fecaca;
+}
+
+*{ box-sizing:border-box; }
+body{ background:var(--zv-bg); color:var(--zv-text); }
+
+/* -----------------------------
+   Card shell
+----------------------------- */
+.card{
+  background:var(--zv-surface);
+  border:1px solid var(--zv-border);
+  border-radius:var(--zv-radius);
+  box-shadow: 0 18px 45px rgba(2,6,23,.06);
+  padding:20px;
+}
+
+.card__head{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:16px;
+  margin-bottom:12px;
+}
+
+.card__title{
+  font-size:18px;
+  font-weight:900;
+  letter-spacing:.01em;
+  text-align: center;
+}
+
+.muted{ color:var(--zv-muted); font-size:12px; }
+.ta-center{ text-align:center; }
+
+/* -----------------------------
+   Header actions
+----------------------------- */
+.actions{
+  display:flex;
+  gap:12px;
+  align-items:center;
+  flex-wrap:wrap;
+}
+
+.per-label{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  font-size:13px;
+  font-weight:800;
+  color:var(--zv-text);
+}
+
+.per-form select{
+  border:1px solid var(--zv-border);
+  border-radius:999px;
+  padding:8px 12px;
+  background:#fff;
+  color:var(--zv-text);
+  outline:none;
+  cursor:pointer;
+}
+.per-form select:focus{
+  box-shadow:0 0 0 4px rgba(37,99,235,.12);
+  border-color:var(--zv-blue-bd);
+}
+
+/* Search */
+.search-form{
+  position:relative;
+  display:flex;
+  align-items:center;
+  background:#fff;
+  border:1px solid var(--zv-border);
+  border-radius:999px;
+  padding:0 12px;
+  height:40px;
+  min-width:240px;
+  box-shadow: 0 10px 24px rgba(2,6,23,.05);
+}
+
+.search-form input{
+  background:transparent;
+  border:0;
+  outline:none;
+  padding:0 6px;
+  width:100%;
+  color:var(--zv-text);
+  font-weight:650;
+}
+
+.search-form input::placeholder{ color:var(--zv-text); opacity:.42; }
+
+.search-form .search-icon{
+  display:inline-flex;
+  width:18px;
+  height:18px;
+  color:var(--zv-muted2);
+  opacity:1;
+}
+.search-form svg{ width:18px; height:18px; display:block; }
+
+.search-form:focus-within{
+  border-color:var(--zv-blue-bd);
+  box-shadow:0 0 0 4px rgba(37,99,235,.12), 0 10px 24px rgba(2,6,23,.05);
+}
+
+/* -----------------------------
+   Buttons (base)
+----------------------------- */
+.btn{
+  --bg:#fff;
+  --fg:var(--zv-text);
+  --bd:var(--zv-border);
+
+  height:40px;
+  padding:0 12px;
+  border-radius:12px;
+  border:1px solid var(--bd);
+  background:var(--bg);
+  color:var(--fg);
+
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+
+  font-weight:900;
+  font-size:13px;
+  cursor:pointer;
+
+  box-shadow: 0 10px 24px rgba(2,6,23,.06);
+  transition:transform .06s ease, background .12s ease, color .12s ease, border-color .12s ease, box-shadow .12s ease;
+}
+
+.btn:hover{
+  transform:translateY(-1px);
+  background:var(--zv-soft);
+  box-shadow: 0 14px 30px rgba(2,6,23,.08);
+}
+.btn:active{ transform:translateY(0); box-shadow: 0 10px 24px rgba(2,6,23,.06); }
+
+.btn.primary{
+  --bg:var(--zv-blue);
+  --fg:#fff;
+  --bd:rgba(37,99,235,.95);
+  box-shadow: 0 16px 32px rgba(37,99,235,.18);
+}
+.btn.primary:hover{ background:#1d4ed8; border-color:#1d4ed8; }
+
+.btn.ghost{
+  --bg:#fff;
+  --fg:var(--zv-text);
+  --bd:var(--zv-border);
+}
+
+.btn.danger{
+  --bg:#fff;
+  --fg:var(--zv-red);
+  --bd:var(--zv-red-bd);
+  box-shadow:none;
+}
+.btn.danger:hover{ background:var(--zv-red-bg); }
+
+/* Icons in buttons */
+.btn svg{
+  width:18px;
+  height:18px;
+  display:block;
+}
+
+/* Make icons crisp and consistent */
+.btn svg{
+  stroke:currentColor;
+  stroke-width:2.1;
+  stroke-linecap:round;
+  stroke-linejoin:round;
+}
+
+/* Ensure filled icons don’t look fat */
+.btn svg path[fill="currentColor"]{ stroke:none; }
+
+/* Icon-only buttons */
+.btn.icon{
+  width:36px;
+  height:36px;
+  padding:0;
+  border-radius:12px;
+  gap:0;
+  box-shadow:none;
+}
+
+/* Row actions layout */
+.row-actions{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  align-items:center;
+  justify-content:center;
+}
+.row-actions.compact{ gap:8px; }
+
+/* Inline form baseline fix */
+.inline{ display:inline-block; margin:0; vertical-align:middle; }
+.row-actions form{ display:inline-block; margin:0; vertical-align:middle; }
+
+/* A11y sr only */
+.sr-only{
+  position:absolute !important;
+  width:1px; height:1px;
+  padding:0; margin:-1px;
+  overflow:hidden;
+  clip:rect(0,0,0,0);
+  white-space:nowrap;
+  border:0;
+}
+
+/* -----------------------------
+   Professional icon colors (Action buttons)
+   Apply automatically based on SVG used:
+   - Edit: blue
+   - Activate (play): green
+   - Pause: amber
+   - Delete: red
+----------------------------- */
+
+/* Neutral base for icon buttons */
+.btn.icon.ghost{
+  background:#fff;
+  border-color:var(--zv-border);
+  color:var(--zv-text);
+}
+.btn.icon.ghost:hover{ background:var(--zv-soft); }
+
+/* Delete button */
+.btn.icon.danger{
+  background:#fff;
+  border-color:var(--zv-red-bd);
+  color:var(--zv-red);
+}
+.btn.icon.danger:hover{ background:var(--zv-red-bg); }
+
+/* Detect specific icons by href in <use> (works with your sprite) */
+.btn.icon:has(use[href="#i-edit"]),
+.btn.icon:has(use[href='#i-edit']){
+  color:var(--zv-blue);
+  border-color:var(--zv-blue-bd);
+  background:var(--zv-blue-bg);
+}
+.btn.icon:has(use[href="#i-edit"]):hover,
+.btn.icon:has(use[href='#i-edit']):hover{
+  background:#dbeafe;
+}
+
+form:has(use[href="#i-play"]) .btn.icon,
+form:has(use[href='#i-play'] ) .btn.icon{
+  color:var(--zv-green);
+  border-color:var(--zv-green-bd);
+  background:var(--zv-green-bg);
+}
+form:has(use[href="#i-play"]) .btn.icon:hover,
+form:has(use[href='#i-play'] ) .btn.icon:hover{
+  background:#dcfce7;
+}
+
+form:has(use[href="#i-pause"]) .btn.icon,
+form:has(use[href='#i-pause']) .btn.icon{
+  color:var(--zv-amber);
+  border-color:var(--zv-amber-bd);
+  background:var(--zv-amber-bg);
+}
+form:has(use[href="#i-pause"]) .btn.icon:hover,
+form:has(use[href='#i-pause']) .btn.icon:hover{
+  background:#fef3c7;
+}
+
+/* If browser doesn't support :has, your buttons still look fine (fallback). */
+
+/* -----------------------------
+   Table
+----------------------------- */
+.table-wrap{
+  overflow:auto;
+  border-radius:12px;
+  border:1px solid var(--zv-border);
+  background:#fff;
+}
+
+.zv-table{
+  width:100%;
+  border-collapse:separate;
+  border-spacing:0;
+  background:#fff;
+}
+
+.zv-table th,
+.zv-table td{
+  padding:14px 12px;
+  border-bottom:1px solid var(--zv-border);
+  vertical-align:middle;
+  color:var(--zv-text);
+  text-align: center;
+}
+
+.zv-table thead th{
+  font-size:12px;
+  letter-spacing:.06em;
+  text-transform:capitalize;
+  text-align: center;
+  font-weight:900;
+  background:#fff;
+  border-bottom:1px solid var(--zv-border-strong);
+  color:var(--zv-text);
+  opacity:.72;
+}
+
+.zv-table tbody tr:hover{ background:var(--zv-soft); }
+
+/* cells */
+.cell-title{ display:flex; flex-direction:column; gap:2px; }
+.slug{ font-size:11px; color:var(--zv-muted2); }
+
+.truncate{
+  max-width:520px;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+
+/* images */
+.thumb{
+  width:44px;
+  height:44px;
+  object-fit:cover;
+  border-radius:12px;
+  border:1px solid var(--zv-border);
+  background:#fff;
+}
+
+.icon{
+  width:28px;
+  height:28px;
+  object-fit:contain;
+  display:block;
+}
+
+/* missing image icon */
+.ico svg{
+  width:22px;
+  height:22px;
+  opacity:.55;
+  display:block;
+  color:var(--zv-muted2);
+}
+
+/* -----------------------------
+   Pills / badges (COLORED)
+   Uses your existing markup:
+   - .pill.ok for Active / Yes
+   - .pill (no ok) for Inactive / No
+----------------------------- */
+.pill{
+  display:inline-flex;
+  align-items:center;
+  gap:4px;
+  padding:6px 10px;
+  border-radius:999px;
+  font-size:12px;
+  font-weight:900;
+  background:var(--zv-soft2);
+  color:#334155;
+  border:1px solid rgba(15,23,42,.14);
+  white-space:nowrap;
+}
+.pill svg{ width:14px; height:14px; display:block; }
+
+.pill.ok{
+  background:var(--zv-green-bg);
+  color:var(--zv-green);
+  border-color:var(--zv-green-bd);
+}
+
+/* Optional: slightly different styling for "Inactive/No" pill */
+.pill:not(.ok){
+  background:#f3f4f6;
+  color:#374151;
+  border-color:#e5e7eb;
+}
+
+/* Make the small dot icon match pill color */
+.pill.ok use[href="#i-ok"]{ color:var(--zv-green); }
+.pill use[href="#i-dot"]{ color:#6b7280; }
+
+/* -----------------------------
+   Pagination (Bootstrap safe)
+----------------------------- */
+.pager{
+  margin-top:16px;
+  display:flex;
+  justify-content:flex-end;
+}
+
+.pager .pagination{ gap:.35rem; }
+
+.pager .page-link{
+  color:var(--zv-text) !important;
+  background:#fff !important;
+  border:1px solid var(--zv-border) !important;
+  border-radius:999px !important;
+  padding:.35rem .7rem !important;
+  box-shadow:none !important;
+  font-weight:900;
+}
+
+.pager .page-item.active .page-link{
+  background:var(--zv-blue) !important;
+  color:#fff !important;
+  border-color:var(--zv-blue) !important;
+}
+.pager .page-item.disabled .page-link{ opacity:.45; }
+
+/* -----------------------------
+   Grid + inputs
+----------------------------- */
+.grid2{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:14px;
+}
+.grid2 .col-span{ grid-column:1/-1; }
+
+label{
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+  font-weight:900;
+  font-size:13px;
+  color:var(--zv-text);
+}
+
+input[type="text"],
+input[type="number"],
+input[type="search"],
+textarea,
+select{
+  border:1px solid var(--zv-border);
+  border-radius:12px;
+  padding:10px 12px;
+  outline:none;
+  background:#fff;
+  color:var(--zv-text);
+  transition: box-shadow .12s ease, border-color .12s ease;
+  font-weight:650;
+}
+
+input::placeholder, textarea::placeholder{ color:var(--zv-text); opacity:.42; }
+
+input:focus,
+textarea:focus,
+select:focus{
+  border-color:var(--zv-blue-bd);
+  box-shadow:0 0 0 4px rgba(37,99,235,.12);
+}
+
+textarea{ resize:vertical; }
+
+/* -----------------------------
+   Switches (clean + accented)
+----------------------------- */
+.switch{
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+.switch input{ position:absolute; opacity:0; }
+
+.switch i{
+  width:44px;
+  height:24px;
+  border-radius:999px;
+  background:#fff;
+  border:1px solid var(--zv-border);
+  position:relative;
+  transition:all .2s;
+}
+
+.switch i::after{
+  content:"";
+  position:absolute;
+  top:2px;
+  left:2px;
+  width:18px;
+  height:18px;
+  border-radius:50%;
+  background:var(--zv-text);
+  transition:transform .2s, background .2s;
+}
+
+.switch input:checked + i{
+  background:var(--zv-green-bg);
+  border-color:var(--zv-green-bd);
+}
+.switch input:checked + i::after{
+  background:var(--zv-green);
+  transform:translateX(20px);
+}
+
+/* -----------------------------
+   Modals
+----------------------------- */
+.modal{
+  position:fixed;
+  inset:0;
+  display:grid;
+  place-items:center;
+  background:rgba(2,6,23,.55);
+  opacity:0;
+  visibility:hidden;
+  transition:opacity .18s, visibility .18s;
+  z-index:60;
+  padding:20px;
+}
+.modal.open{ opacity:1; visibility:visible; }
+
+.modal__dialog{
+  width:min(720px,100%);
+  transform:translateY(8px) scale(.98);
+  transition:transform .2s cubic-bezier(.2,.8,.2,1);
+}
+.modal.open .modal__dialog{ transform:translateY(0) scale(1); }
+
+.modal__card{
+  background:#fff;
+  border:1px solid var(--zv-border);
+  border-radius:16px;
+  box-shadow: 0 28px 80px rgba(2,6,23,.22);
+  overflow:hidden;
+  display:flex;
+  flex-direction:column;
+}
+
+.modal__head,
+.modal__foot{
+  padding:16px 18px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+}
+
+.modal__head{
+  background:#fff;
+  border-bottom:1px solid var(--zv-border);
+}
+
+.modal__body{ padding:16px 18px; }
+.modal__foot{
+  border-top:1px solid var(--zv-border);
+  background:#fff;
+}
+
+.modal .title{
+  font-weight:950;
+  font-size:18px;
+  color:var(--zv-text);
+}
+
+.modal .x{
+  border:1px solid var(--zv-border);
+  background:#fff;
+  width:38px;
+  height:38px;
+  border-radius:12px;
+  font-size:22px;
+  line-height:1;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+  color:var(--zv-text);
+}
+.modal .x:hover{ background:var(--zv-soft); }
+
+.modal-open{ overflow:hidden; }
+
+/* -----------------------------
+   Media preview fields (Edit modal)
+----------------------------- */
+.media-field{
+  border:1px solid var(--zv-border);
+  border-radius:14px;
+  padding:12px;
+  background:#fff;
+}
+
+.media-head{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  margin-bottom:10px;
+}
+
+.media-title{
+  font-weight:950;
+  font-size:13px;
+  color:var(--zv-text);
+}
+
+.media-preview{
+  border:1px dashed rgba(15,23,42,.28);
+  border-radius:12px;
+  min-height:92px;
+  display:grid;
+  place-items:center;
+  padding:10px;
+  background:#fff;
+}
+
+.media-preview.is-icon{ min-height:72px; }
+
+.media-img{
+  width:100%;
+  max-height:140px;
+  object-fit:cover;
+  border-radius:12px;
+  border:1px solid var(--zv-border);
+  display:none;
+  background:#fff;
+}
+
+.media-img.is-icon{
+  width:52px;
+  height:52px;
+  object-fit:contain;
+  border-radius:12px;
+  background:#fff;
+  padding:6px;
+}
+
+.media-empty{
+  display:flex;
+  flex-direction:column;
+  gap:6px;
+  align-items:center;
+  justify-content:center;
+  color:var(--zv-muted);
+}
+
+.media-upload{ margin-top:10px; }
+
+/* remove btn in media fields */
+.media-remove-btn{
+  width:36px;
+  height:36px;
+  border-radius:12px;
+}
+
+/* Make remove button look “danger” but tasteful */
+.media-remove-btn.btn.icon.ghost{
+  border-color:var(--zv-red-bd);
+  color:var(--zv-red);
+  background:#fff;
+}
+.media-remove-btn.btn.icon.ghost:hover{
+  background:var(--zv-red-bg);
+}
+
+/* -----------------------------
+   Responsive
+----------------------------- */
+@media (max-width:900px){
+  .truncate{ max-width:280px; }
+  .grid2{ grid-template-columns:1fr; }
+  .card__head{ flex-direction:column; align-items:flex-start; }
+  .actions{ width:100%; }
+  .search-form{ flex:1; width:100%; min-width:0; }
+  .row-actions{ gap:6px; }
+}
+
+
+
+
+.btn.icon i.bi{
+  font-size: 1.05rem;
+  line-height: 1;
+  display: inline-block;
+}
+.pill i.bi{
+  font-size: 1rem;
+  line-height: 1;
+}
+.muted.ico i.bi{
+  font-size: 1.2rem;
+}
+
+
+
+/* ==========================
+   ZV Search (isolated)
+========================== */
+
+.zv-search{
+  position: relative;
+  display:flex;
+  align-items:center;
+  gap: 10px;
+
+  height: 46px;
+  width: min(520px, 46vw);
+  min-width: 280px;
+
+  padding: 0 14px;
+  border-radius: 999px;
+  background: #fff;
+
+  border: 1px solid rgba(15,23,42,.16);
+  box-shadow: 0 10px 24px rgba(2,6,23,.06);
+
+  margin: 0; /* important for forms */
+}
+
+.zv-search:focus-within{
+  border-color: rgba(37,99,235,.45);
+  box-shadow: 0 0 0 4px rgba(37,99,235,.12), 0 10px 24px rgba(2,6,23,.06);
+}
+
+.zv-search__icon{
+  width: 22px;
+  height: 22px;
+  display:grid;
+  place-items:center;
+  color: rgba(15,23,42,.55);
+  flex: 0 0 auto;
+}
+.zv-search__icon i{
+  font-size: 16px;
+  line-height: 1;
+}
+
+.zv-search__input{
+  border: 0 !important;
+  outline: none !important;
+  background: transparent !important;
+
+  width: 100%;
+  height: 100%;
+
+  padding: 0;
+  margin: 0;
+
+  font-size: 14px;
+  font-weight: 650;
+  color: #0b0f19;
+}
+
+.zv-search__input::placeholder{
+  color: rgba(15,23,42,.42);
+  font-weight: 600;
+}
+
+.zv-search__clear{
+  width: 32px;
+  height: 32px;
+  display:grid;
+  place-items:center;
+
+  border-radius: 999px;
+  color: rgba(15,23,42,.55);
+  text-decoration:none;
+  flex: 0 0 auto;
+}
+
+.zv-search__clear:hover{
+  background: rgba(15,23,42,.06);
+  color: #0b0f19;
+}
+
+/* Mobile / narrow */
+@media (max-width: 720px){
+  .zv-search{
+    width: 100%;
+    min-width: 0;
+  }
+}
+
+
+/* Remove native browser clear (X) from search inputs */
+input[type="search"]::-webkit-search-cancel-button,
+input[type="search"]::-webkit-search-decoration,
+input[type="search"]::-webkit-search-results-button,
+input[type="search"]::-webkit-search-results-decoration{
+  -webkit-appearance: none;
+  appearance: none;
+}
+.bg-black{
+  background:black;
+color:white;
+}

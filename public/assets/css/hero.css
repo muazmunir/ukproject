@@ -1,0 +1,1006 @@
+:root{
+  --zv-action-w: 120px;
+
+  --zv-top-h: 45px;     /* desktop pill height */
+  --zv-mob-h: 56px;     /* ✅ mobile row height (match bottom) */
+  --zv-btn-h: 56px;     /* mobile button height */
+}
+
+/* =========================
+   HERO wrapper + background
+========================= */
+.zv-hero2{
+  position: relative;
+  padding: 120px 0 120px;
+}
+.zv-hero2__bg{
+  position: absolute;
+  inset: 0;
+  background: url('https://images.pexels.com/photos/841130/pexels-photo-841130.jpeg?cs=srgb&dl=pexels-victorfreitas-841130.jpg&fm=jpg')
+              top / cover no-repeat;
+  z-index: 0;
+}
+.zv-hero2__overlay{
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at top left, rgba(0,0,0,.15), rgba(0,0,0,.45));
+  z-index: 1;
+}
+.zv-hero2__content{
+  position: relative;
+  z-index: 2;
+}
+
+/* =========================
+   SEARCH BAR wrapper
+========================= */
+.zv-sbar{ max-width: 1250px; margin: 0 auto; }
+
+.zv-sbar__wrap{
+  border-radius: 18px;
+  padding: 30px 6px 10px 6px;
+  background: rgba(15, 23, 42, .28);
+  border: 1px solid rgba(255,255,255,.18);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  box-shadow: 0 18px 60px rgba(0,0,0,.32);
+}
+
+/* helpers */
+.zv-only-mobile{ display:none; }
+.zv-only-desktop{ display:flex; }
+
+/* =========================
+   TOP ROW (Desktop pill)
+========================= */
+.zv-sbar__top{ display:flex; align-items:center; gap:10px; }
+
+.zv-pillrow{
+  height: var(--zv-top-h);
+  width: 100%;
+  border-radius: 999px;
+  position: relative;
+  overflow: visible;
+  display:flex;
+  align-items: stretch;
+}
+
+.zv-pillrow::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  border-radius: 999px;
+  background: rgba(255,255,255,.92);
+  border: 1px solid rgba(255,255,255,.40);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.55);
+  z-index: 0;
+}
+
+.zv-pillseg{
+  position: relative;
+  z-index: 1;
+
+  flex: 1 1 0;
+  min-width: 0;
+
+  display:flex;
+  align-items:center;
+  gap: 10px;
+  padding: 0 16px;
+
+  background: transparent;
+  border: 0;
+  height: 100%;
+}
+
+.zv-pillseg + .zv-pillseg{
+  border-left: 1px solid rgba(15,23,42,.14);
+}
+
+.zv-pillseg__icon{
+  color: rgba(15,23,42,.80);
+  font-size: 16px;
+  display:flex;
+  align-items:center;
+}
+
+
+.zv-trail{ display:none; }
+.zv-trail img{
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display:block;
+}
+.zv-pillseg__input,
+.zv-pillseg__select{
+  width:100%;
+  min-width:0;
+  border:0 !important;
+  outline:0 !important;
+  background:transparent !important;
+  font-size: 15px;
+  color:#000000;
+
+  height: 100%;
+  line-height: var(--zv-top-h);
+}
+
+.zv-pillseg__input::placeholder{ color: rgba(15,23,42,.55); }
+
+.zv-pillseg__select{
+  appearance:none;
+  -webkit-appearance:none;
+  -moz-appearance:none;
+  padding-right: 18px;
+}
+
+/* hide second flatpickr input cleanly */
+.zv-pillseg__ghost{
+  position: absolute !important;
+  left: -9999px !important;
+  width: 1px !important;
+  height: 1px !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+  border: 0 !important;
+  background: transparent !important;
+  padding: 0 !important;
+}
+
+.zv-pillseg--loc{ position:relative; }
+
+/* sizing rule (desktop) */
+.zv-pillseg:nth-child(1),
+.zv-pillseg--loc{ flex: 1.25 1 0; }
+
+.zv-pillseg--select,
+.zv-pillseg--dates{ flex: 0.85 1 0; }
+
+/* Desktop Search button */
+.zv-pillseg--search{
+  flex: 0 0 var(--zv-action-w);
+  min-width: var(--zv-action-w);
+  justify-content:center;
+  gap: 10px;
+
+  background: #000;
+  color: #fff;
+  font-weight: 800;
+  cursor:pointer;
+
+  border-radius: 999px;
+  border: 0;
+  border-left: 1px solid rgba(255,255,255,.18);
+  height: 100%;
+}
+.zv-pillseg--search i{ color:#fff; }
+
+/* z-index for popups */
+.flatpickr-calendar{ z-index: 99999 !important; }
+.zv-locdrop{ z-index: 9999; }
+
+/* =========================
+   BOTTOM ROW (Desktop)
+========================= */
+.zv-sbar__bottom--pro2{
+  margin-top: 10px;
+  padding-top: 12px;
+  border-top: 1px solid rgba(255,255,255,.14);
+
+  display: grid;
+  grid-template-columns: 1fr auto var(--zv-action-w);
+  gap: 10px;
+  align-items: center;
+}
+
+.zv-bgroup{
+  display: flex;
+  gap: 18px;
+  align-items: center;
+  justify-content: center;
+  min-width: 0;
+}
+
+.zv-bctl{
+  height: 44px;
+  border-radius: 12px;
+  display:flex;
+  align-items:center;
+  background: transparent;
+  gap: 10px;
+  padding: 0 12px;
+  min-width: 220px;
+  color: #fff;
+}
+
+.zv-bctl i{
+  color: #fff;
+  font-size: 15px;
+  flex: 0 0 auto;
+}
+
+.zv-bctl__select{
+  width: 100%;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: #fff;
+  font-size: 14px;
+  min-width: 0;
+  appearance:none;
+  -webkit-appearance:none;
+  -moz-appearance:none;
+  padding-right: 18px;
+}
+
+.zv-bctl__select option{
+  background: #fff !important;
+  color: #000 !important;
+}
+
+.zv-clearbtn--pro2{
+  grid-column: 3;
+  justify-self: end;
+
+  height: 44px;
+  width: var(--zv-action-w);
+  min-width: var(--zv-action-w);
+
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,.18);
+  background: rgba(27,27,27,.55);
+  color:#fff;
+  font-weight: 750;
+
+  display:flex;
+  align-items:center;
+  justify-content: center;
+  gap: 12px;
+
+  box-shadow: 0 10px 24px rgba(0,0,0,.16);
+}
+
+/* =========================
+   TOGGLE (unchanged)
+========================= */
+.zv-toggle{
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  cursor: pointer;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+.zv-toggle input{
+  position: absolute;
+  opacity: 0;
+  width: 1px;
+  height: 1px;
+  pointer-events: none;
+}
+.zv-toggle__ui{
+  position: relative;
+  width: 50px;
+  height: 28px;
+  border-radius: 999px;
+  background: rgba(255,255,255,.16);
+  border: 1px solid rgba(255,255,255,.22);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.18), 0 10px 22px rgba(0,0,0,.18);
+  transition: background .18s ease, border-color .18s ease, box-shadow .18s ease;
+}
+.zv-toggle__ui::after{
+  content:"";
+  position:absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  left: 3px;
+  width: 22px;
+  height: 22px;
+  border-radius: 999px;
+  background: rgba(255,255,255,.92);
+  box-shadow: 0 8px 18px rgba(0,0,0,.22);
+  transition: left .18s ease, background .18s ease, box-shadow .18s ease;
+}
+.zv-toggle input:checked + .zv-toggle__ui{
+  background: black;
+  border-color: black;
+  box-shadow: inset 0 1px 0 rgba(0, 0, 0, 0.22), 0 12px 26px rgba(0, 0, 0, 0.2);
+}
+.zv-toggle input:checked + .zv-toggle__ui::after{
+  left: 25px;
+  background: #fff;
+}
+.zv-toggle--mini .zv-toggle__ui{ width: 46px; height: 26px; }
+.zv-toggle--mini .zv-toggle__ui::after{ width: 20px; height: 20px; }
+.zv-toggle--mini input:checked + .zv-toggle__ui::after{ left: 23px; }
+
+/* =========================
+   LOCATION dropdown
+========================= */
+/* =========================
+   LOCATION dropdown (NEW — clean white like screenshot)
+========================= */
+.zv-locdrop{
+  position:absolute;
+  left: 0;
+  right: 0;
+  top: calc(100% + 10px);
+  z-index: 99999;
+
+  border-radius: 22px;
+  background: rgba(255,255,255,.96);
+  border: 1px solid rgba(15,23,42,.10);
+  box-shadow: 0 24px 70px rgba(0,0,0,.22);
+
+  padding: 10px;
+  
+}
+
+/* Activity dropdown (same style as location) */
+.zv-pillseg--activity{ position: relative; }
+
+.zv-actdrop{
+  position:absolute;
+  left: 0;
+  right: 0;
+  top: calc(100% + 10px);
+  z-index: 99999;
+
+  border-radius: 22px;
+  background: rgba(255,255,255,.96);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  box-shadow: 0 24px 70px rgba(0,0,0,.22);
+
+  padding: 10px;
+  overflow: hidden;
+ 
+}
+
+/* rows */
+.zv-actitem{
+  display:flex;
+  align-items:center;
+  gap: 14px;
+  padding: 12px;
+  border-radius: 18px;
+  cursor:pointer;
+  color: #000000;
+  transition: background .15s ease;
+}
+.zv-actitem:hover{ background: rgba(0, 0, 0, 0.06); }
+
+/* icon bubble */
+.zv-actitem__ico{
+  width: 54px;
+  height: 54px;
+  border-radius: 16px;
+  background: rgba(0, 0, 0, 0.06);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex: 0 0 auto;
+  overflow: hidden;
+}
+.zv-actitem__ico img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.zv-actitem__ico i{
+  font-size: 22px;
+  color: #000000;
+}
+
+.zv-actitem__txt strong{
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+
+/* each row */
+.zv-locitem{
+  display:flex;
+  align-items:center;
+  gap: 14px;
+
+  padding: 12px 12px;
+  border-radius: 18px;
+  cursor:pointer;
+
+  color: #000000;
+  background: transparent;
+  transition: background .15s ease, transform .15s ease;
+}
+
+
+
+
+
+.zv-locitem:hover{
+  background: rgba(0, 0, 0, 0.06);
+}
+
+/* icon bubble on left */
+.zv-locitem__ico{
+  width: 54px;
+  height: 54px;
+  border-radius: 16px;
+  background: rgba(0, 0, 0, 0.06);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex: 0 0 auto;
+}
+
+.zv-locitem__ico i{
+  font-size: 22px;
+  color: #000000;
+}
+
+/* text */
+.zv-locitem__txt{
+  display:flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.zv-locitem__txt strong{
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.2;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.zv-locitem__txt small{
+  font-size: 13px;
+  color: black;
+  line-height: 1.2;
+}
+
+/* keep dropdown inside viewport on mobile */
+@media (max-width: 767px){
+  .zv-locdrop{
+    left: 0 !important;
+    right: 0 !important;
+    border-radius: 22px;
+  }
+}
+
+
+/* =========================
+   ✅ MOBILE (Clean + Proper)
+========================= */
+/* ✅ MOBILE — 680px fully updated
+   - 1 control per row
+   - icon stays LEFT
+   - trailing “letter slot” on RIGHT (for now text via ::after)
+   - dropdowns stay inside screen
+   - select option text small + black
+*/
+@media (max-width: 767px){
+
+  .zv-only-mobile{ display:flex; }
+  .zv-only-desktop{ display:none !important; }
+
+  /* wrapper */
+  .zv-sbar__wrap{
+    padding: 14px 10px 14px;
+    border-radius: 18px;
+  }
+
+
+
+  /* =================================
+     TOP: 1 per row
+  ================================== */
+  .zv-pillrow{
+    height: auto;
+    border-radius: 0;
+    overflow: visible;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+  .zv-pillrow::before{ display:none !important; }
+
+  .zv-pillseg{
+    width: 100%;
+    height: var(--zv-mob-h);
+    padding: 0 14px;
+    border-radius: 14px;
+
+    background: rgba(0,0,0,.18);
+    border: 1px solid rgba(255,255,255,.12);
+    box-shadow: 0 10px 24px rgba(0,0,0,.14);
+
+    display:flex;
+    align-items:center;
+    gap: 10px;
+
+    position: relative; /* ✅ needed for zv-trail absolute */
+  }
+  .zv-pillseg + .zv-pillseg{ border: 0 !important; }
+
+  /* icon LEFT */
+  .zv-pillseg__icon{
+    color:#fff;
+    opacity:.95;
+    font-size:18px;
+    display:flex;
+    align-items:center;
+    flex: 0 0 auto;
+  }
+
+  /* input/select take space, leave room for trailing image */
+  .zv-pillseg__input,
+  .zv-pillseg__select{
+    width: 100%;
+    height: 100%;
+    line-height: normal;
+
+    padding: 0;
+    margin: 0;
+    padding-right: 52px; /* ✅ space for the image on right */
+
+    font-size: 14px;
+    color:#fff;
+
+    background: transparent !important;
+    border: 0 !important;
+    outline: 0 !important;
+
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+  }
+
+  .zv-pillseg__input::placeholder{ color: rgba(255,255,255,.70); }
+
+  /* ✅ SHOW ONLY IMAGE LETTERS ON MOBILE (right side) */
+  .zv-trail{
+    display:flex;
+    position:absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 26px;
+    height: 26px;
+    align-items:center;
+    justify-content:center;
+    pointer-events:none;
+    opacity: .95;
+  }
+
+  /* ✅ keep act/location dropdowns inside screen + above all */
+  .zv-locdrop,
+  .zv-actdrop{
+    left: 0 !important;
+    right: 0 !important;
+    top: calc(100% + 10px) !important;
+    z-index: 99999 !important;
+
+    max-width: calc(100vw - 20px) !important;
+    margin: 0 auto !important;
+
+    border-radius: 22px !important;
+    overflow: hidden !important;
+  }
+
+  /* =================================
+     BOTTOM: 1 per row
+  ================================== */
+  .zv-sbar__bottom--pro2{
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px solid rgba(255,255,255,.14);
+
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .zv-bgroup{
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 12px;
+    align-items: stretch;
+  }
+
+  .zv-bctl{
+    width: 100%;
+    min-width: 0;
+    height: var(--zv-mob-h);
+    border-radius: 14px;
+    padding: 0 14px;
+
+    background: rgba(0,0,0,.18);
+    border: 1px solid rgba(255,255,255,.12);
+    box-shadow: 0 10px 24px rgba(0,0,0,.14);
+
+    display:flex;
+    align-items:center;
+    gap: 10px;
+    color:#fff;
+
+    position: relative; /* ✅ needed for zv-trail absolute */
+  }
+
+  .zv-bctl i{
+    color:#fff;
+    font-size:16px;
+    flex: 0 0 auto;
+  }
+
+  .zv-bctl__select{
+    width: max-content;
+    height: 100%;
+    display: flex;
+    align-items: center;
+
+    border:0;
+    outline:0;
+    background: transparent;
+    color:#fff;
+    font-size: 13px;
+
+    appearance:none;
+    -webkit-appearance:none;
+    -moz-appearance:none;
+
+    padding-right: 52px; /* ✅ space for the image on right */
+  }
+
+  /* ✅ ONLY options small + black */
+  .zv-pillseg__select option,
+  .zv-bctl__select option{
+    font-size: 12px !important;
+    color: #000 !important;
+    background: #fff !important;
+  }
+
+  /* ✅ toggle row: keep toggle close (your S image still on right) */
+  .zv-bctl--toggle{
+    padding-right: 66px; /* room for image + toggle */
+    gap: 10px;
+  }
+  .zv-bctl--toggle .ms-auto{
+    margin-left: 10px !important;
+  }
+  .zv-toggle--mini{ margin-left: 0 !important; }
+
+  /* =================================
+     ACTIONS: search + clear one line
+  ================================== */
+  .zv-actions{
+    margin-top: 12px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    align-items: center;
+  }
+
+  .zv-actionbtn{
+    height: var(--zv-btn-h);
+    border-radius: 14px;
+    border: 1px solid rgba(255,255,255,.18);
+    background: rgba(27,27,27,.55);
+    color: #fff;
+    font-weight: 800;
+
+    display:flex;
+    align-items:center;
+    justify-content: center;
+    gap: 10px;
+
+    box-shadow: 0 10px 24px rgba(0,0,0,.16);
+  }
+
+  .zv-actionbtn--search{
+    background: #000;
+    border-color: rgba(255,255,255,.18);
+  }
+
+  .zv-actionbtn--clear{
+    /* justify-content: space-between; */
+    padding: 0 14px;
+    font-weight: 750;
+  }
+  .dur{
+    color:white !important;
+  }
+}
+
+.dur{
+  color:black;
+}
+
+
+
+/* =========================
+   FLATPICKR — clean black theme + position + responsive
+========================= */
+
+/* Always above everything */
+.flatpickr-calendar{
+  z-index: 999999 !important;
+  border-radius: 18px !important;
+  overflow: hidden !important;
+  border: 1px solid rgba(0,0,0,.10) !important;
+  box-shadow: 0 18px 60px rgba(0,0,0,.25) !important;
+}
+
+/* ✅ Keep it under the Dates input + stop weird flipping */
+.flatpickr-calendar.open{
+  margin-top: 10px !important;         /* spacing under Dates */
+}
+
+/* ✅ Prevent off-screen on mobile: clamp width */
+.flatpickr-calendar{
+  max-width: calc(100vw - 24px) !important;
+}
+
+/* If flatpickr tries to be huge (2 months), still keep it inside viewport */
+.flatpickr-calendar.multiMonth{
+  width: min(620px, calc(100vw - 24px)) !important;
+}
+
+/* Month header */
+.flatpickr-months{
+  padding: 10px 10px 6px !important;
+  background: #fff !important;
+}
+.flatpickr-current-month,
+.flatpickr-current-month span.cur-month,
+.flatpickr-current-month input.cur-year{
+  color: #0f172a !important;
+  font-weight: 800 !important;
+}
+
+/* Weekdays row */
+.flatpickr-weekdays{
+  background: #fff !important;
+  padding: 0 10px 8px !important;
+}
+.flatpickr-weekday{
+  color: rgba(15,23,42,.55) !important;
+  font-weight: 700 !important;
+}
+
+/* Day cells */
+.flatpickr-day{
+  border-radius: 12px !important;
+  font-weight: 650 !important;
+}
+
+/* ✅ Black selection (no blue) */
+.flatpickr-day.selected,
+.flatpickr-day.startRange,
+.flatpickr-day.endRange{
+  background: #000 !important;
+  border-color: #000 !important;
+  color: #fff !important;
+}
+
+/* Range fill (between start & end) */
+.flatpickr-day.inRange{
+  background: rgba(0,0,0,.10) !important;
+  border-color: transparent !important;
+  color: #0f172a !important;
+  box-shadow: none !important;
+}
+
+/* Hover */
+.flatpickr-day:hover{
+  background: rgba(0,0,0,.08) !important;
+  border-color: rgba(0,0,0,.08) !important;
+}
+
+/* Arrows black */
+.flatpickr-prev-month svg,
+.flatpickr-next-month svg{
+  fill: #0f172a !important;
+}
+
+/* =========================
+   ✅ MOBILE FIXES
+   - no off-screen
+   - show 1 month only
+========================= */
+@media (max-width: 576px){
+
+  /* Center it and keep inside screen */
+  .flatpickr-calendar{
+    width: calc(100vw - 24px) !important;
+    left: 12px !important;
+    right: 12px !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+ 
+
+  /* ✅ If you use showMonths:2, hide 2nd month on mobile */
+ 
+
+  /* tighten spacing */
+  .flatpickr-innerContainer{
+    padding: 0 8px 10px !important;
+  }
+}
+
+
+
+
+
+/* Force picker to open centered under the whole search bar (desktop + mobile + tablet) */
+
+
+/* Desktop wide calendar like Airbnb */
+/* ===== Desktop: wide + centered + NO empty right gap ===== */
+/* ✅ Desktop: 2 months ONLY, no extra whitespace, centered */
+@media (min-width: 680px){
+
+  /* shrink-wrap to content */
+  .flatpickr-calendar.open,
+  .flatpickr-calendar.multiMonth{
+    width: auto !important;
+    max-width: calc(100vw) !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    margin-top: 80px !important; /* push down */
+  }
+
+  /* make inner width match months (no leftover space) */
+  .flatpickr-calendar.multiMonth .flatpickr-innerContainer{
+    display: flex !important;
+    width: auto !important;
+  }
+
+  .flatpickr-calendar.multiMonth .flatpickr-rContainer{
+    width: auto !important;
+  }
+
+  .flatpickr-calendar.multiMonth .flatpickr-days{
+    width: auto !important;
+  }
+
+  /* each month keeps its real width */
+  .flatpickr-calendar.multiMonth .dayContainer{
+    flex: 0 0 auto !important;
+    width: auto !important;
+    min-width: 0 !important;
+  }
+}
+
+
+
+
+
+
+
+
+/* ✅ Desktop stays ON — tighten only between 990px and 768px */
+@media (max-width: 990px) and (min-width: 768px){
+
+  /* ---- Top pill: tighten spacing ---- */
+  :root{ --zv-action-w: 104px; } /* smaller search button */
+  .zv-pillseg{ padding: 0 12px; gap: 8px; }
+  .zv-pillseg__input,
+  .zv-pillseg__select{ font-size: 14px; }
+
+  /* slightly smaller icons */
+  .zv-pillseg__icon{ font-size: 15px; }
+
+  /* ---- Bottom row: stop forcing wrap ---- */
+  .zv-sbar__bottom--pro2{
+    grid-template-columns: 1fr auto var(--zv-action-w);
+    gap: 8px;
+  }
+
+  
+
+  .zv-bgroup{
+    gap: 10px;              /* reduce spacing */
+    justify-content: flex-start;  /* ✅ prevent weird center squeeze */
+    flex-wrap: nowrap;      /* keep one line */
+    min-width: 0;
+  }
+
+  .zv-bctl{
+    min-width: 0;           /* ✅ BIG FIX (removes forced width) */
+    padding: 0 10px;
+    gap: 8px;
+    height: 42px;
+  }
+
+  .zv-bctl__select{
+    font-size: 13px;
+    padding-right: 14px;
+  }
+
+  .zv-clearbtn--pro2{
+    width: var(--zv-action-w);
+    min-width: var(--zv-action-w);
+    height: 42px;
+    gap: 8px;
+  }
+   .zv-actdrop,
+.zv-locdrop{
+  width: 320px !important;      /* increase dropdown width */
+  max-width: 80vw !important;   /* prevent overflow on small screens */
+  left: 80% !important;         /* center align under input */
+  transform: translateX(-50%) !important;
+  padding: 14px !important;
+}
+ 
+}
+
+
+
+
+
+
+/* =========================
+   REMOVE BLACK FOCUS BORDER
+========================= */
+
+/* Kill default focus outline everywhere inside your hero search */
+.zv-hero2 .zv-sbar :is(input, select, button, textarea):focus,
+.zv-hero2 .zv-sbar :is(input, select, button, textarea):focus-visible{
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+/* If Bootstrap is applying .form-control/.form-select focus ring */
+.zv-hero2 .zv-sbar .form-control:focus,
+.zv-hero2 .zv-sbar .form-select:focus{
+  border-color: transparent !important;
+  box-shadow: none !important;
+  outline: none !important;
+}
+
+/* Extra safety: your custom selects */
+.zv-hero2 .zv-sbar .zv-pillseg__select:focus,
+.zv-hero2 .zv-sbar .zv-pillseg__select:focus-visible,
+.zv-hero2 .zv-sbar .zv-bctl__select:focus,
+.zv-hero2 .zv-sbar .zv-bctl__select:focus-visible{
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+/* Sometimes the border is on the parent segment when child focuses */
+.zv-hero2 .zv-pillseg:focus-within,
+.zv-hero2 .zv-bctl:focus-within{
+  outline: none !important;
+  box-shadow: none !important;
+  border-color: rgba(255,255,255,.12) !important; /* keep your normal border */
+}
+
+
+/* ✅ Make Activity dropdown always appear on top (like Location) */
+.zv-sbar__wrap,
+.zv-sbar__top,
+.zv-pillrow{
+  position: relative;
+  overflow: visible !important;
+  z-index: 10;
+}
+
+/* give the activity segment priority in stacking */
+.zv-pillseg--activity{
+  position: relative;
+  z-index: 99998;
+}
+
+/* dropdown itself sits above EVERYTHING */
+.zv-actdrop{
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: calc(100% + 10px);
+  z-index: 999999 !important; /* ✅ higher than flatpickr + others */
+}

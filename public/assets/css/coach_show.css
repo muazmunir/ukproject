@@ -1,0 +1,714 @@
+/* =========================================================
+   Coach Public Profile (coaches.show)
+   ========================================================= */
+
+/* ---------- Page background ---------- */
+
+.coach-page {
+    min-height: 100vh;
+    background: radial-gradient(circle at top left, #eef2ff 0, #f9fafb 38%, #f4f5fb 100%);
+  }
+  
+  /* Just gently tighten container width (Bootstrap still in charge) */
+  .coach-page .container-lg {
+    max-width: 1300px;
+  }
+  
+  /* =========================================================
+     HERO: avatar + name + meta + actions
+     ========================================================= */
+  
+  .coach-hero {
+    background: #ffffff;
+    border-radius: 26px;
+    padding: 18px 22px;
+    border: 1px solid #e5e7eb;
+    display: flex;
+    align-items: center;
+    gap: 18px;
+      position: relative;
+    margin-bottom: 22px;
+    box-shadow: 0 18px 40px rgba(15, 23, 42, 0.12);
+  }
+  
+  /* Avatar */
+  
+  .coach-avatar-wrap {
+    width: 120px;
+    height: 120px;
+    border-radius: 999px;
+    overflow: hidden;
+    border: 3px solid #e5e7eb;
+    flex-shrink: 0;
+    background: #f3f4f6;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .coach-avatar-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  /* Text block */
+  
+  .coach-main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  
+  .coach-name-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+  }
+  
+  .coach-name {
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: #0f172a;
+  }
+  
+  /* “Coach” pill */
+  
+  .coach-role-pill {
+    font-size: 0.75rem;
+    padding: 3px 10px;
+    border-radius: 999px;
+    background: black;
+    color: #ffffff;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+  }
+  
+  /* Meta row: rating, location, status, joined */
+  
+  .coach-meta-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 2px;
+    font-size: 0.78rem;
+    color: black;
+  }
+  
+  .coach-meta-row i {
+    font-size: 0.8rem;
+  }
+  
+  /* “dot” separator between items */
+  
+  .coach-meta-dot::before {
+    content: "•";
+    margin: 0 4px;
+    color: #000000;
+  }
+  
+  /* Online / offline text subtle color */
+  
+  /* .coach-meta-row span:nth-child(3) {
+    font-weight: 500;
+  } */
+  
+  .coach-meta-row span:nth-child(3):contains("Available"),
+  .coach-meta-row span:nth-child(3):contains("Online") {
+    color: #16a34a;
+  }
+  
+  /* Short bio */
+  
+  .coach-bio {
+    font-size: 0.8rem;
+    color: #4b5563;
+    margin-top: 6px;
+    max-width: 560px;
+  }
+  
+  /* If you haven’t changed the Blade yet and still have inline style,
+     this keeps it looking consistent as a fallback */
+  .coach-main > div[style*="font-size:0.8rem"] {
+    font-size: 0.8rem !important;
+    color: black !important;
+    margin-top: 6px;
+  }
+  
+  /* Hero actions (Send message / View services) */
+  
+  .coach-actions {
+    position: absolute;
+  top: 14px;
+  right: 14px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 8px;
+  z-index: 5;
+  }
+  
+  .coach-btn {
+    border-radius: 999px;
+    border: 1px solid #000000;
+    padding: 7px 16px;
+    font-size: 0.8rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    text-decoration: none;
+    background: #020617;
+    color: #f9fafb;
+    white-space: nowrap;
+    transition:
+      background-color 0.15s ease,
+      color 0.15s ease,
+      box-shadow 0.15s ease,
+      transform 0.08s ease;
+  }
+  
+  .coach-btn i {
+    font-size: 0.85rem;
+  }
+  
+  .coach-btn:hover {
+    background: #000000;
+    color: #ffffff;
+    text-decoration: none;
+    box-shadow: 0 12px 28px rgba(15, 23, 42, 0.35);
+    transform: translateY(-1px);
+  }
+  
+  .coach-btn--outline {
+    background: #ffffff;
+    color: #020617;
+  }
+  
+  .coach-btn--outline:hover {
+    background: #020617;
+    color: #ffffff;
+  }
+  
+  /* Larger screens: keep actions to the right */
+  
+  @media (min-width: 768px) {
+    .coach-hero {
+      justify-content: space-between;
+    }
+  
+    .coach-actions {
+      flex-direction: column;
+      align-items: flex-end;
+    }
+  }
+  
+  /* Small screens: stack nicely */
+  
+  @media (max-width: 767.98px) {
+    .coach-hero {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  
+    /* .coach-actions {
+      width: 100%;
+      flex-direction: row;
+      justify-content: flex-start;
+      flex-wrap: wrap;
+    }
+   */
+    .coach-actions .coach-btn,
+    .coach-actions .coach-btn--outline {
+      flex: 1 1 auto;
+      justify-content: center;
+    }
+  }
+  
+  /* =========================================================
+     MAIN LAYOUT (left info / right services)
+     ========================================================= */
+  
+  .coach-layout {
+    display: grid;
+    grid-template-columns: 280px minmax(0, 1fr);
+    gap: 22px;
+  }
+  
+  /* On tablet & below, stack columns */
+  
+  @media (max-width: 991.98px) {
+    .coach-layout {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+  
+  /* =========================================================
+     LEFT INFO CARD
+     ========================================================= */
+  
+  .coach-info-card {
+    background: #ffffff;
+    border-radius: 22px;
+    border: 1px solid #e5e7eb;
+    padding: 14px 16px;
+    box-shadow: 0 12px 30px rgba(15, 23, 42, 0.10);
+    font-size: 0.8rem;
+  }
+  
+  /* Section headings inside the card */
+  
+  .coach-info-title {
+    font-size: 0.82rem;
+    font-weight: 600;
+    margin-bottom: 4px;
+    color: #000000;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  
+  .coach-info-title::before {
+    content: "";
+    width: 4px;
+    height: 14px;
+    border-radius: 999px;
+    background: black;
+  }
+  
+  /* Each row/section */
+  
+  .coach-info-row {
+    padding: 8px 0;
+    border-top: 1px solid #f3f4f6;
+  }
+  
+  .coach-info-row:first-of-type {
+    border-top: none;
+  }
+  
+  /* Badges for service areas */
+  
+  .coach-info-card .badge {
+    font-size: 0.72rem;
+    border-radius: 999px;
+    padding: 0.28rem 0.6rem;
+    background: #f3f4ff;
+    border: 1px solid #000000;
+  }
+  
+  /* Description & details text */
+  
+  .coach-info-row > div:last-child {
+    font-size: 0.8rem;
+    color: black;
+  }
+  
+  /* Qualifications list spacing */
+  
+  .coach-info-row div > div {
+    margin-bottom: 2px;
+  }
+  
+  /* Social links */
+  
+  .coach-info-row a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    border-radius: 999px;
+    background: #000000;
+    color: #f9fafb;
+    font-size: 0.9rem;
+    margin-right: 4px;
+    transition:
+      background-color 0.15s ease,
+      transform 0.08s ease,
+      box-shadow 0.15s ease;
+  }
+  
+  .coach-info-row a:hover {
+    background: #000000;
+    transform: translateY(-1px);
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.4);
+  }
+  
+  /* Empty / “Not specified” states */
+  
+  .coach-info-row .text-muted {
+    font-size: 0.78rem;
+  }
+  
+  /* =========================================================
+     RIGHT SIDE (title above services grid)
+     ========================================================= */
+  
+  .coach-services-section-title {
+    font-size: 0.96rem;
+    font-weight: 600;
+    color: #0f172a;
+    margin-bottom: 10px;
+  }
+  
+
+  /* Coach favorite button in hero */
+.coach-fav-form {
+  margin: 0;
+}
+
+.coach-fav-btn {
+  border: none;
+  background:black;
+  color: #f9fafb;
+  border-radius: 999px;
+  padding: 6px 9px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: 0.2s ease;
+  box-shadow: 0 6px 16px rgba(15, 23, 42, 0.4);
+}
+
+.coach-fav-btn i {
+  font-size: 1rem;
+}
+
+.coach-fav-btn:hover {
+  transform: translateY(-1px);
+  background: #020617;
+}
+
+.coach-fav-btn .bi-heart-fill {
+  color: red; /* soft red */
+}
+
+.coach-fav-btn .bi-heart {
+  color: #e5e7eb;
+}
+
+
+
+
+
+/* Short Bio Section */
+.coach-bio-box {
+ 
+  
+  border-radius: 18px;
+  padding: 12px 0;
+  margin-top: 5px;
+  /* box-shadow: 0 8px 22px rgba(0,0,0,0.08); */
+  max-width: 560px;
+  line-height: 1.5;
+}
+
+/* Short Bio title */
+.coach-bio-box .coach-bio-title {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #000;
+  /* margin-bottom: 6px; */
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* small left accent bar */
+
+
+/* Short bio text */
+.coach-bio-box .coach-bio-text {
+  font-size: 0.8rem;
+  color: #000;
+  /* font-weight: 500; */
+}
+
+/* Responsive for mobile (tighter + smaller font) */
+@media (max-width: 576px) {
+  .coach-bio-box {
+    max-width: 100%;
+    padding: 10px 14px;
+  }
+  .coach-bio-box .coach-bio-title {
+    font-size: 0.92rem;
+  }
+  .coach-bio-box .coach-bio-text {
+    font-size: 0.82rem;
+  }
+}
+
+
+/* //galeyr
+ */
+ /* =========================
+   Coach Gallery (modal + thumbs)
+   ========================= */
+
+/* =================== Gallery modal base =================== */
+/* ===== Snap slider ===== */
+.coach-gallery-snap-wrap{
+  position: relative;
+  border-radius: 16px;
+  overflow: hidden;
+  background: #000000;
+}
+
+.coach-gallery-snap{
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  touch-action: pan-x;
+}
+.coach-gallery-snap::-webkit-scrollbar{ display:none; }
+.coach-gallery-snap{ scrollbar-width:none; -ms-overflow-style:none; }
+
+.coach-gallery-snap-slide{
+  flex: 0 0 100%;
+  scroll-snap-align: center;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  min-height: 520px;
+}
+
+.coach-gallery-snap-slide img{
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* arrows overlay */
+.coach-gallery-snap-arrow{
+  position:absolute;
+  top:50%;
+  transform: translateY(-50%);
+  width:46px;
+  height:46px;
+  border-radius:999px;
+  border:0;
+  background: rgba(0,0,0,.55);
+  color:#fff;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  z-index: 5;
+}
+.coach-gallery-snap-arrow.left{ left:12px; }
+.coach-gallery-snap-arrow.right{ right:12px; }
+
+/* mobile sizing */
+@media (max-width: 768px){
+  .coach-gallery-snap-slide{ min-height: 320px; }
+  .coach-gallery-snap-slide img{ height: 320px; }
+  .coach-gallery-snap-arrow{
+    width:42px;height:42px;
+  }
+}
+
+
+   
+.coach-gallery-mini{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  flex-wrap:wrap;
+}
+
+.coach-gallery-thumb{
+  border:0;
+  background:transparent;
+  padding:0;
+  width:52px;
+  height:52px;
+  border-radius:12px;
+  overflow:hidden;
+  border:1px solid #e5e7eb;
+}
+.coach-gallery-thumb img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
+}
+
+.coach-gallery-more{
+  font-size:0.85rem;
+  color:#111827;
+  background:#f3f4f6;
+  border:1px solid #e5e7eb;
+  padding:6px 10px;
+  border-radius:999px;
+}
+
+.coach-gallery-modal{
+  border-radius:18px;
+}
+
+.coach-gallery-viewer{
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: 60vh;
+  margin: 0 auto;
+  background:#000;
+  border-radius:16px;
+  overflow:hidden;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding: 0;
+}
+
+.coach-gallery-viewer img{
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: 60vh;
+  object-fit: contain;
+  display: block;
+  margin: 0 auto;
+}
+
+
+.coach-gallery-strip{
+  display:flex;
+  gap:10px;
+  overflow-x:auto;
+  padding-bottom:6px;
+  scroll-snap-type:x mandatory;
+  -webkit-overflow-scrolling:touch;
+}
+.coach-gallery-strip::-webkit-scrollbar{ height:6px; }
+.coach-gallery-strip-item{
+  border:1px solid #e5e7eb;
+  background:#fff;
+  border-radius:14px;
+  padding:0;
+  width:110px;
+  height:78px;
+  overflow:hidden;
+  flex:0 0 auto;
+  scroll-snap-align:center;
+  opacity:.85;
+  transition:.15s ease;
+}
+.coach-gallery-strip-item img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
+}
+.coach-gallery-strip-item.active{
+  border-color:#111827;
+  opacity:1;
+  transform:translateY(-1px);
+}
+
+/* Smaller screens */
+@media (max-width: 576px){
+  .coach-gallery-thumb{ width:46px; height:46px; border-radius:12px; }
+  .coach-gallery-strip-item{ width:92px; height:66px; border-radius:14px; }
+  .coach-gallery-viewer{ max-height:52vh; }
+}
+
+
+
+
+
+/* ✅ Make modal not full wide like modal-xl */
+.coach-gallery-dialog{
+  max-width: 980px;   /* adjust as you like: 900 / 1000 */
+  width: calc(100% - 24px);
+  margin: 0 auto;
+}
+
+/* remove extra padding inside modal */
+.coach-gallery-modal .modal-body{
+  padding: 10px 12px 12px !important;
+}
+
+/* keep the viewer tight (no huge black sides) */
+.coach-gallery-snap-wrap{
+  background: #000;
+  border-radius: 16px;
+  overflow: hidden;
+  width: 100%;
+  max-width: 980px;   /* same as dialog */
+  margin: 0 auto;
+}
+
+/* allow image to fill the box without leaving huge sides */
+.coach-gallery-snap-slide{
+  min-height: unset !important;
+  height: 380px;        /* ✅ shorter */
+}
+
+.coach-gallery-snap-slide img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* ✅ removes empty sides */
+}
+
+/* mobile */
+@media (max-width: 768px){
+  .coach-gallery-dialog{ max-width: 100%; }
+  .coach-gallery-snap-wrap{ max-width: 100%; }
+  .coach-gallery-snap-slide{ height: 240px; }
+}
+
+
+
+
+
+
+
+
+
+/* clickable avatar */
+.coach-avatar-btn{
+  border: 0;
+  padding: 0;
+  background: transparent;
+  border-radius: 999px;
+  cursor: zoom-in;
+  display: inline-flex;
+}
+.coach-avatar-btn img{
+  display:block;
+  border-radius:999px;
+}
+
+/* avatar modal sizing */
+.coach-avatar-dialog{
+  max-width: 720px;
+  width: calc(100% - 24px);
+  margin: 0 auto;
+}
+.coach-avatar-modal{
+  border-radius: 18px;
+  overflow: hidden;
+}
+
+.coach-avatar-view{
+  width:100%;
+  max-height: 70vh;
+  background:#000;
+  border-radius: 16px;
+  overflow:hidden;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.coach-avatar-view img{
+  max-width:100%;
+  max-height:70vh;
+  object-fit:contain;
+  display:block;
+}

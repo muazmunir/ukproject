@@ -1,0 +1,201 @@
+/* =========================================================
+   SUPPORT ABSENCE — MY LOG
+   File: support_absence_log.css
+   ========================================================= */
+
+:root{
+  --log-bg: #f6f7fb;
+  --log-card: #ffffff;
+  --log-text: #0f172a;
+  --log-muted: #64748b;
+  --log-border: #e5e7eb;
+  --log-soft: #f1f5f9;
+  --log-radius: 16px;
+  --log-radius-sm: 12px;
+  --log-shadow: 0 10px 26px rgba(15,23,42,.06);
+  --log-shadow-sm: 0 6px 18px rgba(15,23,42,.05);
+}
+
+/* ---------- Page ---------- */
+.abs-wrap{
+  padding: 18px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+body{
+  background: var(--log-bg);
+}
+
+/* ---------- Header ---------- */
+.abs-head{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  margin-bottom: 14px;
+}
+
+.abs-title{
+  font-size: 22px;
+  font-weight: 900;
+  color: var(--log-text);
+  margin: 0;
+  letter-spacing: -0.02em;
+}
+
+.abs-sub{
+  margin-top: 6px;
+  font-size: 13px;
+  color: var(--log-muted);
+}
+
+.abs-head .btn{
+  border-radius: 12px;
+  padding: 10px 14px;
+  font-weight: 800;
+  box-shadow: var(--log-shadow-sm);
+}
+
+/* ---------- Card ---------- */
+.abs-card{
+  background: var(--log-card);
+  border: 1px solid var(--log-border);
+  border-radius: var(--log-radius);
+  box-shadow: var(--log-shadow);
+  overflow: hidden;
+}
+
+.abs-card-title{
+  padding: 14px 16px;
+  font-weight: 900;
+  color: var(--log-text);
+  border-bottom: 1px solid var(--log-border);
+  background: linear-gradient(180deg, #ffffff 0%, #fbfdff 100%);
+}
+
+/* ---------- Table ---------- */
+.abs-card .table{
+  margin: 0;
+}
+
+.abs-card .table thead th{
+  padding: 12px 16px;
+  font-size: 12px;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  color: var(--log-muted);
+  background: var(--log-soft);
+  border-bottom: 1px solid var(--log-border);
+}
+
+.abs-card .table tbody td{
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--log-border);
+  font-size: 14px;
+  color: var(--log-text);
+  vertical-align: top;
+}
+
+.abs-card .table tbody tr:hover{
+  background: #fafafa;
+}
+
+/* ---------- Badges ---------- */
+.abs-card .badge{
+  border-radius: 999px;
+  font-weight: 900;
+  font-size: 11px;
+  padding: 7px 10px;
+  letter-spacing: .04em;
+}
+
+/* ---------- Details column ---------- */
+.abs-card td .small{
+  font-size: 13px;
+  line-height: 1.45;
+}
+
+.abs-card td strong{
+  font-weight: 800;
+  color: var(--log-text);
+}
+
+/* ---------- Actor ---------- */
+.abs-card .fw-semibold{
+  font-weight: 900 !important;
+}
+
+/* ---------- Attachment ---------- */
+.abs-card .btn-outline-dark{
+  border-radius: 10px;
+  padding: 7px 12px;
+  font-weight: 800;
+}
+
+.abs-card .text-truncate{
+  max-width: 160px;
+}
+
+/* ---------- Pagination ---------- */
+.abs-card .p-3{
+  border-top: 1px solid var(--log-border);
+  background: #fff;
+}
+
+.abs-card .pagination{
+  margin: 0;
+}
+
+.abs-card .page-link{
+  border-radius: 10px !important;
+  margin: 0 3px;
+  border: 1px solid var(--log-border);
+  color: var(--log-text);
+}
+
+.abs-card .page-item.active .page-link{
+  background: #0f172a;
+  border-color: #0f172a;
+}
+
+/* ---------- Empty state ---------- */
+.abs-card .text-muted{
+  color: var(--log-muted) !important;
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 768px){
+  .abs-head{
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .abs-head .btn{
+    width: 100%;
+  }
+}
+
+@media (max-width: 576px){
+  .abs-wrap{ padding: 12px; }
+
+  .abs-card .table thead{
+    display: none;
+  }
+
+  .abs-card .table tbody tr{
+    display: block;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--log-border);
+  }
+
+  .abs-card .table tbody td{
+    display: block;
+    padding: 8px 14px;
+    width: 100%;
+  }
+
+  .abs-card .table tbody td:first-child{
+    font-weight: 800;
+  }
+}

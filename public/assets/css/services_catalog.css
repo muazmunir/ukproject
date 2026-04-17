@@ -1,0 +1,640 @@
+/* public/assets/css/services_catalog.css */
+
+/* ===== Page wrapper ===== */
+.svc-page {
+    background: #f4f5fb;
+    min-height: 100vh;
+  }
+  
+  /* Header */
+  .svc-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 18px;
+  }
+  .svc-header-title {
+    font-size: 1.6rem;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+  .svc-header-sub {
+    color: black;
+    font-size: 0.9rem;
+  }
+  .svc-header-badge {
+    padding: 6px 14px;
+    border-radius: 999px;
+    background: #111827;
+    color: #f9fafb;
+    font-size: 0.8rem;
+    font-weight: 500;
+  }
+  
+  /* ===== Layout (sidebar + main) ===== */
+  .svc-layout {
+    display: grid;
+    grid-template-columns: 290px minmax(0, 1fr);
+    gap: 24px;
+  }
+  
+  @media (max-width: 992px) {
+    .svc-layout {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+  
+  /* ===== Sidebar ===== */
+  .svc-sidebar {
+    position: relative;
+  }
+  
+  .svc-sidebar-card {
+    position: sticky;
+    top: 88px;
+    background: #ffffff;
+    border-radius: 26px;
+    padding: 18px 18px 20px;
+    border: 1px solid rgba(148, 163, 184, 0.35);
+    box-shadow:
+      0 18px 40px rgba(15, 23, 42, 0.11),
+      0 0 0 1px rgba(255, 255, 255, 0.6);
+  }
+  
+  @media (max-width: 992px) {
+    .svc-sidebar-card {
+      position: static;
+      border-radius: 20px;
+    }
+  }
+  
+  .svc-sidebar-header {
+    font-weight: 600;
+    font-size: 0.95rem;
+    margin-bottom: 12px;
+  }
+  
+  /* Filter groups */
+  .svc-filter-group {
+    margin-bottom: 12px;
+  }
+  .svc-filter-label {
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: black;
+    display: block;
+    margin-bottom: 4px;
+  }
+  
+  .svc-select,
+  .svc-input {
+    width: 100%;
+    padding: 8px 11px;
+    border-radius: 999px;
+    border: 1px solid #d1d5db;
+    font-size: 0.83rem;
+    background-color: #fff;
+    transition: border-color .14s ease, box-shadow .14s ease, background .14s ease, transform .14s ease;
+  }
+  
+  .svc-select:focus,
+  .svc-input:focus {
+    outline: none;
+    border-color: #111827;
+    box-shadow: 0 0 0 1px rgba(17,24,39,0.14);
+  }
+  
+  /* Price inputs */
+  .svc-filter-price .svc-price-inputs {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .svc-price-sep {
+    font-size: 0.8rem;
+    color: #9ca3af;
+  }
+  
+  /* Filter buttons */
+  .svc-filter-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 12px;
+  }
+  
+  /* Buttons */
+  .svc-btn-ghost,
+  .svc-btn-solid {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 10px;
+    border-radius: 999px;
+    font-size: 0.8rem;
+    border: 1px solid transparent;
+    cursor: pointer;
+    text-decoration: none;
+  }
+  .svc-btn-ghost {
+    border-color: #d1d5db;
+    background: #fff;
+    color: #111827;
+  }
+  .svc-btn-ghost:hover {
+    background: #f3f4f6;
+  }
+  .svc-btn-solid {
+    border-color: #000000;
+    background: black;
+    color: #ffffff;
+  }
+  .svc-btn-solid:hover {
+    filter: brightness(1.05);
+  }
+  
+  /* ===== Results area ===== */
+  .svc-results {
+    min-width: 0;
+  }
+  
+  /* Toolbar */
+  .svc-toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 12px;
+  }
+  .svc-count {
+    font-size: 0.85rem;
+    color: #4b5563;
+  }
+  .svc-sort-form {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .svc-sort-label {
+    font-size: 0.8rem;
+    color: black;
+  }
+  .svc-select--compact {
+    min-width: 180px;
+  }
+  
+  /* ===== Cards grid (3 per row on desktop) ===== */
+  .svc-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 20px;
+  }
+  
+  @media (max-width: 1200px) {
+    .svc-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+  @media (max-width: 640px) {
+    .svc-grid {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+  
+  /* ===== Service card (3D style) ===== */
+  .svc-card {
+    background: radial-gradient(circle at top left, #ffffff, #f3f4f6);
+    border-radius: 26px;
+    overflow: hidden;
+    border: 1px solid rgba(148, 163, 184, 0.35);
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    transition:
+      transform .18s ease,
+      box-shadow .18s ease,
+      border-color .18s ease,
+      background .18s ease;
+    box-shadow:
+      0 16px 35px rgba(15, 23, 42, 0.12),
+      0 0 0 1px rgba(255, 255, 255, 0.7);
+  }
+  .svc-card:hover {
+    transform: translateY(-8px) scale(1.01);
+    border-color: rgba(55, 65, 81, 0.45);
+    box-shadow:
+      0 24px 50px rgba(15, 23, 42, 0.22),
+      0 0 0 1px rgba(255, 255, 255, 0.9);
+    background: radial-gradient(circle at top left, #ffffff, #e5e7eb);
+  }
+  
+  /* Media */
+  .svc-card-media {
+    position: relative;
+    padding-top: 66%;
+    overflow: hidden;
+  }
+  .svc-card-media img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transform: scale(1.02);
+    transition: transform .2s ease;
+  }
+  .svc-card:hover .svc-card-media img {
+    transform: scale(1.08);
+  }
+  .svc-card-heart {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    border: none;
+    background: rgba(255,255,255,0.95);
+    border-radius: 999px;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 6px 14px rgba(15,23,42,0.18);
+  }
+  .svc-card-heart i {
+    font-size: 0.9rem;
+  }
+  
+  /* Body */
+  .svc-card-body {
+    padding: 12px 14px 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .svc-card-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.78rem;
+    color: #6b7280;
+  }
+  .svc-card-coach {
+    font-weight: 500;
+  }
+  .svc-card-rating {
+    display: inline-flex;
+    align-items: center;
+    gap: 2px;
+  }
+  .svc-card-rating i {
+    font-size: 0.75rem;
+    color: #facc15;
+  }
+  
+  .svc-card-title {
+    font-size: 0.95rem;
+    font-weight: 600;
+    margin: 2px 0;
+  }
+  .svc-card-title a {
+    color: #111827;
+    text-decoration: none;
+  }
+  .svc-card-title a:hover {
+    text-decoration: underline;
+  }
+  
+  .svc-card-sub {
+    font-size: 0.8rem;
+    color: #6b7280;
+    min-height: 34px;
+  }
+  
+  /* Meta (location) */
+  .svc-card-meta {
+    margin-top: 2px;
+    font-size: 0.78rem;
+    color: #9ca3af;
+  }
+  .svc-card-location i {
+    font-size: 0.78rem;
+  }
+  
+  /* Price footer */
+  .svc-card-footer {
+    margin-top: 6px;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+  }
+  .svc-card-price-label {
+    font-size: 0.75rem;
+    color: #6b7280;
+  }
+  .svc-card-price {
+    font-weight: 700;
+    font-size: 0.9rem;
+  }
+  .svc-card-unit {
+    font-size: 0.78rem;
+    color: #6b7280;
+    margin-left: 2px;
+  }
+  
+  /* Category chip */
+  .svc-card-chip {
+    align-self: flex-start;
+    margin-top: 8px;
+    padding: 3px 9px;
+    border-radius: 999px;
+    background: #eff6ff;
+    color: #1d4ed8;
+    font-size: 0.7rem;
+  }
+  
+  /* Empty + pagination */
+  .svc-empty {
+    background: #ffffff;
+    border-radius: 18px;
+    padding: 24px;
+    border: 1px dashed #e5e7eb;
+    text-align: center;
+    color: #6b7280;
+    grid-column: 1 / -1;
+  }
+  .svc-pagination {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+  }
+  
+
+
+
+
+  /* =========================
+   SERVICES ROW -> MATCH SVC DESIGN
+   ========================= */
+:root{
+  --svc-radius: 26px;
+  --svc-border: 1px solid rgba(148, 163, 184, 0.35);
+  --svc-shadow: 0 16px 35px rgba(15, 23, 42, 0.12), 0 0 0 1px rgba(255, 255, 255, 0.7);
+  --svc-shadow-hover: 0 24px 50px rgba(15, 23, 42, 0.22), 0 0 0 1px rgba(255, 255, 255, 0.9);
+}
+
+/* Card shell */
+.svc-row-card{
+  border-radius: var(--svc-radius) !important;
+  overflow: hidden;
+  border: var(--svc-border) !important;
+  box-shadow: var(--svc-shadow) !important;
+  background: radial-gradient(circle at top left, #ffffff, #f3f4f6);
+  transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease, background .18s ease;
+  position: relative; /* so heart sits correctly */
+}
+
+.svc-row-card:hover{
+  transform: translateY(-8px) scale(1.01);
+  box-shadow: var(--svc-shadow-hover) !important;
+  border-color: rgba(55, 65, 81, 0.45) !important;
+  background: radial-gradient(circle at top left, #ffffff, #e5e7eb);
+}
+
+/* Media */
+.svc-row-media{
+  overflow: hidden;
+}
+
+.svc-row-media img{
+  transition: transform .2s ease;
+  transform: scale(1.02);
+}
+
+.svc-row-card:hover .svc-row-media img{
+  transform: scale(1.08);
+}
+
+/* Heart button (match svc-card-heart) */
+.svc-row-heart{
+  border: none !important;
+  background: rgba(255,255,255,0.95) !important;
+  border-radius: 999px !important;
+  width: 32px;
+  height: 32px;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  box-shadow: 0 6px 14px rgba(15,23,42,0.18);
+  cursor: pointer;
+  padding: 0 !important;
+}
+
+.svc-row-heart i{
+  font-size: .9rem;
+  line-height: 1;
+  display: block;
+}
+
+/* Title / typography match */
+.svc-row-card .card-title{
+  font-size: 0.95rem;
+  font-weight: 600;
+  margin: 2px 0;
+}
+
+.svc-row-card .text-muted,
+.svc-row-card .small{
+  font-size: 0.8rem;
+}
+
+/* Footer button sizing */
+.svc-row-btn{
+  border-radius: 999px;
+  padding: 6px 10px;
+  font-size: .85rem;
+  font-weight: 600;
+}
+
+/* Consistent badge size */
+.svc-row-card .badge{
+  font-size: .72rem;
+  padding: 6px 10px;
+  border-radius: 999px;
+}
+
+/* Responsive radius slightly smaller on mobile (matches your sidebar rule) */
+@media (max-width: 992px){
+  :root{ --svc-radius: 20px; }
+}
+
+@media (max-width: 576px){
+  .svc-row-card:hover{
+    transform: translateY(-4px) scale(1.005); /* softer hover on small screens */
+  }
+  .svc-row-btn{ padding: 9px 10px; font-size: .83rem; }
+}
+
+
+
+
+
+/* =========================
+   SERVICES INDEX (Bootstrap cards) -> match svc-card design
+   ========================= */
+
+.svc-page .svc-row-card{
+  border-radius: 26px !important;
+  overflow: hidden;
+  border: 1px solid rgba(148, 163, 184, 0.35) !important;
+  background: radial-gradient(circle at top left, #ffffff, #f3f4f6);
+  box-shadow:
+    0 16px 35px rgba(15, 23, 42, 0.12),
+    0 0 0 1px rgba(255, 255, 255, 0.7) !important;
+  transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease, background .18s ease;
+  position: relative;
+}
+
+.svc-page .svc-row-card:hover{
+  transform: translateY(-8px) scale(1.01);
+  border-color: rgba(55, 65, 81, 0.45) !important;
+  background: radial-gradient(circle at top left, #ffffff, #e5e7eb);
+  box-shadow:
+    0 24px 50px rgba(15, 23, 42, 0.22),
+    0 0 0 1px rgba(255, 255, 255, 0.9) !important;
+}
+
+/* media zoom like svc-card */
+.svc-page .svc-row-media{ overflow: hidden; }
+.svc-page .svc-row-media img{
+  transform: scale(1.02);
+  transition: transform .2s ease;
+}
+.svc-page .svc-row-card:hover .svc-row-media img{
+  transform: scale(1.08);
+}
+
+/* Heart matches svc-card-heart */
+.svc-page .svc-row-heart{
+  border: none !important;
+  background: rgba(255,255,255,0.95) !important;
+  border-radius: 999px !important;
+  width: 32px;
+  height: 32px;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  box-shadow: 0 6px 14px rgba(15,23,42,0.18);
+  padding: 0 !important;
+  cursor: pointer;
+}
+.svc-page .svc-row-heart i{
+  font-size: .9rem;
+  line-height: 1;
+  display: block;
+}
+
+/* Equal spacing / typography */
+.svc-page .svc-row-card .card-body{
+  padding: 12px 14px 14px;
+}
+.svc-page .svc-row-card .card-title{
+  font-size: .95rem;
+  font-weight: 600;
+}
+.svc-page .svc-row-card .small,
+.svc-page .svc-row-card .text-muted{
+  font-size: .8rem;
+}
+
+/* Badge consistent */
+.svc-page .svc-row-card .badge{
+  font-size: .72rem;
+  padding: 6px 10px;
+  border-radius: 999px;
+}
+
+/* Footer button */
+.svc-page .svc-row-btn{
+  border-radius: 999px;
+  padding: 6px 12px;
+  font-size: .85rem;
+  font-weight: 600;
+}
+
+/* Make all cards same height by stabilizing title/sub blocks */
+.svc-page .svc-row-card .card-title{
+  min-height: 20px;
+}
+.svc-page .svc-row-card .d-flex.align-items-center.small.text-muted{
+  min-height: 28px;
+}
+
+/* Responsive: soften hover + smaller radius */
+@media (max-width: 992px){
+  .svc-page .svc-row-card{ border-radius: 20px !important; }
+}
+@media (max-width: 576px){
+  .svc-page .svc-row-card:hover{
+    transform: translateY(-4px) scale(1.005);
+  }
+  .svc-page .svc-row-btn{
+    padding: 9px 10px;
+    font-size: .83rem;
+  }
+}
+
+
+
+/* FORCE equal radius + equal padding on all devices */
+.svc-card, .svc-row-card, .card {
+  border-radius: 20px !important;
+  overflow: hidden;
+}
+
+/* Make padding consistent too */
+.svc-card-body, .card-body {
+  padding: 10px 12px !important;
+}
+
+/* Heart icon container also stays perfectly round */
+.svc-card-heart, .svc-row-heart, .favorite-btn {
+  width: 30px !important;
+  height: 30px !important;
+  border-radius: 50% !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* 3 per row on tablets if space allows */
+@media (min-width: 768px) and (max-width: 991.98px) {
+  .svc-grid {
+    grid-template-columns: repeat(3, 1fr) !important;
+  }
+}
+
+/* 2 per row on tablet & mobile (must) */
+@media (max-width: 767.98px) {
+  .svc-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 14px !important;
+  }
+}
+
+/* Smaller typography for mobile/tablets */
+@media (max-width: 992px) {
+  .svc-header-title { font-size: 1.2rem !important; }
+  .svc-header-sub   { font-size: 0.8rem !important; }
+  .svc-card-title   { font-size: 0.82rem !important; }
+  .svc-card-sub     { font-size: 0.72rem !important; }
+  .svc-card-price   { font-size: 0.8rem !important; }
+  .svc-card-unit    { font-size: 0.7rem !important; }
+}
+
+/* Very small phones keep 2 per row but tighter */
+@media (max-width: 420px) {
+  .svc-card-body, .card-body { padding: 8px 10px !important; }
+  .svc-card-title { font-size: 0.78rem !important; }
+  .svc-card-sub   { font-size: 0.68rem !important; }
+}

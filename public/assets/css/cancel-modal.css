@@ -1,0 +1,222 @@
+:root{
+  --zv-bg:#f6f8fb; --zv-surface:#fff; --zv-text:#0f172a; --zv-muted:#6b7280;
+  --zv-border:#e8ecf2; --zv-accent:#2563eb;
+  --ok:#16a34a; --warn:#f59e0b; --danger:#dc2626;
+  --shadow:0 10px 30px rgba(2,6,23,.06);
+  --shadow-lg:0 24px 56px rgba(2,6,23,.12);
+  --r:16px;
+}
+
+/* ===== Modal container look ===== */
+#cancelBookingModal .modal-dialog{
+  max-width: 520px;
+}
+
+#cancelBookingModal .modal-content{
+  border: 1px solid var(--zv-border);
+  border-radius: calc(var(--r) + 4px);
+  box-shadow: var(--shadow-lg);
+  overflow: hidden;
+  background: var(--zv-surface);
+}
+
+#cancelBookingModal .modal-header{
+  padding: 16px 18px;
+  border-bottom: 1px solid var(--zv-border);
+  
+}
+
+#cancelBookingModal .modal-title{
+  font-weight: 600;
+  color: var(--zv-text);
+  letter-spacing: -.02em;
+}
+
+#cancelBookingModal .btn-close{
+  opacity: .7;
+}
+#cancelBookingModal .btn-close:hover{
+  opacity: 1;
+}
+
+#cancelBookingModal .modal-body{
+  padding: 16px 18px 10px;
+  color: var(--zv-text);
+}
+
+#cancelBookingModal .modal-footer{
+  padding: 14px 18px 18px;
+  border-top: 1px solid var(--zv-border);
+  background: linear-gradient(to bottom, rgba(246,248,251,.75), rgba(246,248,251,.35));
+}
+
+/* ===== Booking title line ===== */
+#cancelBookingTitle{
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.25;
+  margin-bottom: 6px !important;
+}
+
+#cancelBookingModal .small.text-muted{
+  color: var(--zv-muted) !important;
+}
+
+/* ===== Quote box (Refund / Penalty / Keeps) ===== */
+#cancelQuoteBox{
+  border: 1px solid var(--zv-border) !important;
+  border-radius: 14px !important;
+  background: linear-gradient(180deg, #ffffff, #fbfcff);
+  box-shadow: 0 10px 25px rgba(2,6,23,.05);
+}
+
+#cancelQuoteBox .d-flex{
+  align-items: baseline;
+}
+
+#cancelQuoteBox span{
+  color: var(--zv-muted);
+}
+
+#cancelQuoteBox strong{
+  color: var(--zv-text);
+  font-weight: 600;
+  letter-spacing: -.01em;
+}
+
+/* Emphasize refund in green-ish if you want */
+#cqRefund{
+  color: #0f172a;
+}
+#cqPenalty{
+  color: #0f172a;
+}
+#cqKeeps{
+  color: #0f172a;
+}
+
+#cqRuleLine{
+  padding-top: 8px;
+  border-top: 1px dashed var(--zv-border);
+  margin-top: 10px !important;
+  font-size: 12.5px;
+}
+
+/* ===== Error box ===== */
+#cancelQuoteError{
+  border-radius: 14px;
+  border: 1px solid rgba(245,158,11,.25);
+  background: rgba(245,158,11,.10);
+  color: #92400e;
+  padding: 12px 14px;
+  box-shadow: 0 10px 20px rgba(2,6,23,.04);
+}
+
+/* ===== Reason textarea ===== */
+#cancelBookingModal .form-label{
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--zv-text);
+  margin-bottom: 6px;
+}
+
+#cancelBookingModal textarea.form-control{
+  border-radius: 14px;
+  border: 1px solid var(--zv-border);
+  padding: 12px 12px;
+  box-shadow: none;
+  resize: none;
+}
+
+#cancelBookingModal textarea.form-control:focus{
+  border-color: rgba(37,99,235,.45);
+  box-shadow: 0 0 0 .2rem rgba(37,99,235,.12);
+}
+
+/* ===== Buttons ===== */
+#cancelBookingModal .btn{
+  border-radius: 999px;
+  padding: 5px 10px;
+  font-weight: 600;
+  letter-spacing: -.01em;
+}
+
+#cancelBookingModal .btn-outline-secondary{
+  border-color: var(--zv-border);
+  color: var(--zv-text);
+  background: #fff;
+}
+
+#cancelBookingModal .btn-outline-secondary:hover{
+  border-color: rgba(15,23,42,.22);
+  background: rgba(246,248,251,.8);
+}
+
+#cancelBookingModal .btn-danger{
+  background: var(--danger);
+  border-color: var(--danger);
+  box-shadow: 0 12px 22px rgba(220,38,38,.18);
+}
+
+#cancelBookingModal .btn-danger:hover{
+  filter: brightness(.97);
+}
+
+#cancelBookingModal .btn-danger:disabled{
+  opacity: .65;
+  box-shadow: none;
+  cursor: not-allowed;
+}
+
+/* ===== Mobile niceness ===== */
+@media (max-width: 420px){
+  #cancelBookingModal .modal-dialog{
+    margin: 10px;
+  }
+  #cancelBookingModal .modal-body,
+  #cancelBookingModal .modal-header,
+  #cancelBookingModal .modal-footer{
+    padding-left: 14px;
+    padding-right: 14px;
+  }
+}
+
+
+
+.zv-refund-choice{
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+}
+
+.zv-refund-option{
+  display:flex;
+  gap:10px;
+  align-items:flex-start;
+  padding:12px 12px;
+  border:1px solid #e5e7eb;
+  border-radius:14px;
+  cursor:pointer;
+  background:#fff;
+  transition: .15s ease;
+}
+
+.zv-refund-option:hover{
+  border-color:#cbd5e1;
+  background:#f8fafc;
+}
+
+.zv-refund-option input{
+  margin-top:3px;
+}
+
+.zv-refund-title{
+  font-weight:600;
+  font-size:.95rem;
+}
+
+.zv-refund-sub{
+  font-size:.82rem;
+  color:#64748b;
+  margin-top:2px;
+}

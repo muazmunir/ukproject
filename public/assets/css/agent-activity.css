@@ -1,0 +1,81 @@
+.sa-act .sa-card { border-radius: 14px; }
+.sa-act .sa-input { border-radius: 12px; border-color: rgba(0,0,0,.12); }
+.sa-act .sa-input:focus { box-shadow: 0 0 0 .2rem rgba(0,0,0,.08); border-color: rgba(0,0,0,.25); }
+.sa-act .sa-hint { font-size: 12px; color: rgba(0,0,0,.55); }
+.sa-act .pill {
+  display:inline-block; padding: 2px 10px; border-radius: 999px;
+  border: 1px solid rgba(0,0,0,.12); background: rgba(0,0,0,.03);
+  font-weight: 700; font-size: 11px;
+}
+
+.sa-panel { min-height: 340px; }
+
+/* Timeline (single + roster) */
+.sa-timeline{
+  display:flex; gap: 12px; align-items: stretch;
+}
+
+.sa-timecol{ width: 70px; flex: 0 0 70px; user-select:none; }
+.sa-timecol .tick{
+  height: 52px; display:flex; align-items:flex-start; justify-content:flex-end;
+  padding-right: 6px; font-size: 12px; color: rgba(0,0,0,.55);
+}
+
+.sa-track{
+  position: relative; flex:1; border: 1px solid rgba(0,0,0,.08);
+  border-radius: 14px; overflow:hidden; background:#fff;
+}
+.sa-grid{ position:absolute; inset:0; pointer-events:none; }
+.sa-grid .row{ height: 52px; border-top:1px solid rgba(0,0,0,.06); }
+
+.sa-blockLayer{ position:absolute; inset:0; padding: 8px; }
+
+/* Single-user blocks (full width) */
+.sa-block{
+  position:absolute; left: 8px; right: 8px;
+  border-radius: 12px; padding: 10px 12px;
+  border: 1px solid rgba(0,0,0,.10);
+  box-shadow: 0 1px 2px rgba(0,0,0,.06);
+}
+.sa-block .title{ font-weight: 900; font-size: 13px; text-transform: capitalize; }
+.sa-block .time{ margin-top: 6px; font-size: 12px; opacity: .85; }
+
+/* Roster rows */
+.sa-rosterRow{
+  position: relative;
+  display:flex;
+  border-top: 1px solid rgba(0,0,0,.06);
+}
+.sa-rosterName{
+  width: 220px; flex:0 0 220px;
+  padding: 10px 12px;
+  border-right: 1px solid rgba(0,0,0,.06);
+  background: rgba(0,0,0,.015);
+}
+.sa-rosterName .n{ font-weight: 800; font-size: 13px; }
+.sa-rosterName .r{ font-size: 12px; color: rgba(0,0,0,.55); margin-top:2px; }
+
+.sa-rosterTrack{
+  position:relative; flex:1; height: 64px;
+}
+.sa-rosterTrack .seg{
+  position:absolute; top: 10px; height: 44px;
+  border-radius: 10px;
+  border: 1px solid rgba(0,0,0,.10);
+  box-shadow: 0 1px 2px rgba(0,0,0,.05);
+}
+.sa-rosterTrack .seg .t{
+  font-size: 11px; font-weight: 800;
+  padding: 4px 8px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Status colors */
+[data-status="available"]{ background:#78f07a; }
+[data-status="break"]{ background:#ff4a4a; color:#fff; }
+[data-status="lunch"]{ background:#ffe55a; }
+[data-status="unavailable"]{ background:#d1d5db; }
+[data-status="tech_issues"]{ background:#ffb26b; }
+[data-status="logout"]{ background:#111827; color:#fff; }

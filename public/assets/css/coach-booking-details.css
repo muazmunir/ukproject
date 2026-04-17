@@ -1,0 +1,467 @@
+/* =========================================================
+   COACH Booking Details — PROFESSIONAL UI (DROP-IN)
+   Matches the client look but uses COACH classes:
+   .zv-cbd, .zv-hero, .zv-grid, .zv-card, etc.
+   ========================================================= */
+
+:root{
+  --bg: #f7f8fb;
+  --card: #ffffff;
+
+  --text: #111827;
+  --muted: #6b7280;
+  --muted2:#9ca3af;
+
+  --border: rgba(17,24,39,.08);
+  --border2: rgba(17,24,39,.06);
+
+  --shadow: 0 10px 25px rgba(17,24,39,.06);
+  --shadow2: 0 6px 18px rgba(17,24,39,.05);
+
+  --radius: 16px;
+  --radius-sm: 12px;
+
+  --gap: 18px;
+  --pad: 18px;
+  --pad-sm: 14px;
+
+  --line: 1.35;
+
+  --ok: #16a34a;
+  --warn: #f59e0b;
+  --danger: #ef4444;
+  --info: #6366f1;
+}
+
+/* ---------------------------------------------------------
+   Base
+--------------------------------------------------------- */
+.zv-cbd{
+  padding: 10px 0 28px;
+  color: var(--text);
+}
+
+.zv-cbd, .zv-cbd *{
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ---------------------------------------------------------
+   Top back link
+--------------------------------------------------------- */
+.zv-cbd__top{ margin-bottom: 14px; }
+
+.zv-back{
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--text);
+  text-decoration: none;
+  font-weight: 600;
+}
+.zv-back span{ opacity: .85; }
+.zv-back:hover span{ opacity: 1; }
+
+/* ---------------------------------------------------------
+   Hero (coach)
+--------------------------------------------------------- */
+.zv-hero{
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+  background: var(--card);
+
+  display: grid;
+  grid-template-columns: 220px minmax(0,1fr);
+  gap: var(--gap);
+  padding: var(--pad);
+}
+
+.zv-hero__media{
+  height: 150px;
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  background: #eef2ff;
+}
+.zv-hero__media img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.zv-hero__body{ min-width: 0; }
+
+.zv-hero__row{
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.zv-title{
+  font-size: 18px;
+  font-weight: 800;
+  line-height: 1.2;
+  letter-spacing: -.01em;
+}
+
+.zv-sub{
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 4px;
+  font-size: 13px;
+  color: var(--muted);
+}
+.zv-dot{ opacity: .7; }
+.zv-muted{ color: var(--muted) !important; }
+
+/* Facts (coach) */
+.zv-facts{
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0,1fr));
+  gap: 12px;
+  margin-top: 14px;
+}
+
+.zv-fact{
+  border: 1px solid var(--border2);
+  border-radius: var(--radius-sm);
+  padding: 12px;
+  background: #fff;
+}
+.zv-fact__k{
+  font-size: 12px;
+  color: var(--muted);
+  margin-bottom: 6px;
+}
+.zv-fact__v{
+  font-size: 14px;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---------------------------------------------------------
+   Pills (booking + session)
+--------------------------------------------------------- */
+.zv-pill{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 22px;
+  padding: 0 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 800;
+  border: 1px solid var(--border2);
+  white-space: nowrap;
+  line-height: 1;
+}
+
+/* tone-based (coach uses pillTone()) */
+.zv-pill--ok{ background: rgba(22,163,74,.10); color: var(--ok); border-color: rgba(22,163,74,.18); }
+.zv-pill--warn{ background: rgba(245,158,11,.10); color: #a16207; border-color: rgba(245,158,11,.18); }
+.zv-pill--danger{ background: rgba(239,68,68,.10); color: #b91c1c; border-color: rgba(239,68,68,.18); }
+.zv-pill--muted{ background: rgba(17,24,39,.05); color: #4b5563; border-color: rgba(17,24,39,.08); }
+.zv-pill--neutral{ background: rgba(17,24,39,.04); color: #4b5563; border-color: rgba(17,24,39,.06); }
+
+/* ---------------------------------------------------------
+   Grid layout (coach)
+--------------------------------------------------------- */
+.zv-grid{
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 420px;
+  gap: var(--gap);
+  margin-top: var(--gap);
+  align-items: start;
+}
+
+/* columns stack */
+.zv-col{
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap);
+  min-width: 0;
+}
+
+/* right column sticky like client */
+.zv-grid > .zv-col:last-child{
+  position: sticky;
+  top: 16px;
+  align-self: start;
+  z-index: 1;
+}
+
+/* ---------------------------------------------------------
+   Cards (coach)
+--------------------------------------------------------- */
+.zv-card{
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: #fff;
+  box-shadow: var(--shadow2);
+  overflow: hidden;
+}
+
+.zv-card__head{
+  padding: var(--pad-sm) var(--pad);
+  border-bottom: 1px solid var(--border2);
+  background: linear-gradient(to bottom, rgba(99,102,241,.04), transparent);
+}
+.zv-card__title{
+  font-size: 14px;
+  font-weight: 900;
+  letter-spacing: -.01em;
+}
+.zv-card__sub{
+  margin-top: 4px;
+  font-size: 12px;
+  color: var(--muted);
+  line-height: var(--line);
+}
+
+/* ---------------------------------------------------------
+   Timeline
+--------------------------------------------------------- */
+.zv-timeline{
+  padding: var(--pad);
+}
+
+.zv-timeline__item{
+  display: grid;
+  grid-template-columns: 14px minmax(0,1fr);
+  gap: 12px;
+  padding: 12px 0;
+}
+.zv-timeline__item + .zv-timeline__item{
+  border-top: 1px solid var(--border2);
+}
+
+.zv-timeline__dot{
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+  margin-top: 4px;
+  background: rgba(17,24,39,.25);
+}
+.zv-timeline__dot--ok{ background: var(--ok); }
+.zv-timeline__dot--danger{ background: var(--danger); }
+.zv-timeline__dot--warn{ background: var(--warn); }
+.zv-timeline__dot--muted{ background: rgba(17,24,39,.25); }
+
+.zv-timeline__row{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+}
+.zv-timeline__title{
+  font-size: 13px;
+  font-weight: 900;
+}
+.zv-timeline__time{
+  font-size: 12px;
+  color: var(--muted);
+  white-space: nowrap;
+}
+.zv-timeline__meta{
+  margin-top: 4px;
+  font-size: 12px;
+  color: var(--muted);
+}
+
+/* Note */
+.zv-note{
+  padding: 14px var(--pad);
+  border-top: 1px solid var(--border2);
+  background: rgba(17,24,39,.02);
+}
+.zv-note__k{
+  font-size: 12px;
+  color: var(--muted);
+  margin-bottom: 6px;
+}
+.zv-note__v{
+  font-size: 13px;
+  font-weight: 700;
+  color: rgba(17,24,39,.88);
+}
+
+/* ---------------------------------------------------------
+   Sessions table (coach)
+--------------------------------------------------------- */
+.zv-table{ padding: 0; }
+
+.zv-table__head{
+  display: grid;
+  grid-template-columns: 1.1fr 1fr 1.2fr 1.4fr;
+  gap: 10px;
+  padding: 12px var(--pad);
+  font-size: 12px;
+  color: var(--muted);
+  border-bottom: 1px solid var(--border2);
+  background: rgba(17,24,39,.02);
+}
+
+.zv-table__row{
+  display: grid;
+ grid-template-columns: 1.1fr 1fr 1.2fr 1.4fr;
+  gap: 10px;
+  align-items: start;
+  padding: 14px var(--pad);
+  border-bottom: 1px solid var(--border2);
+}
+.zv-table__row:last-child{ border-bottom: 0; }
+
+.zv-table__cell{ min-width: 0; }
+
+/* coach uses zv-strong + zv-mini__k */
+.zv-strong{
+  font-size: 13px;
+  font-weight: 900;
+  line-height: 1.2;
+  font-variant-numeric: tabular-nums;
+}
+
+.zv-mini__k{
+  font-size: 12px;
+  color: var(--muted);
+  line-height: 1.25;
+  margin-top: 4px;
+}
+
+/* checkin lines on the right */
+.zv-kvline{
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 12px;
+  padding: 3px 0;
+}
+.zv-kvline .zv-strong{
+  font-size: 12px;
+  font-weight: 800;
+  color: rgba(17,24,39,.85);
+}
+
+/* hide helper */
+.zv-hide-sm{ display: block; }
+
+/* ---------------------------------------------------------
+   Receipt / earnings card (coach)
+--------------------------------------------------------- */
+.zv-receipt{
+  padding: var(--pad);
+}
+
+.zv-row{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 0;
+}
+
+.zv-amt{
+  font-weight: 900;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.zv-divider{
+  height: 1px;
+  background: var(--border2);
+  margin: 10px 0;
+}
+
+.zv-row--total{
+  font-size: 14px;
+  font-weight: 900;
+  padding-top: 10px;
+}
+
+.zv-amt--neg{ color: var(--danger); }
+.zv-amt--ok{ color: var(--ok); }
+
+/* mini info blocks inside receipt */
+.zv-mini{
+  padding: 14px var(--pad);
+  border-top: 1px solid var(--border2);
+  background: rgba(99,102,241,.03);
+}
+.zv-mini__v{
+  font-size: 12.5px;
+  font-weight: 800;
+  color: rgba(17,24,39,.85);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---------------------------------------------------------
+   KV panel (Cancellation card)
+--------------------------------------------------------- */
+.zv-kv{
+  padding: var(--pad);
+  display: grid;
+  gap: 0;
+}
+
+.zv-kv__row{
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 12px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--border2);
+  align-items: center;
+}
+.zv-kv__row:last-child{ border-bottom: 0; }
+
+.zv-kv__k{
+  font-size: 12px;
+  color: var(--muted);
+}
+.zv-kv__v{
+  font-size: 12.5px;
+  font-weight: 900;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+/* ---------------------------------------------------------
+   Responsive
+--------------------------------------------------------- */
+@media (max-width: 1100px){
+  .zv-grid{
+    grid-template-columns: minmax(0,1fr) 380px;
+  }
+}
+
+@media (max-width: 992px){
+  .zv-hero{
+    grid-template-columns: 1fr;
+  }
+  .zv-hero__media{ height: 180px; }
+
+  .zv-facts{ grid-template-columns: 1fr; }
+
+  .zv-grid{
+    grid-template-columns: 1fr;
+  }
+  .zv-grid > .zv-col:last-child{
+    position: static;
+  }
+}
+
+@media (max-width: 576px){
+  .zv-hide-sm{ display: none !important; }
+
+  .zv-table__head,
+  .zv-table__row{
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .zv-table__head{ row-gap: 6px; }
+  .zv-table__row{ row-gap: 8px; }
+}

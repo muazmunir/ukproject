@@ -1,0 +1,283 @@
+/* =========================================================
+   SUPPORT ABSENCE — Professional UI
+   File: public/assets/css/support_absence.css
+   ========================================================= */
+
+/* ---------- Theme tokens ---------- */
+:root{
+  --abs-bg: #f6f7fb;
+  --abs-card: #ffffff;
+  --abs-text: #0f172a;
+  --abs-muted: #64748b;
+  --abs-border: #e5e7eb;
+  --abs-soft: #f1f5f9;
+  --abs-shadow: 0 10px 25px rgba(15, 23, 42, .06);
+  --abs-shadow-sm: 0 6px 18px rgba(15, 23, 42, .05);
+  --abs-radius: 16px;
+  --abs-radius-sm: 12px;
+}
+
+.abs-my{
+  background: white;
+    border: 1px solid rgba(0, 0, 0, .12);
+    border-radius: 18px;
+    box-shadow: 0 18px 45px rgba(0, 0, 0, 0.08);
+    padding: 18px 20px 22px;
+}
+/* ---------- Page container ---------- */
+.abs-wrap{
+  padding: 18px;
+  max-width: 1180px;
+  margin: 0 auto;
+}
+
+/* Optional: subtle page background when admin layout allows */
+body{
+  background: var(--abs-bg);
+}
+
+/* ---------- Header ---------- */
+.abs-head{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  margin-bottom: 14px;
+}
+
+.abs-title{
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--abs-text);
+  margin: 0;
+  line-height: 1.15;
+}
+
+.abs-sub{
+  color: var(--abs-muted);
+  font-size: 13px;
+  margin-top: 6px;
+}
+
+/* Buttons */
+.abs-head .btn{
+  border-radius: 12px;
+  padding: 10px 14px;
+  font-weight: 700;
+  box-shadow: var(--abs-shadow-sm);
+}
+
+.abs-head .btn:disabled{
+  opacity: .65;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+/* ---------- Alerts ---------- */
+.abs-wrap .alert{
+  border-radius: 14px;
+  border: 1px solid var(--abs-border);
+  box-shadow: var(--abs-shadow-sm);
+}
+
+.abs-wrap .alert-warning{
+  background: #fff7ed;
+  border-color: #fed7aa;
+  color: #7c2d12;
+}
+
+.abs-wrap .alert-success{
+  background: #ecfdf5;
+  border-color: #bbf7d0;
+  color: #065f46;
+}
+
+.abs-wrap .alert-danger{
+  background: #fef2f2;
+  border-color: #fecaca;
+  color: #7f1d1d;
+}
+
+/* ---------- Card ---------- */
+.abs-card{
+  background: var(--abs-card);
+  border: 1px solid var(--abs-border);
+  border-radius: var(--abs-radius);
+  box-shadow: var(--abs-shadow);
+  overflow: hidden;
+}
+
+.abs-card-title{
+  padding: 14px 16px;
+  font-weight: 800;
+  color: var(--abs-text);
+  border-bottom: 1px solid var(--abs-border);
+  background: linear-gradient(180deg, #ffffff 0%, #fbfdff 100%);
+}
+
+/* ---------- Table ---------- */
+.abs-card .table{
+  margin: 0;
+}
+
+.abs-card .table thead th{
+  font-size: 12px;
+  color: var(--abs-muted);
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  padding: 12px 16px;
+  background: var(--abs-soft);
+  border-bottom: 1px solid var(--abs-border);
+}
+
+.abs-card .table tbody td{
+  padding: 14px 16px;
+  vertical-align: middle;
+  border-bottom: 1px solid var(--abs-border);
+  color: var(--abs-text);
+  font-size: 14px;
+}
+
+.abs-card .table tbody tr:hover{
+  background: #fafafa;
+}
+
+.abs-card .table .small{
+  font-size: 12px;
+}
+
+/* Reason cell */
+.abs-card .text-truncate{
+  max-width: 320px;
+}
+
+/* ---------- Badges (state) ---------- */
+.abs-card .badge{
+  border-radius: 999px;
+  padding: 7px 10px;
+  font-weight: 800;
+  font-size: 11px;
+  letter-spacing: .03em;
+}
+
+/* ---------- Action button ---------- */
+.abs-card form .btn-outline-danger{
+  border-radius: 10px;
+  padding: 7px 12px;
+  font-weight: 800;
+}
+
+/* ---------- Pagination area ---------- */
+.abs-card .p-3{
+  border-top: 1px solid var(--abs-border);
+  background: #fff;
+}
+
+.abs-card .pagination{
+  margin: 0;
+}
+
+.abs-card .page-link{
+  border-radius: 10px !important;
+  margin: 0 3px;
+  border: 1px solid var(--abs-border);
+  color: var(--abs-text);
+}
+
+.abs-card .page-item.active .page-link{
+  background: #0f172a;
+  border-color: #0f172a;
+}
+
+/* ---------- Modal ---------- */
+.modal-content{
+  border-radius: 18px;
+  border: 1px solid var(--abs-border);
+  box-shadow: var(--abs-shadow);
+  overflow: hidden;
+}
+
+.modal-header{
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--abs-border);
+  background: linear-gradient(180deg, #ffffff 0%, #fbfdff 100%);
+}
+
+.modal-title{
+  font-weight: 900;
+  color: var(--abs-text);
+}
+
+.modal-body{
+  padding: 16px;
+}
+
+.modal-footer{
+  padding: 14px 16px;
+  border-top: 1px solid var(--abs-border);
+  background: #fff;
+}
+
+.form-label{
+  font-weight: 800;
+  font-size: 12px;
+  color: var(--abs-muted);
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  margin-bottom: 6px;
+}
+
+.form-control,
+.form-select{
+  border-radius: 12px;
+  border: 1px solid var(--abs-border);
+  padding: 10px 12px;
+  box-shadow: none !important;
+}
+
+.form-control:focus,
+.form-select:focus{
+  border-color: #94a3b8;
+  box-shadow: 0 0 0 4px rgba(148, 163, 184, .18) !important;
+}
+
+textarea.form-control{
+  min-height: 110px;
+  resize: vertical;
+}
+
+.modal-footer .btn{
+  border-radius: 12px;
+  padding: 10px 14px;
+  font-weight: 800;
+}
+
+.modal-footer .btn-light{
+  background: #f8fafc;
+  border: 1px solid var(--abs-border);
+}
+
+/* ---------- Mobile tweaks ---------- */
+@media (max-width: 576px){
+  .abs-wrap{ padding: 12px; }
+  .abs-head{
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .abs-head .btn{
+    width: 100%;
+    justify-content: center;
+  }
+  .abs-card .table thead{ display: none; }
+  .abs-card .table tbody td{
+    display: block;
+    width: 100%;
+    padding: 10px 14px;
+  }
+  .abs-card .table tbody tr{
+    display: block;
+    padding: 8px 0;
+  }
+}

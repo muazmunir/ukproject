@@ -1,0 +1,189 @@
+/* =========================================================
+   ADMIN — CLIENTS (List + Details) Premium Black/White
+   File: public/assets/css/admin-clients.css
+   Covers:
+   - clients index table/tools/segmented
+   - client show (details page)
+========================================================= */
+
+:root{
+  --bg:#fff;
+  --text:#000;
+  --muted:rgba(0,0,0,.62);
+  --muted2:rgba(0,0,0,.48);
+  --border:rgba(0,0,0,.14);
+  --border2:rgba(0,0,0,.10);
+  --soft:#f5f6f8;
+  --radius:18px;
+  --shadow:0 18px 40px rgba(0,0,0,.06);
+
+  --ok:#16a34a;
+  --okBg:#ecfdf5;
+  --okBd:#bbf7d0;
+
+  --danger:#dc2626;
+  --dangerBg:#fef2f2;
+  --dangerBd:#fecaca;
+
+  --info:#2563eb;
+  --infoBg:#eff6ff;
+  --infoBd:#bfdbfe;
+}
+
+*{ box-sizing:border-box; }
+body{ background:var(--bg); color:var(--text); }
+
+.muted{ color:var(--muted); font-size:12px; }
+.muted.tiny, .tiny{ color:var(--muted2); font-size:11px; }
+
+.card{
+  background:#fff;
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  padding:18px 20px 22px;
+  box-shadow:var(--shadow);
+}
+
+/* Header */
+.card__head{
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap:16px;
+  margin-bottom:12px;
+}
+.card__title{
+  font-size:18px;
+  font-weight:950;
+  letter-spacing:.01em;
+  color:#000;
+}
+
+/* =========================================================
+   Back button (.btn ghost small) used in details header
+   (Bootstrap-safe)
+========================================================= */
+.btn.ghost.small{
+  height:36px;
+  padding:0 14px;
+  border-radius:999px;
+  border:1px solid rgba(0,0,0,.14);
+  background:#fff;
+  color:#000;
+  font-weight:950;
+  font-size:13px;
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  text-decoration:none;
+  cursor:pointer;
+  transition:transform .08s ease, box-shadow .12s ease, background .12s ease, border-color .12s ease;
+}
+.btn.ghost.small:hover{
+  transform:translateY(-1px);
+  background:rgba(0,0,0,.04);
+  box-shadow:0 14px 30px rgba(0,0,0,.10);
+}
+
+/* =========================================================
+   CLIENT DETAILS PAGE
+========================================================= */
+.details-wrap{
+  display:flex;
+  gap:18px;
+  align-items:flex-start;
+  padding:14px;
+  border:1px solid var(--border2);
+  border-radius:16px;
+  background:linear-gradient(180deg,#fff,#fafbfc);
+}
+
+.avatar-lg{
+  width:92px;
+  height:92px;
+  border-radius:999px;
+  object-fit:cover;
+  border:1px solid rgba(0,0,0,.14);
+  background:linear-gradient(135deg,#e9ecef,#f5f6f8);
+  flex:0 0 auto;
+}
+
+/* Right-side info */
+.details-info{
+  flex:1 1 auto;
+  min-width:0;
+}
+
+.details-info p{
+  margin:0 0 10px;
+  color:#000;
+  font-size:13.5px;
+  line-height:1.45;
+  display:flex;
+  gap:10px;
+  align-items:baseline;
+}
+
+/* label chip */
+.details-info .lbl{
+  min-width:110px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:flex-start;
+  font-weight:950;
+  font-size:12px;
+  color:rgba(0,0,0,.58);
+  letter-spacing:.02em;
+  text-transform:capitalize;
+}
+
+/* Responsive */
+@media (max-width: 700px){
+  .card{ padding:16px 14px 18px; }
+  .card__head{ flex-direction:column; align-items:flex-start; }
+  .details-wrap{
+    flex-direction:column;
+    align-items:flex-start;
+  }
+  .details-info .lbl{ min-width:92px; }
+}
+
+
+/* Avatar wrapper (details page) */
+.avatar-wrap{
+  border-radius:50%;
+  overflow:hidden;
+  position:relative;
+}
+
+/* Large size */
+.avatar-wrap-lg{
+  width:84px;
+  height:84px;
+}
+
+/* Image */
+.avatar-img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
+}
+
+/* Letter fallback */
+.avatar-fallback{
+  width:100%;
+  height:100%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:#111;
+  color:#fff;
+  font-weight:700;
+  text-transform:uppercase;
+}
+
+/* Large letter */
+.avatar-fallback-lg{
+  font-size:30px;
+}

@@ -1,0 +1,643 @@
+/* =========================================================
+   SERVICE PAGE — Startup Clean Minimal Style
+   Black & White, Soft Radius, Minimal Shadows
+   ========================================================= */
+
+body {
+  background: #fafafa;
+  font-family: Inter, system-ui, sans-serif;
+  color: #111;
+}
+
+/* --- Main service card container --- */
+#serviceShowRoot ~ .container.my-4 {
+  max-width: 1120px;
+  background: #fff;
+  border-radius: 20px;
+  padding: 32px;
+  margin-top: 20px;
+  box-shadow: 0 2px 16px rgba(0,0,0,0.05);
+}
+
+@media (max-width: 768px) {
+  #serviceShowRoot ~ .container.my-4 {
+    padding: 18px;
+    border-radius: 0;
+    box-shadow: none;
+  }
+}
+
+/* =========================================================
+   GALLERY
+   ========================================================= */
+
+.hero-img {
+  border-radius: 16px;
+  object-fit: cover;
+  box-shadow: 0 2px 16px rgba(0,0,0,0.06);
+}
+
+.thumb-grid img {
+  border-radius: 10px;
+  height: 110px;
+  object-fit: cover;
+  width: 100%;
+  transition: opacity 0.15s ease;
+}
+
+.thumb-grid img:hover {
+  opacity: 0.85;
+}
+
+/* =========================================================
+   TITLE / META
+   ========================================================= */
+
+h3 {
+  font-size: 1.55rem;
+  font-weight: 600;
+  color: #111;
+}
+
+.subtle {
+  font-size: 0.9rem;
+  color: #555;
+}
+
+/* Avatar */
+.rounded-circle {
+  width: 54px !important;
+  height: 54px !important;
+  box-shadow: 0 1px 6px rgba(0,0,0,0.15);
+}
+
+/* Divider */
+.divider {
+  margin: 20px 0;
+  height: 1px;
+  background: #eee;
+}
+
+/* Badge next to title */
+.muted-chip {
+  font-size: 0.75rem;
+  background: #f4f4f4;
+  padding: 4px 10px;
+  border-radius: 999px;
+}
+
+/* Description text */
+.text-secondary {
+  color: #555 !important;
+  line-height: 1.55;
+}
+
+/* =========================================================
+   "Where I Can Coach" + "Accessibility"
+   ========================================================= */
+
+#serviceShowRoot ~ .container.my-4 h5 {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.d-flex i {
+  color: #555;
+}
+
+.d-flex span {
+  font-size: 0.9rem;
+}
+
+/* =========================================================
+   PACKAGES
+   ========================================================= */
+
+.pkg-section-title {
+  font-size: 1.05rem;
+  font-weight: 600;
+  margin-bottom: 0.75rem !important;
+}
+
+.pkg-card {
+  border: 1px solid #e5e5e5;
+  border-radius: 14px;
+  padding: 14px 16px;
+  background: #fff;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 16px;
+  transition: background 0.12s ease, border-color 0.12s ease;
+}
+
+.pkg-card:hover {
+  background: #fafafa;
+  border-color: #d4d4d4;
+}
+
+/* Left block */
+.pkg-card-main {
+  flex: 1 1 0;
+  min-width: 0;
+}
+
+.pkg-name {
+  font-size: 0.98rem;
+  font-weight: 600;
+  color: #111;
+  margin-bottom: 4px;
+}
+
+/* Meta pills row */
+.pkg-meta-line {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 4px;
+}
+
+.pkg-pill {
+  font-size: 0.75rem;
+  padding: 3px 8px;
+  border-radius: 999px;
+  background: #f4f4f5;
+  color: #444;
+  border: 1px solid #e4e4e7;
+}
+
+.pkg-pill-soft {
+  background: #f9fafb;
+}
+
+/* Description */
+.pkg-desc {
+  font-size: 0.8rem;
+  color: #555;
+  line-height: 1.5;
+}
+
+/* Price block */
+.pkg-price {
+  min-width: 90px;
+  text-align: right;
+}
+
+.pkg-price-value {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #111;
+}
+
+.pkg-price-label {
+  font-size: 0.78rem;
+  color: #6b7280;
+}
+
+/* CTA */
+.pkg-cta {
+  display: flex;
+  align-items: center;
+}
+
+/* Choose button */
+.select-package {
+  border-radius: 999px;
+  font-size: 0.8rem;
+  padding: 6px 16px;
+  border-color: #111 !important;
+  color: #111 !important;
+  background: #fff;
+  white-space: nowrap;
+  transition: background 0.1s;
+}
+
+.select-package:hover {
+  background: #111 !important;
+  color: #fff !important;
+}
+
+/* Responsive package layout */
+@media (max-width: 768px) {
+  .pkg-card {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .pkg-price {
+    text-align: left;
+  }
+
+  .pkg-cta {
+    align-self: flex-start;
+  }
+}
+
+/* =========================================================
+   TIMEZONE
+   ========================================================= */
+
+#clientTzBadge {
+  background: #f4f4f4;
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  border: 1px solid #ddd;
+}
+
+#clientTzSelect {
+  border-radius: 10px;
+  font-size: 0.82rem;
+}
+
+/* =========================================================
+   CALENDAR (FullCalendar)
+   ========================================================= */
+
+#bookingCalendar {
+  margin-top: 10px;
+  border: 1px solid #e5e5e5;
+  border-radius: 16px;
+  background: #fff;
+  padding: 6px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+
+#bookingCalendar .fc {
+  font-size: 0.82rem;
+}
+
+
+.fc .fc-day-today {
+  background-color: #fff !important;
+}
+
+/* If you want it EXACTLY like other days */
+.fc .fc-daygrid-day.fc-day-today {
+  background: transparent !important;
+}
+#bookingCalendar .fc .fc-toolbar-title {
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+/* Availability background */
+.fc-bg-event.avail-blue {
+  background: rgba(34,197,94,0.15) !important; /* green hint */
+}
+
+.fc-bg-event.unavail-red {
+  background: rgba(239,68,68,0.15) !important;
+}
+
+/* Past days: grey + unclickable */
+.fc-daygrid-day.fc-day-past {
+  background-color: #f3f4f6;
+  color: #9ca3af;
+  pointer-events: none;
+  opacity: 0.75;
+}
+
+.fc-daygrid-day.fc-day-past .fc-daygrid-day-number {
+  color: #9ca3af;
+}
+
+/* Selected dates: clean soft green, no black border */
+.fc-daygrid-day.zv-selected {
+  outline: none !important;
+  background: transparent !important;
+}
+
+.fc-daygrid-day.zv-selected .fc-daygrid-day-frame {
+  position: relative;
+  border-radius: 8px;
+  background: #d1fae5;          /* soft green */
+  box-shadow: none;
+}
+
+.fc-daygrid-day.zv-selected .fc-daygrid-day-frame::before {
+  content: none !important;
+}
+
+.fc-daygrid-day.zv-selected .fc-daygrid-day-number {
+  color: #022c22;
+  font-weight: 600;
+}
+
+/* Kill any leftover border pseudo-element from older rules */
+.fc-daygrid-day.zv-selected::after {
+  content: none !important;
+}
+
+/* =========================================================
+   BOOKING CALENDAR LAYOUT (slots + summary)
+   ========================================================= */
+
+/* Row that holds slots (left) and reserved summary (right) */
+.zv-booking-row {
+  align-items: flex-start;
+  row-gap: 1.5rem;
+}
+
+@media (min-width: 992px) {
+  .zv-booking-row > [class*="col-lg-7"] {
+    padding-right: 0.75rem;
+  }
+  .zv-booking-row > [class*="col-lg-5"] {
+    padding-left: 0.75rem;
+  }
+}
+
+/* Candidate days bar */
+#candidateDays {
+  margin-top: 0.75rem;
+  margin-bottom: 0.5rem;
+}
+
+/* Chips for "Days selected to view timings" */
+.zv-chip-day {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  border: 1px solid #e5e7eb;
+  background: #f9fafb;
+  font-size: 0.8rem;
+  color: #111827;
+  white-space: nowrap;
+}
+
+.zv-chip-remove {
+  border: none;
+  background: transparent;
+  padding: 0;
+  line-height: 1;
+  font-size: 0.9rem;
+  cursor: pointer;
+  color: #9ca3af;
+}
+
+.zv-chip-remove:hover {
+  color: #ef4444;
+}
+
+/* LEFT: Day times panel */
+#dayTimes {
+  background: #ffffff;
+  border-radius: 14px;
+  border: 1px solid #e5e7eb;
+  padding: 14px 16px;
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
+  max-height: 460px;
+  overflow-y: auto;
+}
+
+/* Date header in slots list */
+#dayTimes .fw-medium {
+  font-size: 0.88rem;
+  margin-bottom: 0.35rem !important;
+}
+
+/* Spacing between days */
+#dayTimes > .mb-3 {
+  margin-bottom: 1.15rem !important;
+}
+
+/* Slot buttons */
+#dayTimes button.btn {
+  font-size: 0.8rem;
+  min-width: 135px;
+  justify-content: center;
+}
+
+/* RIGHT: reserved sessions summary box */
+.zv-selected-box {
+  width: 100%;
+  background: #ffffff;
+  border-radius: 16px;
+  border: 1px solid #e5e7eb;
+  padding: 16px 18px;
+  box-shadow: 0 16px 40px rgba(15, 23, 42, 0.10);
+  font-size: 0.8rem;
+}
+
+/* "Selected 2 of 2 session day(s)" */
+.zv-selected-box .small.fw-semibold {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #111827;
+  margin-bottom: 4px;
+}
+
+/* Each reserved row */
+.zv-selected-box .d-flex.mb-1 {
+  margin: 0 !important;
+  padding: 6px 0;
+  align-items: center;
+  border-top: 1px solid #f3f4f6;
+}
+
+.zv-selected-box .d-flex.mb-1:first-of-type {
+  border-top: none;
+  padding-top: 2px;
+}
+
+/* Date line */
+.zv-selected-box .d-flex.mb-1 .fw-semibold.small {
+  font-size: 0.88rem;
+  color: #111827;
+}
+
+/* Time line */
+.zv-selected-box .d-flex.mb-1 .small.text-muted {
+  font-size: 0.82rem;
+  color: #4b5563;
+}
+
+/* × button in reserved box */
+.zv-selected-box .zv-chip-remove,
+.zv-selected-box .btn-link.zv-chip-remove {
+  font-size: 0.95rem;
+  color: #9ca3af;
+  padding: 0;
+}
+
+.zv-selected-box .zv-chip-remove:hover,
+.zv-selected-box .btn-link.zv-chip-remove:hover {
+  color: #ef4444;
+}
+
+/* Reserve button under the summary */
+.zv-selected-box + .btn-primary {
+  margin-top: 1rem;
+  border-radius: 999px;
+  font-weight: 500;
+  padding-block: 0.7rem;
+  font-size: 0.9rem;
+}
+
+/* Responsive tweaks for slots/summary */
+@media (max-width: 991.98px) {
+  #dayTimes {
+    max-height: none;
+    margin-bottom: 1rem;
+  }
+
+  .zv-selected-box {
+    box-shadow: 0 8px 24px rgba(15, 23, 42, 0.08);
+  }
+}
+
+/* =========================================================
+   BOOKING SIDEBAR (right card)
+   ========================================================= */
+
+.sticky-card {
+  border: 1px solid #e5e5e5;
+  border-radius: 18px;
+  background: #fff;
+  padding: 12px;
+  box-shadow: 0 2px 20px rgba(0,0,0,0.06);
+}
+
+.card-body {
+  padding: 16px;
+}
+
+/* Price */
+#priceHeader {
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.subtle.small {
+  font-size: 0.8rem;
+  color: #666;
+}
+
+/* Secure badge */
+.zv-secure {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.zv-secure-icon {
+  width: 16px;
+  height: 16px;
+  background-image: url('/assets/shield_secure.png'); /* adjust path */
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+}
+
+/* Primary black button */
+#bookingForm .btn-primary.w-100 {
+  background: #111;
+  border-color: #111;
+  padding: 10px 16px;
+  font-size: 0.9rem;
+  border-radius: 999px;
+}
+
+#bookingForm .btn-primary:hover {
+  background: #000;
+}
+
+/* Secondary button */
+#bookingForm .btn-outline-secondary {
+  border-radius: 999px;
+  font-size: 0.88rem;
+}
+
+/* =========================================================
+   FAQ
+   ========================================================= */
+
+
+
+#faqs .accordion-button {
+  font-size: 0.9rem;
+}
+
+#faqs .accordion-body {
+  font-size: 0.85rem;
+  color: #555;
+}
+
+
+
+/* Explore day (red outline) */
+/* Explore day (red outline) */
+.fc-daygrid-day.zv-explore-day .fc-daygrid-day-frame {
+  border-radius: 8px;
+  border: 2px solid #000000 !important;
+}
+
+/* Reserved day (green outline) */
+.fc-daygrid-day.zv-reserved-day .fc-daygrid-day-frame {
+  border-radius: 8px;
+  border: 2px solid transparent; /* required when using border-image */
+  border-image: linear-gradient(
+    90deg,
+    #F8E7A2 0%,
+    #f1ce5d 65%,
+    #e5bd3c 85%
+  ) 1;
+  background: #ffffff; /* keep inside white */
+}
+
+/* If a day is both explore+reserved, prefer green */
+.fc-daygrid-day.zv-explore-day.zv-reserved-day .fc-daygrid-day-frame {
+  border-color: #2a9d8f !important;
+}
+
+
+.zv-chip-red {
+  border-color: #000000;
+  background: #000000;
+  color: #ffffff;
+}
+
+.zv-chip-green {
+  border-color: #bbf7d0;
+  background: #ecfdf5;
+  color: #166534;
+}
+
+
+
+
+
+.zv-cal-help{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding: 10px 12px;
+  border: 1px solid #e5e7eb;
+  border-radius: 14px;
+  background: #fff;
+  box-shadow: 0 8px 20px rgba(0,0,0,.04);
+  text-transform: capitalize;
+}
+.zv-cal-help__title{
+  font-weight: 700;
+  font-size: 13px;
+  color:#0f172a;
+  display:flex;
+  align-items:center;
+  gap: 6px;
+  text-transform: capitalize;
+}
+.zv-cal-help__sub{
+  font-size: 12px;
+  font-weight: 700;
+  color:#64748b;
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: #f8fafc;
+  border: 1px solid #e5e7eb;
+  text-transform: capitalize;
+}

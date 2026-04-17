@@ -1,0 +1,248 @@
+/* =========================================
+   Client Booking Detail — ZAIVIAS / Airbnb-ish
+   ========================================= */
+
+.booking-detail-panel {
+  padding: 20px 20px 24px;
+  border-radius: 20px;
+  background: #ffffff;
+  box-shadow: 0 12px 30px rgba(15, 23, 42, 0.08);
+  border: 1px solid #e5e7eb;
+}
+
+/* Header */
+.booking-detail-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+  margin-bottom: 18px;
+}
+
+.booking-detail-eyebrow {
+  font-size: 0.76rem;
+  /* text-transform: uppercase; */
+  letter-spacing: 0.09em;
+  font-weight: 600;
+  color: #9ca3af;
+}
+
+.booking-detail-title {
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: #111827;
+}
+
+.booking-detail-subtitle {
+  font-size: 0.88rem;
+  color: #6b7280;
+  margin-top: 2px;
+}
+
+.booking-detail-header-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 8px;
+}
+
+/* Status pill */
+.booking-detail-status-pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 12px;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  text-transform: capitalize;
+  background: #f3f4f6;
+  color: #374151;
+  border: 1px solid #e5e7eb;
+}
+
+/* Back button */
+.booking-detail-back {
+  display: inline-flex;
+  align-items: center;
+  font-size: 0.82rem;
+  padding: 6px 14px;
+  border-radius: 999px;
+  border: 1px solid #e5e7eb;
+  color: #111827;
+  text-decoration: none;
+  background: #f9fafb;
+  transition: background 0.15s ease, border-color 0.15s ease, transform 0.1s ease;
+}
+
+.booking-detail-back:hover {
+  background: #111827;
+  border-color: #111827;
+  color: #ffffff;
+  transform: translateY(-1px);
+}
+
+/* Cards */
+.booking-detail-grid {
+  margin-top: 4px;
+}
+
+.booking-detail-card {
+  background: #fafafa;
+  border-radius: 16px;
+  padding: 14px 16px;
+  border: 1px solid #e5e7eb;
+}
+
+.booking-detail-card-header {
+  border-bottom: 1px solid #e5e7eb;
+  padding-bottom: 6px;
+  margin-bottom: 6px;
+}
+
+.booking-detail-card-header h6 {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #111827;
+}
+
+/* Key/value list */
+.booking-detail-list {
+  margin: 0;
+}
+
+.booking-detail-list-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 4px 0;
+  font-size: 0.86rem;
+}
+
+.booking-detail-list-row dt {
+  margin: 0;
+  color: #6b7280;
+  font-weight: 500;
+}
+
+.booking-detail-list-row dd {
+  margin: 0;
+  /* color: #111827; */
+  font-weight: 500;
+}
+
+.booking-detail-list-row--total dd {
+  font-weight: 600;
+}
+
+.booking-detail-code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  font-size: 0.8rem;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: #111827;
+  color: #f9fafb !important;
+}
+
+/* Total chip inside price card header */
+.booking-detail-total-chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 10px;
+  border-radius: 999px;
+  background: #111827;
+  color: #ffffff;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+/* Note under breakdown */
+.booking-detail-note {
+  margin-top: 8px;
+  font-size: 0.78rem;
+  color: #6b7280;
+}
+
+/* Slots */
+.booking-detail-slots {
+  margin-top: 4px;
+}
+
+.booking-detail-slot-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 6px 0;
+  font-size: 0.86rem;
+  border-bottom: 1px dashed #e5e7eb;
+}
+
+.booking-detail-slot-row:last-child {
+  border-bottom: none;
+}
+
+.booking-detail-slot-date {
+  color: #111827;
+  font-weight: 500;
+}
+
+.booking-detail-slot-time {
+  color: #4b5563;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .booking-detail-panel {
+    padding: 16px 14px 20px;
+    border-radius: 0;
+    box-shadow: none;
+    border-left: none;
+    border-right: none;
+  }
+
+  .booking-detail-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .booking-detail-header-right {
+    align-items: flex-start;
+  }
+
+  .booking-detail-slot-row {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+
+
+/* =============================
+   Booking Detail — Cover Image
+   ============================= */
+.booking-detail-cover {
+    width: 100%;
+    height: 240px;
+    border-radius: 16px;
+    overflow: hidden;
+    margin: 12px 0 20px;
+    background: #f3f4f6;
+    box-shadow: 0 6px 22px rgba(0,0,0,0.06);
+}
+
+.booking-detail-cover img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.25s ease;
+}
+
+.booking-detail-cover:hover img {
+    transform: scale(1.03);
+}
+
+@media (max-width: 768px) {
+    .booking-detail-cover {
+        height: 180px;
+        border-radius: 12px;
+    }
+}

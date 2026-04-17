@@ -1,0 +1,299 @@
+/* =========================================================
+   ZAIVIAS — Unified Button System (Client + Coach)
+   Airbnb-inspired
+   ========================================================= */
+
+/* ---------- Base Button ---------- */
+.zv-btn,
+.booking-btn,
+.cb-booking-btn,
+.booking-btn-secondary,
+.cb-booking-btn-secondary,
+.booking-btn-danger,
+.cb-booking-btn-danger {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+
+  padding: 0.55rem 1.1rem;
+  min-height: 40px;
+
+  border-radius: 999px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  line-height: 1;
+
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+
+  border: 1px solid transparent;
+  transition:
+    background-color 0.18s ease,
+    color 0.18s ease,
+    border-color 0.18s ease,
+    box-shadow 0.18s ease,
+    transform 0.12s ease;
+}
+
+/* Press feel */
+.zv-btn:active,
+.booking-btn:active,
+.cb-booking-btn:active {
+  transform: translateY(1px);
+}
+
+/* ---------- Primary (Airbnb black) ---------- */
+.booking-btn,
+.cb-booking-btn,
+.zv-btn-primary {
+  background: #000000;        /* near-black */
+  color: #ffffff;
+}
+
+.booking-btn:hover,
+.cb-booking-btn:hover,
+.zv-btn-primary:hover {
+  background: #000000;
+  color: #ffffff;
+}
+
+/* ---------- Secondary (outline) ---------- */
+.booking-btn-secondary,
+.cb-booking-btn-secondary,
+.zv-btn-secondary {
+  background: #ffffff;
+  color: #000000;
+  border-color: #d1d5db;
+}
+
+.booking-btn-secondary:hover,
+.cb-booking-btn-secondary:hover,
+.zv-btn-secondary:hover {
+  background: #f9fafb;
+  border-color: #000000;
+  color: #000000;
+}
+
+/* ---------- Danger (cancel / refund) ---------- */
+.booking-btn-danger,
+.cb-booking-btn-danger,
+.zv-btn-danger {
+  background: #dc2626;
+  color: #ffffff;
+}
+
+.booking-btn-danger:hover,
+.cb-booking-btn-danger:hover,
+.zv-btn-danger:hover {
+  background: #b91c1c;
+  color: #ffffff;
+}
+
+/* ---------- Ghost / muted ---------- */
+.zv-btn-ghost {
+  background: transparent;
+  color: #374151;
+}
+
+.zv-btn-ghost:hover {
+  background: #f3f4f6;
+  color: #000000;
+}
+
+/* ---------- Disabled ---------- */
+.zv-btn:disabled,
+.booking-btn:disabled,
+.cb-booking-btn:disabled,
+.booking-btn-secondary:disabled,
+.booking-btn-danger:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* ---------- Loading state ---------- */
+.zv-btn.is-loading,
+.booking-btn.is-loading {
+  position: relative;
+  pointer-events: none;
+  opacity: 0.7;
+}
+
+.zv-btn.is-loading::after,
+.booking-btn.is-loading::after {
+  content: "";
+  width: 16px;
+  height: 16px;
+  border: 2px solid currentColor;
+  border-top-color: transparent;
+  border-radius: 50%;
+  animation: zv-spin 0.7s linear infinite;
+}
+
+@keyframes zv-spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ---------- Small buttons ---------- */
+.zv-btn-sm,
+.booking-btn-sm {
+  min-height: 34px;
+  padding: 0.4rem 0.9rem;
+  font-size: 0.82rem;
+}
+
+/* ---------- Button groups spacing ---------- */
+.booking-footer .booking-btn,
+.booking-footer .booking-btn-secondary,
+.booking-footer .booking-btn-danger,
+.cb-booking-footer .cb-booking-btn,
+.cb-booking-footer .cb-booking-btn-secondary,
+.cb-booking-footer .cb-booking-btn-danger {
+  margin-left: 0.25rem;
+}
+
+/* ---------- Status pill polish ---------- */
+.booking-status-pill,
+.cb-status-pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.25rem 0.6rem;
+  font-size: 0.72rem;
+  font-weight: 600;
+  border-radius: 999px;
+  background: #f3f4f6;
+  color: #374151;
+  text-transform: capitalize;
+}
+
+/* Optional semantic colors */
+.cb-status-pill-completed { background:#ecfeff; color:#0369a1; }
+.cb-status-pill-cancelled { background:#fef2f2; color:#b91c1c; }
+.cb-status-pill-booked    { background:#ecfeff; color:#065f46; }
+
+
+
+
+
+/* ===============================
+   Waiting for coach (premium chip)
+   =============================== */
+
+.zv-waiting{
+  display:flex;
+  align-items:center;
+  gap:.75rem;
+
+  padding:.5rem .6rem;
+  border-radius:999px;
+
+  background: #ffffff;              /* warm */
+  border: 1px solid #000000;         /* soft orange */
+  box-shadow: 0 1px 2px rgba(0,0,0,.04);
+
+  max-width: max-content;                  /* keeps it neat in cards */
+}
+
+
+
+.zv-waiting__dot{
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+  background: white;
+  /* box-shadow: 0 0 0 6px rgba(249,115,22,.18); */
+  animation: zvPulse 1.4s ease-in-out infinite;
+}
+
+@keyframes zvPulse{
+  0%   { transform: scale(1);   opacity: .9; }
+  50%  { transform: scale(1.2); opacity: .6; }
+  100% { transform: scale(1);   opacity: .9; }
+}
+
+.zv-waiting__body{
+  display:flex;
+  flex-direction:column;
+  gap:.25rem;
+  min-width: 0;
+}
+
+.zv-waiting__title{
+  font-weight: 700;
+  color: #000000;     /* deep warm */
+  font-size: .95rem;
+  line-height: 1.15;
+}
+
+.zv-waiting__sub{
+  display:flex;
+  align-items:center;
+  gap:.45rem;
+  color:#000000;
+  font-size: .85rem;
+}
+
+.zv-waiting__label{
+  color:#000000;
+  font-weight: 600;
+  opacity: 1;
+}
+
+.zv-waiting__timer{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+
+  padding: .22rem .55rem;
+  border-radius: 999px;
+
+  background:#111827;   /* black pill */
+  color:#fff;
+  font-weight: 700;
+  letter-spacing: .02em;
+  min-width: 56px;
+}
+
+/* Optional: on very small screens, let it wrap cleanly */
+@media (max-width: 420px){
+  .zv-waiting{ max-width: 100%; }
+  .zv-waiting__sub{ flex-wrap: wrap; }
+}
+
+.btn-zaiv{
+     border-radius: 999px;
+    border: none;
+ background-image: linear-gradient(
+    90deg,
+    #F8E7A2 0%,
+    #f1ce5d 65%,
+    #e5bd3c 85%
+  
+);
+display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+
+  padding: 0.55rem 1.1rem;
+  min-height: 40px;
+
+  border-radius: 999px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  line-height: 1;
+
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+
+  /* border: 1px solid transparent; */
+  transition:
+    background-color 0.18s ease,
+    color 0.18s ease,
+    border-color 0.18s ease,
+    box-shadow 0.18s ease,
+    transform 0.12s ease;
+}

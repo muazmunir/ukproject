@@ -1,0 +1,63 @@
+.svc-hero {
+  position: relative;
+  padding: 3rem 0 3.5rem;
+  background: #111827;
+  color: #f9fafb;
+}
+
+.svc-hero--has-category {
+  background-size: cover;
+  background-position: center;
+}
+
+.svc-hero__overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    rgba(15, 23, 42, 0.85),
+    rgba(15, 23, 42, 0.55)
+  );
+}
+
+.svc-hero .container-lg {
+  position: relative;
+  z-index: 1;
+}
+
+.svc-hero__content {
+  max-width: 640px;
+}
+
+.svc-hero__eyebrow {
+  text-transform: uppercase;
+  letter-spacing: .16em;
+  font-size: .75rem;
+  opacity: .85;
+  margin-bottom: .35rem;
+}
+
+.svc-hero__title {
+  font-size: 2.1rem;
+  font-weight: 700;
+  margin-bottom: .5rem;
+}
+
+.svc-hero__desc {
+  font-size: .98rem;
+  opacity: .9;
+  margin-bottom: 1.25rem;
+}
+
+.svc-hero__actions .btn {
+  border-radius: 999px;
+}
+
+@media (max-width: 768px) {
+  .svc-hero {
+    padding: 2.25rem 0 2.5rem;
+  }
+  .svc-hero__title {
+    font-size: 1.6rem;
+  }
+}

@@ -1,0 +1,210 @@
+:root{
+  --zv-bg:#f6f8fb; --zv-surface:#fff; --zv-text:#000000; --zv-muted:#6b7280;
+  --zv-border:#e8ecf2; --zv-accent:#2563eb;
+  --shadow:0 10px 30px rgba(0, 0, 0, 0.06);
+  --r:16px;
+
+  --bubble-black:black;
+  --bubble-white:#ffffff;
+}
+.back{
+  background-color:#000;
+  color:#fff;
+  border-radius:9999px;
+  padding:5px 20px;
+  border:1px solid #000;
+}
+
+.dv-page{max-width:980px;padding:0 14px;}
+.dv-chatCard{padding:0; overflow:hidden; border-radius:var(--r); border:1px solid var(--zv-border); box-shadow:var(--shadow); background:var(--zv-surface);height: calc(100vh - 170px);}
+
+.dv-chatHead{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:18px 18px;border-bottom:1px solid var(--zv-border);background:#fff;}
+.dv-title{margin:0;font-size:18px;font-weight:800;color:var(--zv-text);}
+.dv-subline{margin-top:6px;display:flex;align-items:center;gap:8px;color:var(--zv-muted);font-size:13px;}
+.dv-sep{opacity:.7;}
+.dv-status{display:inline-flex;align-items:center;gap:8px;padding:4px 10px;border-radius:999px;font-weight:800;font-size:12px;border:1px solid var(--zv-border);background:#f8fafc;color:var(--zv-text);}
+.dv-status--open{background:#eef2ff;border-color:#c7d2fe;color:#1e3a8a;}
+.dv-status--in_review{background:#fffbeb;border-color:#fde68a;color:#92400e;}
+.dv-status--resolved{background:#ecfdf5;border-color:#bbf7d0;color:#166534;}
+.dv-status--rejected{background:#fef2f2;border-color:#fecaca;color:#991b1b;}
+
+.dv-chat{height:520px; overflow:auto; padding:18px; background:var(--zv-bg);}
+.dv-msg{display:flex; margin:10px 0;}
+.dv-msg.me{justify-content:flex-end;}
+.dv-msg.admin{justify-content:flex-start;}
+.dv-msg.them{justify-content:flex-start;}
+
+.dv-bubble{
+  max-width:min(680px, 92%);
+  border-radius:16px;
+  padding:12px 12px 10px;
+  border:1px solid var(--zv-border);
+  background:#fff;
+  color:var(--zv-text);
+}
+
+.dv-msg.me .dv-bubble{
+  background:var(--bubble-black);
+  border-color:rgba(255,255,255,.08);
+  color:#fff;
+}
+
+.dv-msg.admin .dv-bubble{
+  background:var(--bubble-white);
+  border-color:var(--zv-border);
+  color:var(--zv-text);
+}
+
+.dv-text{white-space:pre-wrap; line-height:1.45; font-size:14px;}
+
+.dv-media{margin-top:10px;display:flex;flex-wrap:wrap;gap:10px;}
+.dv-media img{width:180px;height:120px;object-fit:cover;border-radius:12px;border:1px solid var(--zv-border);display:block;}
+.dv-file{display:inline-flex;align-items:center;gap:8px;padding:10px 12px;border-radius:12px;border:1px solid var(--zv-border);background:#f8fafc;color:var(--zv-text);text-decoration:none;font-weight:700;font-size:13px;}
+
+.dv-msg.me .dv-file{
+  background:rgba(255,255,255,.08);
+  border-color:rgba(255,255,255,.12);
+  color:#fff;
+}
+
+.dv-meta{margin-top:8px;font-size:12px;color:rgba(255,255,255,.75);}
+.dv-msg.admin .dv-meta,
+.dv-msg.them .dv-meta{color:var(--zv-muted);}
+
+.dv-send{
+  display:flex; align-items:flex-end; gap:10px;
+  padding:14px; border-top:1px solid var(--zv-border); background:#fff;
+}
+.dv-input{
+  flex:1; min-height:44px; max-height:140px; resize:none;
+  border:1px solid var(--zv-border); border-radius:14px; padding:10px 12px;
+  outline:none; background:#fff; color:var(--zv-text);
+}
+.dv-input:focus{border-color:#cbd5e1; box-shadow:0 0 0 4px rgba(37,99,235,.10);}
+
+.dv-attach{
+  width:44px;height:44px;border-radius:14px;
+  display:grid;place-items:center;
+  border:1px solid var(--zv-border); background:#fff; cursor:pointer;
+}
+.dv-attachIcon{width:20px;height:20px;fill:#334155;}
+
+.dv-previews{margin-top:10px;display:flex;gap:10px;flex-wrap:wrap;}
+.dv-previewItem{position:relative;width:84px;height:64px;border-radius:12px;overflow:hidden;border:1px solid var(--zv-border);}
+.dv-previewItem img{width:100%;height:100%;object-fit:cover;}
+.dv-fileItem{display:flex;align-items:center;gap:10px;border:1px solid var(--zv-border);background:#f8fafc;border-radius:12px;padding:10px 12px;}
+.dv-fileName{max-width:220px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-weight:700;font-size:13px;color:var(--zv-text);}
+.dv-remove{
+  position:absolute;top:6px;right:6px;
+  width:22px;height:22px;border-radius:999px;border:0;
+  background:rgba(0,0,0,.6);color:#fff;cursor:pointer;
+  display:grid;place-items:center;line-height:1;
+}
+.dv-remove--file{position:static;background:#111827;color:#fff;width:28px;height:28px;}
+.dv-closed{padding:14px;text-align:center;color:var(--zv-muted);border-top:1px solid var(--zv-border);background:#fff;}
+
+
+
+
+/* ============================
+   Client dispute additions
+   (Handled by + Decision + System banner)
+   ============================ */
+
+.dv-agent{
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  font-weight:700;
+  color: var(--zv-text);
+}
+.dv-agent b{
+  font-weight:900;
+}
+.dv-agent--muted{
+  color: var(--zv-muted);
+  font-weight:700;
+}
+
+/* Decision note card under header */
+.dv-decisionNote{
+  margin-top: 10px;
+  border: 1px solid var(--zv-border);
+  background: #fff;
+  border-radius: 14px;
+  padding: 12px 12px;
+  box-shadow: 0 1px 2px rgba(0,0,0,.04);
+}
+.dv-decisionNote__title{
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  color: var(--zv-muted);
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+.dv-decisionNote__by{
+  text-transform:none;
+  letter-spacing: 0;
+  font-weight: 800;
+  color: rgba(0,0,0,.55);
+}
+.dv-decisionNote__text{
+  margin-top: 8px;
+  font-size: 14px;
+  font-weight: 650;
+  color: var(--zv-text);
+  line-height: 1.45;
+  white-space: pre-wrap;
+}
+
+/* System banner inside chat (top) */
+.dv-sys{
+  border: 1px solid var(--zv-border);
+  background: rgba(255,255,255,.85);
+  border-radius: 14px;
+  padding: 10px 12px;
+  margin-bottom: 14px;
+  color: rgba(0,0,0,.75);
+  font-size: 13px;
+  font-weight: 650;
+  box-shadow: 0 1px 2px rgba(0,0,0,.03);
+}
+.dv-sys b{ color: var(--zv-text); font-weight: 900; }
+.dv-sys__sub{
+  margin-top: 6px;
+  color: var(--zv-muted);
+  font-weight: 650;
+}
+
+/* Optional: system messages inside the thread */
+.dv-msg.system{
+  justify-content: center;
+}
+.dv-msg.system .dv-bubble{
+  max-width: 92%;
+  background: rgba(248,250,252,.95);
+  border-style: dashed;
+  color: rgba(0,0,0,.70);
+  font-weight: 700;
+  text-align: center;
+  padding: 10px 12px;
+  border-radius: 14px;
+}
+.dv-msg.system .dv-meta{
+  color: rgba(0,0,0,.45);
+}
+
+/* Small responsive polish */
+@media (max-width: 640px){
+  .dv-subline{
+    flex-wrap: wrap;
+    row-gap: 6px;
+  }
+  .dv-media img{
+    width: 150px;
+    height: 110px;
+  }
+}

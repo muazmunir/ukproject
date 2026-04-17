@@ -1,0 +1,93 @@
+.ah .ah-card{ border-radius:14px; }
+.ah .ah-input{ border-radius:12px; border-color:rgba(0,0,0,.12); }
+.ah .ah-input:focus{ box-shadow:0 0 0 .2rem rgba(0,0,0,.08); border-color:rgba(0,0,0,.25); }
+
+.ah-kpis{
+  display:grid;
+  grid-template-columns: repeat(5, minmax(0,1fr));
+  gap: 10px;
+}
+.ah-kpis .kpi{
+  border:1px solid rgba(0,0,0,.08);
+  border-radius: 14px;
+  padding: 10px 12px;
+  background: rgba(0,0,0,.015);
+}
+.ah-kpis .kpi .lbl{ font-size:11px; letter-spacing:.2px; color:rgba(0,0,0,.55); font-weight:800; }
+.ah-kpis .kpi .val{ font-size:18px; font-weight:900; margin-top:4px; }
+
+.ah-chartWrap{ height: 420px; }
+
+.ah-panel{ min-height: 360px; }
+
+/* Timeline layout */
+.ah-timeline{ display:flex; gap: 12px; align-items: stretch; }
+.ah-timecol{ width: 70px; flex: 0 0 70px; user-select:none; }
+.ah-timecol .tick{
+  height: 52px;
+  display:flex; align-items:flex-start; justify-content:flex-end;
+  padding-right: 6px;
+  font-size:12px;
+  color:rgba(0,0,0,.55);
+}
+
+.ah-track{
+  position: relative;
+  flex: 1 1 auto;
+  border:1px solid rgba(0,0,0,.08);
+  border-radius:14px;
+  overflow:hidden;
+  background:#fff;
+}
+.ah-grid{ position:absolute; inset:0; pointer-events:none; }
+.ah-grid .row{ height:52px; border-top:1px solid rgba(0,0,0,.06); }
+.ah-blockLayer{ position:absolute; inset:0; padding:8px; }
+
+.ah-block{
+  position:absolute;
+  left:8px; right:8px;
+  border-radius:12px;
+  padding:10px 12px;
+  border:1px solid rgba(0,0,0,.10);
+  box-shadow:0 1px 2px rgba(0,0,0,.06);
+}
+.ah-block .title{ font-weight:900; font-size:13px; text-transform:capitalize; }
+.ah-block .time{ margin-top:6px; font-size:12px; opacity:.85; }
+
+/* Roster rows */
+.ah-rosterRow{ display:flex; border-top:1px solid rgba(0,0,0,.06); }
+.ah-rosterName{
+  width: 240px; flex:0 0 240px;
+  padding: 10px 12px;
+  border-right:1px solid rgba(0,0,0,.06);
+  background: rgba(0,0,0,.015);
+}
+.ah-rosterName .n{ font-weight:900; font-size:13px; }
+.ah-rosterName .r{ font-size:12px; color:rgba(0,0,0,.55); margin-top:2px; }
+
+.ah-rosterTrack{ position:relative; flex:1; height: 64px; }
+.ah-rosterTrack .seg{
+  position:absolute;
+  top:10px; height:44px;
+  border-radius:10px;
+  border:1px solid rgba(0,0,0,.10);
+  box-shadow:0 1px 2px rgba(0,0,0,.05);
+  overflow:hidden;
+}
+.ah-rosterTrack .seg .t{
+  font-size:11px; font-weight:900;
+  padding:4px 8px;
+  white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+}
+
+/* Status colors */
+[data-status="available"]{ background:#78f07a; }
+[data-status="break"]{ background:#ff4a4a; color:#fff; }
+[data-status="lunch"]{ background:#ffe55a; }
+[data-status="unavailable"]{ background:#d1d5db; }
+[data-status="tech_issues"]{ background:#ffb26b; }
+[data-status="logout"]{ background:#111827; color:#fff; }
+
+@media (max-width: 1200px){
+  .ah-kpis{ grid-template-columns: repeat(2, minmax(0,1fr)); }
+}

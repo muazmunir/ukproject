@@ -1,0 +1,648 @@
+/* ===================================================================
+   ZAIVIAS - Coach Bookings (Professional UI)
+   Targets your classes:
+   cb-page, cb-card, cb-tabs, cb-tab, cb-body,
+   cb-booking-card, cb-booking-thumb, cb-booking-body, cb-booking-top,
+   cb-booking-title, cb-booking-subtitle, cb-booking-right, cb-booking-price,
+   cb-status-pill, cb-booking-meta, cb-booking-meta-item,
+   cb-booking-footer, cb-booking-tag,
+   cb-booking-btn, cb-booking-btn-secondary, cb-booking-btn-danger,
+   cb-pagination, cb-empty, zv-waiting (shared)
+   =================================================================== */
+
+:root{
+  --zv-bg: #f6f7fb;
+  --zv-card: #ffffff;
+  --zv-text: #0f172a;
+  --zv-muted: #64748b;
+  --zv-border: #e5e7eb;
+  --zv-border-2: #eef2f7;
+
+  --zv-primary: #111827;
+  --zv-primary-2: #1f2937;
+
+  --zv-blue: #2563eb;
+  --zv-green: #16a34a;
+  --zv-amber: #f59e0b;
+  --zv-red: #dc2626;
+
+  --zv-shadow: 0 14px 34px rgba(15, 23, 42, 0.10);
+  --zv-shadow-sm: 0 8px 18px rgba(15, 23, 42, 0.08);
+
+  --zv-radius: 18px;
+  --zv-radius-sm: 12px;
+
+  --zv-font: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
+             "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji",
+             "Segoe UI Emoji";
+}
+
+html, body{
+  font-family: var(--zv-font);
+  color: var(--zv-text);
+}
+
+body{
+  background: var(--zv-bg);
+}
+
+/* -------------------------------------------------------------------
+   Page wrapper
+------------------------------------------------------------------- */
+.cb-page{
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 14px 12px 30px;
+}
+
+/* -------------------------------------------------------------------
+   Card container
+------------------------------------------------------------------- */
+.cb-card{
+  background: rgba(255,255,255,0.78);
+  border: 1px solid var(--zv-border);
+  border-radius: var(--zv-radius);
+  box-shadow: var(--zv-shadow-sm);
+  overflow: hidden;
+  backdrop-filter: blur(10px);
+}
+
+/* -------------------------------------------------------------------
+   Tabs
+------------------------------------------------------------------- */
+
+
+
+
+
+.js-status-info i {
+  font-size: 18px;
+  cursor: pointer;
+}
+
+.cb-tabs{
+  display: flex;
+  gap: 8px;
+  padding: 12px;
+  border-bottom: 1px solid var(--zv-border-2);
+  background: rgba(249, 250, 251, 0.75);
+}
+
+.cb-tab{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 14px;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 13px;
+  text-decoration: none;
+  color: black;;
+  border: 1px solid transparent;
+  transition: background 160ms ease, color 160ms ease, box-shadow 160ms ease, transform 160ms ease, border-color 160ms ease;
+  white-space: nowrap;
+}
+
+.cb-tab:hover{
+  background: #f3f4f6;
+  color: var(--zv-text);
+  border-color: var(--zv-border);
+  transform: translateY(-1px);
+}
+
+.cb-tab.active{
+  color: #fff;
+  background: black;
+  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.18);
+}
+
+/* -------------------------------------------------------------------
+   Body list
+------------------------------------------------------------------- */
+.cb-body{
+  padding: 12px;
+  display: grid;
+  gap: 14px;
+}
+
+/* -------------------------------------------------------------------
+   Booking Card
+------------------------------------------------------------------- */
+.cb-booking-card{
+  display: grid;
+  grid-template-columns: 160px 1fr;
+  gap: 14px;
+  background: var(--zv-card);
+  border: 1px solid var(--zv-border);
+  border-radius: var(--zv-radius);
+  box-shadow: var(--zv-shadow-sm);
+  overflow: hidden;
+  transition: transform 160ms ease, box-shadow 160ms ease, border-color 160ms ease;
+}
+
+.cb-booking-card:hover{
+  transform: translateY(-2px);
+  box-shadow: var(--zv-shadow);
+  border-color: rgba(15,23,42,0.18);
+}
+
+@media (max-width: 768px){
+  .cb-booking-card{
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Thumb */
+.cb-booking-thumb{
+  position: relative;
+  width: 160px;
+  min-height: 160px;
+  background: #f3f4f6;
+}
+
+.cb-booking-thumb img{
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+}
+
+@media (max-width: 768px){
+  .cb-booking-thumb{
+    width: 100%;
+    min-height: 200px;
+    height: 200px;
+  }
+}
+
+/* Body */
+.cb-booking-body{
+  padding: 14px 14px 12px 0;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+@media (max-width: 768px){
+  .cb-booking-body{
+    padding: 14px;
+  }
+}
+
+/* Top row */
+.cb-booking-top{
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.cb-booking-title-wrap{
+  min-width: 0;
+}
+
+.cb-booking-title{
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.25;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.cb-booking-subtitle{
+  margin-top: 6px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: black;;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.cb-booking-right{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+.cb-booking-price{
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--zv-text);
+}
+
+/* -------------------------------------------------------------------
+   Status Pill (reservation status)
+------------------------------------------------------------------- */
+.cb-status-pill{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+  border: 1px solid var(--zv-border);
+  background: #f9fafb;
+  color: var(--zv-text);
+  text-transform: capitalize;
+}
+
+/* Common statuses (matches your usage: booked, confirmed, paid, in_escrow, cancelled) */
+.cb-status-pill-booked,
+.cb-status-pill-confirmed,
+.cb-status-pill-paid,
+.cb-status-pill-in_escrow{
+  background: rgba(37, 99, 235, 0.10);
+  border-color: rgba(37, 99, 235, 0.22);
+  color: #1e40af;
+}
+
+.cb-status-pill-cancelled,
+.cb-status-pill-canceled{
+  background: rgba(220, 38, 38, 0.10);
+  border-color: rgba(220, 38, 38, 0.22);
+  color: #991b1b;
+}
+
+/* -------------------------------------------------------------------
+   Meta
+------------------------------------------------------------------- */
+.cb-booking-meta{
+  margin-top: 10px;
+  display: grid;
+  gap: 6px;
+}
+
+.cb-booking-meta-item{
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: black;;
+  font-size: 13px;
+  font-weight: 650;
+}
+
+.cb-booking-meta-item i{
+  color: rgba(15,23,42,0.55);
+}
+
+/* -------------------------------------------------------------------
+   Footer
+------------------------------------------------------------------- */
+.cb-booking-footer{
+  margin-top: auto;
+  padding-top: 10px;
+  border-top: 1px solid var(--zv-border-2);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.cb-booking-tag{
+  font-size: 12px;
+  font-weight: 600;
+  color: black;;
+  background: #f9fafb;
+  border: 1px solid var(--zv-border);
+  border-radius: 999px;
+  padding: 6px 10px;
+}
+
+/* -------------------------------------------------------------------
+   Buttons (coach card actions)
+------------------------------------------------------------------- */
+.cb-booking-btn,
+.cb-booking-btn-secondary,
+.cb-booking-btn-danger{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 38px;
+  padding: 0 14px;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 13px;
+  text-decoration: none;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: transform 140ms ease, box-shadow 140ms ease, background 140ms ease, border-color 140ms ease, color 140ms ease;
+  user-select: none;
+  white-space: nowrap;
+}
+
+.cb-booking-btn{
+  background: linear-gradient(180deg, var(--zv-primary), var(--zv-primary-2));
+  color: #fff;
+  box-shadow: 0 10px 20px rgba(17, 24, 39, 0.18);
+}
+
+.cb-booking-btn:hover{
+  transform: translateY(-1px);
+  box-shadow: 0 14px 28px rgba(17, 24, 39, 0.22);
+}
+
+.cb-booking-btn-secondary{
+  background: #fff;
+  color: var(--zv-text);
+  border-color: var(--zv-border);
+}
+
+.cb-booking-btn-secondary:hover{
+  transform: translateY(-1px);
+  border-color: rgba(15,23,42,0.20);
+  box-shadow: 0 10px 20px rgba(15,23,42,0.10);
+}
+
+.cb-booking-btn-danger{
+  background: rgba(220, 38, 38, 0.10);
+  color: #991b1b;
+  border-color: rgba(220, 38, 38, 0.25);
+}
+
+.cb-booking-btn-danger:hover{
+  transform: translateY(-1px);
+  box-shadow: 0 10px 20px rgba(220, 38, 38, 0.14);
+}
+
+/* Shared "session started" label (you reuse booking-session-label class) */
+.booking-session-label{
+  display: inline-flex;
+  align-items: center;
+  height: 38px;
+  padding: 0 14px;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 13px;
+  background: rgba(22, 163, 74, 0.12);
+  border: 1px solid rgba(22, 163, 74, 0.22);
+  color: #14532d;
+}
+
+/* -------------------------------------------------------------------
+   Waiting Blocks (zv-waiting) - coach view uses these too
+------------------------------------------------------------------- */
+.zv-waiting{
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  background: #f9fafb;
+  border: 1px solid var(--zv-border);
+  border-radius: var(--zv-radius-sm);
+  padding: 12px;
+  min-width: 260px;
+}
+
+.zv-waiting__icon{
+  width: 34px;
+  height: 34px;
+  border-radius: 12px;
+  display: grid;
+  place-items: center;
+  background: rgba(37, 99, 235, 0.10);
+  flex-shrink: 0;
+}
+
+.zv-waiting__dot{
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+  background: var(--zv-blue);
+  box-shadow: 0 0 0 6px rgba(37, 99, 235, 0.12);
+  animation: zvPulse 1.4s infinite;
+}
+
+@keyframes zvPulse{
+  0%{ transform: scale(0.95); opacity: 0.8; }
+  70%{ transform: scale(1.12); opacity: 1; }
+  100%{ transform: scale(0.95); opacity: 0.8; }
+}
+
+.zv-waiting__body{
+  min-width: 0;
+}
+
+.zv-waiting__title{
+  font-weight: 600;
+  font-size: 13px;
+  color: var(--zv-text);
+  margin-bottom: 2px;
+}
+
+.zv-waiting__sub{
+  font-size: 12px;
+  font-weight: 600;
+  color: black;;
+  display: flex;
+  gap: 8px;
+  align-items: baseline;
+  flex-wrap: wrap;
+}
+
+.zv-waiting__label{
+  color: rgba(15, 23, 42, 0.72);
+}
+
+.zv-waiting__timer{
+  font-variant-numeric: tabular-nums;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--zv-text);
+}
+
+/* Color variants you used: zv-waiting--green / zv-waiting--amber */
+.zv-waiting--green{
+  background: rgba(22, 163, 74, 0.08);
+  border-color: rgba(22, 163, 74, 0.18);
+}
+.zv-waiting--green .zv-waiting__icon{ background: rgba(22, 163, 74, 0.12); }
+.zv-waiting--green .zv-waiting__dot{
+  background: var(--zv-green);
+  box-shadow: 0 0 0 6px rgba(22, 163, 74, 0.12);
+}
+
+.zv-waiting--amber{
+  background: rgba(245, 158, 11, 0.10);
+  border-color: rgba(245, 158, 11, 0.20);
+}
+.zv-waiting--amber .zv-waiting__icon{ background: rgba(245, 158, 11, 0.14); }
+.zv-waiting--amber .zv-waiting__dot{
+  background: var(--zv-amber);
+  box-shadow: 0 0 0 6px rgba(245, 158, 11, 0.14);
+}
+
+/* -------------------------------------------------------------------
+   Pagination & Empty state
+------------------------------------------------------------------- */
+.cb-pagination{
+  padding: 14px 12px 18px;
+  border-top: 1px solid var(--zv-border-2);
+}
+
+/* Laravel pagination polish (Bootstrap-ish) */
+.cb-pagination .pagination{
+  margin: 0;
+  gap: 6px;
+}
+
+.cb-pagination .page-link{
+  border-radius: 12px !important;
+  border: 1px solid var(--zv-border) !important;
+  color: var(--zv-text) !important;
+  font-weight: 600;
+}
+
+.cb-pagination .page-item.active .page-link{
+  background: linear-gradient(180deg, var(--zv-primary), var(--zv-primary-2)) !important;
+  border-color: transparent !important;
+  color: #fff !important;
+}
+
+.cb-empty{
+  padding: 36px 18px;
+  text-align: center;
+  color: black;;
+}
+
+.cb-empty p:first-child{
+  color: var(--zv-text);
+  font-weight: 600;
+}
+
+/* -------------------------------------------------------------------
+   Modals polish (Bootstrap)
+------------------------------------------------------------------- */
+.modal-content{
+  border-radius: 18px;
+  border: 1px solid var(--zv-border);
+  box-shadow: var(--zv-shadow);
+}
+
+.modal-header{
+  border-bottom: 1px solid var(--zv-border-2);
+}
+
+.modal-footer{
+  border-top: 1px solid var(--zv-border-2);
+}
+
+/* -------------------------------------------------------------------
+   Small utilities compatibility
+------------------------------------------------------------------- */
+.text-muted{ color: black; }
+.fw-semibold{ font-weight: 600 !important; }
+.small{ font-size: 12px !important; }
+
+
+@media (max-width: 600px){
+  .cb-tabs{
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .cb-tabs::-webkit-scrollbar{
+    height: 4px;
+  }
+
+  .cb-tabs::-webkit-scrollbar-thumb{
+    border-radius: 10px;
+  }
+
+  .cb-tab{
+    scroll-snap-align: start;
+  }
+}
+
+
+
+
+
+
+
+/* star  */
+/* ===== Rating Stars Wrapper ===== */
+.coach-rating-stars{
+  display:flex;
+  gap:10px;
+  align-items:center;
+  justify-content:flex-start;
+}
+
+/* ===== Star Button ===== */
+.coach-star-btn{
+  border:none;
+  background:transparent;
+  font-size:34px;
+  line-height:1;
+  cursor:pointer;
+  opacity:.35;
+  color:#000;
+  transition:all .2s ease;
+  padding:2px;
+}
+
+/* Hover preview */
+.coach-star-btn.is-hover{
+  opacity:.8;
+  transform:scale(1.15);
+}
+
+/* Selected stars */
+.coach-star-btn.is-active{
+  opacity:1;
+  color:#f5b301;
+  transform:scale(1.2);
+}
+
+/* Focus accessibility */
+.coach-star-btn:focus{
+  outline:none;
+  box-shadow:none;
+}
+
+/* ===== Modal Body Styling ===== */
+#coachMandatoryRatingModal .modal-body{
+  padding:28px;
+}
+
+/* Title */
+#coachMandatoryRatingModal .modal-title{
+  font-weight:600;
+  letter-spacing:.3px;
+}
+
+/* Booking Title */
+#coachMandatoryRatingModal .fw-semibold{
+  font-size:16px;
+}
+
+/* Description Textarea */
+#coachRatingComment{
+  resize:none;
+  border-radius:10px;
+  padding:12px;
+  font-size:14px;
+}
+
+/* Submit Button */
+#coachMandatoryRatingModal .btn-dark{
+  border-radius:50px;
+  padding:10px 26px;
+  font-weight:500;
+  letter-spacing:.3px;
+}
+
+/* Error Text */
+#coachRatingStarsError{
+  font-size:13px;
+}
+
+/* Small subtitle text */
+#coachMandatoryRatingModal .text-muted{
+  font-size:14px;
+}
