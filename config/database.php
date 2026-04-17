@@ -88,6 +88,36 @@ $hostingerMysqlUserForDatabase = static function (string $specificUsernameEnvKey
     return (string) env('DB_USERNAME', 'root');
 };
 
+/*
+| In multi topology the default `mysql` connection uses DB_DATABASE_MULTI_ENTRY (usually auth_db).
+| Hostinger uses a different MySQL user per schema, so match username/password to that entry DB.
+*/
+$defaultMysqlUsername = (string) env('DB_USERNAME', 'root');
+$defaultMysqlPassword = env('DB_PASSWORD') === null ? '' : (string) env('DB_PASSWORD');
+
+if ($dbTopology === 'multi') {
+    $entryDb = $multiEntryDatabase;
+    foreach (
+        [
+            [$resolvedAuthDatabase, 'DB_AUTH_USERNAME', 'DB_AUTH_PASSWORD'],
+            [$resolvedPiiDatabase, 'DB_PII_USERNAME', 'DB_PII_PASSWORD'],
+            [$resolvedKycDatabase, 'DB_KYC_USERNAME', 'DB_KYC_PASSWORD'],
+            [$resolvedPaymentsDatabase, 'DB_PAYMENTS_USERNAME', 'DB_PAYMENTS_PASSWORD'],
+            [$resolvedAppDatabase, 'DB_APP_USERNAME', 'DB_APP_PASSWORD'],
+            [$resolvedCommsDatabase, 'DB_COMMS_USERNAME', 'DB_COMMS_PASSWORD'],
+            [$resolvedMediaDatabase, 'DB_MEDIA_USERNAME', 'DB_MEDIA_PASSWORD'],
+            [$resolvedAuditDatabase, 'DB_AUDIT_USERNAME', 'DB_AUDIT_PASSWORD'],
+        ] as [$schema, $userEnvKey, $passEnvKey]
+    ) {
+        if ($entryDb === $schema) {
+            $defaultMysqlUsername = $hostingerMysqlUserForDatabase($userEnvKey, $schema);
+            $defaultMysqlPassword = $inheritMysqlPassword($passEnvKey);
+
+            break;
+        }
+    }
+}
+
 return [
 
     /*
@@ -144,8 +174,8 @@ return [
             'host' => env('DB_HOST', '127.0.0.1'),
             'port' => env('DB_PORT', '3306'),
             'database' => $activeMysqlDatabase,
-            'username' => env('DB_USERNAME', 'root'),
-            'password' => env('DB_PASSWORD', ''),
+            'username' => $defaultMysqlUsername,
+            'password' => $defaultMysqlPassword,
             'unix_socket' => env('DB_SOCKET', ''),
             'charset' => env('DB_CHARSET', 'utf8mb4'),
             'collation' => env('DB_COLLATION', 'utf8mb4_unicode_ci'),
