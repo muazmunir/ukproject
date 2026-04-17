@@ -32,4 +32,18 @@ trait BuildsMysqlCliConnection
 
         return ['-h', $host, '-P', (string) env('DB_PORT', '3306')];
     }
+
+    /**
+     * mysql CLI user for db:split-multi / drop. Must be able to read the monolith and write all split DBs.
+     * Defaults to DB_USERNAME / DB_PASSWORD; override with DB_SPLIT_CLI_USERNAME / DB_SPLIT_CLI_PASSWORD.
+     *
+     * @return array{0: string, 1: string}
+     */
+    protected function mysqlCliCredentials(): array
+    {
+        $user = (string) env('DB_SPLIT_CLI_USERNAME', env('DB_USERNAME', 'root'));
+        $password = env('DB_SPLIT_CLI_PASSWORD', env('DB_PASSWORD'));
+
+        return [$user, $password === null ? '' : (string) $password];
+    }
 }

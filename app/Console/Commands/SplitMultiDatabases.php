@@ -99,9 +99,7 @@ class SplitMultiDatabases extends Command
             }
         }
 
-        $user = (string) env('DB_USERNAME', 'root');
-        $password = env('DB_PASSWORD');
-        $password = $password === null ? '' : (string) $password;
+        [$user, $password] = $this->mysqlCliCredentials();
 
         $args = array_merge(
             [$mysql],
