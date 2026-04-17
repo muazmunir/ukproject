@@ -93,7 +93,8 @@ class SplitMultiDatabaseStatus extends Command
         $rows = DB::connection('mysql')->select('SHOW DATABASES');
         $names = [];
         foreach ($rows as $row) {
-            $names[] = (string) reset((array) $row);
+            $cols = (array) $row;
+            $names[] = (string) reset($cols);
         }
         sort($names);
 
