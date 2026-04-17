@@ -48,7 +48,7 @@ class SplitMultiDatabaseStatus extends Command
         }
 
         $this->newLine();
-        $this->line('db:split-multi: (1) apply SQL as split_control (or DB_SPLIT_CLI_*); (2) CALL procedures as <fg=cyan>DB_SPLIT_CALL_USERNAME</> or <fg=cyan>DB_USERNAME</> — that second user must read the monolith and write every split DB (add them in hPanel to all databases).');
+        $this->line('db:split-multi: apply SQL as split_control, then either CALL (needs one user on all DBs) or <fg=cyan>--php-copy</> / DB_SPLIT_USE_PHP_COPY for Hostinger (one user per database).');
 
         if ($missing === []) {
             $this->newLine();

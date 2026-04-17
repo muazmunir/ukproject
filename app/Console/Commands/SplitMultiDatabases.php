@@ -5,6 +5,7 @@ namespace App\Console\Commands;
 use App\Console\Concerns\BuildsMysqlCliConnection;
 use App\Console\Concerns\FindsMysqlClient;
 use App\Support\SplitMultiDb;
+use App\Support\SplitMultiPhpCopier;
 use App\Support\SplitMultiSchemaPresence;
 use Illuminate\Console\Command;
 use Illuminate\Database\QueryException;
@@ -25,9 +26,10 @@ class SplitMultiDatabases extends Command
                             {--db-host= : mysql CLI host override (use 127.0.0.1 if localhost gives Access denied on ::1)}
                             {--mysql= : Full path to mysql client binary}
                             {--create-databases : Try CREATE DATABASE IF NOT EXISTS for missing split schemas (often blocked on shared hosting)}
+                            {--php-copy : Copy tables in PHP (one MySQL user per DB — Hostinger); skips server-side CALL procedures}
                             {--force : Skip confirmation prompt}';
 
-    protected $description = 'Run multi-database split: copy tables from monolith into pre-created domain DBs (monolith unchanged) + auth_db views';
+    protected $description = 'Run multi-database split: copy tables from monolith into pre-created domain DBs (monolith unchanged) + auth_db views; use --php-copy on Hostinger (one user per database)';
 
     public function handle(): int
     {
@@ -101,11 +103,17 @@ class SplitMultiDatabases extends Command
             }
         }
 
-        [$applyUser, $applyPass] = $this->mysqlCliCredentials(true);
-        [$callUser, $callPass] = $this->mysqlCliSplitProcedureCallCredentials();
+        $usePhpCopy = $this->option('php-copy') || filter_var(env('DB_SPLIT_USE_PHP_COPY', false), FILTER_VALIDATE_BOOLEAN);
 
+        [$applyUser, $applyPass] = $this->mysqlCliCredentials(true);
         $this->line("mysql CLI apply SQL: <fg=cyan>{$applyUser}</> (DB_SPLIT_CLI_* or split_control user)");
-        $this->line("mysql CLI CALL COPY/views: <fg=cyan>{$callUser}</> (DB_SPLIT_CALL_* or DB_USERNAME — must read monolith + write all split DBs; on Hostinger add this user to every database in hPanel).");
+
+        if ($usePhpCopy) {
+            $this->warn('Using PHP copy (--php-copy or DB_SPLIT_USE_PHP_COPY): each Laravel DB connection copies its own tables (fits Hostinger one-user-per-database).');
+        } else {
+            [$callUser, $callPass] = $this->mysqlCliSplitProcedureCallCredentials();
+            $this->line("mysql CLI CALL COPY/views: <fg=cyan>{$callUser}</> (DB_SPLIT_CALL_* or DB_USERNAME — needs read monolith + write all split DBs unless you use --php-copy).");
+        }
 
         $args = array_merge(
             [$mysql],
@@ -124,25 +132,35 @@ class SplitMultiDatabases extends Command
             return self::FAILURE;
         }
 
-        $this->info("Calling copy_mapped_tables() and create_compat_views() on `{$control}` …");
+        if ($usePhpCopy) {
+            try {
+                (new SplitMultiPhpCopier)->run($this->output);
+            } catch (\Throwable $e) {
+                $this->error($e->getMessage());
 
-        $fallbackCallCreds = $this->mysqlCliCredentials(true);
-        $callOutcome = $this->invokeSplitStoredProcedures($mysql, $control, [$callUser, $callPass]);
+                return self::FAILURE;
+            }
+        } else {
+            $this->info("Calling copy_mapped_tables() and create_compat_views() on `{$control}` …");
 
-        if (! $callOutcome['ok']) {
-            if ($this->shouldRetrySplitProcedureCallAsMetadataUser($callOutcome['output'], $callUser, $fallbackCallCreds[0], $control)) {
-                $this->warn("CALL failed for `{$callUser}` on metadata DB (e.g. 1044 — add this user to `{$control}` in hPanel). Retrying CALL as `{$fallbackCallCreds[0]}` …");
-                $callOutcome = $this->invokeSplitStoredProcedures($mysql, $control, $fallbackCallCreds);
-                if ($callOutcome['ok']) {
-                    $this->warn('If split databases are still empty, the metadata user cannot SELECT the monolith. Add `'.$callUser.'` to database `'.$control.'` in hPanel (or set DB_SPLIT_CALL_USERNAME to a user with monolith + all split DB access), then run db:split-multi again.');
+            $fallbackCallCreds = $this->mysqlCliCredentials(true);
+            $callOutcome = $this->invokeSplitStoredProcedures($mysql, $control, [$callUser, $callPass]);
+
+            if (! $callOutcome['ok']) {
+                if ($this->shouldRetrySplitProcedureCallAsMetadataUser($callOutcome['output'], $callUser, $fallbackCallCreds[0], $control)) {
+                    $this->warn("CALL failed for `{$callUser}` on metadata DB (e.g. 1044 — add this user to `{$control}` in hPanel). Retrying CALL as `{$fallbackCallCreds[0]}` …");
+                    $callOutcome = $this->invokeSplitStoredProcedures($mysql, $control, $fallbackCallCreds);
+                    if ($callOutcome['ok']) {
+                        $this->warn('If split databases are still empty, the metadata user cannot SELECT the monolith. Add `'.$callUser.'` to database `'.$control.'` in hPanel (or set DB_SPLIT_CALL_USERNAME to a user with monolith + all split DB access), then run db:split-multi again.');
+                    }
                 }
             }
-        }
 
-        if (! $callOutcome['ok']) {
-            $this->error($callOutcome['output']);
+            if (! $callOutcome['ok']) {
+                $this->error($callOutcome['output']);
 
-            return self::FAILURE;
+                return self::FAILURE;
+            }
         }
 
         $this->info('Split finished. Set DB_TOPOLOGY=multi in .env if needed, then: php artisan config:clear');
@@ -245,7 +263,7 @@ class SplitMultiDatabases extends Command
             $this->line('Hostinger often creates a separate MySQL user per database. Set DB_AUTH_USERNAME / DB_AUTH_PASSWORD, DB_PII_USERNAME, … and DB_SPLIT_CONTROL_USERNAME / DB_SPLIT_CONTROL_PASSWORD to match hPanel (defaults fall back to DB_USERNAME).');
             $this->line('Run: php artisan db:split-multi:status — it shows which connection user sees each schema.');
             $this->newLine();
-            $this->line('db:split-multi uses split_control (or DB_SPLIT_CLI_*) to apply SQL, then DB_SPLIT_CALL_USERNAME or DB_USERNAME for CALL copy — that second user must read the monolith and write every split DB (add in hPanel to all databases).');
+            $this->line('On Hostinger (one user per database), run: php artisan db:split-multi --force --php-copy (or DB_SPLIT_USE_PHP_COPY=true). Otherwise add one power user to every DB for CALL copy, or set DB_SPLIT_CALL_USERNAME / DB_USERNAME with full grants.');
             $this->newLine();
             $this->line('Hostinger plans limit how many MySQL databases you can create; this split needs the monolith plus nine extra empty schemas. If you are at the limit, upgrade the plan or stay on DB_TOPOLOGY=single.');
             $this->newLine();
