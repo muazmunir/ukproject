@@ -111,7 +111,7 @@ class SplitMultiDatabases extends Command
             [$mysql],
             $this->mysqlCliHostAndPortArgv(),
             ['-u', $applyUser],
-            $applyPass !== '' ? ['-p' . $applyPass] : [],
+            $applyPass !== '' ? ['-p'.$applyPass] : [],
             ['-D', $control]
         );
 
@@ -119,7 +119,7 @@ class SplitMultiDatabases extends Command
         $proc = new Process($args, base_path(), null, $sql, 600.0);
         $proc->run();
         if (! $proc->isSuccessful()) {
-            $this->error(trim($proc->getErrorOutput() . "\n" . $proc->getOutput()));
+            $this->error(trim($proc->getErrorOutput()."\n".$proc->getOutput()));
 
             return self::FAILURE;
         }
@@ -130,7 +130,7 @@ class SplitMultiDatabases extends Command
                 [$mysql],
                 $this->mysqlCliHostAndPortArgv(),
                 ['-u', $callUser],
-                $callPass !== '' ? ['-p' . $callPass] : [],
+                $callPass !== '' ? ['-p'.$callPass] : [],
                 ['-D', $control, '-e', 'CALL copy_mapped_tables(); CALL create_compat_views();']
             ),
             base_path(),
@@ -140,7 +140,7 @@ class SplitMultiDatabases extends Command
         );
         $call->run();
         if (! $call->isSuccessful()) {
-            $this->error(trim($call->getErrorOutput() . "\n" . $call->getOutput()));
+            $this->error(trim($call->getErrorOutput()."\n".$call->getOutput()));
 
             return self::FAILURE;
         }
