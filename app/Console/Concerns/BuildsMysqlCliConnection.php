@@ -39,12 +39,12 @@ trait BuildsMysqlCliConnection
      * When DB_SPLIT_CLI_USERNAME is set (non-empty), it wins; password uses DB_SPLIT_CLI_PASSWORD or DB_PASSWORD.
      *
      * When DB_SPLIT_CLI_USERNAME is empty:
-     * - $defaultToSplitControlCredentials true (db:split-multi apply): use the `split_control` connection user/password
-     *   so Hostinger works when only per-database users exist (admin often cannot USE split_control).
-     * - false (db:split-multi:drop): use DB_USERNAME / DB_PASSWORD (needs a user allowed to DROP every split DB).
+     * - $defaultToSplitControlCredentials true (db:split-multi **apply SQL only**): use the `split_control`
+     *   connection user so CREATE PROCEDURE can run in that schema (admin often cannot USE split_control).
+     * - false (db:split-multi:drop): use DB_USERNAME / DB_PASSWORD.
      *
-     * The split_control user must still be able to SELECT from the monolith and write all target DBs, or set
-     * DB_SPLIT_CLI_USERNAME to a power user that has those grants.
+     * **CALL copy_mapped_tables()** uses mysqlCliSplitProcedureCallCredentials() instead — the invoker
+     * must read the monolith and write every target DB (usually DB_USERNAME after hPanel grants on all DBs).
      *
      * @return array{0: string, 1: string}
      */
@@ -71,5 +71,29 @@ trait BuildsMysqlCliConnection
         $mainPass = env('DB_PASSWORD');
 
         return [(string) env('DB_USERNAME', 'root'), $mainPass === null ? '' : (string) $mainPass];
+    }
+
+    /**
+     * mysql CLI user for CALL copy_mapped_tables() / create_compat_views() (procedure **invoker**).
+     * Must: USE metadata DB, SELECT from monolith tables, CREATE/INSERT into every domain DB.
+     * Defaults to DB_SPLIT_CALL_USERNAME or DB_USERNAME; password DB_SPLIT_CALL_PASSWORD or DB_PASSWORD.
+     *
+     * @return array{0: string, 1: string}
+     */
+    protected function mysqlCliSplitProcedureCallCredentials(): array
+    {
+        $user = env('DB_SPLIT_CALL_USERNAME');
+        if (! is_string($user) || trim($user) === '') {
+            $user = (string) env('DB_USERNAME', 'root');
+        } else {
+            $user = trim($user);
+        }
+
+        $pass = env('DB_SPLIT_CALL_PASSWORD');
+        if (! is_string($pass) || $pass === '') {
+            $pass = env('DB_PASSWORD');
+        }
+
+        return [$user, $pass === null ? '' : (string) $pass];
     }
 }

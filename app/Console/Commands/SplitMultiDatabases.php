@@ -101,14 +101,17 @@ class SplitMultiDatabases extends Command
             }
         }
 
-        [$user, $password] = $this->mysqlCliCredentials(true);
-        $this->line("mysql CLI user for this run: <fg=cyan>{$user}</> (set DB_SPLIT_CLI_USERNAME to override)");
+        [$applyUser, $applyPass] = $this->mysqlCliCredentials(true);
+        [$callUser, $callPass] = $this->mysqlCliSplitProcedureCallCredentials();
+
+        $this->line("mysql CLI apply SQL: <fg=cyan>{$applyUser}</> (DB_SPLIT_CLI_* or split_control user)");
+        $this->line("mysql CLI CALL COPY/views: <fg=cyan>{$callUser}</> (DB_SPLIT_CALL_* or DB_USERNAME — must read monolith + write all split DBs; on Hostinger add this user to every database in hPanel).");
 
         $args = array_merge(
             [$mysql],
             $this->mysqlCliHostAndPortArgv(),
-            ['-u', $user],
-            $password !== '' ? ['-p' . $password] : [],
+            ['-u', $applyUser],
+            $applyPass !== '' ? ['-p' . $applyPass] : [],
             ['-D', $control]
         );
 
@@ -126,8 +129,8 @@ class SplitMultiDatabases extends Command
             array_merge(
                 [$mysql],
                 $this->mysqlCliHostAndPortArgv(),
-                ['-u', $user],
-                $password !== '' ? ['-p' . $password] : [],
+                ['-u', $callUser],
+                $callPass !== '' ? ['-p' . $callPass] : [],
                 ['-D', $control, '-e', 'CALL copy_mapped_tables(); CALL create_compat_views();']
             ),
             base_path(),
