@@ -125,22 +125,22 @@ class SplitMultiDatabases extends Command
         }
 
         $this->info("Calling copy_mapped_tables() and create_compat_views() on `{$control}` …");
-        $call = new Process(
-            array_merge(
-                [$mysql],
-                $this->mysqlCliHostAndPortArgv(),
-                ['-u', $callUser],
-                $callPass !== '' ? ['-p'.$callPass] : [],
-                ['-D', $control, '-e', 'CALL copy_mapped_tables(); CALL create_compat_views();']
-            ),
-            base_path(),
-            null,
-            null,
-            600.0
-        );
-        $call->run();
-        if (! $call->isSuccessful()) {
-            $this->error(trim($call->getErrorOutput()."\n".$call->getOutput()));
+
+        $fallbackCallCreds = $this->mysqlCliCredentials(true);
+        $callOutcome = $this->invokeSplitStoredProcedures($mysql, $control, [$callUser, $callPass]);
+
+        if (! $callOutcome['ok']) {
+            if ($this->shouldRetrySplitProcedureCallAsMetadataUser($callOutcome['output'], $callUser, $fallbackCallCreds[0], $control)) {
+                $this->warn("CALL failed for `{$callUser}` on metadata DB (e.g. 1044 — add this user to `{$control}` in hPanel). Retrying CALL as `{$fallbackCallCreds[0]}` …");
+                $callOutcome = $this->invokeSplitStoredProcedures($mysql, $control, $fallbackCallCreds);
+                if ($callOutcome['ok']) {
+                    $this->warn('If split databases are still empty, the metadata user cannot SELECT the monolith. Add `'.$callUser.'` to database `'.$control.'` in hPanel (or set DB_SPLIT_CALL_USERNAME to a user with monolith + all split DB access), then run db:split-multi again.');
+                }
+            }
+        }
+
+        if (! $callOutcome['ok']) {
+            $this->error($callOutcome['output']);
 
             return self::FAILURE;
         }
@@ -319,6 +319,47 @@ class SplitMultiDatabases extends Command
             'DB_MEDIA_DATABASE' => (string) config('database.connections.media_db.database'),
             'DB_AUDIT_DATABASE' => (string) config('database.connections.audit_db.database'),
         ];
+    }
+
+    /**
+     * @param  array{0: string, 1: string}  $credentials
+     * @return array{ok: bool, output: string}
+     */
+    private function invokeSplitStoredProcedures(string $mysql, string $control, array $credentials): array
+    {
+        [$user, $password] = $credentials;
+        $call = new Process(
+            array_merge(
+                [$mysql],
+                $this->mysqlCliHostAndPortArgv(),
+                ['-u', $user],
+                $password !== '' ? ['-p'.$password] : [],
+                ['-D', $control, '-e', 'CALL copy_mapped_tables(); CALL create_compat_views();']
+            ),
+            base_path(),
+            null,
+            null,
+            600.0
+        );
+        $call->run();
+
+        return [
+            'ok' => $call->isSuccessful(),
+            'output' => trim($call->getErrorOutput()."\n".$call->getOutput()),
+        ];
+    }
+
+    private function shouldRetrySplitProcedureCallAsMetadataUser(string $output, string $primaryUser, string $fallbackUser, string $control): bool
+    {
+        if ($primaryUser === $fallbackUser) {
+            return false;
+        }
+
+        if (! str_contains($output, '1044')) {
+            return false;
+        }
+
+        return str_contains($output, $control);
     }
 
     private function applySplitSqlReplacements(string $sql, string $source, string $control): string
