@@ -8,10 +8,18 @@ $monolithSchemaName = (string) (env('DB_SPLIT_SOURCE') ?: env('DB_DATABASE', 'la
 | When monolith is Hostinger-style (e.g. u990716838_zaivias) and DB_*_DATABASE is still the short
 | default (auth_db, pii_db, …), expand to u990716838_auth_db so split + multi connections work without
 | duplicating prefixes in .env. Explicit non-default names in .env are always respected.
+| Prefix is also inferred from DB_AUTH_DATABASE / DB_DATABASE_MULTI_ENTRY so omitting DB_DATABASE
+| and DB_USERNAME does not force the default mysql user back to "root" on live.
 */
-$monolithForSplitPrefix = (string) (env('DB_SPLIT_SOURCE') ?: env('DB_DATABASE', ''));
 $hostingerSplitPrefix = null;
-foreach ([$monolithForSplitPrefix, (string) env('DB_USERNAME', '')] as $hostingerPrefixCandidate) {
+foreach (
+    [
+        (string) (env('DB_SPLIT_SOURCE') ?: env('DB_DATABASE', '')),
+        (string) env('DB_USERNAME', ''),
+        (string) env('DB_AUTH_DATABASE', ''),
+        (string) env('DB_DATABASE_MULTI_ENTRY', ''),
+    ] as $hostingerPrefixCandidate
+) {
     if ($hostingerPrefixCandidate !== '' && preg_match('/^(u\d+)_/', $hostingerPrefixCandidate, $hostingerSplitPrefixMatch)) {
         $hostingerSplitPrefix = $hostingerSplitPrefixMatch[1] . '_';
 
