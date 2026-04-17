@@ -123,6 +123,16 @@ foreach (
     }
 }
 
+$rawLegacyUser = env('DB_USERNAME');
+$legacyUserMissing = $rawLegacyUser === null || (is_string($rawLegacyUser) && trim($rawLegacyUser) === '');
+if ($legacyUserMissing && $defaultMysqlUsername === 'root') {
+    $authExplicit = env('DB_AUTH_USERNAME');
+    if (is_string($authExplicit) && trim($authExplicit) !== '') {
+        $defaultMysqlUsername = trim($authExplicit);
+        $defaultMysqlPassword = $inheritMysqlPassword('DB_AUTH_PASSWORD');
+    }
+}
+
 return [
 
     /*
