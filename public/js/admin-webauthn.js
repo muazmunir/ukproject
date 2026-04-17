@@ -1,3 +1,5 @@
+// ES module; @simplewebauthn/browser resolved via import map (admin webauthn pages + partial).
+
 import {
     browserSupportsWebAuthn,
     startAuthentication,

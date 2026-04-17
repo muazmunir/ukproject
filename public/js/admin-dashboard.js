@@ -1,4 +1,4 @@
-// resources/js/admin-dashboard.js
+// Static script (no imports). Loaded after Chart.js CDN.
 
 document.addEventListener('DOMContentLoaded', () => {
   const data = window.dashboardChartData || {};

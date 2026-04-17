@@ -1,9 +1,6 @@
 
-
-
-// resources/js/coach_calendar.js
-// resources/js/coach_calendar.js
- import { Calendar } from '@fullcalendar/core';
+// Served as static ES module (see resources/views/partials/esm-importmap.blade.php). No Vite/Node.
+import { Calendar } from '@fullcalendar/core';
  import dayGridPlugin from '@fullcalendar/daygrid';
  import timeGridPlugin from '@fullcalendar/timegrid';
  import interactionPlugin from '@fullcalendar/interaction';

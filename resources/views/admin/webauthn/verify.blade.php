@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>Verify Passkey — ZAIVIAS</title>
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    @include('partials.esm-importmap')
 
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -65,6 +66,6 @@
         };
     </script>
 
-    @vite(['resources/js/admin-webauthn.js'])
+    <script type="module" src="{{ asset('js/admin-webauthn.js') }}"></script>
 </body>
 </html>

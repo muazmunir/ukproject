@@ -425,8 +425,7 @@ but still on the page; that’s fine. We only need hidden inputs inside the form
   
 {{-- Scripts --}}
 @push('scripts')
-  @vite(['resources/js/service_booking.js'])
- 
+  <script type="module" src="{{ asset('js/service_booking.js') }}"></script>
 @endpush
 
 

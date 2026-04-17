@@ -12,6 +12,7 @@
     <meta charset="utf-8">  {{-- fixed (was "utaf-8") --}}
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    @include('partials.esm-importmap')
     <title>@yield('title', 'ZAIVIAS')</title>
     
 
@@ -290,8 +291,7 @@
 
     
       
-    {{-- @vite(['resources/js/app.js']) --}}
-    @vite(['resources/js/coach_calendar.js'])
+    <script type="module" src="{{ asset('js/coach_calendar.js') }}"></script>
     
 @auth
 <script>

@@ -616,5 +616,5 @@
 
 @push('scripts')
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
-  @vite(['resources/js/admin-dashboard.js'])
+  <script defer src="{{ asset('js/admin-dashboard.js') }}"></script>
 @endpush

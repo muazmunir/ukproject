@@ -1,4 +1,4 @@
-// resources/js/service_booking.js
+// Served as static ES module (import map in layouts/app). No Vite/Node.
 
 import { Calendar } from '@fullcalendar/core';
 import dayGridPlugin from '@fullcalendar/daygrid';
