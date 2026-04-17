@@ -245,7 +245,7 @@ class SplitMultiDatabases extends Command
             $this->line('Hostinger often creates a separate MySQL user per database. Set DB_AUTH_USERNAME / DB_AUTH_PASSWORD, DB_PII_USERNAME, … and DB_SPLIT_CONTROL_USERNAME / DB_SPLIT_CONTROL_PASSWORD to match hPanel (defaults fall back to DB_USERNAME).');
             $this->line('Run: php artisan db:split-multi:status — it shows which connection user sees each schema.');
             $this->newLine();
-            $this->line('The mysql client uses DB_SPLIT_CLI_USERNAME if set; otherwise the split_control connection user. That account must read the monolith and write every split DB (or set DB_SPLIT_CLI_* to a power user, e.g. admin after hPanel grants on all DBs).');
+            $this->line('db:split-multi uses split_control (or DB_SPLIT_CLI_*) to apply SQL, then DB_SPLIT_CALL_USERNAME or DB_USERNAME for CALL copy — that second user must read the monolith and write every split DB (add in hPanel to all databases).');
             $this->newLine();
             $this->line('Hostinger plans limit how many MySQL databases you can create; this split needs the monolith plus nine extra empty schemas. If you are at the limit, upgrade the plan or stay on DB_TOPOLOGY=single.');
             $this->newLine();
