@@ -2,7 +2,6 @@
 // app/Models/StaffDeletionAudit.php
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
 
 class StaffDeletionAudit extends BaseModel
 {

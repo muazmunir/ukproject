@@ -2,7 +2,6 @@
 // app/Models/CoachUnavailability.php
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
 
 class CoachUnavailability extends BaseModel
 {
