@@ -5,6 +5,7 @@ namespace App\Console\Commands;
 use App\Console\Concerns\BuildsMysqlCliConnection;
 use App\Console\Concerns\FindsMysqlClient;
 use App\Support\SplitMultiDb;
+use App\Support\SplitMultiSchemaPresence;
 use Illuminate\Console\Command;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\DB;
@@ -182,15 +183,7 @@ class SplitMultiDatabases extends Command
      */
     private function missingSplitSchemaNames(string $source, string $control, array $domainDbs): array
     {
-        $required = array_values(array_unique(array_merge([$source, $control], $domainDbs)));
-        $placeholders = implode(',', array_fill(0, count($required), '?'));
-        $rows = DB::select(
-            'SELECT SCHEMA_NAME AS n FROM information_schema.SCHEMATA WHERE SCHEMA_NAME IN (' . $placeholders . ')',
-            $required
-        );
-        $found = array_map(static fn ($r) => $r->n, $rows);
-
-        return array_values(array_diff($required, $found));
+        return SplitMultiSchemaPresence::missingSchemas($source, $control, $domainDbs);
     }
 
     /**
@@ -208,7 +201,7 @@ class SplitMultiDatabases extends Command
 
         foreach ($missing as $name) {
             try {
-                DB::unprepared(
+                DB::connection('mysql')->unprepared(
                     'CREATE DATABASE IF NOT EXISTS `'.$name.'` CHARACTER SET '.$charset.' COLLATE '.$collation
                 );
                 $this->line("  Created (or already existed): `{$name}`");
@@ -229,9 +222,9 @@ class SplitMultiDatabases extends Command
      */
     private function printSplitSchemasMissingHelp(string $source, string $control, array $missing): void
     {
-        $this->error('These MySQL schemas are not visible to the connection user (they do not exist yet, or the user has no privilege on them).');
+        $this->error('These MySQL schemas are not visible using each connection’s credentials (schema missing, wrong password, or user not assigned in hPanel).');
         $this->newLine();
-        $this->warn('Laravel checks these exact names (from DB_*_DATABASE / DB_SPLIT_CONTROL_DATABASE — not from DB_*_USERNAME):');
+        $this->warn('Required names (each is checked with its Laravel connection — e.g. auth_db uses DB_AUTH_USERNAME):');
         $this->line("  Monolith:  {$source}");
         $this->line("  Metadata:  {$control}");
         foreach ($this->domainDatabaseEnvLabels() as $label => $dbName) {
@@ -245,16 +238,17 @@ class SplitMultiDatabases extends Command
         }
         $this->newLine();
         if (! in_array($source, $missing, true)) {
-            $this->line('Your monolith exists, but the split/metadata databases above do not (or DB_USERNAME cannot see them).');
-            $this->line('In hPanel: for each name, create the database if missing, then open the database → Users / Privileges and add the same MySQL user you use in .env with all privileges.');
+            $this->line('Hostinger often creates a separate MySQL user per database. Set DB_AUTH_USERNAME / DB_AUTH_PASSWORD, DB_PII_USERNAME, … and DB_SPLIT_CONTROL_USERNAME / DB_SPLIT_CONTROL_PASSWORD to match hPanel (defaults fall back to DB_USERNAME).');
+            $this->line('Run: php artisan db:split-multi:status — it shows which connection user sees each schema.');
             $this->newLine();
-            $this->line('Hostinger plans limit how many MySQL databases you can create; this split needs the monolith plus nine extra empty schemas. If you are at the limit, upgrade the plan or stay on DB_TOPOLOGY=single until you can add databases.');
+            $this->line('The mysql client step still uses DB_SPLIT_CLI_USERNAME or DB_USERNAME; that account must be able to read the monolith and write every split DB, or add it to all databases in hPanel.');
+            $this->newLine();
+            $this->line('Hostinger plans limit how many MySQL databases you can create; this split needs the monolith plus nine extra empty schemas. If you are at the limit, upgrade the plan or stay on DB_TOPOLOGY=single.');
             $this->newLine();
             $this->line('Optional: php artisan db:split-multi --force --create-databases tries SQL CREATE DATABASE (works on many VPS installs; shared hosting often blocks it).');
             $this->newLine();
         }
         $this->line('If names in hPanel differ from this list, set DB_AUTH_DATABASE, DB_PII_DATABASE, … and DB_SPLIT_CONTROL_DATABASE in .env, then php artisan config:clear.');
-        $this->line('DB_AUTH_USERNAME is only the login name; it does not choose which schema is checked.');
     }
 
     /**
