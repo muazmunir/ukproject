@@ -38,4 +38,37 @@ trait FindsMysqlClient
 
         return null;
     }
+
+    protected function findMysqldumpBinary(string $explicit): ?string
+    {
+        if ($explicit !== '') {
+            return is_file($explicit) ? $explicit : null;
+        }
+
+        $finder = new Process(['where', 'mysqldump']);
+        $finder->run();
+        if ($finder->isSuccessful()) {
+            $line = strtok(trim($finder->getOutput()), "\r\n");
+            if (is_string($line) && $line !== '' && is_file($line)) {
+                return $line;
+            }
+        }
+
+        $which = new Process(['which', 'mysqldump']);
+        $which->run();
+        if ($which->isSuccessful()) {
+            $line = trim($which->getOutput());
+            if ($line !== '' && is_file($line)) {
+                return $line;
+            }
+        }
+
+        foreach (glob('C:\\laragon\\bin\\mysql\\mysql-*\\bin\\mysqldump.exe') ?: [] as $candidate) {
+            if (is_file($candidate)) {
+                return $candidate;
+            }
+        }
+
+        return null;
+    }
 }

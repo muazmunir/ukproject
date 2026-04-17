@@ -9,6 +9,36 @@ namespace App\Console\Concerns;
 trait BuildsMysqlCliConnection
 {
     /**
+     * Host / port / socket argv for a named Laravel connection (uses that connection’s config, not only .env defaults).
+     *
+     * @return list<string>
+     */
+    protected function mysqlCliNetworkArgvForConnection(string $connectionName): array
+    {
+        $override = trim((string) ($this->option('db-host') ?? ''));
+
+        if ($override !== '') {
+            $c = config("database.connections.{$connectionName}");
+
+            return ['-h', $override, '-P', (string) ($c['port'] ?? env('DB_PORT', '3306'))];
+        }
+
+        $c = config("database.connections.{$connectionName}");
+        $socket = $c['unix_socket'] ?? '';
+        if (is_string($socket) && $socket !== '') {
+            return ['--protocol=SOCKET', '-S', $socket];
+        }
+
+        $host = (string) ($c['host'] ?? '127.0.0.1');
+        $lower = strtolower($host);
+        if ($lower === 'localhost' || $lower === '::1') {
+            $host = '127.0.0.1';
+        }
+
+        return ['-h', $host, '-P', (string) ($c['port'] ?? '3306')];
+    }
+
+    /**
      * @return list<string> fragments placed after the mysql binary and before -u
      */
     protected function mysqlCliHostAndPortArgv(): array
