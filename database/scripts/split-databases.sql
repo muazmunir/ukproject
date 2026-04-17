@@ -1,117 +1,104 @@
 -- Multi-database split script (COPY — monolith unchanged)
--- Monolith placeholder __SPLIT_SOURCE__ is replaced by: php artisan db:split-multi
+-- Placeholders (replaced by php artisan db:split-multi):
+--   __SPLIT_SOURCE__     = monolith database (read-only for table data)
+--   __SPLIT_CONTROL__    = metadata DB (see DB_SPLIT_CONTROL_DATABASE in .env)
+--   __AUTH_DB__ … __AUDIT_DB__ = domain DB names from config / .env
 --
--- Behaviour:
--- 1) Create domain databases + split_control (metadata only; NOT your monolith).
--- 2) copy_mapped_tables: for each mapped table that exists on the monolith, creates
---    a physical copy on the target DB (CREATE LIKE + INSERT SELECT). The monolith
---    keeps all original tables and rows.
--- 3) create_compat_views: creates views on auth_db pointing at other domain DBs
---    for tables that are not stored in auth_db.
+-- Shared hosting (Hostinger, etc.): your MySQL user usually CANNOT CREATE DATABASE.
+-- Create these EMPTY databases in the hosting panel first (exact names must match .env):
+--   DB_SPLIT_CONTROL_DATABASE, DB_AUTH_DATABASE, DB_PII_DATABASE, DB_KYC_DATABASE,
+--   DB_PAYMENTS_DATABASE, DB_APP_DATABASE, DB_COMMS_DATABASE, DB_MEDIA_DATABASE, DB_AUDIT_DATABASE
 --
--- IMPORTANT:
--- - Take a backup before first production run.
--- - After split, use DB_TOPOLOGY=multi so the app writes to the split DBs; the
---   monolith copy will no longer receive app updates unless you switch back.
+-- Then run: php artisan db:split-multi --force
 
 SET @SOURCE_DB = '__SPLIT_SOURCE__';
-SET @ENTRY_DB  = 'auth_db';
+SET @ENTRY_DB  = '__AUTH_DB__';
 
-CREATE DATABASE IF NOT EXISTS `split_control` CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-CREATE DATABASE IF NOT EXISTS `auth_db` CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-CREATE DATABASE IF NOT EXISTS `pii_db` CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-CREATE DATABASE IF NOT EXISTS `kyc_db` CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-CREATE DATABASE IF NOT EXISTS `payments_db` CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-CREATE DATABASE IF NOT EXISTS `app_db` CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-CREATE DATABASE IF NOT EXISTS `comms_db` CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-CREATE DATABASE IF NOT EXISTS `media_db` CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-CREATE DATABASE IF NOT EXISTS `audit_db` CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-
-CREATE TABLE IF NOT EXISTS `split_control`.`_split_multidb_table_map` (
+CREATE TABLE IF NOT EXISTS `__SPLIT_CONTROL__`.`_split_multidb_table_map` (
     table_name VARCHAR(128) NOT NULL,
     target_db VARCHAR(128) NOT NULL,
     PRIMARY KEY (table_name)
 );
-TRUNCATE TABLE `split_control`.`_split_multidb_table_map`;
+TRUNCATE TABLE `__SPLIT_CONTROL__`.`_split_multidb_table_map`;
 
-INSERT INTO `split_control`.`_split_multidb_table_map` (table_name, target_db) VALUES
-('users', 'auth_db'),
-('password_reset_tokens', 'auth_db'),
-('sessions', 'auth_db'),
-('user_verifications', 'auth_db'),
-('staff_invites', 'auth_db'),
-('staff_teams', 'auth_db'),
-('staff_team_members', 'auth_db'),
-('staff_documents', 'auth_db'),
-('visits', 'pii_db'),
-('newsletter_subscribers', 'pii_db'),
-('support_conversation_reads', 'pii_db'),
-('coach_profiles', 'pii_db'),
-('coach_verification_documents', 'kyc_db'),
-('agent_absence_requests', 'kyc_db'),
-('agent_absence_request_files', 'kyc_db'),
-('payments', 'payments_db'),
-('refunds', 'payments_db'),
-('payouts', 'payments_db'),
-('payout_runs', 'payments_db'),
-('payout_batches', 'payments_db'),
-('wallet_transactions', 'payments_db'),
-('coach_withdrawals', 'payments_db'),
-('coach_payout_methods', 'payments_db'),
-('coach_payout_accounts', 'payments_db'),
-('coach_payouts', 'payments_db'),
-('coach_payout_items', 'payments_db'),
-('booking_fees', 'payments_db'),
-('service_fees', 'payments_db'),
-('disputes', 'payments_db'),
-('dispute_summaries', 'payments_db'),
-('services', 'app_db'),
-('service_categories', 'app_db'),
-('service_packages', 'app_db'),
-('service_faqs', 'app_db'),
-('service_favorites', 'app_db'),
-('coach_favorites', 'app_db'),
-('reservations', 'app_db'),
-('reservation_slots', 'app_db'),
-('reservation_reviews', 'app_db'),
-('coach_weekly_hours', 'app_db'),
-('coach_unavailabilities', 'app_db'),
-('coach_availability_overrides', 'app_db'),
-('site_settings', 'app_db'),
-('conversations', 'comms_db'),
-('messages', 'comms_db'),
-('support_conversations', 'comms_db'),
-('support_messages', 'comms_db'),
-('support_conversation_ratings', 'comms_db'),
-('support_questions', 'comms_db'),
-('support_question_messages', 'comms_db'),
-('support_question_acknowledgements', 'comms_db'),
-('staff_chat_rooms', 'comms_db'),
-('staff_chat_room_users', 'comms_db'),
-('staff_chat_attachments', 'media_db'),
-('admin_action_logs', 'audit_db'),
-('admin_security_events', 'audit_db'),
-('staff_deletion_audits', 'audit_db'),
-('agent_absence_audits', 'audit_db'),
-('agent_status_logs', 'audit_db'),
-('staff_dm_threads', 'audit_db'),
-('staff_dm_messages', 'audit_db'),
-('staff_chat_messages', 'audit_db'),
-('analytics_events', 'audit_db'),
-('dispute_messages', 'audit_db'),
-('dispute_attachments', 'audit_db'),
-('cache', 'audit_db'),
-('cache_locks', 'audit_db'),
-('jobs', 'audit_db'),
-('job_batches', 'audit_db'),
-('failed_jobs', 'audit_db');
+INSERT INTO `__SPLIT_CONTROL__`.`_split_multidb_table_map` (table_name, target_db) VALUES
+('users', '__AUTH_DB__'),
+('password_reset_tokens', '__AUTH_DB__'),
+('sessions', '__AUTH_DB__'),
+('user_verifications', '__AUTH_DB__'),
+('staff_invites', '__AUTH_DB__'),
+('staff_teams', '__AUTH_DB__'),
+('staff_team_members', '__AUTH_DB__'),
+('staff_documents', '__AUTH_DB__'),
+('visits', '__PII_DB__'),
+('newsletter_subscribers', '__PII_DB__'),
+('support_conversation_reads', '__PII_DB__'),
+('coach_profiles', '__PII_DB__'),
+('coach_verification_documents', '__KYC_DB__'),
+('agent_absence_requests', '__KYC_DB__'),
+('agent_absence_request_files', '__KYC_DB__'),
+('payments', '__PAYMENTS_DB__'),
+('refunds', '__PAYMENTS_DB__'),
+('payouts', '__PAYMENTS_DB__'),
+('payout_runs', '__PAYMENTS_DB__'),
+('payout_batches', '__PAYMENTS_DB__'),
+('wallet_transactions', '__PAYMENTS_DB__'),
+('coach_withdrawals', '__PAYMENTS_DB__'),
+('coach_payout_methods', '__PAYMENTS_DB__'),
+('coach_payout_accounts', '__PAYMENTS_DB__'),
+('coach_payouts', '__PAYMENTS_DB__'),
+('coach_payout_items', '__PAYMENTS_DB__'),
+('booking_fees', '__PAYMENTS_DB__'),
+('service_fees', '__PAYMENTS_DB__'),
+('disputes', '__PAYMENTS_DB__'),
+('dispute_summaries', '__PAYMENTS_DB__'),
+('services', '__APP_DB__'),
+('service_categories', '__APP_DB__'),
+('service_packages', '__APP_DB__'),
+('service_faqs', '__APP_DB__'),
+('service_favorites', '__APP_DB__'),
+('coach_favorites', '__APP_DB__'),
+('reservations', '__APP_DB__'),
+('reservation_slots', '__APP_DB__'),
+('reservation_reviews', '__APP_DB__'),
+('coach_weekly_hours', '__APP_DB__'),
+('coach_unavailabilities', '__APP_DB__'),
+('coach_availability_overrides', '__APP_DB__'),
+('site_settings', '__APP_DB__'),
+('conversations', '__COMMS_DB__'),
+('messages', '__COMMS_DB__'),
+('support_conversations', '__COMMS_DB__'),
+('support_messages', '__COMMS_DB__'),
+('support_conversation_ratings', '__COMMS_DB__'),
+('support_questions', '__COMMS_DB__'),
+('support_question_messages', '__COMMS_DB__'),
+('support_question_acknowledgements', '__COMMS_DB__'),
+('staff_chat_rooms', '__COMMS_DB__'),
+('staff_chat_room_users', '__COMMS_DB__'),
+('staff_chat_attachments', '__MEDIA_DB__'),
+('admin_action_logs', '__AUDIT_DB__'),
+('admin_security_events', '__AUDIT_DB__'),
+('staff_deletion_audits', '__AUDIT_DB__'),
+('agent_absence_audits', '__AUDIT_DB__'),
+('agent_status_logs', '__AUDIT_DB__'),
+('staff_dm_threads', '__AUDIT_DB__'),
+('staff_dm_messages', '__AUDIT_DB__'),
+('staff_chat_messages', '__AUDIT_DB__'),
+('analytics_events', '__AUDIT_DB__'),
+('dispute_messages', '__AUDIT_DB__'),
+('dispute_attachments', '__AUDIT_DB__'),
+('cache', '__AUDIT_DB__'),
+('cache_locks', '__AUDIT_DB__'),
+('jobs', '__AUDIT_DB__'),
+('job_batches', '__AUDIT_DB__'),
+('failed_jobs', '__AUDIT_DB__');
 
-CREATE TABLE IF NOT EXISTS `split_control`.`_split_multidb_auth_tables` (
+CREATE TABLE IF NOT EXISTS `__SPLIT_CONTROL__`.`_split_multidb_auth_tables` (
     table_name VARCHAR(128) NOT NULL PRIMARY KEY
 );
-TRUNCATE TABLE `split_control`.`_split_multidb_auth_tables`;
+TRUNCATE TABLE `__SPLIT_CONTROL__`.`_split_multidb_auth_tables`;
 
-INSERT INTO `split_control`.`_split_multidb_auth_tables` (table_name) VALUES
+INSERT INTO `__SPLIT_CONTROL__`.`_split_multidb_auth_tables` (table_name) VALUES
 ('users'),
 ('password_reset_tokens'),
 ('sessions'),
@@ -121,7 +108,7 @@ INSERT INTO `split_control`.`_split_multidb_auth_tables` (table_name) VALUES
 ('staff_team_members'),
 ('staff_documents');
 
-USE `split_control`;
+USE `__SPLIT_CONTROL__`;
 
 DELIMITER $$
 DROP PROCEDURE IF EXISTS copy_mapped_tables $$
@@ -133,7 +120,7 @@ BEGIN
 
     DECLARE cur CURSOR FOR
         SELECT table_name, target_db
-        FROM `split_control`.`_split_multidb_table_map`
+        FROM `__SPLIT_CONTROL__`.`_split_multidb_table_map`
         ORDER BY target_db, table_name;
 
     DECLARE CONTINUE HANDLER FOR NOT FOUND SET done = 1;
@@ -192,14 +179,14 @@ BEGIN
 
     DECLARE cur CURSOR FOR
         SELECT m.table_name, m.target_db
-        FROM `split_control`.`_split_multidb_table_map` m
-        LEFT JOIN `split_control`.`_split_multidb_auth_tables` a ON a.table_name = m.table_name
+        FROM `__SPLIT_CONTROL__`.`_split_multidb_table_map` m
+        LEFT JOIN `__SPLIT_CONTROL__`.`_split_multidb_auth_tables` a ON a.table_name = m.table_name
         WHERE a.table_name IS NULL
         ORDER BY m.target_db, m.table_name;
 
     DECLARE CONTINUE HANDLER FOR NOT FOUND SET done = 1;
 
-    SET @ENTRY_DB = 'auth_db';
+    SET @ENTRY_DB = '__AUTH_DB__';
 
     OPEN cur;
     read_loop: LOOP
@@ -233,7 +220,3 @@ BEGIN
     CLOSE cur;
 END $$
 DELIMITER ;
-
--- Run from split_control (see php artisan db:split-multi):
--- CALL copy_mapped_tables();
--- CALL create_compat_views();
