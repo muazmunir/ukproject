@@ -5,9 +5,13 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
 /**
- * In split mode, `users` and `support_conversations` live on other schemas (auth_db, comms_db).
- * MySQL FKs only resolve inside one database, so inserts into pii_db tables fail even when
- * the logical user_id exists on auth_db.
+ * Same intent as 2026_04_18_130000: split mode keeps `users` on auth_db while
+ * `coach_profiles` (etc.) live on pii_db — MySQL FKs to `users` in pii_db break inserts.
+ *
+ * The earlier migration used Schema::dropForeign() inside try/catch; if Laravel's
+ * inferred constraint name did not match (imported DB, renamed FK), the exception
+ * was swallowed and the FK stayed. This migration drops FKs by querying
+ * information_schema so the real constraint names are used.
  */
 return new class extends Migration
 {
@@ -22,22 +26,22 @@ return new class extends Migration
 
         if (Schema::connection($c)->hasTable('coach_profiles')) {
             foreach (['user_id', 'reviewed_by'] as $column) {
-                $this->dropForeignColumn($c, 'coach_profiles', $column);
+                $this->dropForeignKeysForColumn($c, 'coach_profiles', $column);
             }
         }
 
         if (Schema::connection($c)->hasTable('visits')) {
-            $this->dropForeignColumn($c, 'visits', 'user_id');
+            $this->dropForeignKeysForColumn($c, 'visits', 'user_id');
         }
 
         if (Schema::connection($c)->hasTable('support_conversation_reads')) {
             foreach (['support_conversation_id', 'admin_id'] as $column) {
-                $this->dropForeignColumn($c, 'support_conversation_reads', $column);
+                $this->dropForeignKeysForColumn($c, 'support_conversation_reads', $column);
             }
         }
     }
 
-    private function dropForeignColumn(string $connection, string $table, string $column): void
+    private function dropForeignKeysForColumn(string $connection, string $table, string $column): void
     {
         $schema = Schema::connection($connection);
         $conn = $schema->getConnection();
@@ -84,6 +88,6 @@ return new class extends Migration
 
     public function down(): void
     {
-        // Cross-schema FKs cannot be restored from pii_db alone.
+        //
     }
 };
