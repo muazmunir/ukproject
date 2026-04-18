@@ -37,7 +37,7 @@ INSERT INTO `__SPLIT_CONTROL__`.`_split_multidb_table_map` (table_name, target_d
 ('newsletter_subscribers', '__PII_DB__'),
 ('support_conversation_reads', '__PII_DB__'),
 ('coach_profiles', '__PII_DB__'),
-('coach_verification_documents', '__KYC_DB__'),
+('coach_verification_documents', '__PII_DB__'),
 ('agent_absence_requests', '__KYC_DB__'),
 ('agent_absence_request_files', '__KYC_DB__'),
 ('payments', '__PAYMENTS_DB__'),

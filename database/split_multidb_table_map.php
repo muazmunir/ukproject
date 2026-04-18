@@ -17,7 +17,8 @@ return [
     'newsletter_subscribers' => 'pii_db',
     'support_conversation_reads' => 'pii_db',
     'coach_profiles' => 'pii_db',
-    'coach_verification_documents' => 'kyc_db',
+    /** Same DB as `coach_profiles` so MySQL FK `coach_profile_id` resolves. */
+    'coach_verification_documents' => 'pii_db',
     'agent_absence_requests' => 'kyc_db',
     'agent_absence_request_files' => 'kyc_db',
     'payments' => 'payments_db',
