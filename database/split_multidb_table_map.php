@@ -3,6 +3,11 @@
 /**
  * table_name => Laravel connection name (must match config/database.php).
  * Keep in sync with INSERT rows in database/scripts/split-databases.sql.
+ *
+ * MySQL foreign keys only work inside one physical database. After split, run
+ * `database/migrations-multi/{pii_db,app_db,payments_db,comms_db,audit_db,media_db}/`
+ * migrations on each connection (see `App\Support\Migrations\DropsMysqlSplitForeignKeys`)
+ * so constraints that pointed at other schemas are removed.
  */
 return [
     'users' => 'auth_db',
