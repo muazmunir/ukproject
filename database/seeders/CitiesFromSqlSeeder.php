@@ -226,8 +226,10 @@ class CitiesFromSqlSeeder extends Seeder
                 continue;
             }
 
-            $wiki = isset($vals[17]) && is_string($vals[17]) ? trim($vals[17]) : '';
-            if ($wiki !== '') {
+            $wikiRaw = isset($vals[17]) && $vals[17] !== null ? trim((string) $vals[17]) : '';
+            $wiki = $wikiRaw === '' ? null : $wikiRaw;
+
+            if ($wiki !== null) {
                 if (isset($existingWiki[$wiki])) {
                     $skippedDup++;
                     $afterTuple($tuple);
@@ -251,7 +253,7 @@ class CitiesFromSqlSeeder extends Seeder
 
             $row = $this->buildRow($vals, $countryId, $countryCode);
             $batch[] = $row;
-            if ($wiki !== '') {
+            if ($wiki !== null) {
                 $existingWiki[$wiki] = 1;
             }
 
@@ -288,8 +290,19 @@ class CitiesFromSqlSeeder extends Seeder
             'created_at' => $vals[14] === null ? null : (string) $vals[14],
             'updated_at' => $vals[15] === null ? null : (string) $vals[15],
             'flag' => $vals[16] === null ? null : (int) $vals[16],
-            'wikiDataId' => $vals[17] === null ? null : (string) $vals[17],
+            'wikiDataId' => $this->normalizeWikiDataId($vals[17] ?? null),
         ];
+    }
+
+    private function normalizeWikiDataId(mixed $value): ?string
+    {
+        if ($value === null) {
+            return null;
+        }
+
+        $s = trim((string) $value);
+
+        return $s === '' ? null : $s;
     }
 
     /**
