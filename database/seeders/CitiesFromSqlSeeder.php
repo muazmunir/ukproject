@@ -6,13 +6,18 @@ use App\Models\City;
 use App\Models\Country;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Schema;
 
 /**
  * Imports cities from the MySQL dump in database/ (default: cities_202604181412.sql).
  * - Remaps country_id using your existing countries table (iso2 ↔ SQL country_code).
  * - Skips rows whose wikiDataId already exists (safe re-run).
  *
- * Usage: php artisan db:seed --class=CitiesFromSqlSeeder
+ * Usage:
+ * - php artisan seed:cities
+ * - php artisan seed:cities --truncate   (empty `cities` first, then import)
+ * - php artisan db:seed --class=CitiesFromSqlSeeder
+ * - CITIES_SEED_TRUNCATE=true php artisan db:seed --class=CitiesFromSqlSeeder   (same as --truncate)
  * Optional: CITIES_IMPORT_SQL=/full/path/to/file.sql
  */
 class CitiesFromSqlSeeder extends Seeder
@@ -35,9 +40,20 @@ class CitiesFromSqlSeeder extends Seeder
             return;
         }
 
+        $conn = (new City)->getConnection()->getName();
+
+        if ($this->wantsTruncateBeforeImport()) {
+            if (! Schema::connection($conn)->hasTable('cities')) {
+                $this->command?->error('cities table does not exist; run migrations first.');
+
+                return;
+            }
+            self::truncateCitiesTable($conn);
+            $this->command?->warn('cities table truncated — fresh import.');
+        }
+
         $this->command?->warn('Cities import: reading SQL dump (may take several minutes)…');
 
-        $conn = (new City)->getConnection()->getName();
         $iso2ToId = Country::query()
             ->whereNotNull('iso2')
             ->where('iso2', '!=', '')
@@ -117,6 +133,21 @@ class CitiesFromSqlSeeder extends Seeder
 
         $this->command?->newLine();
         $this->command?->info("Cities import done: inserted={$inserted}, skipped_duplicate={$skippedDup}, skipped_unknown_country={$skippedNoCountry}, skipped_bad_row={$skippedBadRow}");
+    }
+
+    /**
+     * Empty the cities table on the given connection (used by {@see \App\Console\Commands\SeedCitiesCommand} --truncate).
+     */
+    public static function truncateCitiesTable(string $connectionName): void
+    {
+        Schema::connection($connectionName)->withoutForeignKeyConstraints(function () use ($connectionName): void {
+            DB::connection($connectionName)->table('cities')->truncate();
+        });
+    }
+
+    private function wantsTruncateBeforeImport(): bool
+    {
+        return filter_var(env('CITIES_SEED_TRUNCATE', false), FILTER_VALIDATE_BOOLEAN);
     }
 
     private function resolveSqlPath(): string
