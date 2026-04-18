@@ -48,6 +48,8 @@ return [
     'coach_unavailabilities' => 'app_db',
     'coach_availability_overrides' => 'app_db',
     'site_settings' => 'app_db',
+    'countries' => 'app_db',
+    'cities' => 'app_db',
     'conversations' => 'comms_db',
     'messages' => 'comms_db',
     'support_conversations' => 'comms_db',

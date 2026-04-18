@@ -68,6 +68,8 @@ INSERT INTO `__SPLIT_CONTROL__`.`_split_multidb_table_map` (table_name, target_d
 ('coach_unavailabilities', '__APP_DB__'),
 ('coach_availability_overrides', '__APP_DB__'),
 ('site_settings', '__APP_DB__'),
+('countries', '__APP_DB__'),
+('cities', '__APP_DB__'),
 ('conversations', '__COMMS_DB__'),
 ('messages', '__COMMS_DB__'),
 ('support_conversations', '__COMMS_DB__'),
